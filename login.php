@@ -13,28 +13,112 @@ if(isset($_SESSION['username'])) { // if already login
 
 ob_flush();
 ?>
+
+
+<!DOCTYPE html>
 <html>
+
 <head>
-<title>Login Page</title>
+
+  <meta charset="UTF-8">
+
+  <title>Login Page</title>
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
 </head>
+
 <body>
-<br />
-<br />
-<br />
-<br />
-<p align="center">
-<table border="0"> <tr> <th> </th> <th>  </th> <th>  </th> <th></th> </tr>
-<tr><td colspan="2" rowspan="3"><img src="logo.png" alt="welcome image" width="250" height="250"></td>
-<td>
-<form action = "login_proccess.php" method = "post">
-Username: </td><td><input type="text" name="username" /> </td></tr>
-<tr><td>Password: </td><td><input type="password" name="password" /> </td></tr>
-<tr><td colspan="2" align="center"><input class="button" type = "submit" name="submit" value="Login" /></td></tr>
-<tr><td> Create an account:</td><td colspan="3" align="center"><a href="register.php" class="button">Register</a></td></tr> 
-</form>
-</td></tr></table>
-</p>
+
+<html lang="en">
+<head>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <!-- Basic Page Needs
+  ================================================== -->
+    <meta charset="utf-8">
+    <title>Flat Login</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+  ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+  ================================================== -->
+
+    <!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+    <div class="container">
+        <div class="flat-form">
+            <ul class="tabs">
+                <li>
+                    <a href="#login" class="active">Login</a>
+                </li>
+
+                <li>
+                    <a href="#reset">Reset Password</a>
+                </li>
+            </ul>
+            <div id="login" class="form-action show">
+                <h1>Login on webapp</h1>
+                <p>
+
+                </p>
+                <form action = "login_proccess.php" method = "post">
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="E-mail" name="username"/>
+                        </li>
+                        <li>
+                            <input type="password" placeholder="Password" name="password"/>
+                        </li>
+                        <li>
+                            <input type="submit" value="Login" class="button" name="submit" />
+                            </br>
+                             <input type="button" value="Sign Up" class="button" onclick="location.href='register.php'"/>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <!--/#login.form-action-->
+
+            <!--/#register.form-action-->
+            <div id="reset" class="form-action hide">
+                <h1>Reset Password</h1>
+                <p>
+                    To reset your password enter your email and your birthday
+                    and we'll send you a link to reset your password.
+                </p>
+                <form>
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="Email" />
+                        </li>
+                        <li>
+                            <input type="text" placeholder="Birthday" />
+                        </li>
+                        <li>
+                            <input type="submit" value="Send" class="button" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <!--/#register.form-action-->
+        </div>
+    </div>
+    <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+  
+</body>
+</html>
+
+  <script src="js/index.js"></script>
 
 </body>
+
 </html>

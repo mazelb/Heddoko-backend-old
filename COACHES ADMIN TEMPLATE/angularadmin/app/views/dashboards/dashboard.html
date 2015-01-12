@@ -1,0 +1,426 @@
+<header class="page-main-header">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>
+                Team Overview
+            </h4>
+        </div>
+        <div class="col-sm-6">
+
+            <div class="col-sm-12 text-right">
+                <p class="text-muted medium">
+                    12 Active Players
+                </p>
+                <div data-ng-controller="sparklineCtrl">
+                    <span data-sparkline
+                          data-spark-data="simpleChart2long.sparkData"
+                          data-spark-options="simpleChart2long.sparkOptions"
+                            ></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</header>
+
+<div class="page page-dashboard" data-ng-controller="DashboardCtrl">
+
+<section>
+
+
+    <!-- profile panel -->
+    <div class="panel panel-profile">
+        <div class="panel-heading text-center bg-info">
+            <div class="overlay_prof"></div>
+            <div class="profile_info">
+                <h3>Stephen Curry</h3>
+                <p>Point Guard</p>
+            </div>
+        </div>
+        <div class="list-justified-container">
+            <div class="row">
+
+                <div class="col-sm-8" data-ng-controller="flotChartCtrl">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+
+                            <div class="choices">
+
+                            </div>
+
+                            <div data-flot-chart
+                                 data-data="line1.data"
+                                 data-options="line1.options"
+                                 style="width: 100%; height: 300px;"
+                                    ></div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-4" data-ng-controller="chartingCtrl">
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie1.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall1.options" percent="easypiesmall1.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                <div class="countTo_small" data-ng-controller="countTo">
+                                                    <span count-to="{{countersmall1.countTo}}" value="{{countersmall1.countFrom}}" duration="2"></span>%
+                                                </div>
+
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+
+                                    <p class="text-muted">Injury Risk</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie2.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall2.options" percent="easypiesmall2.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                 <div class="countTo_small" data-ng-controller="countTo">
+                                                     <span count-to="{{countersmall2.countTo}}" value="{{countersmall2.countFrom}}" duration="2"></span>%
+                                                 </div>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+                                    <p class="text-muted">Muscle Fatigue</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie3.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall3.options" percent="easypiesmall3.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                 <div class="countTo_small" data-ng-controller="countTo">
+                                                     <span count-to="{{countersmall3.countTo}}" value="{{countersmall3.countFrom}}" duration="2"></span>%
+                                                 </div>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+                                    <p class="text-muted">Today's Training Completion</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-default" role="button">Player Details</a>
+                        <a class="btn btn-default" role="button">Live Training</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end profile panel -->
+
+    
+</section>
+
+
+<section>
+
+
+    <!-- profile panel -->
+    <div class="panel panel-profile">
+        <div class="panel-heading text-center bg-info">
+            <div class="overlay_prof"></div>
+            <div class="profile_info">
+                <h3>Andrw Igudola</h3>
+                <p>Small Forward</p>
+            </div>
+        </div>
+        <div class="list-justified-container">
+            <div class="row">
+
+                <div class="col-sm-8" data-ng-controller="flotChartCtrl">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+
+                            <div class="choices">
+
+                            </div>
+
+                            <div data-flot-chart
+                                 data-data="line1.data"
+                                 data-options="line1.options"
+                                 style="width: 100%; height: 300px;"
+                                    ></div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-4" data-ng-controller="chartingCtrl">
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie1.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall1.options" percent="easypiesmall1.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                <div class="countTo_small" data-ng-controller="countTo">
+                                                    <span count-to="{{countersmall1.countTo}}" value="{{countersmall1.countFrom}}" duration="2"></span>%
+                                                </div>
+
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+
+                                    <p class="text-muted">Injury Risk</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie2.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall2.options" percent="easypiesmall2.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                 <div class="countTo_small" data-ng-controller="countTo">
+                                                     <span count-to="{{countersmall2.countTo}}" value="{{countersmall2.countFrom}}" duration="2"></span>%
+                                                 </div>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+                                    <p class="text-muted">Muscle Fatigue</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie3.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall3.options" percent="easypiesmall3.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                 <div class="countTo_small" data-ng-controller="countTo">
+                                                     <span count-to="{{countersmall3.countTo}}" value="{{countersmall3.countFrom}}" duration="2"></span>%
+                                                 </div>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+                                    <p class="text-muted">Today's Training Completion</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-default" role="button">Player Details</a>
+                        <a class="btn btn-default" role="button">Live Training</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end profile panel -->
+
+    
+</section>
+
+<section>
+
+
+    <!-- profile panel -->
+    <div class="panel panel-profile">
+        <div class="panel-heading text-center bg-info">
+            <div class="overlay_prof"></div>
+            <div class="profile_info">
+                <h3>Andrew Bogut</h3>
+                <p>Center</p>
+            </div>
+        </div>
+        <div class="list-justified-container">
+            <div class="row">
+
+                <div class="col-sm-8" data-ng-controller="flotChartCtrl">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+
+                            <div class="choices">
+
+                            </div>
+
+                            <div data-flot-chart
+                                 data-data="line1.data"
+                                 data-options="line1.options"
+                                 style="width: 100%; height: 300px;"
+                                    ></div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-4" data-ng-controller="chartingCtrl">
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie1.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall1.options" percent="easypiesmall1.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                <div class="countTo_small" data-ng-controller="countTo">
+                                                    <span count-to="{{countersmall1.countTo}}" value="{{countersmall1.countFrom}}" duration="2"></span>%
+                                                </div>
+
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+
+                                    <p class="text-muted">Injury Risk</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie2.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall2.options" percent="easypiesmall2.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                 <div class="countTo_small" data-ng-controller="countTo">
+                                                     <span count-to="{{countersmall2.countTo}}" value="{{countersmall2.countFrom}}" duration="2"></span>%
+                                                 </div>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+                                    <p class="text-muted">Muscle Fatigue</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <!--<div class="panel-heading">
+                                <h3 class="panel-title">{{easypie3.name}}</h3>
+                            </div>-->
+                            <div class="panel-body text-center">
+
+
+                                <div class="pull-left">
+                                    <div easypiechart options="easypiesmall3.options" percent="easypiesmall3.percent" class="easypiechartsmall">
+                                            <span class="pie-percent">
+                                                 <div class="countTo_small" data-ng-controller="countTo">
+                                                     <span count-to="{{countersmall3.countTo}}" value="{{countersmall3.countFrom}}" duration="2"></span>%
+                                                 </div>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="right-info">
+                                    <p class="text-muted">Today's Training Completion</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-default" role="button">Player Details</a>
+                        <a class="btn btn-default" role="button">Live Training</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end profile panel -->
+
+    
+</section>
+
+
+</div>
+  

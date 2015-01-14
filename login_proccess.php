@@ -3,8 +3,10 @@ ob_start();
 include 'connect_to_database.php'; //connect the connection page
   
 if(empty($_SESSION)) // if the session not yet started 
-ini_set('session.save_path', 'tmp');
+{
+  ini_set('session.save_path', 'tmp');
    session_start();
+  }
 if(!isset($_POST['submit'])) { // if the form not yet submitted
    header("Location: login.php");
    exit; 
@@ -23,10 +25,10 @@ mysqli_select_db($connectLogin,$db_name)or die(mysql_error()) ;
 
 
 //check if the username entered is in the database.
-$test_query = "SELECT username,password FROM Users WHERE Users.username = '{$username}'";
+$test_query = "SELECT username,password,active FROM Users WHERE Users.username = '{$username}'";
 $stmt = $connectLogin->prepare($test_query);
 
-$stmt->bind_result($fusername, $fpassword);
+$stmt->bind_result($fusername, $fpassword,$factive);
  $stmt->execute();  
   $stmt->store_result();
 
@@ -37,14 +39,18 @@ $stmt->bind_result($fusername, $fpassword);
 }
 else  
 {
-	while ($stmt->fetch()){
-		 if($fpassword==$password){
+	while ($stmt->fetch())
+   {
+		 if($fpassword==$password && $factive==1)
+     {
 
-            $_SESSION['password'] = $fpassword;
-            header("Location: index.php");   $_SESSION['username'] = $fusername;
-       //     exit; 
-        } else{ // if not
-            echo "Invalid User name and/Or Password"; 
+             $_SESSION['password'] = $fpassword; 
+             $_SESSION['username'] = $fusername;
+             header("Location: index.php");  
+      }
+       else
+       { // if not
+            echo "Invalid User name and/Or Password  and/or account is not yet activated"; 
         }
 		
 		

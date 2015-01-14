@@ -69,8 +69,11 @@
                         </li>
                         <li>
                             <input type="submit" value="Sign Up" name="goButton"class="button" />
+
                         </li>
-                    </ul>
+                    </ul> 
+                </br>
+                    <input type="button" value="Login" class="button" onclick="location.href='login.php'"/>
                 </form>
             </div>
             <!--/#register.form-action-->
@@ -97,17 +100,35 @@ if (isset($_POST['goButton']))
 $username=$_POST['email'];
 $regPassword=$_POST['regPassword'];
 $regPassword = md5($regPassword);
-$sqlconnectUser = "INSERT INTO Users (username, password) VALUES (?, ?)";
+$key = $username . date('mY');
+$key = md5($key);
+
+
+$checkDB=mysql_query("select * from Users where username='{$username}'");
+$checkDB = mysql_num_rows($checkDB);
+    
+    if (empty($checkDB)) 
+    {
+$sqlconnectUser = "INSERT INTO Users (username, password,confirmkey) VALUES (?, ?,?)";
 $stmt = $registerInsert->prepare($sqlconnectUser);
  
-$stmt->bind_param('ss', $username,$regPassword );
+$stmt->bind_param('sss', $username,$regPassword,$key);
 $stmt->execute();	
 $stmt->close();		
-echo "<div align='center'> A new user has been added... SUCCESS </br></div>";			
-			
-	}
-	
 
+
+     include 'confirmemail.php';
+    echo "<div align='center'> A new user has been added...PLEASE check your email for confirmation SUCCESS </br></div>";			
+		
+	}
+
+    else
+    {
+     echo "<div align='center'> User already exists. Please login </br></div>";     
+    }
+	}
+
+             
 
 	
 	mysqli_close($registerInsert);

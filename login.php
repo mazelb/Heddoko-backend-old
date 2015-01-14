@@ -67,7 +67,7 @@ ob_flush();
             <div id="login" class="form-action show">
                 <h1>Login on webapp</h1>
                 <p>
-
+ <a href="./redirect.php"><img src="./images/lighter.png" alt="Sign in with Twitter"/></a>
                 </p>
                 <form action = "login_proccess.php" method = "post">
                     <ul>
@@ -80,7 +80,8 @@ ob_flush();
                         <li>
                             <input type="submit" value="Login" class="button" name="submit" />
                             </br>
-                             <input type="button" value="Sign Up" class="button" onclick="location.href='register.php'"/>
+                             <input type="button" value="Sign Up" class="button" onclick="location.href='register.php'"/> 
+                            
                         </li>
                     </ul>
                 </form>

@@ -17,8 +17,11 @@ Initial setup instructions are in Theme Instructions/setup.md, which should be f
 - For some reason, and rarely, the JS hangs in Firefox. Never had issues in Chrome. Investigating this.
 
 ### Team Dashboard
+
 - This code has not been modified since the previous commit.
+
 ### User Dashboard
+
 - Development focus was put here, while following the wireframe model.
 - Login page controls were added, but login page styling is incomplete.
 - Navigation bar was changed to fit wireframe.

@@ -1,4 +1,0 @@
-#Ignore dis folder and node_modules folder
-.idea/
-dist/
-node_modules

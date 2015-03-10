@@ -1,0 +1,49 @@
+<!-- Logo -->
+<div class="logo" data-ng-controller="AdminAppCtrl">
+    <a href="#/">
+        <i class="logo-icon fa fa-slack"></i>
+        <span>{{info.theme_name}}</span>
+    </a>
+</div>
+<div id="nav-wrapper">
+    
+    <div>
+        <a>
+            <img src="images/woman1.jpg" alt="" class="circle-icon avatar">
+        </a>
+        <span>{{info.user_name}}</span>
+    </div>    
+    
+    <ul id="nav"
+        data-ng-controller="NavCtrl"
+        data-slim-scroll
+        data-collapse-nav
+        data-highlight-active>
+        <li>
+            <a href="#/dashboard"> <i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+        </li>		
+		<li>
+            <a href="#/workout"><i class="fa fa-heartbeat"></i><span>Workout</span></a>
+        </li>		
+		<li>
+            <a href="#/learn"><i class="fa fa-university"></i><span>Learn</span></a>
+        </li>		
+		<li>
+            <a href="#/statistics"><i class="fa fa-bar-chart"></i><span>Statistics</span></a>
+        </li>		
+		<li>
+            <a href="#/challenge"><i class="fa fa-trophy"></i><span>Challenge</span></a>
+        </li>		
+		<li>
+            <a href="#/community"><i class="fa fa-users"></i><span>Community</span></a>
+        </li>
+        <li>
+            <a href="#/settings"><i class="fa fa-gear"></i><span>Settings</span></a>
+            <ul>
+                <li><a href="#/charts/morris"><i class="fa fa-angle-right"></i><span>Change Password</span></a></li>        
+				<li><a href="#/pages/signin"><i class="fa fa-angle-right"></i><span> Sign in</span></a></li>
+                <li><a href="#/pages/signup"><i class="fa fa-angle-right"></i><span> Sign up</span></a></li>
+            </ul>
+        </li>          
+    </ul>
+</div>

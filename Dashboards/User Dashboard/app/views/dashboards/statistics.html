@@ -1,0 +1,91 @@
+<div class="page page-charts" data-ng-controller="statisticsController">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Statistics</h4>
+            <p>Track your progress and view your accomplishments</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <section class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-list panel-ico"></i>Workout time by Sport, Annual View</div>
+                <div class="panel-body">
+                    <div morris-chart
+                         data-data="yearlyData"
+                         data-type="line"
+                         data-xkey="year"
+                         data-ykeys='["a", "b", "c"]'
+                         data-labels='["Crossfit", "Yoga", "Jogging"]'
+                         data-line-colors='["#383d43","#db5031","#c1bfc0"]'
+                         data-line-width="3"
+                            ></div>
+                </div>
+            </section>            
+        </div>
+        <div class="col-md-4">
+            <section class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-list panel-ico"></i>Workout Time by Sport</div>
+                <div class="panel-body">
+                    <chart class="chartjs ng-isolate-scope" data-data="sportsBreakdownByTime" data-type="Doughnut" value="myChart"><canvas></canvas></chart>
+                </div>
+            </section>
+        </div>   
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <section class="panel panel-box">
+                <div class="panel-heading"><i class="fa fa-list panel-ico"></i>My Accomplishments</div>
+                <div class="panel-bottom bg-reverse">
+                    <ul class="list-justified text-center">
+                        <li>
+                            <p class="size-h2 color-trophy"><i class="fa fa-trophy fa-2x"></i></p>
+                            <p class="text-muted">Perfect Yoga</p>
+                        </li>
+                        <li>
+                            <p class="size-h2 color-trophy"><i class="fa fa-trophy fa-2x"></i></p>
+                            <p class="text-muted">Created Movements</p>
+                        </li>
+                        <li>
+                            <p class="size-h2 color-trophy"><i class="fa fa-trophy fa-2x"></i></p>
+                            <p class="text-muted">Followers</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-list panel-ico"></i>Scores By Sport</div>
+                <div class="panel-body">
+                    <div morris-chart
+                         data-data="scores"
+                         data-type="bar"
+                         data-xkey="sport"
+                         data-ykeys='["a", "b", "c"]'
+                         data-labels='["Crossfit", "Yoga", "Jogging"]'
+                         data-bar-colors='["#383d43","#db5031","#c1bfc0"]'
+                         ></div>
+                </div>
+            </section>            
+        </div>   
+        <div class="col-md-3">
+            <section class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-list panel-ico"></i>Share Statistics</div>
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Email"
+                               >
+                    </div>
+                    <div class="form-group">
+                        <a href="" class="btn btn-primary btn-lg btn-block">Email Statistics Report</a>
+                    </div>
+                </div>   
+            </section>
+        </div>
+    </div>
+</div>

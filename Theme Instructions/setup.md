@@ -16,17 +16,17 @@ Also included are grunt configurations for development testing and production de
 
 2 ) Install necessary packages :
 
-grunt-contrib-jshint
-grunt-contrib-clean
-grunt-contrib-connect
-grunt-contrib-compress
-grunt-contrib-cssmin
-grunt-contrib-concat
-grunt-contrib-uglify
-grunt-html2js
-grunt-contrib-watch
-grunt-bower-task
-
+npm install -g grunt-cli
+npm install grunt-contrib-jshint
+npm install grunt-contrib-clean
+npm install grunt-contrib-connect
+npm install grunt-contrib-compress
+npm install grunt-contrib-cssmin
+npm install grunt-contrib-concat
+npm install grunt-contrib-uglify
+npm install grunt-html2js
+npm install grunt-contrib-watch
+npm install grunt-bower-task
 
 3 ) In the application root folder run : npm install
 

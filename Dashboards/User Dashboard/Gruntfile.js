@@ -98,7 +98,7 @@ module.exports = function(grunt) {
 
         watch: {
             dev: {
-                files: [ 'Gruntfile.js', 'app/*.js', '*.html','styles/*.scss' ],
+                files: [ 'Gruntfile.js', 'app/*.js', '*.html','styles/*.scss','styles/*.css' ],
                 tasks: [ 'jshint','html2js:dist', 'concat:dist', 'clean:temp','cssmin' ],
                 options: {
                     atBegin: true

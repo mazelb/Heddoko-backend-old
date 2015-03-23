@@ -4,7 +4,6 @@
 
 var app = angular.module("app", ["ngRoute", "ngAnimate", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.chart.ctrls", "app.chart.directives","countTo"]).run(["$rootScope", "$location",
     function ($rootScope, $location) {
-
         $(window).load(function(){
 
             setTimeout(function(){
@@ -18,19 +17,19 @@ var app = angular.module("app", ["ngRoute", "ngAnimate", "ui.bootstrap", "easypi
         return $routeProvider.when("/", {
             redirectTo: "/dashboard"
         }).when("/dashboard", {
-			templateUrl: "app/views/dashboards/dashboard.html"
+			templateUrl: "app/views/dashboard/dashboard.html"
 		}).when("/workout", {
-			templateUrl: "app/views/dashboards/workout.html"
+			templateUrl: "app/views/workout/workout.html"
 		}).when("/challenge", {
-			templateUrl: "app/views/dashboards/challenge.html"
+			templateUrl: "app/views/challenge/challenge.html"
 		}).when("/community", {
-			templateUrl: "app/views/dashboards/community.html"
+			templateUrl: "app/views/community/community.html"
 		}).when("/learn", {
-			templateUrl: "app/views/dashboards/learn.html"
+			templateUrl: "app/views/learn/learn.html"
 		}).when("/settings", {
-			templateUrl: "app/views/dashboards/settings.html"
+			templateUrl: "app/views/settings/settings.html"
 		}).when("/statistics", {
-			templateUrl: "app/views/dashboards/statistics.html"
+			templateUrl: "app/views/statistics/statistics.html"
 		}).when("/ui/typography", {
 			templateUrl: "app/views/ui_elements/typography.html"
 		}).when("/ui/buttons", {
@@ -83,8 +82,12 @@ var app = angular.module("app", ["ngRoute", "ngAnimate", "ui.bootstrap", "easypi
 			templateUrl: "app/views/pages/features.html"
 		}).when("/pages/signin", {
 			templateUrl: "app/views/pages/signin.html"
-		}).when("/pages/signup", {
-			templateUrl: "app/views/pages/signup.html"
+		}).when("/settings/settings", {
+            templateUrl: "app/views/settings/settings.html"
+        }).when("/settings/devices", {
+            templateUrl: "app/views/settings/devices.html"
+        }).when("/pages/signup", {
+        templateUrl: "app/views/pages/signup.html"
 		}).when("/pages/forgot", {
 			templateUrl: "app/views/pages/forgot-password.html"
 		}).when("/pages/profile", {

@@ -1,16 +1,13 @@
 <!-- Logo -->
 <div class="logo" data-ng-controller="AdminAppCtrl">
-    <a href="#/">
-        <i class="logo-icon fa fa-slack"></i>
-        <span>{{info.theme_name}}</span>
-    </a>
+    <i class="icon-heddoko_logo-md"></i>
+    <span>{{info.theme_name}}</span>
 </div>
 <div id="nav-wrapper">
     
-    <div class="nav-avatar">
+    <div class="nav-avatar text-center">
         <img src="images/woman1.jpg" alt="" class="circle-icon avatar">
-        </br>
-        <span>{{info.user_name}}</span>
+        <p class="nav-user-name">{{info.user_name}}</p>
     </div>
 
     <ul id="nav"
@@ -39,6 +36,9 @@
         <li>
             <a href="#/settings"><i class="fa fa-gear"></i><span>Settings</span></a>
             <ul>
+                <li><a href="#/settings/settings"><i class="fa fa-angle-right"></i><span>Settings</span></a></li>
+                <li><a href="#/settings/devices"><i class="fa fa-angle-right"></i><span>Devices</span></a></li>
+
                 <li><a href="#/charts/morris"><i class="fa fa-angle-right"></i><span>Change Password</span></a></li>        
 				<li><a href="#/pages/signin"><i class="fa fa-angle-right"></i><span> Sign in</span></a></li>
                 <li><a href="#/pages/signup"><i class="fa fa-angle-right"></i><span> Sign up</span></a></li>

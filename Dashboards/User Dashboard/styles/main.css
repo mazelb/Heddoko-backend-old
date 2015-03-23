@@ -95,6 +95,11 @@ a:hover, a:focus {
 /************************************
 2 - Typography
 *************************************/
+
+.nav-user-name{
+  text-align: center;
+}
+
 p.small {
   font-size: 10px; }
 
@@ -3626,10 +3631,6 @@ fieldset[disabled] .btn-danger.active {
 .input-group-addon input[type="radio"], .input-group-addon input[type="checkbox"] {
   margin-top: 0; }
 
-.nav-avatar{
-    text-align: center;
-}
-
 .nav:before, .nav:after {
   content: " ";
   display: table; }
@@ -4057,8 +4058,16 @@ fieldset[disabled] .btn-danger.active {
       margin-bottom: 10px;
   }
 
-  .nav-min .nav-avatar > span { /* Hide username on navbar min */
+  .nav-min .nav-avatar > p { /* Hide username on navbar min */
       display: none;
+  }
+
+  .nav-min .logo > span { /* Hide username on navbar min */
+    display: none;
+  }
+
+  .nav-min #nav-container .logo { /* Hide company name on navbar min */
+    padding-left: 8px;
   }
 
   .nav-min .logo span {
@@ -6674,10 +6683,19 @@ label {
 .tips h3 {
   margin-top: 0; }
 
-.page-signin .signin-header, .page-signup .signin-header, .page-forgot .signin-header {
+.page-signup .signin-header, .page-forgot .signin-header {
   padding: 25px 0;
   background-color: #fff;
-  border-top: 2px solid #25d990; }
+  border-top: 2px solid #25d990;
+  margin-left: 40px;
+}
+
+.page-signin .signin-header{
+    display:inline-block;
+    background-color: #fff;
+    margin-left: 40px;
+    margin-top: 40px;
+}
 
 .page-signin .logo, .page-signup .logo, .page-forgot .logo {
   font-size: 46px;
@@ -6699,13 +6717,26 @@ label {
   max-width: 420px;
   margin: 0 auto 20px; }
 
+.page-signin .container{
+  max-width: 220px;
+  margin-right: 40px;
+}
+
 .page-signin .info h2, .page-signup .info h2, .page-forgot .info h2 {
   font-size: 18px;
   color: #272b2f; }
 
-.page-signin .form-container, .page-signup .form-container, .page-forgot .form-container {
+.page-signup .form-container, .page-forgot .form-container {
   max-width: 420px;
   margin: 10px auto; }
+
+.page-signin .form-container{
+    display: inline-block;
+    max-width: 420px;
+    float:right;
+    margin-top: 40px;
+    margin-right: 40px;
+}
 
 .page-signin .line-thru, .page-signup .line-thru, .page-forgot .line-thru {
   margin: 1em 0;

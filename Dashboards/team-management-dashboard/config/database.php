@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => env('DB_CONNECTION', 'mysql'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -45,6 +45,19 @@ return [
 	*/
 
 	'connections' => [
+
+        'cloudsql' => [
+            'driver'      => 'mysql',
+            'unix_socket' => env('CLOUD_SQL_SOCKET'),
+            'host'        => env('CLOUD_SQL_HOST'),
+            'database'    => env('CLOUD_SQL_DATABASE'),
+            'username'    => env('CLOUD_SQL_USERNAME'),
+            'password'    => env('CLOUD_SQL_PASSWORD'),
+            'charset'     => 'utf8',
+            'collation'   => 'utf8_unicode_ci',
+            'prefix'      => '',
+            'strict'      => false,
+        ],
 
 		'sqlite' => [
 			'driver'   => 'sqlite',

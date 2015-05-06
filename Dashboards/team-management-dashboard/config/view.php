@@ -28,6 +28,6 @@ return [
 	|
 	*/
 
-	'compiled' => realpath(storage_path().'/framework/views'),
+	'compiled' => gae_realpath(storage_path().'/framework/views'),
 
 ];

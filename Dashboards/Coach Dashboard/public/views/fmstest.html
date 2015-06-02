@@ -1,0 +1,30 @@
+<div class="page page-table">
+	<form action="/api/fmsforms" method="post" id="fmsform">
+		deep squat score <input type="number" name="deepsquatfinalscore"><br>
+	  <input type="submit" value="Submit">
+	</form>
+	
+	<script>
+
+		$("#fmsform").submit(function(e){
+			var postData = $(this).serializeArray();
+			var formURL = $(this).attr("action");
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data, textStatus, jqXHR) 
+				{
+					alert('Data saved to database');
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+					alert('Error saving to database');
+				}
+			});
+			e.preventDefault();	//STOP default action
+		});
+		
+	</script>
+</div>

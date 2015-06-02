@@ -1,31 +1,56 @@
-# Folder Structure
+This guide quickly outlines the official Laravel5 [Installation Guide](http://laravel.com/docs/master).
 
-Angular controllers reside in app/controllers.js. For now, fake data is included in these controllers. For example, pages use the controller using ng-controller="myCtrl". Graphs can read this data from the controller and display it.
+# Laravel Setup
 
-Fonts and JS plugins are in /fonts and /scripts respectively. CSS files are in /styles. Twitter Bootstrap is included there, but all custom CSS is in /styles/main.css.
+Running the projects first requires
 
-Each page of the website is considered the be a "template, where only the body of the page is present. These pages are located in /app/views/dashboards/. Additionally, The navigation bar and header are in /app/views/.
+  - Installing Composer
+  - Installing Laravel
 
-# Running the Web App
+### Installing Composer
 
-Initial setup instructions are in Theme Instructions/setup.md, which should be followed in the Team Management Dashboard/README.md. After setup, launching the site is down by running "grunt dev" in a terminal window in the root directory of the app. Point browser to 127.0.0.1:8888. Leave the terminal window open while running the website. It should detect code changes and only a browser refresh should be necessary to see changes. Sometimes CSS changes aren't updated for some time.
+For OSX: http://www.abeautifulsite.net/installing-composer-on-os-x/
 
-## Notes:
+At the end, you should be able to run
+```sh
+composer
+```
 
-### General
-- Grunt concatenates all css and javascript into 2 files and puts them in /dist. Do not bother editing these files during development.
-- For some reason, and rarely, the JS hangs in Firefox. Never had issues in Chrome. Investigating this.
+from the command line.
+### Installing Laravel
+```sh
+composer global require "laravel/installer=~1.1"
+```
 
-### Team Dashboard
+You should be able to run
+### Running a Laravel project
 
-- This code has not been modified since the previous commit.
+cd into the project directory, ie team-management-dashboard and run the project using php's built-in webserver
 
-### User Dashboard
+```sh
+php artisan serve
+```
 
-- Development focus was put here, while following the wireframe model.
-- Login page controls were added, but login page styling is incomplete.
-- Navigation bar was changed to fit wireframe.
-- Statistics page is almost done, however minor styling issues remain.
-- User image was added to navigation bar, need to implement clickable drop-down and remove original user image.
-- The rest of the dashboard pages need to be implemented.
-- Login/Logout functionality needs to be investigated, along with backend+hosting specifics
+### Developing
+
+The template we are using was designed around a workflow tool called grunt. You must call grunt from the root of the dashboard folder:
+
+```sh
+grunt dev
+```
+
+Grunt will keep an eye on the css and js files, and perform actions on them after they have been edited (ie combine all JS to app.js, and compile the sass CSS).
+
+## Coach Dashboard Structure
+
+### Laravel
+
+Laravel is responsible for most of the backend functionality of the web app. It connects to the database and allows for the manipulation of the tables, it performs authentication, and it controls all routing.
+
+Laravel also provides RESTful API creation. Currently, '/api/fmsforms' is a resource that can return FMS forms or allow for their deletion. 
+
+### Angular
+
+Essentially, the root of the website ('/') routes to a single page where the angular application is running. Within that directory, Angular controls the routing of the pages within and makes calls to the backend. It makes calls to the Laravel backend REST api.
+
+All the files with respect to the angular app are in '/angular-app'. Make sure grunt is running when they are edited (see above section 'Developing'). The modified files are compiled and pushed to /public where they can be accessed by public pages.

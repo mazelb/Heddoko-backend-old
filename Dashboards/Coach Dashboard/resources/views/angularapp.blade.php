@@ -11,22 +11,22 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400' rel='stylesheet' type='text/css'>
 
         <!-- Include Jquery in the vendor folder -->
-        <script src="{{ url('js/jquery.min.js') }}"></script
+        <script src="{{ url('js/jquery.min.js') }}"></script>
 		
         <!-- Theme's own CSS file -->
         <link rel="stylesheet" href="{{ url('css/main.css') }}">
 
     </head>
-    <body data-ng-app="app" id="app" data-custom-background="" data-off-canvas-nav="" data-ng-controller="AdminAppCtrl">
+    <body data-ng-app="app" id="app" data-custom-background="" data-off-canvas-nav="" data-ng-controller="MainController">
 
         <div>
-            <div data-ng-hide="checkIfOwnPage()" data-ng-cloak="" class="no-print">
+            <div data-ng-cloak="" class="no-print">
                 <aside data-ng-include=" 'views/navigation.html' " id="nav-container"></aside>
             </div>
 
             <div class="view-container">
 
-                <div data-ng-hide="checkIfOwnPage()" data-ng-cloak="" class="no-print">
+                <div class="no-print">
                     <section data-ng-include=" 'views/header.html' " id="header" class="top-header"></section>
                 </div>
 
@@ -48,7 +48,6 @@
 		
 		@yield('content')
 
-        <!--Uncomment for deployment using Grunt-->
         <script type="text/javascript" src="{{ url('js/app.js') }}"></script>		
 
     </body>

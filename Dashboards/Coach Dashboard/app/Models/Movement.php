@@ -5,7 +5,7 @@ use App\Models\Frame;
 
 class Movement extends Model {
     
-	protected $fillable = ['name'];
+	protected $fillable = ['athlete_id', 'name'];
 	
 	public function frames()
     {

@@ -152,15 +152,6 @@ module.exports = function(grunt) {
             all: [ 'Gruntfile.js', 'angular-app/app/*.js', 'angular-app/app/**/*.js' ]
         },
 
-        connect: {
-            server: {
-                options: {
-                    hostname: 'localhost',
-                    port: 8888
-                }
-            }
-        },
-
         watch: {
             dev: {
                 files: [ 'Gruntfile.js', 'angular-app/app/*.js', 'angular-app/styles/*.scss' ],
@@ -211,7 +202,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -221,7 +211,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower-task');
 
-    grunt.registerTask('dev', [ 'bower', 'connect:server', 'watch:dev' ]);
+    grunt.registerTask('dev', [ 'bower', 'watch:dev' ]);
     grunt.registerTask('test', [ 'bower', 'jshint' ]);
-    grunt.registerTask('minified', [ 'bower', 'connect:server', 'watch:min' ]);
+    grunt.registerTask('minified', [ 'bower', 'watch:min' ]);
 };

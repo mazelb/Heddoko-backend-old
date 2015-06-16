@@ -3,14 +3,19 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Movement;
+use App\Models\Athlete;
+use App\Models\Coach;
 use App\Models\Frame;
-use App\Models\StretchContainer;
-use App\Models\StretchSensor;
-use App\Models\StretchJoint;
+use App\Models\Movement;
 use App\Models\NodContainer;
 use App\Models\NodJoint;
 use App\Models\NodSensor;
+use App\Models\SportCategory;
+use App\Models\SportMovement;
+use App\Models\StretchContainer;
+use App\Models\StretchSensor;
+use App\Models\StretchJoint;
+use App\Models\Team;
 
 class DatabaseSeeder extends Seeder {
 
@@ -23,14 +28,14 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		$this->command->info('Movement seeds started.');
-		$this->call('MovementSeeder');
-		$this->command->info('Movement seeds finished.');
+		$this->command->info('Seeding started.');
+		$this->call('DBSeeder');
+		$this->command->info('Seeding finished.');
 	}
 
 }
 
-class MovementSeeder extends Seeder {
+class DBSeeder extends Seeder {
 
 	public function run(){
 
@@ -42,11 +47,52 @@ class MovementSeeder extends Seeder {
 		DB::table('nodcontainers')->delete();		
 		DB::table('frames')->delete();
 		DB::table('movements')->delete();
+		DB::table('sportmovements')->delete();
+		DB::table('sportcategories')->delete();
+		DB::table('fmsforms')->delete();
+		DB::table('athletes')->delete();
+		DB::table('teams')->delete();
+		DB::table('coaches')->delete();		
+		
 		DB::table('migrations')->delete();
 		
-		$this->command->info('stage1');
+		$dummyCoach = Coach::create(['name' => 'Dummy Coach']);
 		
-		$movementElbow = Movement::create(['name' => 'Elbow Flex']);
+		$dummyTeam = Team::create(['name' => 'Dummy Team', 'coach_id' => $dummyCoach->id]);		
+		$dummyTeam = Team::create(['name' => 'Chargers', 'coach_id' => $dummyCoach->id]);
+		$dummyTeam = Team::create(['name' => 'Falcons', 'coach_id' => $dummyCoach->id]);
+		$dummyTeam = Team::create(['name' => 'Stampeders', 'coach_id' => $dummyCoach->id]);
+		$dummyTeam = Team::create(['name' => 'Vikings', 'coach_id' => $dummyCoach->id]);	
+		
+		
+		
+		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete', 'team_id' => $dummyTeam->id]);
+		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete2', 'team_id' => $dummyTeam->id]);
+		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete3', 'team_id' => $dummyTeam->id]);
+		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete4', 'team_id' => $dummyTeam->id]);
+		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete5', 'team_id' => $dummyTeam->id]);
+		
+		
+		$sportcategory = SportCategory::create(['name' => 'Strength and Conditioning']);
+		
+		$sportmovement = SportMovement::create(['name' => 'Back Squat', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Deadlift', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Bench Press', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Push-up', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Pull-up', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Horizontal Jump', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Vertical Jump', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Plank', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Lunge', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'Treadmill', 'sport_id' => $sportcategory->id]);
+		
+		$sportcategory = SportCategory::create(['name' => 'Yoga']);
+		
+		$sportmovement = SportMovement::create(['name' => 'YogaFakeMvmnt', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'YogaFakeMvmnt1', 'sport_id' => $sportcategory->id]);
+		$sportmovement = SportMovement::create(['name' => 'YogaFakeMvmnt3', 'sport_id' => $sportcategory->id]);
+
+		$movementElbow = Movement::create(['name' => 'Elbow Flex', 'athlete_id' => $dummyAthlete->id, 'sportmovement_id' => $sportmovement->id]);
 		
 		$frame1 = Frame::create(['movement_id' => $movementElbow->id]);
 		

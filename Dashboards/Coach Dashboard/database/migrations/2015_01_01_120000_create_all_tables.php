@@ -12,7 +12,78 @@ class CreateAllTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('movements', function(Blueprint $table)
+		Schema::create('coaches', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('name');
+			$table->string('email')->unique();
+			$table->string('password', 60);
+			$table->rememberToken();
+			$table->timestamps();
+		});
+		
+		Schema::create('teams', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('name');
+			$table->integer('coach_id')->unsigned();
+			$table->foreign('coach_id')->references('id')->on('coaches');
+
+			$table->timestamps();
+		});
+		
+		Schema::create('athletes', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->integer('team_id')->unsigned();
+			$table->foreign('team_id')->references('id')->on('teams');
+			
+			$table->string('name');
+			$table->integer('age')->unsigned();
+			
+			$table->timestamps();
+		});	
+		
+		Schema::create('fmsforms', function(Blueprint $table)
+		{
+			$table->increments('id');
+
+			$table->integer('athlete_id')->unsigned();
+			$table->foreign('athlete_id')->references('id')->on('athletes');
+
+			$table->tinyInteger('deepsquat');
+			$table->string('deepsquatcomments', 255);
+			$table->tinyInteger('Lhurdle');
+			$table->tinyInteger('Rhurdle');
+			$table->string('hurdlecomments', 255);
+			$table->tinyInteger('Llunge');
+			$table->tinyInteger('Rlunge');
+			$table->string('lungecomments', 255);
+			$table->tinyInteger('Lshoulder');
+			$table->tinyInteger('Rshoulder');
+			$table->string('shouldercomments', 255);
+			$table->tinyInteger('Limpingement');
+			$table->tinyInteger('Rimpingement');
+			$table->string('impingementcomments', 255);
+			$table->tinyInteger('Lactive');
+			$table->tinyInteger('Ractive');
+			$table->string('activecomments', 255);
+			$table->tinyInteger('trunk');
+			$table->string('trunkcomments', 255);
+			$table->tinyInteger('press');
+			$table->string('presscomments', 255);
+			$table->tinyInteger('Lrotary');
+			$table->tinyInteger('Rrotary');
+			$table->string('rotarycomments', 255);
+			$table->tinyInteger('posterior');
+			$table->string('posteriorcomments', 255);
+			$table->tinyInteger('totalscore');
+			
+			$table->timestamps();
+		});
+		
+		Schema::create('sportcategories', function(Blueprint $table)
 		{
 			$table->increments('id');
 			
@@ -20,21 +91,27 @@ class CreateAllTables extends Migration {
 
 			$table->timestamps();
 		});
-
-		Schema::create('fmsforms', function(Blueprint $table)
+		
+		Schema::create('sportmovements', function(Blueprint $table)
 		{
 			$table->increments('id');
+			
+			$table->integer('sport_id')->unsigned();
+			$table->foreign('sport_id')->references('id')->on('sportcategories');
+			$table->string('name');
 
-			$table->integer('movement_id')->unsigned();
-			$table->foreign('movement_id')->references('id')->on('movements');
+			$table->timestamps();
+		});
 
-			$table->tinyInteger('deepsquatrawscore');
-			$table->tinyInteger('deepsquatfinalscore');
-			$table->string('deepsquatcomment', 255);
-			$table->tinyInteger('Rhurdlerawscore');
-			$table->tinyInteger('Lhurdlerawscore');
-			$table->tinyInteger('hurdlefinalscore');
-			$table->string('hurdlecomment', 255);
+		Schema::create('movements', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->integer('athlete_id')->unsigned();
+			$table->foreign('athlete_id')->references('id')->on('athletes');
+			$table->integer('sportmovement_id')->unsigned();
+			$table->foreign('sportmovement_id')->references('id')->on('sportmovements');
+			$table->string('name');
 
 			$table->timestamps();
 		});
@@ -156,10 +233,16 @@ class CreateAllTables extends Migration {
 		Schema::drop('nodcontainers');
 		
 		Schema::drop('frames');
-
-		Schema::drop('fmsforms');
 		
 		Schema::drop('movements');
+		
+		Schema::drop('fmsforms');
+		Schema::drop('athletes');
+		Schema::drop('teams');
+		Schema::drop('coaches');
+		
+		Schema::drop('sportmovements');
+		Schema::drop('sportcategories');
 	}
 
 }

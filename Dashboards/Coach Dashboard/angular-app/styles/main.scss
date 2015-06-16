@@ -106,6 +106,12 @@ $orangeaccent:#ff8d46;
   filter: alpha(opacity=$opacity-ie); //IE8
 }
 
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
 /************************************
 1 - General CSS
 *************************************/

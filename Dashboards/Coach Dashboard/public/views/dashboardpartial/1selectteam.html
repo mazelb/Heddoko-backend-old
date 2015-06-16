@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col-sm-12">
+
+		<section class="panel panel-box">
+
+			<a href="javascript:;" class="btn btn-primary btn-metro" ng-repeat="team in data.teams" ng-click="data.selected_team = team;forwardsStep();">
+				<i class="fa fa-envelope"></i>
+				<span>{{team.name}}</span>
+			</a>
+
+		</section>
+
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-sm-6">
+
+		<div class="panel panel-default">
+
+			<div class="panel-body">
+
+				<div class="text-left col-sm-6">
+					<h3>
+						Add Team
+					</h3>
+					
+				</div>
+
+				<div class="panel-body col-sm-8 ng-scope">
+					<form ng-submit="createTeam();">
+						<input ng-model="data.new_team_name" type="text">
+						<button type="button" class="btn btn-width-medium btn-sp-v btn-success" ng-click="createTeam();">Add team</button>
+					</form>
+				</div>
+								
+			</div>
+		</div>
+
+	</div>
+
+</div>

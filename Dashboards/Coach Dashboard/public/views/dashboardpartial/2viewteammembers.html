@@ -1,0 +1,17 @@
+<div class="col-sm-12">
+
+	<section class="panel panel-box">
+
+		<div class="panel-bottom bg-reverse">
+			<br>
+			<ul class="list-justified text-center">
+				<li ng-repeat="athlete in data.athletes" ng-click="data.selected_athlete = athlete;forwardsStep();">
+					<p class="size-h2 color-info"><i class="fa fa-user"></i></p>
+					<p class="text-muted">{{athlete.name}}</p>
+				</li>
+			</ul>
+			<br>
+		</div>
+	</section>
+
+</div>

@@ -1,0 +1,169 @@
+<header class="page-main-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>FMS Results</h4>
+            <p>Select an athlete to view all FMS test results</p>
+        </div>
+    </div>
+
+</header>
+<div class="page page-dashboard" data-ng-controller="FMSFormController">
+	
+	<section>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="text-left col-sm-6">
+							<h3>
+								Athlete
+							</h3>							
+							<select ng-model="data.selected_athlete"
+									ng-selected="data.selected_athlete"
+									ng-options="athlete.name for athlete in data.athletes track by athlete.id" >
+							</select>	
+						</div>
+						<div class="panel-body col-sm-8 ng-scope">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	
+	<div class="row">
+		<div class="col-sm-8">
+
+			<div class="panel panel-default">
+
+				<div class="panel-body">
+
+					<div class="text-left col-sm-6">
+						<h3>
+							Athlete's FMS Score History
+						</h3>
+						
+					</div>
+
+					<div class="panel-body col-sm-8 ng-scope">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Date</th>
+									<th>Final Score</th>
+									<th>Suit no.</th>
+									<th>Data</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr ng-repeat="fmsform in data.selected_athlete.fms_forms" ng-click="fmsdisplay(fmsform)">
+									<td>{{$index + 1}}</td>
+									<td>{{fmsform.created_at}}</td>
+									<td>
+										{{fmsform.totalscore}}
+									</td>
+									<td>1</td>
+									<td><span class="label label-warning">Missing</span></td>
+									
+	
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+
+			<div class="panel panel-default">
+
+				<div class="panel-body">
+
+					<div class="text-left col-sm-6">
+						<h3>
+							FMS Details
+						</h3>						
+					</div>
+
+					<div class="panel-body col-sm-8 ng-scope" ng-show="data.selected_fms_form == null">
+						select an FMS form on the left to view details
+					</div>
+					
+					<div class="panel-body col-sm-8 ng-scope" ng-show="data.selected_fms_form != null">
+												
+						<ul class="list-unstyled">
+							<li>Final score <b class="pull-right">{{data.selected_fms_form.totalscore}}</b></li>
+							</br>
+							<li>Deep squat <b class="pull-right">{{data.selected_fms_form.deepsquat}}</b></li>
+							</br>
+							<li>Hurdle step L <b class="pull-right">{{data.selected_fms_form.Lhurdle}}</b></li>
+							<li>Hurdle step R <b class="pull-right">{{data.selected_fms_form.Rhurdle}}</b></li>
+							</br>
+							<li>Inline lunge L <b class="pull-right">{{data.selected_fms_form.Llunge}}</b></li>
+							<li>Inline lunge <b class="pull-right">{{data.selected_fms_form.Rlunge}}</b></li>
+							</br>
+							<li>Shoulder Mobility L <b class="pull-right">{{data.selected_fms_form.Lshoulder}}</b></li>
+							<li>Shoulder Mobility R <b class="pull-right">{{data.selected_fms_form.Rshoulder}}</b></li>
+							</br>
+							<li>Impingement clearing test L <b class="pull-right">{{data.selected_fms_form.Limpingement}}</b></li>
+							<li>Impingement clearing test R <b class="pull-right">{{data.selected_fms_form.Rimpingement}}</b></li>
+							</br>
+							<li>Active straight-leg raise L <b class="pull-right">{{data.selected_fms_form.Lactive}}</b></li>
+							<li>Active straight-leg raise R <b class="pull-right">{{data.selected_fms_form.Ractive}}</b></li>
+							</br>
+							<li>Trunk stability pushup <b class="pull-right">{{data.selected_fms_form.trunk}}</b></li>
+							</br>
+							<li>Press-up clearing test <b class="pull-right">{{data.selected_fms_form.press}}</b></li>
+							</br>
+							<li>Rotary stability L <b class="pull-right">{{data.selected_fms_form.Lrotary}}</b></li>
+							<li>Rotary stability R <b class="pull-right">{{data.selected_fms_form.Rrotary}}</b></li>
+							</br>
+							<li>Posterior rocking clearing test <b class="pull-right">{{data.selected_fms_form.posterior}}</li>
+							
+						</ul>
+						
+						<button type="button" class="btn btn-warning btn-sm" ng-click="deleteFMS();">Delete this FMS Form</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>

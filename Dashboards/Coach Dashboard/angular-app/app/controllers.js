@@ -5,8 +5,8 @@
  * @date June 2015
  */
  
-angular.module("app.controllers", []).controller("MainController", ["$scope", '$localStorage', 'Teams', 'TeamAthletes',
-  function($scope, $localStorage, Teams, TeamAthletes) {
+angular.module("app.controllers", []).controller("MainController", ["$scope", '$localStorage', 'Teams', 'Athletes', "loggit",
+  function($scope, $localStorage, Teams, Athletes, loggit) {
 
 		/**
 		* @brief This is the central controller which runs whenever the dashboard is loaded
@@ -16,42 +16,19 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		* @return void
 		*/
 
-    $scope.data = $localStorage; //read the local storage into the scope
+    $scope.data = $localStorage; //tie the local scope to the local web storage
 
-    $scope.$watch('[data.teams, data.athletes, data.fms_form_data]', function() {
-      $localStorage.teams = $scope.data.teams;
-      $localStorage.athletes = $scope.data.athletes;
-      $localStorage.fms_form_data = $scope.data.fms_form_data;
-    }, true);
+    $scope.$watch('data.selected_team', function(new_team_value, old_team_value) {
 		
-    $scope.$watch(function() {
-      return angular.toJson($localStorage);
-    }, function() {
-      $scope.data.teams = $localStorage.teams;
-      $scope.data.selected_team = $localStorage.selected_team;
-      $scope.data.athletes = $localStorage.athletes;
-      $scope.data.selected_athlete = $localStorage.selected_athlete;
-      $scope.data.fms_form_data = $localStorage.fms_form_data;
-    });
-
-    $scope.$watch('data.selected_team', function(newVal, oldVal) {
-			
-			console.log('team changed to ' + $scope.data.selected_team.name );
-		
-			if (newVal === null || typeof newVal === "undefined") {
+			if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
         return;
       }
 			
-      $localStorage.selected_team = $scope.data.selected_team;
-			
       $localStorage.athletes = $localStorage.selected_athlete = null;
 			
-			TeamAthletes.get($localStorage.selected_team.id)
+			Athletes.get($localStorage.selected_team.id)
 			.success(function(athletes_reponse) {
 				$localStorage.athletes = athletes_reponse;
-				
-				console.log('this many athletes found ' + athletes_reponse.length);
-				console.log('selected team id: ' + $scope.data.selected_team.id);
 				
 				if ($localStorage.athletes.length > 0) {
 					$localStorage.selected_athlete = $localStorage.athletes[0]; //select the first athlete by default
@@ -60,36 +37,47 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 			});
 
     }, true);
-
-    $scope.$watch('data.selected_athlete', function(newVal) {
-      if (newVal === null) {
-        return;
-      }
-
-      $localStorage.selected_athlete = $scope.data.selected_athlete;
-
-    }, true);
 		
-		if ($scope.data.teams === null || typeof $scope.data.teams === "undefined"){
+		if ($localStorage.teams === null || typeof $localStorage.teams === "undefined"){
 			Teams.get()
 			.success(function(teams_response) {
-				$scope.data.teams = teams_response;
-				if ($scope.data.teams.length > 0) {
-					$scope.data.selected_team = $scope.data.teams[0]; //select the first team by default
+				$localStorage.teams = teams_response;
+				if ($localStorage.teams.length > 0) {
+					$localStorage.selected_team = $localStorage.teams[0]; //select the first team by default
 				}
 			});
-		}
-	
-		$scope.createTeam = function() {
+		}	
 		
-			Teams.create($scope.data.new_team_name)
-			.success(function() {
-				console.log('new team added!');
+		$scope.submitNewTeamForm = function() {		
 
-			});	
+			$scope.waiting_server_response = true;
 		
+			Teams.create($localStorage.new_team_form_data)
+			.success(function(updated_teams_data) {
+				$localStorage.teams = updated_teams_data; //store the updated teams list sent back by the server
+				$scope.waiting_server_response = false;
+				loggit.logSuccess("New Team successfully created");
+			});
 		};		
 		
+		$scope.submitNewAthleteForm = function() {		
+		
+			$scope.waiting_server_response = true;
+		
+			Athletes.create($localStorage.selected_team.id, $localStorage.new_athlete_form_data)
+			.success(function(updated_athletes_data) {
+				$localStorage.athletes = updated_athletes_data;
+				$scope.waiting_server_response = false;
+				loggit.logSuccess("New Athlete successfully created");
+			});
+		};
+
+		$scope.endSession = function() {
+			$localStorage.$reset();	
+		};	
+
+		$scope.waiting_server_response = false;
+
   }
 ]).controller('StepController',
   function($scope) {
@@ -101,13 +89,12 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
      */
 
     var dashboard_pages = {
-      create_team: 0,
-      select_team: 1,
-      view_team_members: 2,
-      view_athlete_stats: 3
+      select_and_create_team: 0,
+      view_team_members: 1,
+      view_athlete_stats: 2
     };
 
-    $scope.current_dashboard_page = dashboard_pages.select_team;
+    $scope.current_dashboard_page = dashboard_pages.select_and_create_team;
 
     $scope.backwardsStep = function() {
       if ($scope.current_dashboard_page > 0) {
@@ -120,8 +107,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
         $scope.current_dashboard_page++;
       }
     };
-  }).controller("FMSFormController", ["$scope", 'FMSForm',
-  function($scope, FMSForm) {
+  }).controller("FMSFormController", ["$scope", '$localStorage', 'FMSForm', "loggit",
+  function($scope, $localStorage, FMSForm, loggit) {
 
 		/**
 		* @brief This is the FMS Form controller used on the FMS Form submission page and the previous FMS Form retrieval page
@@ -130,55 +117,84 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		* @param $scope and FMSForm, the factory which allows for the sending and retrieving of FMS forms
 		* @return void
 		*/
+		
+		$localStorage.show_fms_edit = false;
+		$scope.waiting_server_response = false;
 
-    $scope.$watch('data.selected_athlete', function(newVal) {
+    $scope.$watch('data.selected_athlete', function(new_selected_athlete_value) {
 
-      if (newVal === null) {
+      if (new_selected_athlete_value === null) {
         return;
       }
 
-      FMSForm.get($scope.data.selected_athlete.id)
+      FMSForm.get($localStorage.selected_athlete.id)
         .success(function(athletes_fms_forms_response) {
-          $scope.data.selected_athlete.fms_forms = athletes_fms_forms_response;
+          $localStorage.selected_athlete.fms_forms = athletes_fms_forms_response;
         })
-        .error(function() {
-          alert('error retrieving forms from the database');
+        .error(function(error_msg) {
+          alert('error retrieving forms from the database' + error_msg);
         });
 
     }, true);
 
     $scope.submitFMSForm = function() {
+		
+			$scope.waiting_server_response = true;
 
-      FMSForm.save($scope.data.selected_athlete.id, $scope.data.fms_form_data)
+      FMSForm.create($localStorage.selected_athlete.id, $localStorage.fms_form_data)
         .success(function(updated_fms_form_data) {
-          $scope.data.fms_form_data = {}; //reset the form data on successful FMS form submission
-          $scope.data.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
+          $localStorage.fms_form_data = {}; //reset the form data upon successful FMS form submission
+          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
+					$scope.waiting_server_response = false;
+					loggit.logSuccess("FMS Form successfully submitted");
         })
         .error(function() {
-          alert('error submitting form to database');
+          loggit.logSuccess("There was an error submitting the FMS Form");
+					$scope.waiting_server_response = false;
         });
     };
 		
 		$scope.deleteFMS = function() {
+		
+			$scope.waiting_server_response = true;
 
-      FMSForm.destroy($scope.data.selected_athlete.id, $scope.data.selected_fms_form.id)
+      FMSForm.destroy($localStorage.selected_athlete.id, $localStorage.selected_fms_form.id)
         .success(function(updated_fms_form_data) {
-          $scope.data.fms_form_data = {}; //reset the form data on successful FMS form submission
-          $scope.data.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
-					$scope.data.selected_fms_form = null;
+          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
+					$localStorage.selected_fms_form = null;
+					$scope.waiting_server_response = false;
+					loggit.logSuccess("FMS Form successfully submitted");
         })
         .error(function() {
-          alert('error deleting form from database');
+					loggit.logSuccess("There was an error while attempting to delete the FMS Form");
+					$scope.waiting_server_response = false;
+        });
+    };
+		
+		$scope.updateFMS = function() {
+		
+			$scope.waiting_server_response = true;
+
+      FMSForm.update($localStorage.selected_athlete.id, $localStorage.selected_fms_form)
+        .success(function(updated_fms_form_data) {
+          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
+					$scope.waiting_server_response = false;
+					$localStorage.show_fms_edit = false;
+					loggit.logSuccess("FMS Form successfully updated");
+        })
+        .error(function(error_response) {
+          loggit.logSuccess("There was an error while attempting to update the FMS Form");
+					$scope.waiting_server_response = false;
         });
     };
 
     $scope.fmsdisplay = function(form) {
-      $scope.data.selected_fms_form = form;
+      $localStorage.selected_fms_form = form;
     };
 
   }
-]).controller("MovementController", ["$scope", 'SportCategories', 'SportMovements',
-  function($scope, SportCategories, SportMovements) {
+]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements',
+  function($scope, $localStorage, SportCategories, SportMovements) {
 
 		/**
 		* @brief The movement controller takes care of retrieving sports categories and movement types from the backend, and uploading movement data from the suit
@@ -188,25 +204,18 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 
     SportCategories.get()
 		.success(function(sports_categories_response) {
-			$scope.data.sport_categories = sports_categories_response;
+			$localStorage.sport_categories = sports_categories_response;
 			
-			if ($scope.data.sport_categories.length > 0) {
-				$scope.data.selected_sport_category = $scope.data.sport_categories[0]; //select the first sports category by default
+			if ($localStorage.sport_categories.length > 0) {
+				$localStorage.selected_sport_category = $localStorage.sport_categories[0]; //select the first sports category by default
 			}
 		});
 
     $scope.$watch('data.selected_sport_category', function() {
-
-			console.log('selected sportcategory changd');		
-		
-      SportMovements.get($scope.data.selected_sport_category.id)
+			$localStorage.selected_sport_movement = null;
+      SportMovements.get($localStorage.selected_sport_category.id)
 			.success(function(sports_movements_response) {
-				$scope.data.sport_movements = sports_movements_response;
-
-				if ($scope.data.sport_movements.length > 0) {
-					$scope.data.selected_sport_movement = $scope.data.sport_movements[0]; //select the first sports movement by default
-				}
-
+				$localStorage.sport_movements = sports_movements_response;
 			});
 
     }, true);

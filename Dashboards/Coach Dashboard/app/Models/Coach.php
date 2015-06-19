@@ -33,7 +33,7 @@ class Coach extends Model implements AuthenticatableContract, CanResetPasswordCo
 	
 	public function teams()
     {
-        return $this->hasMany('App\Models\Teams');
+        return $this->hasMany('App\Models\Team');
     }
 
 }

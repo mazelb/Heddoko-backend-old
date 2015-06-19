@@ -3,7 +3,9 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Models\Coach;
 use Illuminate\Http\Request;
+use Auth;
 
 class TeamController extends Controller {
 
@@ -12,9 +14,9 @@ class TeamController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return Team::all(['name','id']);
+		return $request->user()->teams;		
 	}
 
 	/**
@@ -24,7 +26,7 @@ class TeamController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
 	}
 
 	/**
@@ -32,9 +34,18 @@ class TeamController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$activeCoach = $request->user();
+	
+		$newTeamData = [];
+		$newTeamData['coach_id'] = $activeCoach->id;
+		$newTeamData['name'] = $request->input('name');
+		
+		$newTeam = Team::create($newTeamData);
+		$newTeam->save();		
+		
+		return $activeCoach->teams;
 	}
 
 	/**

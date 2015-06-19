@@ -64,15 +64,22 @@ class DBSeeder extends Seeder {
 		$dummyTeam = Team::create(['name' => 'Stampeders', 'coach_id' => $dummyCoach->id]);
 		$dummyTeam = Team::create(['name' => 'Vikings', 'coach_id' => $dummyCoach->id]);	
 		
-		
-		
 		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete', 'team_id' => $dummyTeam->id]);
 		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete2', 'team_id' => $dummyTeam->id]);
 		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete3', 'team_id' => $dummyTeam->id]);
 		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete4', 'team_id' => $dummyTeam->id]);
 		$dummyAthlete = Athlete::create(['name' => 'Dummy Athlete5', 'team_id' => $dummyTeam->id]);
 		
-		
+		$sportcategory = SportCategory::create(['name' => 'Hockey']);
+		$sportcategory = SportCategory::create(['name' => 'Soccer']);
+		$sportcategory = SportCategory::create(['name' => 'Football']);
+		$sportcategory = SportCategory::create(['name' => 'Volleyball']);
+		$sportcategory = SportCategory::create(['name' => 'Basketball']);
+		$sportcategory = SportCategory::create(['name' => 'Tennis']);
+		$sportcategory = SportCategory::create(['name' => 'Golf']);
+		$sportcategory = SportCategory::create(['name' => 'Spinning']);
+		$sportcategory = SportCategory::create(['name' => 'Crossfit']);
+	
 		$sportcategory = SportCategory::create(['name' => 'Strength and Conditioning']);
 		
 		$sportmovement = SportMovement::create(['name' => 'Back Squat', 'sport_id' => $sportcategory->id]);

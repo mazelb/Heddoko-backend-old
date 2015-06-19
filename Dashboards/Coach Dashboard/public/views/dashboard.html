@@ -12,16 +12,13 @@
 	<div ng-controller="StepController">
 		<div ng-switch="current_dashboard_page">
 			<div ng-switch-when="0">
-				<div ng-include src="'views/dashboardpartial/0createteams.html'"></div>
+				<div ng-include src="'views/dashboardpartial/selectteam.html'"></div>
 			</div>
 			<div ng-switch-when="1">
-				<div ng-include src="'views/dashboardpartial/1selectteam.html'"></div>
+				<div ng-include src="'views/dashboardpartial/viewteammembers.html'"></div>
 			</div>
 			<div ng-switch-when="2">
-				<div ng-include src="'views/dashboardpartial/2viewteammembers.html'"></div>
-			</div>
-			<div ng-switch-when="3">
-				<div ng-include src="'views/dashboardpartial/3athleteprofile.html'"></div>
+				<div ng-include src="'views/dashboardpartial/athleteprofile.html'"></div>
 			</div>
 		</div>
 	</div>

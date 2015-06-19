@@ -33,7 +33,7 @@
 	</section>	
 	
 	<div class="row">
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 
 			<div class="panel panel-default">
 
@@ -46,7 +46,7 @@
 						
 					</div>
 
-					<div class="panel-body col-sm-8 ng-scope">
+					<div class="panel-body ng-scope">
 						<table class="table">
 							<thead>
 								<tr>
@@ -59,7 +59,7 @@
 							</thead>
 							<tbody>
 
-								<tr ng-repeat="fmsform in data.selected_athlete.fms_forms" ng-click="fmsdisplay(fmsform)">
+								<tr ng-repeat="fmsform in data.selected_athlete.fms_forms track by fmsform.id" ng-click="fmsdisplay(fmsform)">
 									<td>{{$index + 1}}</td>
 									<td>{{fmsform.created_at}}</td>
 									<td>
@@ -77,7 +77,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-4">
+		
+		<div class="col-sm-6">
 
 			<div class="panel panel-default">
 
@@ -89,45 +90,216 @@
 						</h3>						
 					</div>
 
-					<div class="panel-body col-sm-8 ng-scope" ng-show="data.selected_fms_form == null">
+					<div class="panel-body ng-scope" ng-show="data.selected_fms_form == null">
 						select an FMS form on the left to view details
 					</div>
 					
-					<div class="panel-body col-sm-8 ng-scope" ng-show="data.selected_fms_form != null">
-												
-						<ul class="list-unstyled">
-							<li>Final score <b class="pull-right">{{data.selected_fms_form.totalscore}}</b></li>
-							</br>
-							<li>Deep squat <b class="pull-right">{{data.selected_fms_form.deepsquat}}</b></li>
-							</br>
-							<li>Hurdle step L <b class="pull-right">{{data.selected_fms_form.Lhurdle}}</b></li>
-							<li>Hurdle step R <b class="pull-right">{{data.selected_fms_form.Rhurdle}}</b></li>
-							</br>
-							<li>Inline lunge L <b class="pull-right">{{data.selected_fms_form.Llunge}}</b></li>
-							<li>Inline lunge <b class="pull-right">{{data.selected_fms_form.Rlunge}}</b></li>
-							</br>
-							<li>Shoulder Mobility L <b class="pull-right">{{data.selected_fms_form.Lshoulder}}</b></li>
-							<li>Shoulder Mobility R <b class="pull-right">{{data.selected_fms_form.Rshoulder}}</b></li>
-							</br>
-							<li>Impingement clearing test L <b class="pull-right">{{data.selected_fms_form.Limpingement}}</b></li>
-							<li>Impingement clearing test R <b class="pull-right">{{data.selected_fms_form.Rimpingement}}</b></li>
-							</br>
-							<li>Active straight-leg raise L <b class="pull-right">{{data.selected_fms_form.Lactive}}</b></li>
-							<li>Active straight-leg raise R <b class="pull-right">{{data.selected_fms_form.Ractive}}</b></li>
-							</br>
-							<li>Trunk stability pushup <b class="pull-right">{{data.selected_fms_form.trunk}}</b></li>
-							</br>
-							<li>Press-up clearing test <b class="pull-right">{{data.selected_fms_form.press}}</b></li>
-							</br>
-							<li>Rotary stability L <b class="pull-right">{{data.selected_fms_form.Lrotary}}</b></li>
-							<li>Rotary stability R <b class="pull-right">{{data.selected_fms_form.Rrotary}}</b></li>
-							</br>
-							<li>Posterior rocking clearing test <b class="pull-right">{{data.selected_fms_form.posterior}}</li>
-							
-						</ul>
+					<label class="switch switch-info pull-right"><input type="checkbox" ng-model="data.show_fms_edit" class="ng-untouched ng-valid ng-dirty ng-valid-parse" ><i></i></label>
+					<!--make ^^ false by defualt-->
+					
+					<div class="panel-body ng-scope" ng-show="data.selected_fms_form != null">
+					
+						</br></br></br>			
+						<form class="form-horizontal ng-pristine ng-valid">
+							<fieldset ng-disabled="!data.show_fms_edit">
+								<div class="form-group">
+									<label for="" class="col-sm-2">Deep squat</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.deepsquat"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.deepsquat"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.deepsquat"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.deepsquat"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.deepsquatcomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Hurdle step L</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Lhurdle"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Lhurdle"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Lhurdle"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Lhurdle"><span>3</span></label>												
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Hurdle step R</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Rhurdle"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Rhurdle"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Rhurdle"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Rhurdle"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.hurdlecomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Inline lunge step L</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Llunge"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Llunge"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Llunge"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Llunge"><span>3</span></label>												
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Inline lunge step R</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Rlunge"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Rlunge"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Rlunge"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Rlunge"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.lungecomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Shoulder Mobility L</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Lshoulder"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Lshoulder"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Lshoulder"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Lshoulder"><span>3</span></label>												
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Shoulder Mobility R</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Rshoulder"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Rshoulder"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Rshoulder"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Rshoulder"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.shouldercomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Impingement clearing test L</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Limpingement"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Limpingement"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Limpingement"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Limpingement"><span>3</span></label>												
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Impingement clearing test R</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Rimpingement"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Rimpingement"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Rimpingement"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Rimpingement"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.impingementcomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Active straight-leg raise L</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Lactive"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Lactive"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Lactive"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Lactive"><span>3</span></label>												
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Active straight-leg raise R</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Ractive"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Ractive"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Ractive"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Ractive"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.activecomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Trunk stability pushup</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.trunk"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.trunk"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.trunk"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.trunk"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.trunkcomments">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="" class="col-sm-2">Press-up clearing test</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.press"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.press"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.press"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.press"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.presscomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Rotary stability L</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Lrotary"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Lrotary"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Lrotary"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Lrotary"><span>3</span></label>												
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Rotary stability R</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.Rrotary"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.Rrotary"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.Rrotary"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.Rrotary"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.rotarycomments">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="" class="col-sm-2">Posterior rocking clearing test</label>
+									<div class="col-sm-6">
+										<label class="ui-radio"><input type="radio" value="0" ng-model="data.selected_fms_form.posterior"><span>0</span></label>
+										<label class="ui-radio"><input type="radio" value="1" ng-model="data.selected_fms_form.posterior"><span>1</span></label>
+										<label class="ui-radio"><input type="radio" value="2" ng-model="data.selected_fms_form.posterior"><span>2</span></label>
+										<label class="ui-radio"><input type="radio" value="3" ng-model="data.selected_fms_form.posterior"><span>3</span></label>												
+									</div>
+									<div class="col-sm-4">
+											<input type="text" class="form-control" ng-model="data.selected_fms_form.posteriorcomments">
+									</div>
+								</div>
+							</fieldset>
+            </form>
+
+						<div ng-hide="!data.show_fms_edit">
+							<button type="button" class="btn btn-warning btn-sm" ng-click="deleteFMS();">Delete this FMS Form</button>
+							<button type="button" class="btn btn-info btn-sm" ng-click="updateFMS();">Update this FMS Form</button>
+						</div>
 						
-						<button type="button" class="btn btn-warning btn-sm" ng-click="deleteFMS();">Delete this FMS Form</button>
-						
+
 					</div>
 				</div>
 			</div>
@@ -135,29 +307,7 @@
 		
 	</div>
 	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

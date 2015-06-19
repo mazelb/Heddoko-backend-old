@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Models\Athlete;
 use Illuminate\Http\Request;
 
 class TeamAthleteController extends Controller {
@@ -33,9 +34,19 @@ class TeamAthleteController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($team_id, Request $request)
 	{
-		//
+	
+		$activeTeam = Team::find($team_id);
+
+		$newAthleteData = [];
+		$newAthleteData['team_id'] = $activeTeam->id;
+		$newAthleteData['name'] = $request->input('name');
+		
+		$newAthlete = Athlete::create($newAthleteData);
+		$newAthlete->save();		
+		
+		return $activeTeam->athletes;
 	}
 
 	/**

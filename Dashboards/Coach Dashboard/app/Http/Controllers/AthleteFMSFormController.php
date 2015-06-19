@@ -76,9 +76,48 @@ class AthleteFMSFormController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($athleteid, $fmsformid)
 	{
-		//
+		$input = Request::all();
+		
+		$FMS_form_to_be_updated = FMSForm::findOrFail($fmsformid);
+		
+		$FMSFormFields = array(
+			'deepsquat', 
+			'deepsquatcomments', 
+			'Lhurdle', 
+			'Rhurdle', 
+			'hurdlecomments', 
+			'Llunge',
+			'Rlunge',
+			'lungecomments',
+			'Lshoulder',
+			'Rshoulder',
+			'shouldercomments',
+			'Limpingement',
+			'Rimpingement',
+			'impingementcomments',
+			'Lactive',
+			'Ractive',
+			'activecomments',
+			'trunk', 
+			'trunkcomments',
+			'press',
+			'presscomments',
+			'Lrotary',
+			'Rrotary',
+			'rotarycomments',
+			'posterior',
+			'posteriorcomments');
+
+		foreach ($FMSFormFields as $field) {
+				$FMS_form_to_be_updated->$field = Request::get($field);
+		}
+
+		$FMS_form_to_be_updated->save();
+		
+
+		return Athlete::find($athleteid)->fmsforms;
 	}
 
 	/**

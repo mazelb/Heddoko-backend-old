@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-sm-12">
+
+		<section class="panel panel-box">
+
+			<div class="panel-bottom bg-reverse">
+				<br>
+				<ul class="list-justified text-center">
+					<li ng-repeat="athlete in data.athletes" ng-click="data.selected_athlete = athlete;forwardsStep();">
+						<p class="size-h2 color-info"><i class="fa fa-user"></i></p>
+						<p class="text-muted">{{athlete.name}}</p>
+					</li>
+				</ul>
+				<br>
+			</div>
+		</section>
+
+	</div>
+</div>
+
+<div class="row">
+
+	<div class="col-sm-6" ng-hide="waiting_server_response">
+
+		<div class="panel panel-default">
+
+			<div class="panel-body">
+
+				<div class="text-left col-sm-6">
+					<h3>
+						Add a new athlete to the team
+					</h3>
+					
+				</div>
+				</br></br></br>
+				
+				<form ng-submit="submitNewAthleteForm()">
+				
+					Athlete name:
+					<input ng-model="data.new_athlete_form_data.name">
+
+					<div class="form-group text-right">   
+						<button type="submit" class="btn btn-primary btn-lg">Add New</br>Athlete</button>
+					</div>
+				</form>
+								
+			</div>
+		</div>
+
+	</div>
+
+</div>

@@ -149,11 +149,6 @@ return [
 		* GAE Support Provider...
 		*/
 		'Shpasser\GaeSupportL5\GaeSupportServiceProvider',
-		
-		/*
-		* HTML Form Support Provider...
-		*/
-		'Collective\Html\HtmlServiceProvider',
 
 	],
 

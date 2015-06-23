@@ -11,7 +11,7 @@ angular.module("app.ui.services", []).factory("loggit", [
         var logIt;
         return toastr.options = {
             closeButton: !0,
-            positionClass: "toast-top-right",
+            positionClass: "toast-bottom-leftt",
             timeOut: "3000"
         }, logIt = function(message, type) {
             return toastr[type](message);

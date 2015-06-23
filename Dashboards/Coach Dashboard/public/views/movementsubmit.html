@@ -1,9 +1,9 @@
 <header class="page-main-header">
     <div class="row">
-        <div class="col-sm-6">
-            <h4>Movement Data</h4>
-            <p>Choose player and category of movement</p>
-        </div>
+			<div class="col-sm-6">
+				<h4>Movement Data</h4>
+				<p>Choose player and category of movement</p>
+			</div>
     </div>
 
 </header>
@@ -56,8 +56,8 @@
 						<div class="col-sm-6">
 
 							<select ng-model="data.selected_sport_category"
-									ng-selected="data.selected_sport_category"
-									ng-options="sport_category.name for sport_category in data.sport_categories track by sport_category.id" >
+											ng-selected="data.selected_sport_category"
+											ng-options="sport_category.name for sport_category in data.sport_categories track by sport_category.id" >
 							</select>   
 							
 							<div>
@@ -69,20 +69,27 @@
 
 							</div>
 
-                        </div>
+						</div>
 						<div class="col-sm-6">
 
 							category: {{data.selected_sport_movement.name}}   
 
 						</div>
+
+						<form ng-submit="uploadMovements();" accept-charset="UTF-8">
+							<div class="control-group">
+								<input multiple type="file" file-model="movement_files">
+							</div>
+							<input class="send-btn" type="submit" value="Submit">
+						</form>
+
 					</div>
+
 				</div>
 
 			</div>
-
-			
 		</div>
+
 	</section>
 	
-
 </div>

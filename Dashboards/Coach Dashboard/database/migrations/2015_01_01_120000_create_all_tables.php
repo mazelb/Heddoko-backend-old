@@ -109,9 +109,23 @@ class CreateAllTables extends Migration {
 			
 			$table->integer('athlete_id')->unsigned();
 			$table->foreign('athlete_id')->references('id')->on('athletes');
+			$table->integer('fmsform_id')->unsigned()->nullable();
+			$table->foreign('fmsform_id')->references('id')->on('fmsforms');
+			
 			$table->integer('sportmovement_id')->unsigned();
 			$table->foreign('sportmovement_id')->references('id')->on('sportmovements');
 			$table->string('name');
+
+			$table->timestamps();
+		});
+		
+		Schema::create('movementrawentries', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->integer('movement_id')->unsigned();
+			$table->foreign('movement_id')->references('id')->on('movements');
+			$table->string('filename')->unique();
 
 			$table->timestamps();
 		});

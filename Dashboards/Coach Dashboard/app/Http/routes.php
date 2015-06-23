@@ -40,5 +40,3 @@ Route::controllers([
 //@todo: must keep laravel up-to-date, get on mailing list for laravel
 //@todo: ssl? GAE
 //@todo: sessionid/token to ensure current user belongs to current sessions (laravel equiv.)
-
-Route::resource('file', 'TestFileUploadParseController');

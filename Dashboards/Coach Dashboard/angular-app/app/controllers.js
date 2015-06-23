@@ -193,8 +193,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     };
 
   }
-]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements',
-  function($scope, $localStorage, SportCategories, SportMovements) {
+]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements', 'Movements', "loggit",
+  function($scope, $localStorage, SportCategories, SportMovements, Movements, loggit) {
 
 		/**
 		* @brief The movement controller takes care of retrieving sports categories and movement types from the backend, and uploading movement data from the suit
@@ -219,7 +219,18 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 			});
 
     }, true);
+		
+		$scope.uploadMovements = function() {
 
+		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.movement_files)
+			.error(function() {
+				loggit.logError('error uploading movements to server');
+			})
+			.success(function() {
+				loggit.logSuccess('movements succesfully uploaded to server');
+			});
+			
+    };
   }
 ]);
  

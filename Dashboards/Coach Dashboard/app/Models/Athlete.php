@@ -8,12 +8,17 @@ class Athlete extends Model {
 	protected $fillable = ['team_id', 'name', 'age'];
 	
 	public function fmsforms()
-    {
-        return $this->hasMany('App\Models\FMSForm');
-    }
+	{
+		return $this->hasMany('App\Models\FMSForm');
+	}
 	
 	public function movements()
-    {
-        return $this->hasMany('App\Models\Movement');
-    }
+	{
+		return $this->hasMany('App\Models\Movement');
+	}
+	
+	public function team()
+	{
+		return $this->belongsTo('App\Models\Team');
+	}
 }

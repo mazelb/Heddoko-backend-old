@@ -177,4 +177,33 @@
 		}
 		
 	};
+}).factory('Movements', function($http) {
+
+	return {
+	
+		/**
+		* @brief Movements.upload method used for uploading multiple movement files to the back-end
+		* @param id of athlete who conducted the movement(s), and the array of files to upload.
+		* @return null
+		*/
+		
+		upload : function(athlete_id, sport_movement_id, movement_files){
+
+			var fd = new FormData();
+			
+			fd.append('sportMovementID', sport_movement_id);
+			
+			for (i = 0; i < movement_files.length; i++) { 
+				fd.append('movements[]', movement_files[i]);
+			}
+			
+			return $http.post('/api/athletes/' + athlete_id + '/movements', fd, {
+				transformRequest: angular.identity,
+				headers: {'Content-Type': undefined}
+			});
+
+		}
+		
+	};
+			
 });

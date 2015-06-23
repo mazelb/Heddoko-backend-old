@@ -10405,6 +10405,35 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		}
 		
 	};
+}).factory('Movements', function($http) {
+
+	return {
+	
+		/**
+		* @brief Movements.upload method used for uploading multiple movement files to the back-end
+		* @param id of athlete who conducted the movement(s), and the array of files to upload.
+		* @return null
+		*/
+		
+		upload : function(athlete_id, sport_movement_id, movement_files){
+
+			var fd = new FormData();
+			
+			fd.append('sportMovementID', sport_movement_id);
+			
+			for (i = 0; i < movement_files.length; i++) { 
+				fd.append('movements[]', movement_files[i]);
+			}
+			
+			return $http.post('/api/athletes/' + athlete_id + '/movements', fd, {
+				transformRequest: angular.identity,
+				headers: {'Content-Type': undefined}
+			});
+
+		}
+		
+	};
+			
 });;/**
  * @file controllers.js
  * @brief This file controls the calls to the back end and the navigation within the dashboard
@@ -10600,8 +10629,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     };
 
   }
-]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements',
-  function($scope, $localStorage, SportCategories, SportMovements) {
+]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements', 'Movements', "loggit",
+  function($scope, $localStorage, SportCategories, SportMovements, Movements, loggit) {
 
 		/**
 		* @brief The movement controller takes care of retrieving sports categories and movement types from the backend, and uploading movement data from the suit
@@ -10626,7 +10655,18 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 			});
 
     }, true);
+		
+		$scope.uploadMovements = function() {
 
+		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.movement_files)
+			.error(function() {
+				loggit.logError('error uploading movements to server');
+			})
+			.success(function() {
+				loggit.logSuccess('movements succesfully uploaded to server');
+			});
+			
+    };
   }
 ]);
  
@@ -12107,9 +12147,7 @@ angular.module("app.ui.ctrls", []).controller("NotifyCtrl", ["$scope", "loggit",
       });
     };
   }
-]);;
-
-/*
+]);;/*
  Charting directives
  Provides custom directives for charting elements
  */
@@ -12616,7 +12654,30 @@ angular.module("app.ui.form.directives", []).directive("uiRangeSlider", [
                 }
             };
         }
-    ]);
+    ]).directive('fileModel', ['$parse', function ($parse) {
+		
+		/**
+		* @brief This is a custom Angular directive called 'file-model'
+		* It solves the problem that Angular doesn't have a built-in directive for binding inputs of type file (single or multi-file uploads) to a model.
+		* This code block allows us to now use 'file-model' as a directive for file inputs, allowing us to bind the uploaded files to a model and then reference them to send to the back-end
+		* @param void
+		* @return void
+		*/
+		 
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files); //this is the key line, where the files of the file input are bound to the scope
+                });
+            });
+        }
+    };
+}]);
 
 ;/* jshint ignore:start */
 (function(angular, factory) {

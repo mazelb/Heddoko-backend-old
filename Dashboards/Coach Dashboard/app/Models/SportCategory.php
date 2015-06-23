@@ -9,6 +9,6 @@ class SportCategory extends Model {
 	
 	public function sportmovements()
     {
-        return $this->hasMany('App\Models\SportMovement', 'sport_id');
+			return $this->hasMany('App\Models\SportMovement', 'sport_id');
     }
 }

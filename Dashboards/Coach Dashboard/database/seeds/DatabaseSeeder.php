@@ -99,7 +99,7 @@ class DBSeeder extends Seeder {
 		$sportmovement = SportMovement::create(['name' => 'YogaFakeMvmnt1', 'sport_id' => $sportcategory->id]);
 		$sportmovement = SportMovement::create(['name' => 'YogaFakeMvmnt3', 'sport_id' => $sportcategory->id]);
 
-		$movementElbow = Movement::create(['name' => 'Elbow Flex', 'athlete_id' => $dummyAthlete->id, 'sportmovement_id' => $sportmovement->id]);
+		$movementElbow = Movement::create(['name' => 'Elbow Flex', 'athlete_id' => $dummyAthlete->id, 'sportmovement_id' => $sportmovement->id, 'fmsform_id' => null]);
 		
 		$frame1 = Frame::create(['movement_id' => $movementElbow->id]);
 		

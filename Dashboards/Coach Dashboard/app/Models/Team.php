@@ -8,7 +8,12 @@ class Team extends Model {
 	protected $fillable = ['coach_id', 'name'];
 	
 	public function athletes()
-    {
-        return $this->hasMany('App\Models\Athlete');
-    }
+	{
+		return $this->hasMany('App\Models\Athlete');
+	}
+	
+	public function coach()
+	{
+		return $this->belongsTo('App\Models\Coach');
+	}
 }

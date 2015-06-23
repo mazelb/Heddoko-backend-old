@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Movement;
 
 class FMSForm extends Model {
 
@@ -33,5 +34,14 @@ class FMSForm extends Model {
 		'rotarycomments',
 		'posterior',
 		'posteriorcomments'];
-
+		
+		public function movements()
+    {
+			return $this->hasMany('App\Models\Movement');
+    }
+		
+		public function athlete()
+    {
+			return $this->belongsTo('App\Models\Athlete');
+    }
 }

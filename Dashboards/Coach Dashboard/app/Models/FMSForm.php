@@ -35,13 +35,4 @@ class FMSForm extends Model {
 		'posterior',
 		'posteriorcomments'];
 		
-		public function movements()
-    {
-			return $this->hasMany('App\Models\Movement');
-    }
-		
-		public function athlete()
-    {
-			return $this->belongsTo('App\Models\Athlete');
-    }
 }

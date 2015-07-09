@@ -3,22 +3,17 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Athlete extends Model {
-    
+
 	protected $table = 'athletes';
-	protected $fillable = ['team_id', 'name', 'age'];
-	
-	public function fmsforms()
-	{
-		return $this->hasMany('App\Models\FMSForm');
-	}
-	
-	public function movements()
-	{
-		return $this->hasMany('App\Models\Movement');
-	}
+	protected $fillable = ['first_name', 'last_name', 'team_id', 'user_id', 'age', 'height_cm', 'weight_cm', 'primary_sport', 'primary_position', 'hand_leg_dominance', 'previous_injuries', 'underlying_medical', 'notes'];
 	
 	public function team()
 	{
 		return $this->belongsTo('App\Models\Team');
+	}
+	
+	public function user()
+	{
+		return $this->belongsTo('App\Models\User');
 	}
 }

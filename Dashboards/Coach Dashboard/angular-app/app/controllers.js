@@ -20,9 +20,9 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 
     $scope.$watch('data.selected_team', function(new_team_value, old_team_value) {
 		
-			if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
-        return;
-      }
+		if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
+			return;
+		  }
 			
       $localStorage.athletes = $localStorage.selected_athlete = null;
 			
@@ -51,9 +51,12 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		$scope.submitNewTeamForm = function() {		
 
 			$scope.waiting_server_response = true;
-		
+			
+			$localStorage.new_team_form_data.sport_id = $localStorage.selected_sport.id;
+			
 			Teams.create($localStorage.new_team_form_data)
-			.success(function(updated_teams_data) {
+			.success(function(updated_teams_data) {	
+				$localStorage.new_team_form_data = null;
 				$localStorage.teams = updated_teams_data; //store the updated teams list sent back by the server
 				$scope.waiting_server_response = false;
 				loggit.logSuccess("New Team successfully created");
@@ -65,7 +68,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 			$scope.waiting_server_response = true;
 		
 			Athletes.create($localStorage.selected_team.id, $localStorage.new_athlete_form_data)
-			.success(function(updated_athletes_data) {
+			.success(function(updated_athletes_data) {			
+				$localStorage.new_athlete_form_data = null;
 				$localStorage.athletes = updated_athletes_data;
 				$scope.waiting_server_response = false;
 				loggit.logSuccess("New Athlete successfully created");
@@ -120,6 +124,7 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		
 		$localStorage.show_fms_edit = false;
 		$scope.waiting_server_response = false;
+		$localStorage.selected_fms_form = null;
 
     $scope.$watch('data.selected_athlete', function(new_selected_athlete_value) {
 
@@ -132,7 +137,7 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
           $localStorage.selected_athlete.fms_forms = athletes_fms_forms_response;
         })
         .error(function(error_msg) {
-          alert('error retrieving forms from the database' + error_msg);
+          console.log('error retrieving forms from the database' + error_msg);
         });
 
     }, true);
@@ -140,34 +145,24 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     $scope.submitFMSForm = function() {
 		
 			$scope.waiting_server_response = true;
+			
+			console.debug($localStorage.fms_form_data);
 
-      FMSForm.create($localStorage.selected_athlete.id, $localStorage.fms_form_data)
+      FMSForm.create($localStorage.selected_athlete.id, $scope.data.fms_form_data, $scope.data.fms_form_movement_files)
         .success(function(updated_fms_form_data) {
+				
+					console.log(updated_fms_form_data);
+					
+					
+				
           $localStorage.fms_form_data = {}; //reset the form data upon successful FMS form submission
           $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
 					$scope.waiting_server_response = false;
 					loggit.logSuccess("FMS Form successfully submitted");
         })
-        .error(function() {
-          loggit.logSuccess("There was an error submitting the FMS Form");
-					$scope.waiting_server_response = false;
-        });
-    };
-		
-		$scope.deleteFMS = function() {
-		
-			$scope.waiting_server_response = true;
-
-      FMSForm.destroy($localStorage.selected_athlete.id, $localStorage.selected_fms_form.id)
-        .success(function(updated_fms_form_data) {
-          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
-					$localStorage.selected_fms_form = null;
-					$scope.waiting_server_response = false;
-					loggit.logSuccess("FMS Form successfully submitted");
-        })
-        .error(function() {
-					loggit.logSuccess("There was an error while attempting to delete the FMS Form");
-					$scope.waiting_server_response = false;
+        .error(function(err) {
+			loggit.logError("There was an error submitting the FMS Form");
+			$scope.waiting_server_response = false;
         });
     };
 		
@@ -182,8 +177,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 					$localStorage.show_fms_edit = false;
 					loggit.logSuccess("FMS Form successfully updated");
         })
-        .error(function(error_response) {
-          loggit.logSuccess("There was an error while attempting to update the FMS Form");
+        .error(function() {
+          loggit.logError("There was an error while attempting to update the FMS Form");
 					$scope.waiting_server_response = false;
         });
     };
@@ -191,46 +186,58 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     $scope.fmsdisplay = function(form) {
       $localStorage.selected_fms_form = form;
     };
-
   }
-]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements', 'Movements', "loggit",
-  function($scope, $localStorage, SportCategories, SportMovements, Movements, loggit) {
+]).controller("SportsController", ["$scope", '$localStorage', 'Sports', 'SportMovements',
+  function($scope, $localStorage, Sports, SportMovements) {
 
 		/**
-		* @brief The movement controller takes care of retrieving sports categories and movement types from the backend, and uploading movement data from the suit
-		* @param $scope, SportCategories, and SportMovements
+		* @brief The sports controller takes care of retrieving sports and movement types from the back-end
+		* @param $scope, Sports, and SportMovements
 		* @return void
 		*/
-
-    SportCategories.get()
-		.success(function(sports_categories_response) {
-			$localStorage.sport_categories = sports_categories_response;
+		
+    Sports.get() //retrieve the list of all sports from the back-end
+		.success(function(sports_response) {
+			$localStorage.sports = sports_response;
 			
-			if ($localStorage.sport_categories.length > 0) {
-				$localStorage.selected_sport_category = $localStorage.sport_categories[0]; //select the first sports category by default
+			if ($localStorage.sports.length > 0) {
+				$localStorage.selected_sport = $localStorage.sports[0]; //select the first sport by default
 			}
 		});
 
-    $scope.$watch('data.selected_sport_category', function() {
-			$localStorage.selected_sport_movement = null;
-      SportMovements.get($localStorage.selected_sport_category.id)
+    $scope.$watch('data.selected_sport', function() {
+			$localStorage.selected_sport_movement = $localStorage.sport_movements = null;
+      SportMovements.get($localStorage.selected_sport.id)
 			.success(function(sports_movements_response) {
 				$localStorage.sport_movements = sports_movements_response;
 			});
 
     }, true);
-		
-		$scope.uploadMovements = function() {
+  }
+]).controller("MovementController", ["$scope", '$localStorage', 'Movements', "loggit",
+  function($scope, $localStorage, Movements, loggit) {
 
-		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.movement_files)
-			.error(function() {
-				loggit.logError('error uploading movements to server');
-			})
-			.success(function() {
-				loggit.logSuccess('movements succesfully uploaded to server');
-			});
-			
+	/**
+	* @brief The movement controller takes care of uploading movement data (files) from the suit
+	* @param $scope, Movements
+	* @return void
+	*/
+	
+	$scope.uploadMovements = function() {
+
+		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.data.new_movement_submission_data)
+		.error(function(err_msg) {
+			loggit.logError('error uploading movements to server');
+			console.log(err_msg);
+		})
+		.success(function(succ_msg) {
+			$localStorage.selected_sport_movement = $localStorage.new_movement_submission_data = null;
+			loggit.logSuccess('movements succesfully uploaded to server');
+			console.log(succ_msg);
+		});
+
     };
+	
   }
 ]);
  

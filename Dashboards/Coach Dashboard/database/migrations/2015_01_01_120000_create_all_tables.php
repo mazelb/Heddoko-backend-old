@@ -12,45 +12,106 @@ class CreateAllTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('coaches', function(Blueprint $table)
+		Schema::create('admins', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->string('email')->unique();
-			$table->string('password', 60);
+			$table->string('first_name');
+			$table->string('last_name');
+			
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+
 			$table->rememberToken();
 			$table->timestamps();
 		});
 		
+		Schema::create('coaches', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->string('first_name');
+			$table->string('last_name');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			
+			$table->rememberToken();
+			$table->timestamps();
+		});
+		
+		Schema::create('sports', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->string('name');
+
+			$table->timestamps();
+		});
+
 		Schema::create('teams', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
 			$table->integer('coach_id')->unsigned();
 			$table->foreign('coach_id')->references('id')->on('coaches');
+			$table->integer('sport_id')->unsigned();
+			$table->foreign('sport_id')->references('id')->on('sports');
+			$table->string('name');
 
 			$table->timestamps();
 		});
 		
+		Schema::create('sportmovements', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->integer('sport_id')->unsigned();
+			$table->foreign('sport_id')->references('id')->on('sports');
+			$table->string('name');
+
+			$table->timestamps();
+		});
+
 		Schema::create('athletes', function(Blueprint $table)
 		{
 			$table->increments('id');
 			
-			$table->integer('team_id')->unsigned();
+			$table->string('first_name');
+			$table->string('last_name');
+			
+			$table->integer('user_id')->unsigned()->nullable();
+			$table->foreign('user_id')->references('id')->on('users');			
+			$table->integer('team_id')->unsigned()->nullable();
 			$table->foreign('team_id')->references('id')->on('teams');
 			
-			$table->string('name');
 			$table->integer('age')->unsigned();
+			$table->integer('height_cm')->unsigned();
+			$table->integer('weight_cm')->unsigned();
+			$table->string('primary_sport');
+			$table->string('primary_position');
+			$table->string('hand_leg_dominance');
+			$table->string('previous_injuries');
+			$table->string('underlying_medical');
+			$table->string('notes');
 			
 			$table->timestamps();
 		});	
 		
+		Schema::create('movementsubmissions', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->integer('coach_id')->unsigned();
+			$table->foreign('coach_id')->references('id')->on('coaches');
+			$table->integer('athlete_id')->unsigned();
+			$table->foreign('athlete_id')->references('id')->on('athletes');
+
+			$table->string('comment');
+
+			$table->timestamps();
+		});
+		
 		Schema::create('fmsforms', function(Blueprint $table)
 		{
 			$table->increments('id');
-
-			$table->integer('athlete_id')->unsigned();
-			$table->foreign('athlete_id')->references('id')->on('athletes');
 
 			$table->tinyInteger('deepsquat');
 			$table->string('deepsquatcomments', 255);
@@ -83,37 +144,33 @@ class CreateAllTables extends Migration {
 			$table->timestamps();
 		});
 		
-		Schema::create('sportcategories', function(Blueprint $table)
+		Schema::create('fmsformsubmissions', function(Blueprint $table)
 		{
 			$table->increments('id');
 			
-			$table->string('name');
+			$table->integer('coach_id')->unsigned();
+			$table->foreign('coach_id')->references('id')->on('coaches');
+			$table->integer('athlete_id')->unsigned();
+			$table->foreign('athlete_id')->references('id')->on('athletes');
+			$table->integer('fmsform_id')->unsigned();
+			$table->foreign('fmsform_id')->references('id')->on('fmsforms');
+			
+			$table->string('comment');
 
 			$table->timestamps();
 		});
 		
-		Schema::create('sportmovements', function(Blueprint $table)
-		{
-			$table->increments('id');
-			
-			$table->integer('sport_id')->unsigned();
-			$table->foreign('sport_id')->references('id')->on('sportcategories');
-			$table->string('name');
-
-			$table->timestamps();
-		});
-
 		Schema::create('movements', function(Blueprint $table)
 		{
 			$table->increments('id');
 			
-			$table->integer('athlete_id')->unsigned();
-			$table->foreign('athlete_id')->references('id')->on('athletes');
-			$table->integer('fmsform_id')->unsigned()->nullable();
-			$table->foreign('fmsform_id')->references('id')->on('fmsforms');
-			
-			$table->integer('sportmovement_id')->unsigned();
+			$table->integer('sportmovement_id')->unsigned()->nullable();
 			$table->foreign('sportmovement_id')->references('id')->on('sportmovements');
+			$table->integer('movementsub_id')->unsigned()->nullable();
+			$table->foreign('movementsub_id')->references('id')->on('movementsubmissions');			
+			$table->integer('fmsformsub_id')->unsigned()->nullable();
+			$table->foreign('fmsformsub_id')->references('id')->on('fmsformsubmissions');
+			
 			$table->string('name');
 
 			$table->timestamps();
@@ -254,9 +311,10 @@ class CreateAllTables extends Migration {
 		Schema::drop('athletes');
 		Schema::drop('teams');
 		Schema::drop('coaches');
+		Schema::drop('admins');
 		
 		Schema::drop('sportmovements');
-		Schema::drop('sportcategories');
+		Schema::drop('sports');
 	}
 
 }

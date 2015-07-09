@@ -12,8 +12,8 @@ class SportMovement extends Model {
 		return $this->hasMany('App\Models\Movement');
 	}
 	
-	public function sportcategory()
+	public function sport()
 	{
-		return $this->belongsTo('App\Models\SportCategory', 'sport_id');
+		return $this->belongsTo('App\Models\Sport', 'sport_id');
 	}
 }

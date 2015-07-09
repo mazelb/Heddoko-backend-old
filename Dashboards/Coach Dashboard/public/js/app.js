@@ -10279,7 +10279,7 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		
 		/**
 		* @brief This is the Teams.destroy method used for removing a team under the active user
-		* @param id of the FMS Form to be destroyed
+		* @param id of the team to be destroyed
 		* @return void
 		*/
 		
@@ -10310,6 +10310,7 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		*/
 		
 		create : function(team_id, new_athlete_form_data) {
+		console.log(new_athlete_form_data);
 			return $http({
 				method: 'POST',
 				url: '/api/teams/' + team_id + '/athletes',
@@ -10325,7 +10326,7 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 	return {
 	
 		/**
-		* @brief FMSForm.get method used for fetching the fmsform belonging to a supplied athlete
+		* @brief FMSForm.get method used for fetching the fmsforms belonging to a supplied athlete
 		* @param id of athlete
 		* @return list of FMS Forms belonging to supplied athlete
 		*/
@@ -10339,14 +10340,66 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		* @param the id of the athlete under which to add the new FMS Form, and the new FMS Form details
 		* @return upon a successful addition of a new team, the back-end returns an updated FMS Form list
 		*/
+
+		create : function(athlete_id, form_data, fms_form_movement_files) {
 		
-		create : function(athlete_id, form_data) {
-			return $http({
-				method: 'POST',
-				url: '/api/athletes/' + athlete_id + '/fmsforms',
-				headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-				data: $.param(form_data)
+			var fd = new FormData();
+			
+			if (fms_form_movement_files){
+				if (fms_form_movement_files.deepsquat_movement_file) fd.append('deepsquat_movement_file', fms_form_movement_files.deepsquat_movement_file[0]);
+				if (fms_form_movement_files.Lhurdle_movement_file) fd.append('Lhurdle_movement_file', fms_form_movement_files.Lhurdle_movement_file[0]);
+				if (fms_form_movement_files.Rhurdle_movement_file) fd.append('Rhurdle_movement_file', fms_form_movement_files.Rhurdle_movement_file[0]);
+				if (fms_form_movement_files.Llunge_movement_file) fd.append('Llunge_movement_file', fms_form_movement_files.Llunge_movement_file[0]);
+				if (fms_form_movement_files.Rlunge_movement_file) fd.append('Rlunge_movement_file', fms_form_movement_files.Rlunge_movement_file[0]);
+				if (fms_form_movement_files.Lshoulder_movement_file) fd.append('Lshoulder_movement_file', fms_form_movement_files.Lshoulder_movement_file[0]);
+				if (fms_form_movement_files.Rshoulder_movement_file) fd.append('Rshoulder_movement_file', fms_form_movement_files.Rshoulder_movement_file[0]);
+				if (fms_form_movement_files.Limpingement_movement_file) fd.append('Limpingement_movement_file', fms_form_movement_files.Limpingement_movement_file[0]);
+				if (fms_form_movement_files.Rimpingement_movement_file) fd.append('Rimpingement_movement_file', fms_form_movement_files.Rimpingement_movement_file[0]);
+				if (fms_form_movement_files.Lactive_movement_file) fd.append('Lactive_movement_file', fms_form_movement_files.Lactive_movement_file[0]);
+				if (fms_form_movement_files.Ractive_movement_file) fd.append('Ractive_movement_file', fms_form_movement_files.Ractive_movement_file[0]);
+				if (fms_form_movement_files.trunk_movement_file) fd.append('trunk_movement_file', fms_form_movement_files.trunk_movement_file[0]);
+				if (fms_form_movement_files.press_movement_file) fd.append('press_movement_file', fms_form_movement_files.press_movement_file[0]);
+				if (fms_form_movement_files.Lrotary_movement_file) fd.append('Lrotary_movement_file', fms_form_movement_files.Lrotary_movement_file[0]);
+				if (fms_form_movement_files.Rrotary_movement_file) fd.append('Rrotary_movement_file', fms_form_movement_files.Rrotary_movement_file[0]);
+				if (fms_form_movement_files.posterior_movement_file) fd.append('posterior_movement_file', fms_form_movement_files.posterior_movement_file[0]);
+			}
+
+			//attach the numerical values of the fms form
+			
+			fd.append('deepsquat', form_data.deepsquat);
+			fd.append('deepsquatcomments', form_data.deepsquatcomments);
+			fd.append('Lhurdle', form_data.Lhurdle);
+			fd.append('Rhurdle', form_data.Rhurdle);
+			fd.append('hurdlecomments', form_data.hurdlecomments);
+			fd.append('Llunge', form_data.Llunge);
+			fd.append('Rlunge', form_data.Rlunge);
+			fd.append('lungecomments', form_data.lungecomments);
+			fd.append('Lshoulder', form_data.Lshoulder);
+			fd.append('Rshoulder', form_data.Rshoulder);
+			fd.append('shouldercomments', form_data.shouldercomments);
+			fd.append('Limpingement', form_data.Limpingement);
+			fd.append('Rimpingement', form_data.Rimpingement);
+			fd.append('impingementcomments', form_data.impingementcomments);
+			fd.append('Lactive', form_data.Lactive);
+			fd.append('Ractive', form_data.Ractive);
+			fd.append('activecomments', form_data.activecomments);
+			fd.append('trunk', form_data.trunk);
+			fd.append('trunkcomments', form_data.trunkcomments);
+			fd.append('press', form_data.press);
+			fd.append('presscomments', form_data.presscomments);
+			fd.append('Lrotary', form_data.Lrotary);
+			fd.append('Rrotary', form_data.Rrotary);
+			fd.append('rotarycomments', form_data.rotarycomments);
+			fd.append('posterior', form_data.posterior);
+			fd.append('posteriorcomments', form_data.posteriorcomments);
+			
+			fd.append('comment', form_data.comment);
+			
+			return $http.post('/api/athletes/' + athlete_id + '/fmsforms', fd, {
+				transformRequest: angular.identity,
+				headers: {'Content-Type': undefined}
 			});
+			
 		},
 		
 		/**
@@ -10367,7 +10420,7 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		/**
 		* @brief This is the FMSForm.destroy method used for deleting an FMS Form
 		* @param id of the FMS Form to be destroyed
-		* @return upon a successful deletetion of an FMS Form, the back-end returns a updated FMS Form list
+		* @return upon a successful deletion of an FMS Form, the back-end returns a updated FMS Form list
 		*/
 		
 		destroy : function(athleteid, form_id) {
@@ -10375,7 +10428,7 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		}
 	};
 
-}).factory('SportCategories', function($http) {
+}).factory('Sports', function($http) {
 
 	return {
 	
@@ -10386,7 +10439,7 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		*/
 
 		get : function() {
-			return $http.get('/api/sportcategories');
+			return $http.get('/api/sports');
 		}
 	};
 
@@ -10400,8 +10453,8 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		* @return list of sport movements belonging to supplied sport category
 		*/
 		
-		get : function(sport_category_id) {
-			return $http.get('/api/sportcategories/' + sport_category_id + '/sportmovements');
+		get : function(sport_id) {
+			return $http.get('/api/sports/' + sport_id + '/sportmovements');
 		}
 		
 	};
@@ -10415,14 +10468,15 @@ angular.module('countTo', []).controller("countTo", ["$scope",
 		* @return null
 		*/
 		
-		upload : function(athlete_id, sport_movement_id, movement_files){
+		upload : function(athlete_id, sport_id, form_data){
 
 			var fd = new FormData();
 			
-			fd.append('sportMovementID', sport_movement_id);
-			
-			for (i = 0; i < movement_files.length; i++) { 
-				fd.append('movements[]', movement_files[i]);
+			fd.append('sportID', sport_id);
+			fd.append('comment', form_data.comment);
+
+			for (i = 0; i < form_data.movement_files.length; i++) { 
+				fd.append('movements[]', form_data.movement_files[i]);
 			}
 			
 			return $http.post('/api/athletes/' + athlete_id + '/movements', fd, {
@@ -10456,9 +10510,9 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 
     $scope.$watch('data.selected_team', function(new_team_value, old_team_value) {
 		
-			if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
-        return;
-      }
+		if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
+			return;
+		  }
 			
       $localStorage.athletes = $localStorage.selected_athlete = null;
 			
@@ -10487,9 +10541,12 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		$scope.submitNewTeamForm = function() {		
 
 			$scope.waiting_server_response = true;
-		
+			
+			$localStorage.new_team_form_data.sport_id = $localStorage.selected_sport.id;
+			
 			Teams.create($localStorage.new_team_form_data)
-			.success(function(updated_teams_data) {
+			.success(function(updated_teams_data) {	
+				$localStorage.new_team_form_data = null;
 				$localStorage.teams = updated_teams_data; //store the updated teams list sent back by the server
 				$scope.waiting_server_response = false;
 				loggit.logSuccess("New Team successfully created");
@@ -10501,7 +10558,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 			$scope.waiting_server_response = true;
 		
 			Athletes.create($localStorage.selected_team.id, $localStorage.new_athlete_form_data)
-			.success(function(updated_athletes_data) {
+			.success(function(updated_athletes_data) {			
+				$localStorage.new_athlete_form_data = null;
 				$localStorage.athletes = updated_athletes_data;
 				$scope.waiting_server_response = false;
 				loggit.logSuccess("New Athlete successfully created");
@@ -10556,6 +10614,7 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		
 		$localStorage.show_fms_edit = false;
 		$scope.waiting_server_response = false;
+		$localStorage.selected_fms_form = null;
 
     $scope.$watch('data.selected_athlete', function(new_selected_athlete_value) {
 
@@ -10568,7 +10627,7 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
           $localStorage.selected_athlete.fms_forms = athletes_fms_forms_response;
         })
         .error(function(error_msg) {
-          alert('error retrieving forms from the database' + error_msg);
+          console.log('error retrieving forms from the database' + error_msg);
         });
 
     }, true);
@@ -10576,34 +10635,24 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     $scope.submitFMSForm = function() {
 		
 			$scope.waiting_server_response = true;
+			
+			console.debug($localStorage.fms_form_data);
 
-      FMSForm.create($localStorage.selected_athlete.id, $localStorage.fms_form_data)
+      FMSForm.create($localStorage.selected_athlete.id, $scope.data.fms_form_data, $scope.data.fms_form_movement_files)
         .success(function(updated_fms_form_data) {
+				
+					console.log(updated_fms_form_data);
+					
+					
+				
           $localStorage.fms_form_data = {}; //reset the form data upon successful FMS form submission
           $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
 					$scope.waiting_server_response = false;
 					loggit.logSuccess("FMS Form successfully submitted");
         })
-        .error(function() {
-          loggit.logSuccess("There was an error submitting the FMS Form");
-					$scope.waiting_server_response = false;
-        });
-    };
-		
-		$scope.deleteFMS = function() {
-		
-			$scope.waiting_server_response = true;
-
-      FMSForm.destroy($localStorage.selected_athlete.id, $localStorage.selected_fms_form.id)
-        .success(function(updated_fms_form_data) {
-          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
-					$localStorage.selected_fms_form = null;
-					$scope.waiting_server_response = false;
-					loggit.logSuccess("FMS Form successfully submitted");
-        })
-        .error(function() {
-					loggit.logSuccess("There was an error while attempting to delete the FMS Form");
-					$scope.waiting_server_response = false;
+        .error(function(err) {
+			loggit.logError("There was an error submitting the FMS Form");
+			$scope.waiting_server_response = false;
         });
     };
 		
@@ -10618,8 +10667,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 					$localStorage.show_fms_edit = false;
 					loggit.logSuccess("FMS Form successfully updated");
         })
-        .error(function(error_response) {
-          loggit.logSuccess("There was an error while attempting to update the FMS Form");
+        .error(function() {
+          loggit.logError("There was an error while attempting to update the FMS Form");
 					$scope.waiting_server_response = false;
         });
     };
@@ -10627,46 +10676,58 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     $scope.fmsdisplay = function(form) {
       $localStorage.selected_fms_form = form;
     };
-
   }
-]).controller("MovementController", ["$scope", '$localStorage', 'SportCategories', 'SportMovements', 'Movements', "loggit",
-  function($scope, $localStorage, SportCategories, SportMovements, Movements, loggit) {
+]).controller("SportsController", ["$scope", '$localStorage', 'Sports', 'SportMovements',
+  function($scope, $localStorage, Sports, SportMovements) {
 
 		/**
-		* @brief The movement controller takes care of retrieving sports categories and movement types from the backend, and uploading movement data from the suit
-		* @param $scope, SportCategories, and SportMovements
+		* @brief The sports controller takes care of retrieving sports and movement types from the back-end
+		* @param $scope, Sports, and SportMovements
 		* @return void
 		*/
-
-    SportCategories.get()
-		.success(function(sports_categories_response) {
-			$localStorage.sport_categories = sports_categories_response;
+		
+    Sports.get() //retrieve the list of all sports from the back-end
+		.success(function(sports_response) {
+			$localStorage.sports = sports_response;
 			
-			if ($localStorage.sport_categories.length > 0) {
-				$localStorage.selected_sport_category = $localStorage.sport_categories[0]; //select the first sports category by default
+			if ($localStorage.sports.length > 0) {
+				$localStorage.selected_sport = $localStorage.sports[0]; //select the first sport by default
 			}
 		});
 
-    $scope.$watch('data.selected_sport_category', function() {
-			$localStorage.selected_sport_movement = null;
-      SportMovements.get($localStorage.selected_sport_category.id)
+    $scope.$watch('data.selected_sport', function() {
+			$localStorage.selected_sport_movement = $localStorage.sport_movements = null;
+      SportMovements.get($localStorage.selected_sport.id)
 			.success(function(sports_movements_response) {
 				$localStorage.sport_movements = sports_movements_response;
 			});
 
     }, true);
-		
-		$scope.uploadMovements = function() {
+  }
+]).controller("MovementController", ["$scope", '$localStorage', 'Movements', "loggit",
+  function($scope, $localStorage, Movements, loggit) {
 
-		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.movement_files)
-			.error(function() {
-				loggit.logError('error uploading movements to server');
-			})
-			.success(function() {
-				loggit.logSuccess('movements succesfully uploaded to server');
-			});
-			
+	/**
+	* @brief The movement controller takes care of uploading movement data (files) from the suit
+	* @param $scope, Movements
+	* @return void
+	*/
+	
+	$scope.uploadMovements = function() {
+
+		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.data.new_movement_submission_data)
+		.error(function(err_msg) {
+			loggit.logError('error uploading movements to server');
+			console.log(err_msg);
+		})
+		.success(function(succ_msg) {
+			$localStorage.selected_sport_movement = $localStorage.new_movement_submission_data = null;
+			loggit.logSuccess('movements succesfully uploaded to server');
+			console.log(succ_msg);
+		});
+
     };
+	
   }
 ]);
  

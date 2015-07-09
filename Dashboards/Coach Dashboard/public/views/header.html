@@ -16,53 +16,17 @@
 			</li>
 			
 			<li>
-			
+				Active Team 
 				<select ng-model="data.selected_team"
 					ng-selected="data.selected_team"
 					ng-options="team.name for team in data.teams track by team.id">
 				</select>
 
 			</li>	
-			
-			<li class="dropdown text-normal nav-profile">
-				<a href="javascript:;" class="dropdown-toggle">
-					<img src="" alt="" class="img30_30">
-				</a>
-
-				<div class="dropdown-menu pull-left with-arrow panel panel-default">
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<a href="#/pages/profile">
-								<i class="fa fa-user color-info"></i>
-								<span>Profile</span>
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="#/tasks">
-								<i class="fa fa-check color-success"></i>
-								<span>Tasks</span>
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="#/pages/lock-screen">
-								<i class="fa fa-lock color-warning"></i>
-								<span>Lock</span>
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="#/pages/signin" >
-								<i class="fa fa-sign-out color-danger"></i>
-								<span>Log out</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</li>
 
 		</ul>
 
-		<ul class="nav-right-button pull-right list-unstyled">
+		<ul class="nav-right-button list-unstyled" style="float:right">
 
 			<li>
 				<a ng-click="endSession();" ng-href='/auth/logout' class="btn btn-primary">

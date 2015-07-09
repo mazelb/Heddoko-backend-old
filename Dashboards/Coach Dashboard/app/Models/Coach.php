@@ -1,14 +1,8 @@
 <?php namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Coach extends Model implements AuthenticatableContract, CanResetPasswordContract {
-
-	use Authenticatable, CanResetPassword;
+class Coach extends Model {
 
 	/**
 	 * The database table used by the model.
@@ -22,18 +16,26 @@ class Coach extends Model implements AuthenticatableContract, CanResetPasswordCo
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = ['password', 'remember_token'];
+	protected $fillable = ['first_name', 'last_name', 'user_id'];
 	
 	public function teams()
-    {
-        return $this->hasMany('App\Models\Team');
-    }
+	{
+		return $this->hasMany('App\Models\Team');
+	}	
+
+	public function movementsubmissions()
+	{
+		return $this->hasMany('App\Models\MovementSubmission');
+	}
+	
+	public function fmsformsubmissions()
+	{
+		return $this->hasMany('App\Models\FMSFormSubmission');
+	}
+	
+	public function user()
+	{
+		return $this->belongsTo('App\Models\User');
+	}
 
 }

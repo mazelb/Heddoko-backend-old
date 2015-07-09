@@ -6231,3 +6231,108 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+
+ 
+ html { 
+	background: url(../images/bg_home.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+body {
+	background: none;
+}
+
+html,body{
+    height: 100%
+}
+
+header {
+	width: 1280px;
+	height: 56px;
+	margin-left: auto;
+	margin-right: auto;
+	background: none;
+	margin-top: 40px;
+}
+
+.nav-logo {
+	display: block;
+	width: 300px;
+	padding-top: 10px;
+	padding-left: 10px;	
+	float: left;
+}
+
+.nav-logo  img {
+	display: block;
+	height: auto;
+	width: 100%;
+}
+
+.social {
+	float: right;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.social > p > a {
+	color: white;
+	margin: 0 10px;
+	}
+
+h1 {
+	font-size: 72px;
+	text-align: center;
+	color: white;
+	opacity: 0.8;
+	font-family: Proxima Rg;
+}
+
+.form-inline input {
+	width: 260px;
+	background-color: rgba(216, 216, 216, 0.8);
+}
+
+.form-inline button {
+	width: 160px;
+	background-color: rgba(55, 146, 128, 1);
+}
+
+.form-inline input , .form-inline button{
+	color: white;
+	border-style: none;
+	height: 50px;
+	margin-right: 36px;
+}
+
+.input-elem > p {
+	color: green;
+}
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;  
+}
+
+:-ms-input-placeholder {  
+   color: black;  
+}
+
+ .container {
+    margin-top: 10px;
+}
+
+@font-face {
+     font-family: Proxima Rg;
+     src: url('/fonts/ProximaNova-Regular.ttf'); 
+}

@@ -6,6 +6,8 @@ use App\Models\Team;
 use App\Models\Athlete;
 use Illuminate\Http\Request;
 
+use Entrust;
+
 class TeamAthleteController extends Controller {
 
 	/**
@@ -15,18 +17,14 @@ class TeamAthleteController extends Controller {
 	 */
 	public function index($teamid)
 	{
-		$team = Team::find($teamid);
-		return $team->athletes;
-	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+		return Athlete::with('user')
+									->where('team_id', $teamid)
+									->get();
+
+	/*$team = Team::find($teamid);
+		return $team->athletes;*/
+
 	}
 
 	/**
@@ -36,61 +34,25 @@ class TeamAthleteController extends Controller {
 	 */
 	public function store($team_id, Request $request)
 	{
-	
-		$activeTeam = Team::find($team_id);
+		if (!Entrust::hasRole('coach')) {
+			return;
+		}
+		
+		$active_team = Team::find($team_id);
 
 		$newAthleteData = [];
-		$newAthleteData['team_id'] = $activeTeam->id;
-		$newAthleteData['name'] = $request->input('name');
+		$newAthleteData['team_id'] = $active_team->id;
+		$newAthleteData['first_name'] = $request->input('first_name');
+		$newAthleteData['last_name'] = $request->input('last_name');
+		$newAthleteData['height_cm'] = $request->input('height_cm');
+		$newAthleteData['weight_kg'] = $request->input('weight_kg');
+		$newAthleteData['primary_sport'] = $request->input('primary_sport');
+		$newAthleteData['hand_leg_dominance'] = $request->input('hand_leg_dominance');
 		
-		$newAthlete = Athlete::create($newAthleteData);
-		$newAthlete->save();		
+		Athlete::create($newAthleteData);	
 		
-		return $activeTeam->athletes;
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		return $active_team->athletes;
+		
 	}
 
 }

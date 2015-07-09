@@ -20,7 +20,7 @@
 							</h3>							
 							<select ng-model="data.selected_athlete"
 									ng-selected="data.selected_athlete"
-									ng-options="athlete.name for athlete in data.athletes track by athlete.id" >
+									ng-options="athlete.first_name for athlete in data.athletes track by athlete.id" >
 							</select>	
 						</div>
 						<div class="panel-body col-sm-8 ng-scope">
@@ -45,8 +45,10 @@
 						</h3>
 						
 					</div>
-
-					<div class="panel-body ng-scope">
+					
+					<div ng-show="data.selected_athlete == null">Select an athlete under 'Dashboard' in the sidebar before viewing historical FMS data</div>
+					
+					<div ng-hide="data.selected_athlete == null" class="panel-body ng-scope">
 						<table class="table">
 							<thead>
 								<tr>
@@ -66,7 +68,7 @@
 										{{fmsform.totalscore}}
 									</td>
 									<td>1</td>
-									<td><span class="label label-warning">Missing</span></td>
+									<td><!--<span class="label label-warning">Missing</span>--></td>
 									
 	
 								</tr>
@@ -74,6 +76,7 @@
 							</tbody>
 						</table>
 					</div>
+					<div ng-show="data.selected_athlete.fms_forms.length == 0">0 FMS Forms found</div>
 				</div>
 			</div>
 		</div>
@@ -94,8 +97,7 @@
 						select an FMS form on the left to view details
 					</div>
 					
-					<label class="switch switch-info pull-right"><input type="checkbox" ng-model="data.show_fms_edit" class="ng-untouched ng-valid ng-dirty ng-valid-parse" ><i></i></label>
-					<!--make ^^ false by defualt-->
+					<label ng-hide="data.selected_fms_form == null" class="switch switch-info pull-right"><input type="checkbox" ng-model="data.show_fms_edit" class="ng-untouched ng-valid ng-dirty ng-valid-parse" ><i></i></label>
 					
 					<div class="panel-body ng-scope" ng-show="data.selected_fms_form != null">
 					
@@ -292,10 +294,10 @@
 									</div>
 								</div>
 							</fieldset>
+
             </form>
 
 						<div ng-hide="!data.show_fms_edit">
-							<button type="button" class="btn btn-warning btn-sm" ng-click="deleteFMS();">Delete this FMS Form</button>
 							<button type="button" class="btn btn-info btn-sm" ng-click="updateFMS();">Update this FMS Form</button>
 						</div>
 						

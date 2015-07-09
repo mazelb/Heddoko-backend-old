@@ -3381,6 +3381,10 @@ fieldset[disabled] .btn-danger.active {
   left: 15px;
   bottom: 15px; }
 
+.btn-metro-sm {
+  width: 84px;
+  height: 84px; }
+
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;

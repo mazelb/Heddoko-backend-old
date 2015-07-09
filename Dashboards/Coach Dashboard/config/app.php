@@ -148,7 +148,11 @@ return [
          * Google App Engine Support Service Provider...
          */
 				Shpasser\GaeSupportL5\GaeSupportServiceProvider::class,
-
+				
+				/*
+				 * Entrust Roles/Permissions Service Provider...
+				 */
+				Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -196,6 +200,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+				'Entrust' 	=> Zizaco\Entrust\EntrustFacade::class,
 
     ],
 

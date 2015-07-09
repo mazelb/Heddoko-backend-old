@@ -3221,6 +3221,11 @@ $social-profiles: (
   bottom: 15px;
 }
 
+.btn-metro-sm {
+	width: 84px;
+  height: 84px;
+}
+
 .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle){
   @include border-radius(0px);
 }

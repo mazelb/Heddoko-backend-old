@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model {
     
 	protected $table = 'teams';
-	protected $fillable = ['coach_id', 'name'];
+	protected $fillable = ['coach_id', 'sport_id', 'name'];
 	
 	public function athletes()
 	{
@@ -15,5 +15,10 @@ class Team extends Model {
 	public function coach()
 	{
 		return $this->belongsTo('App\Models\Coach');
+	}
+	
+	public function sport()
+	{
+		return $this->belongsTo('App\Models\Sport');
 	}
 }

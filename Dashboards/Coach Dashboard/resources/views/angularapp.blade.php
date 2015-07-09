@@ -46,7 +46,7 @@
             </div>
         </div>
 		
-		@yield('content')
+				@yield('content')
 
         <script type="text/javascript" src="{{ url('js/app.js') }}"></script>		
 

@@ -2,19 +2,21 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\SportCategory;
-use Illuminate\Http\Request;
+use App\Models\Sport;
+use App\Models\SportMovement;
+use Request;
 
-class SportCategoryController extends Controller {
+class SportSportMovementController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($sportcategoryid)
 	{
-		return SportCategory::all(['name','id']);
+		$sport = Sport::find($sportcategoryid);
+		return $sport->sportmovements;
 	}
 
 	/**

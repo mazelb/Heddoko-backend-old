@@ -19,7 +19,7 @@ class Sensor extends Model
      *
      * @var array
      */
-    protected $fillable = ['suit_id', 'anatomical_position_id', 'sensor_type_id', 'part_no', 'serial_no', 'physical_location'];
+    protected $fillable = ['suit_id', 'anatomical_position_id', 'sensor_type_id', 'part_no', 'serial_no', 'physical_location', 'name'];
 	
 	protected $hidden = ['suit_id', 'anatomical_position_id', 'sensor_type_id'];
 

@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::resource('suits', 'SuitController', ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('sensortypes', 'SensorTypeController', ['only' => ['index']]);
+Route::resource('anatomicalpositions', 'AnatomicalPositionController', ['only' => ['index']]);

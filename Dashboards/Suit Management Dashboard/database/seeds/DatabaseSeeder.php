@@ -15,16 +15,16 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+	public function run()
+	{
         Model::unguard();
 
 		$this->command->info('Seeding started.');
-        $this->call(SuitDBSeeder::class);
+		$this->call(SuitDBSeeder::class);
 		$this->command->info('Seeding finished.');
 
-        Model::reguard();
-    }
+		Model::reguard();
+	}
 }
 
 class SuitDBSeeder extends Seeder
@@ -33,7 +33,7 @@ class SuitDBSeeder extends Seeder
 	{
 		
 		$this->command->info('Deleting entries from the Suits database before beginning a new seed.');
-	
+
 		DB::table('sensors')->delete();
 		DB::table('anatomical_positions')->delete();
 		DB::table('sensor_types')->delete();
@@ -51,29 +51,25 @@ class SuitDBSeeder extends Seeder
 		AnatomicalPosition::create(['name' => 'Left thigh',		 'id' => 7]);
 		$left_tibia_pos = AnatomicalPosition::create(['name' => 'Left tibia', 	 'id' => 8]);
 		
-		SensorType::create(['name' => 'Nod Ring',		 'id' => 0]);
-		$stretch_sensor_type = SensorType::create(['name' => 'Stretch Sensor', 	 'id' => 1]);
+		SensorType::create(['name' => 'Nod Ring', 'id' => 0]);
+		$stretch_sensor_type = SensorType::create(['name' => 'Stretch Sensor', 'id' => 1]);
 		
-		for ($x = 0; $x <= 10; $x++)
+		for ($x = 0; $x <= rand(5, 10); $x++)
 		{
-		
 			$heddoko_suit = Suit::create();
-			
-			$rand_limit = rand(3, 8);
-			for ($y = 0; $y <= $rand_limit; $y++)
-			{
 
+			for ($y = 0; $y <= rand(3, 9); $y++)
+			{
 				$sensor = Sensor::create(['suit_id'				  => $heddoko_suit->id,
-										 'sensor_type_id'		  => $stretch_sensor_type->id,
-										 'anatomical_position_id' => $left_tibia_pos->id,
+										 'sensor_type_id'		  => rand(0, 1), //$stretch_sensor_type->id,
+										 'anatomical_position_id' => rand(0, 8), //$left_tibia_pos->id,
 										 'part_no'				  => 'ABC123',
-										 'serial_no'			  => 'XYZ321',
-										 'physical_location' 	  => 'AB12CD34']);
-									 
+										 'serial_no'			  => substr(str_shuffle(MD5(microtime())), 0, 10), //'XYZ321',
+										 'physical_location' 	  => 'AB12CD34',
+										 'name' 	 			  => 'Sensorname']);
 			}
 		}
-		
-		//$this->command->info(count($heddoko_suit->sensors()));
+
 	}
 	
 }

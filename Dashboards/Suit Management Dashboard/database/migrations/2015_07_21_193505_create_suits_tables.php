@@ -52,6 +52,7 @@ class CreateSuitsTables extends Migration
 			$table->string('part_no');
 			$table->string('serial_no');
 			$table->string('physical_location');
+			$table->string('name');
 
 			$table->timestamps();
 		});

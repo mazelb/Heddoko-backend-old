@@ -60,13 +60,17 @@ class SuitDBSeeder extends Seeder
 
 			for ($y = 0; $y <= rand(3, 9); $y++)
 			{
+				$sensor_type = rand(0, 1);
+				$sensor_name = $sensor_type == 0 ? 'nod-' : 'stretchsense-';
+				$sensor_name .= rand(0, 9999);
+				
 				$sensor = Sensor::create(['suit_id'				  => $heddoko_suit->id,
-										 'sensor_type_id'		  => rand(0, 1), //$stretch_sensor_type->id,
+										 'sensor_type_id'		  => $sensor_type, //$stretch_sensor_type->id,
 										 'anatomical_position_id' => rand(0, 8), //$left_tibia_pos->id,
 										 'part_no'				  => 'ABC123',
 										 'serial_no'			  => substr(str_shuffle(MD5(microtime())), 0, 10), //'XYZ321',
 										 'physical_location' 	  => 'AB12CD34',
-										 'name' 	 			  => 'Sensorname']);
+										 'name' 	 			  => $sensor_name]);
 			}
 		}
 

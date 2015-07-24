@@ -2,17 +2,6 @@ var app = angular.module('suit-editor', ['backend']);
 
 app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', function($scope, Suits, SensorTypes, AnatomicalPositions)
 {
-	/*	
-	for (var i = 0; i <= 9; i++)
-	{
-		$scope.sensor_form_defaults.physical_location.box.push('BOX' + i);
-		
-		for (var j = 65; j <= 90; j++)
-		{
-			$scope.sensor_form_defaults.physical_location.XYZ.push(String.fromCharCode(j) + i);	
-		}		
-	}*/
-	
 	Suits.get()
 	.success(function(suits_response)
 	{
@@ -32,23 +21,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 	});
 
 	$scope.new_suit_sensors = [];
-	
-	$scope.DeleteSuit = function(suit){
-		
-		bootbox.confirm("Are you sure you want to delete this suit?", function(user_response) {
-			if (user_response === true)
-			{
-				Suits.destroy(suit).success(function(suits_response)
-				{
-					$scope.suits = suits_response;
-				}).error(function(err_response)
-				{
-					console.log(err_response);
-				});
-			}
-		}); 
-	};
-	
+
 	$scope.AddNewSuit = function(){
 
 		for (i = 0; i < $scope.new_suit_sensors.length; i++) //validate that all fields have been entered
@@ -83,6 +56,22 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
 	};
 	
+	$scope.DeleteSuit = function(suit){
+		
+		bootbox.confirm("Are you sure you want to delete this suit?", function(user_response) {
+			if (user_response === true)
+			{
+				Suits.destroy(suit).success(function(suits_response)
+				{
+					$scope.suits = suits_response;
+				}).error(function(err_response)
+				{
+					console.log(err_response);
+				});
+			}
+		}); 
+	};
+	
 	$scope.UpdateExistingSuit = function(suit_to_be_updated){
 
 		for (i = 0; i < suit_to_be_updated.sensors.length; i++) //validate that all fields have been entered
@@ -115,7 +104,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
 	};
 	
-	$scope.AddNewSensor = function(){
+	$scope.AddNewSensor = function(sensors_list, active_sensor){
 		
 		new_sensor = {};
 		
@@ -129,8 +118,19 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 			new_sensor.anatomical_position = $scope.anatomical_positions[0];
 		}
 		
-		$scope.new_suit_sensors.push(new_sensor); //push a new empty sensor to by filled in by the user
-		$scope.current_sensor = new_sensor;		
+		sensors_list.push(new_sensor); //push a new empty sensor to by filled in by the user
+		active_sensor = new_sensor;		
+	};
+	
+	$scope.RemoveExistingSensor = function(sensors_list, sensor_to_be_removed, active_sensor){
+		
+		$index = sensors_list.indexOf(sensor_to_be_removed);
+		sensors_list.splice( $index, 1 );
+		
+		if (sensors_list.length == 0)
+		{
+			active_sensor = null;
+		}
 	};
 
 }]);

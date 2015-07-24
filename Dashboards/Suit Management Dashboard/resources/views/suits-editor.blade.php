@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v1.0.1</title>
+		<title>Suits Editor v1.0.2</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -13,7 +13,7 @@
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">
 			<div class="page-header">
-			  <h1>Heddoko Suit Editor <small>V1.0.1</small></h1>
+			  <h1>Heddoko Suit Editor <small>V1.0.2</small></h1>
 			</div>
 			<a href="">Suits <span class="badge">@{{suits.length}}</span></a>
 			</br>
@@ -30,17 +30,17 @@
 				<div class="panel-body">
 					<div class="col-sm-6">
 						<div class="list-group">
-							<a href="#" class="list-group-item active clearfix" ng-click="AddNewSensor()">
-								<span class="glyphicon glyphicon-plus"></span>
-								Add sensor
-							</a>
-							<a href="#" class="list-group-item clearfix" ng-repeat="sensor in new_suit_sensors track by $index" ng-class="{'list-group-item-info': sensor == current_sensor}" ng-click="$parent.current_sensor = sensor">
-								Existing Sensor index: @{{$index}}
+							<a href="javascript:;" class="list-group-item clearfix" ng-repeat="sensor in new_suit_sensors track by $index" ng-class="{'list-group-item-info': sensor == current_sensor}" ng-click="$parent.current_sensor = sensor">
+								<b>@{{sensor.type.name}}</b> @{{sensor.name}}
 								<span class="pull-right">
-									<button class="btn btn-xs btn-warning">
-										<span class="glyphicon glyphicon-trash" ng-click="new_suit_sensors.splice( $index, 1 )"></span>
+									<button class="btn btn-xs btn-warning" ng-click="RemoveExistingSensor(new_suit_sensors, sensor, current_sensor)">
+										<span class="glyphicon glyphicon-trash"></span>
 									</button>
 								</span>
+							</a>
+							<a href="javascript:;" class="list-group-item active clearfix" ng-click="AddNewSensor(new_suit_sensors, current_sensor)">
+								<span class="glyphicon glyphicon-plus"></span>
+								Add sensor
 							</a>
 						</div>
 					</div>
@@ -72,10 +72,9 @@
 			</div>
 			<div class="panel panel-primary" data-ng-repeat="suit in suits">
 				<div class="panel-heading">
-					<h3 class="panel-title pull-left">Heddoko Suit with @{{suit.sensors.length}} sensor(s)</h3>
+					<h3 class="panel-title pull-left"><span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.sensors.length}} sensor(s)</h3>
 					<div class="btn-group pull-right" role="group">
 						<button type="button" class="btn btn-sm btn-danger" ng-click="DeleteSuit(suit)">Delete Suit</button>
-						<button type="button" class="btn btn-sm btn-warning">Undo</button>
 						<button type="button" class="btn btn-sm btn-success" ng-click="UpdateExistingSuit(suit)">Save</button>
 					</div>
 					<div class="clearfix"></div>
@@ -83,8 +82,17 @@
 				<div class="panel-body">
 					<div class="col-sm-6">
 						<div class="list-group">
-							<a href="" class="list-group-item clearfix" ng-repeat="sensor in suit.sensors" ng-class="{'list-group-item-info': sensor == suit.current_sensor}" ng-click="suit.current_sensor = sensor">
-								<b>@{{sensor.type.name}}</b> serial: @{{sensor.serial_no}}
+							<a href="javascript:;" class="list-group-item clearfix" ng-repeat="sensor in suit.sensors" ng-class="{'list-group-item-info': sensor == suit.current_sensor}" ng-click="$parent.suit.current_sensor = sensor">
+								<b>@{{sensor.type.name}}</b> @{{sensor.name}}
+								<span class="pull-right">
+									<button class="btn btn-xs btn-warning" ng-click="RemoveExistingSensor(suit.sensors, sensor, suit.current_sensor)">
+										<span class="glyphicon glyphicon-trash"></span>
+									</button>
+								</span>
+							</a>
+							<a href="javascript:;" class="list-group-item active clearfix" ng-click="AddNewSensor(suit.sensors, suit.current_sensor)">
+								<span class="glyphicon glyphicon-plus"></span>
+								Add sensor
 							</a>
 						</div>
 					</div>

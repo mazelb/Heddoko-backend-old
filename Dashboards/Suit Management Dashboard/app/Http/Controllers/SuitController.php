@@ -58,15 +58,12 @@ class SuitController extends Controller {
 	{
 		$suit_of_interest = Suit::find($suit_id);
 		
-		//
-		
 		foreach ($suit_of_interest->sensors as $existing_sensor)
 		{
 			$existing_sensor->delete();
 		}
-		//
 		
-		$new_sensors = Request::input('updated_suit_sensors');
+		$new_sensors = Request::input('updated_suit_sensors', array());
 		
 		foreach ($new_sensors as $new_sensor)
 		{

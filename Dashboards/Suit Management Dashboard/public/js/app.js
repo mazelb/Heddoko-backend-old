@@ -1,4 +1,4 @@
-var app = angular.module('suit-editor', ['backend']);
+var app = angular.module('suit-editor', ['backend', 'angularUtils.directives.dirPagination']);
 
 app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', function($scope, Suits, SensorTypes, AnatomicalPositions)
 {

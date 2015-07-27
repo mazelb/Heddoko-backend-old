@@ -9,6 +9,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ url('js/app.js') }}"></script>
 		<script type="text/javascript" src="{{ url('js/bootbox.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url('js/dirPagination.js') }}"></script>
     </head>
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">

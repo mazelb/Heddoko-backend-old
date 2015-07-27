@@ -2,10 +2,14 @@ var app = angular.module('suit-editor', ['backend']);
 
 app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', function($scope, Suits, SensorTypes, AnatomicalPositions)
 {
+	suits = [];
+	$scope.search_term = '';
+	$scope.filtered_suits_list = [];
+	
 	Suits.get()
 	.success(function(suits_response)
 	{
-		$scope.suits = suits_response;
+		$scope.filtered_suits_list = suits = suits_response;
 	});
 	
 	SensorTypes.get()
@@ -44,7 +48,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 			{
 				Suits.create($scope.new_suit_sensors).success(function(suits_response)
 				{
-					$scope.suits = suits_response;
+					suits = suits_response;
 					$scope.new_suit_sensors = [];
 					$scope.current_sensor = null;
 				}).error(function(err_response)
@@ -63,10 +67,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 			{
 				Suits.destroy(suit).success(function(suits_response)
 				{
-					$scope.suits = suits_response;
-				}).error(function(err_response)
-				{
-					console.log(err_response);
+					suits = suits_response;
 				});
 			}
 		}); 
@@ -132,6 +133,31 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 			active_sensor = null;
 		}
 	};
+	
+	$scope.$watch('search_term', function() {
+		
+		if (typeof($scope.search_term) == "undefined" || $scope.search_term == '')
+		{
+			$scope.filtered_suits_list = suits; //if no search term, display all suits
+		}
+		else
+		{
+			$scope.filtered_suits_list = [];
+			
+			for (i = 0; i < suits.length; i++)
+			{
+				for (j = 0; j < suits[i].sensors.length; j++)
+				{
+					if(suits[i].sensors[j].name.indexOf($scope.search_term) > -1 || suits[i].sensors[j].serial_no.indexOf($scope.search_term) > -1 || suits[i].sensors[j].physical_location.indexOf($scope.search_term) > -1)
+					{
+						$scope.filtered_suits_list.push(suits[i]);
+						break;
+					}
+				}			
+			}
+		}
+
+    }, true);
 
 }]);
 

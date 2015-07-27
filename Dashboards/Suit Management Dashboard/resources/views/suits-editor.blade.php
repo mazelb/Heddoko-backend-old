@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v1.0.2</title>
+		<title>Suits Editor v1.0.3</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -13,9 +13,14 @@
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">
 			<div class="page-header">
-			  <h1>Heddoko Suit Editor <small>V1.0.2</small></h1>
+				<h1>Heddoko Suit Editor <small>V1.0.3</small></h1>
 			</div>
-			<a href="">Suits <span class="badge">@{{suits.length}}</span></a>
+			<div class="input-group">
+				<span class="input-group-addon" id="search-bar-addon">Search</span>
+				<input type="text" class="form-control" placeholder="Enter sensor serial, name, or physical location" aria-describedby="search-bar-addon" ng-model="search_term">
+			</div>
+			</br>
+			<a href="">Suits <span class="badge">@{{filtered_suits_list.length}}</span></a>
 			</br>
 			</br>
 			<div class="panel panel-success">
@@ -70,7 +75,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel panel-primary" data-ng-repeat="suit in suits">
+			<div class="panel panel-primary" ng-repeat="suit in filtered_suits_list track by suit.id">
 				<div class="panel-heading">
 					<h3 class="panel-title pull-left"><span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.sensors.length}} sensor(s)</h3>
 					<div class="btn-group pull-right" role="group">

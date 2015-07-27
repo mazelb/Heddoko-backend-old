@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v1.0.3</title>
+		<title>Suits Editor v1.0.4</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -14,16 +14,42 @@
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">
 			<div class="page-header">
-				<h1>Heddoko Suit Editor <small>V1.0.3</small></h1>
+				<h1>Heddoko Suit Editor <small>V1.0.4</small></h1>
 			</div>
-			<div class="input-group">
-				<span class="input-group-addon" id="search-bar-addon">Search</span>
-				<input type="text" class="form-control" placeholder="Enter sensor serial, name, or physical location" aria-describedby="search-bar-addon" ng-model="search_term">
-			</div>
-			</br>
-			<a href="">Suits <span class="badge">@{{filtered_suits_list.length}}</span></a>
-			</br>
-			</br>
+
+			{{-- Search form --}}
+            <form ng-submit="updatePage()">
+                <div class="input-group">
+                    <span class="input-group-addon" id="search-bar-addon">Search</span>
+                    <input type="text" class="form-control" placeholder="Enter sensor serial, name, or physical location" aria-describedby="search-bar-addon" ng-model="search_term">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="updatePage()">Search</button>
+                        <button
+                            type="button"
+                            class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                                Show <span>@{{ suits_per_page }}</span> suits per page
+                                <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" ng-click="suits_per_page=5">Show 5 suits per page</a></li>
+                            <li><a href="#" ng-click="suits_per_page=10">Show 10 suits per page</a></li>
+                            <li><a href="#" ng-click="suits_per_page=20">Show 20 suits per page</a></li>
+                            <li><a href="#" ng-click="suits_per_page=50">Show 50 suits per page</a></li>
+                            <li><a href="#" ng-click="suits_per_page=100">Show 100 suits per page</a></li>
+                        </ul>
+                    </span>
+                </div>
+            </form>
+
+			<br />
+			Total: <span class="badge">@{{total_suits}}</span>
+			<br />
+			<br />
+
+			{{-- Form for new suit --}}
 			<div class="panel panel-success">
 				<div class="panel-heading">
 					<h3 class="panel-title pull-left">Add new suit</h3>
@@ -76,7 +102,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel panel-primary" ng-repeat="suit in filtered_suits_list track by suit.id">
+
+			{{-- List of suits --}}
+			<div class="panel panel-primary" dir-paginate="suit in filtered_suits_list | itemsPerPage: suits_per_page track by suit.id" total-items="total_suits" current-page="pagination.current">
 				<div class="panel-heading">
 					<h3 class="panel-title pull-left"><span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.sensors.length}} sensor(s)</h3>
 					<div class="btn-group pull-right" role="group">
@@ -85,6 +113,7 @@
 					</div>
 					<div class="clearfix"></div>
 				</div>
+
 				<div class="panel-body">
 					<div class="col-sm-6">
 						<div class="list-group">
@@ -128,6 +157,12 @@
 					</div>
 				</div>
 			</div>
+
+            {{-- Pagination controls --}}
+            <dir-pagination-controls
+                template-url="views/dirPagination.tpl.html"
+                on-page-change="updatePage(newPageNumber)"
+                style="text-align: center"></dir-pagination-controls>
 		</div>
 	</body>
 </html>

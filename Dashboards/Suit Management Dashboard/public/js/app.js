@@ -5,19 +5,22 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 	suits = [];
 	$scope.search_term = '';
 	$scope.filtered_suits_list = [];
-	
-	Suits.get()
-	.success(function(suits_response)
-	{
-		$scope.filtered_suits_list = suits = suits_response;
-	});
-	
+    $scope.suits_per_page = 5;            // Number of suits per page to display.
+    $scope.current_page = 1;
+    $scope.total_suits = 0;              // Total number of suits matching the query.
+
+	//Suits.get()
+	//.success(function(suits_response)
+	//{
+	//	$scope.filtered_suits_list = suits = suits_response;
+	//});
+
 	SensorTypes.get()
 	.success(function(sensor_types_response)
 	{
 		$scope.sensor_types = sensor_types_response;
 	});
-	
+
 	AnatomicalPositions.get()
 	.success(function(anatomical_positions_response)
 	{
@@ -29,7 +32,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 	$scope.AddNewSuit = function(){
 
 		for (i = 0; i < $scope.new_suit_sensors.length; i++) //validate that all fields have been entered
-		{ 
+		{
 			if(
 			   !($scope.new_suit_sensors[i].type &&
 				$scope.new_suit_sensors[i].anatomical_position &&
@@ -42,7 +45,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 				return;
 			}
 		}
-		
+
 		bootbox.confirm("Are you sure you want to add this new suit?", function(user_response) {
 			if (user_response === true)
 			{
@@ -56,12 +59,12 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 					bootbox.alert("The following error occurred while submitting the new suit to the database:" + err_response);
 				});
 			}
-		}); 
+		});
 
 	};
-	
+
 	$scope.DeleteSuit = function(suit){
-		
+
 		bootbox.confirm("Are you sure you want to delete this suit?", function(user_response) {
 			if (user_response === true)
 			{
@@ -70,13 +73,13 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 					suits = suits_response;
 				});
 			}
-		}); 
+		});
 	};
-	
+
 	$scope.UpdateExistingSuit = function(suit_to_be_updated){
 
 		for (i = 0; i < suit_to_be_updated.sensors.length; i++) //validate that all fields have been entered
-		{ 
+		{
 			if(
 			   !(suit_to_be_updated.sensors[i].type &&
 				suit_to_be_updated.sensors[i].anatomical_position &&
@@ -89,7 +92,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 				return;
 			}
 		}
-		
+
 		bootbox.confirm("Are you sure you want to update this existing suit?", function(user_response) {
 			if (user_response === true)
 			{
@@ -101,63 +104,77 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 					bootbox.alert("The following error occurred while updating the suit:" + err_response);
 				});
 			}
-		}); 
+		});
 
 	};
-	
+
 	$scope.AddNewSensor = function(sensors_list, active_sensor){
-		
+
 		new_sensor = {};
-		
+
 		if($scope.sensor_types.length > 0)
 		{
 			new_sensor.type = $scope.sensor_types[0];
 		}
-		
+
 		if($scope.anatomical_positions.length > 0)
 		{
 			new_sensor.anatomical_position = $scope.anatomical_positions[0];
 		}
-		
+
 		sensors_list.push(new_sensor); //push a new empty sensor to by filled in by the user
-		active_sensor = new_sensor;		
+		active_sensor = new_sensor;
 	};
-	
+
 	$scope.RemoveExistingSensor = function(sensors_list, sensor_to_be_removed, active_sensor){
-		
+
 		$index = sensors_list.indexOf(sensor_to_be_removed);
 		sensors_list.splice( $index, 1 );
-		
+
 		if (sensors_list.length == 0)
 		{
 			active_sensor = null;
 		}
 	};
-	
-	$scope.$watch('search_term', function() {
-		
-		if (typeof($scope.search_term) == "undefined" || $scope.search_term == '')
-		{
-			$scope.filtered_suits_list = suits; //if no search term, display all suits
-		}
-		else
-		{
-			$scope.filtered_suits_list = [];
-			
-			for (i = 0; i < suits.length; i++)
-			{
-				for (j = 0; j < suits[i].sensors.length; j++)
-				{
-					if(suits[i].sensors[j].name.indexOf($scope.search_term) > -1 || suits[i].sensors[j].serial_no.indexOf($scope.search_term) > -1 || suits[i].sensors[j].physical_location.indexOf($scope.search_term) > -1)
-					{
-						$scope.filtered_suits_list.push(suits[i]);
-						break;
-					}
-				}			
-			}
-		}
 
-    }, true);
+    // Queries the database to update the suits on the current page.
+    $scope.updatePage = function(page)
+    {
+        page = page || $scope.current_page;
+
+        Suits.search($scope.search_term, page, $scope.suits_per_page)
+            .success(function(data)
+            {
+                $scope.filtered_suits_list = data.results;
+                $scope.total_suits = data.total;
+            });
+    };
+    $scope.updatePage();
+
+    //$scope.$watch('search_term', function() {
+		//
+		//if (typeof($scope.search_term) == "undefined" || $scope.search_term == '')
+		//{
+		//	$scope.filtered_suits_list = suits; //if no search term, display all suits
+		//}
+		//else
+		//{
+		//	$scope.filtered_suits_list = [];
+		//
+		//	for (i = 0; i < suits.length; i++)
+		//	{
+		//		for (j = 0; j < suits[i].sensors.length; j++)
+		//		{
+		//			if(suits[i].sensors[j].name.indexOf($scope.search_term) > -1 || suits[i].sensors[j].serial_no.indexOf($scope.search_term) > -1 || suits[i].sensors[j].physical_location.indexOf($scope.search_term) > -1)
+		//			{
+		//				$scope.filtered_suits_list.push(suits[i]);
+		//				break;
+		//			}
+		//		}
+		//	}
+		//}
+    //
+    //}, true);
 
 }]);
 
@@ -192,7 +209,11 @@ angular.module('backend', []).factory('Suits', function($http)
 		destroy : function(suit)
 		{
 			return $http.delete('/suits/' + suit.id);
-		}
+		},
+
+        search : function(query, page, per_page) {
+            return $http.get('/suits/search?q='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
 	
 	};
 

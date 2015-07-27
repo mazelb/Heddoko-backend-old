@@ -53,8 +53,8 @@ class SuitDBSeeder extends Seeder
 		
 		SensorType::create(['name' => 'Nod Ring', 'id' => 0]);
 		$stretch_sensor_type = SensorType::create(['name' => 'Stretch Sensor', 'id' => 1]);
-		
-		for ($x = 0; $x <= rand(5, 10); $x++)
+
+		for ($x = 0; $x <= 230; $x++)
 		{
 			$heddoko_suit = Suit::create();
 

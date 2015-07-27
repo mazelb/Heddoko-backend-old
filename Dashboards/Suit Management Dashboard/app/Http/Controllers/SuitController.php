@@ -6,6 +6,7 @@ use App\Models\Sensor;
 use App\Models\SensorType;
 use App\Models\Suit;
 
+use DB;
 use Input;
 use Request;
 
@@ -93,5 +94,45 @@ class SuitController extends Controller {
 		
 		return $this->index();
 	}
+
+    public function search()
+    {
+        // Retrieve search parameters.
+        $page = (int) Request::input('page', 1);
+        $perPage = (int) Request::input('per_page', 5);
+        $perPage = max(0, min(100, $perPage));
+
+        // Build the database query.
+//        $query = Suit::with('sensors.type', 'sensors.anatomicalPosition')
+//                    ->leftJoin('sensors', 'suits.id', '=', 'sensors.suit_id')
+//                    ->orderBy('suits.updated_at', 'desc');
+        $query = DB::table('suits')
+                    ->leftJoin('sensors', 'suits.id', '=', 'sensors.suit_id')
+                    ->distinct()
+                    ->select('suits.id')
+                    ->orderBy('suits.updated_at', 'desc');
+
+        // Filter by search term.
+        $search = strip_tags(trim(Request::input('q')));
+        if (strlen($search))
+        {
+            $query->where('sensors.name', 'LIKE', '%'. $search .'%')
+                ->orWhere('sensors.serial_no', 'LIKE', '%'. $search .'%')
+                ->orWhere('sensors.physical_location', 'LIKE', '%'. $search .'%');
+        }
+
+        // Retrieve suits by page.
+        $total = $query->count('suits.id');
+        $offset = ($page - 1) * $perPage;
+        $IDs = $query->skip($offset)->take($perPage)->lists('id');
+        $suits = Suit::with('sensors.type', 'sensors.anatomicalPosition')->whereIn('id', $IDs)->get();
+
+        return [
+            'total' => $total,
+            'page' => $page,
+            'per_page' => $perPage,
+            'results' => $suits
+        ];
+    }
 
 }

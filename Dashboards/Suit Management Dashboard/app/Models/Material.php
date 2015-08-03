@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SensorType extends Model
+class Material extends Model
 {
 
     /**
@@ -12,16 +12,15 @@ class SensorType extends Model
      *
      * @var string
      */
-    protected $table = 'sensor_types';
+    protected $table = 'materials';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'name'];
+    protected $fillable = ['id', 'material_type_id', 'name', 'part_no'];
 	
-	public $incrementing = false;
 	public $timestamps = false;
 
 }

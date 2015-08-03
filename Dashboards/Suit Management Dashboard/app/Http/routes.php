@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('suits-editor');
 });
 
-Route::resource('suits', 'SuitController', ['only' => ['index', 'store', 'update', 'destroy']]);
-Route::resource('sensortypes', 'SensorTypeController', ['only' => ['index']]);
+Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store']]);
+Route::resource('statuses', 'StatusController', ['only' => ['index']]);
+Route::resource('materials', 'MaterialController', ['only' => ['index']]);
 Route::resource('anatomicalpositions', 'AnatomicalPositionController', ['only' => ['index']]);

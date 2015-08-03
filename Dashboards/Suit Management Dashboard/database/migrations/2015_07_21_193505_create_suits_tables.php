@@ -12,49 +12,60 @@ class CreateSuitsTables extends Migration
      */
     public function up()
     {
-        Schema::create('suits', function(Blueprint $table)
-		{
-			$table->increments('id');
-
-			$table->timestamps();
-		});
-		
 		Schema::create('anatomical_positions', function(Blueprint $table)
 		{
 			$table->integer('id')->unsigned();
 			$table->primary('id');
 			
 			$table->string('name');
-		});	
+		});
 		
-		Schema::create('sensor_types', function(Blueprint $table)
+		Schema::create('statuses', function(Blueprint $table)
 		{
-			$table->integer('id')->unsigned();
-			$table->primary('id');
-			
+			$table->increments('id');
 			$table->string('name');
 		});
 		
-		Schema::create('sensors', function(Blueprint $table)
+		Schema::create('material_types', function(Blueprint $table)
 		{
 			$table->increments('id');
-
-			$table->integer('suit_id')->unsigned();
-			$table->foreign('suit_id')->references('id')->on('suits')
-			->onDelete('cascade');
+			$table->string('identifier');
+		});	
+		
+		Schema::create('materials', function(Blueprint $table)
+		{
+			$table->increments('id');
+			
+			$table->integer('material_type_id')->unsigned();
+			$table->foreign('material_type_id')->references('id')->on('material_types');
+			
+			$table->string('name');
+			$table->string('part_no');
+		});
+		
+		Schema::create('suits_equipment', function(Blueprint $table)
+		{
+			$table->increments('id');		
 			
 			$table->integer('anatomical_position_id')->unsigned();
 			$table->foreign('anatomical_position_id')->references('id')->on('anatomical_positions');
+		});
+		
+		Schema::create('equipment', function(Blueprint $table)
+		{
+			$table->increments('id');
 			
-			$table->integer('sensor_type_id')->unsigned();
-			$table->foreign('sensor_type_id')->references('id')->on('sensor_types');
+			$table->integer('material_id')->unsigned();
+			$table->foreign('material_id')->references('id')->on('materials');
 			
-			$table->string('part_no');
 			$table->string('serial_no');
 			$table->string('physical_location');
-			$table->string('name');
-
-			$table->timestamps();
+			
+			$table->integer('status_id')->unsigned();
+			$table->foreign('status_id')->references('id')->on('statuses');		
+			
+			$table->integer('suits_equipment_id')->unsigned()->nullable();
+			$table->foreign('suits_equipment_id')->references('id')->on('suits_equipment');
 		});
 
     }
@@ -66,9 +77,11 @@ class CreateSuitsTables extends Migration
      */
     public function down()
     {
-        Schema::drop('sensors');
+        Schema::drop('suits_equipment');
+        Schema::drop('equipment');
+        Schema::drop('materials');
+        Schema::drop('material_types');
+        Schema::drop('statuses');
         Schema::drop('anatomical_positions');
-        Schema::drop('sensor_types');
-        Schema::drop('suits');
     }
 }

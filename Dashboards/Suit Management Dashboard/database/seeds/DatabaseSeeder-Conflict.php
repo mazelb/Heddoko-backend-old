@@ -45,9 +45,6 @@ class SuitDBSeeder extends Seeder
 		$this->command->info('Entries successfully deleted. Beginning seed.');
 		
 		$new_status = Status::create(['name' => 'unavailable']);
-		$new_status = Status::create(['name' => 'available']);
-		$new_status = Status::create(['name' => 'on loan']);
-		$new_status = Status::create(['name' => 'in transit']);
 		
 		$new_material_type = MaterialType::create(['identifier' => 'Sensor']);
 		
@@ -63,11 +60,10 @@ class SuitDBSeeder extends Seeder
 		
 		$new_material = Material::create(['material_type_id' => $new_material_type->id, 'name' => 'NOD Sensor', 'part_no' => 123321]);
 		
-		$new_suit_equipment = SuitEquipment::create(['id' => 4444444, 'anatomical_position_id' => $left_tibia_pos->id]);		
+		$new_suit_equipment = SuitEquipment::create(['id' => 4444444, 'anatomical_position_id' => $left_tibia_pos->id]);
 		
-		for ($x = 0; $x <= rand(20, 50); $x++) {
-			Equipment::create(['material_id' => $new_material->id, 'serial_no' => substr(str_shuffle(MD5(microtime())), 0, 10), 'physical_location' => 'Box2', 'status_id' => Status::getByName('available')->id]);		
-		} 
+		$new_equipment = Equipment::create(['material_id' => $new_material->id, 'serial_no' => 555555, 'physical_location' => 'Box2', 'status_id' => $new_status->id, 'suits_equipment_id' => $new_suit_equipment->id]);		
+		$new_equipment = Equipment::create(['material_id' => $new_material->id, 'serial_no' => 5525555, 'physical_location' => 'Box2', 'status_id' => $new_status->id, 'suits_equipment_id' => $new_suit_equipment->id]);		
 		
 		//$this->command->info('ddddd ' . count($new_suit_equipment->equipment));
 	}

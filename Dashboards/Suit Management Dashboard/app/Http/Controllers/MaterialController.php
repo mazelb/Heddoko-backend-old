@@ -2,10 +2,10 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\SensorType;
+use App\Models\Material;
 
 
-class SensorTypeController extends Controller {
+class MaterialController extends Controller {
 
 	/**
 	 * Display a listing of the sensor types.
@@ -14,7 +14,7 @@ class SensorTypeController extends Controller {
 	 */
 	public function index()
 	{
-		return SensorType::all();
+		return Material::all();
 	}
 
 }

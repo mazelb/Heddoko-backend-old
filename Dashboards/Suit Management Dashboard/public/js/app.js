@@ -1,48 +1,102 @@
-var app = angular.module('suit-editor', ['backend', 'selectize']);
+var app = angular.module('suit-editor', ['backend', 'selectize', 'angularUtils.directives.dirPagination']);
 
 app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', 'Equipment', 'Statuses', 'Materials', function($scope, Suits, SensorTypes, AnatomicalPositions, Equipment, Statuses, Materials)
 {
+    $scope.suits_search_term = '';  // The value of the search term the user has typed into the search box
+    $scope.suits = [];              // Contains all the suits currently displayed.
+    $scope.suits_per_page = 5;      // Number of suits per page to display.
+    $scope.suits_current_page = 1;
+    $scope.total_suits = 0;         // Total number of suits matching the query.
+    $scope.equipment_list = [];     //the list of equipment, a specific piece of hardware that can be put into a suit
+    $scope.materials_list = [];     //list of materials, ie types of equipment
 
-    //configuration for selectize control
-    $scope.new_equipment_config = {
-        valueField: 'id',
-        labelField: 'serial_no',
-        searchField: 'serial_no',
-        placeholder: 'Pick a sensor',
-        onInitialize: function(selectize){},
-        render: {
-            option: function(item, escape) {
-                return '<div>' +
-                '<span class="title">' + escape(item.serial_no) +'</span> ' +
-                '<span class="description">' + escape(item.physical_location) + '</span>' +
-                '</div>';
-            }
-        },
-        load: function(query, callback) {
-            if (!query.length) return callback();
-            $.ajax({
-                url: '/equipment'/*?q=' + encodeURIComponent(query)*/  ,
-                type: 'GET',
-                error: function() {
-                    callback();
-                },
-                success: function(response) {
-                    callback(response);
-                }
-            });
-        }
+    // New suit data.
+    $scope.new_suit = {
+        equipment: []
     };
 
-    $scope.search_term = ''; //the value of the search term the user has typed into the search box
-    $scope.filtered_suits_list = []; //a subset of the suits
-    $scope.equipment_list = []; //the list of equipment, a specific piece of hardware that can be put into a suit
-    $scope.materials_list = []; //list of materials, ie types of equipment
-
-    Suits.get()
-        .success(function(suits_response)
+    // Everything related to selectize.
+    $scope.selectize_container =
+    {
+        // Configuration for selectize controls.
+        config:
         {
-            $scope.suits = suits_response;
-        });
+            valueField: 'id',
+            labelField: 'serial_no',
+            searchField: ['serial_no', 'physical_location'],
+            placeholder: 'Pick a sensor',
+            onInitialize: function(selectize) {},
+            render: {
+                option: function(item, escape) {
+                    return  '<div>' +
+                    '<span class="title">' + escape(item.serial_no) +'</span> ' +
+                    '<span class="description">' + escape(item.physical_location) + '</span>' +
+                    '</div>';
+                }
+            },
+            load: function(query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: '/equipment?q=' + encodeURIComponent(query),
+                    type: 'GET',
+                    error: function() {
+                        callback();
+                    },
+                    success: function(response) {
+                        callback(response);
+                    }
+                });
+            },
+            onFocus: function() {
+                // Update the currently selected equipment for this specific selectize input.
+                $scope.selectize_container.current.suit_id = this.$input.context.dataset.suitId;
+                $scope.selectize_container.current.equipment_list = this.$input.data('equipmentList');
+            },
+            onBlur: function() {
+
+                // Clear all selectize bindings. We use $scope.$apply so
+                // that bindings are updated right away.
+                $scope.$apply(function() {
+                    $scope.selectize_container.models = {};
+                });
+            },
+            onLoad: function(data) {
+                // Update the equipment available to a specific selectize input.
+                for (var index in data)
+                {
+                    // Index equipment by ID, so we can retrieve it easily later on.
+                    $scope.selectize_container.current.available_equipment_list[data[index].id] = data[index];
+                }
+            },
+            onItemAdd: function(id, $item) {
+                var equipment = $scope.selectize_container.current.available_equipment_list[id],
+                    suit = $scope.FindSuit($scope.selectize_container.current.suit_id);
+                if (!equipment || !suit)
+                {
+                    return;
+                }
+
+                // Performance check (this method might get called for each selectize input on the page).
+                if ($.grep(suit.equipment, function(e) { return e.id == id; }).length > 0)
+                {
+                    return;
+                }
+
+                suit.equipment.push(equipment);
+            }
+        },
+        
+        // Stores data related to currently focused selectize control.
+        current:
+        {
+            suit_id: 0,
+            equipment_list: [],
+            available_equipment_list: {}
+        },
+        
+        // Store selectize models here, to keep them from intefering with each other
+        models: {}
+    };
 
     Statuses.get() //retrieve the list of possible statuses from the back end
         .success(function(status_types_response)
@@ -64,7 +118,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
     $scope.AddNewSuit = function() {
 
-        if ((typeof $scope.new_suit_equipment_ids === 'undefined') || $scope.new_suit_equipment_ids.length == 0)
+        if ($scope.new_suit.equipment.length == 0)
         {
             bootbox.alert('Add a minimum of 1 sensor before creating a new suit');
             return;
@@ -73,13 +127,11 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         bootbox.confirm("Are you sure you want to add this new suit?", function(user_response) {
             if (user_response === true)
             {
-                Suits.create($scope.new_suit_equipment_ids).success(function(create_suits_response)
+                Suits.create($scope.new_suit.equipment).success(function(create_suits_response)
                 {
                     $scope.suits = create_suits_response;
-                    $scope.new_suit_equipment_ids = [];
-
-                    //alert($('#asdfg').loadedSearches);
-                    //$('#asdfg').loadedSearches = {};
+                    $scope.new_suit.equipment = [];
+                    $scope.selectize_container.models['new-suit'] = [];
                 }).error(function(err_response)
                 {
                     console.log(err_response);
@@ -143,6 +195,28 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         });
     };
 
+    $scope.FindSuit = function(suit_id) {
+        if (suit_id == 'new-suit') {
+            return $scope.new_suit;
+        }
+
+        var search_results = $.grep($scope.suits, function(suit){ return suit.id == suit_id; });
+
+        return search_results.length == 1 ? search_results[0] : null;
+    };
+
+    // Queries the database to update the suits on the current page.
+    $scope.UpdatePage = function(page) {
+        page = page || $scope.suits_current_page;
+
+        Suits.search($scope.suits_search_term, page, $scope.suits_per_page)
+            .success(function(data) {
+                $scope.suits = data.results;
+                $scope.total_suits = data.total;
+            });
+    };
+    $scope.UpdatePage();
+
 }]);
 
 //CRUD methods for communicating with the back end
@@ -178,6 +252,10 @@ angular.module('backend', []).factory('Suits', function($http)
         destroy : function(suit_id)
         {
             return $http.delete('/suitsequipment/' + suit_id);
+        },
+
+        search : function(query, page, per_page) {
+            return $http.get('/suitsequipment/search?q='+ query +'&page='+ page +'&per_page='+ per_page);
         }
 
     };

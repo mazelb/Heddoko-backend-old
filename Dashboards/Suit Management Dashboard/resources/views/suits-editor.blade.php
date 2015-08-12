@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v1.0.4</title>
+		<title>Suits Editor v1.0.5</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -27,6 +27,7 @@
 			</ul>
 
 			{{-- Tab content --}}
+            <br />
 			<div class="tab-content">
 			    <div id="suits" class="tab-pane fade in active">
 				    @include('partials/suits-tab')
@@ -37,11 +38,9 @@
 				</div>
 			</div>
 
-            {{-- Pagination controls --}}
-            <dir-pagination-controls
-                template-url="views/dirPagination.tpl.html"
-                on-page-change="updatePage(newPageNumber)"
-                style="text-align: center"></dir-pagination-controls>
+            <br />
+            <br />
+
 		</div>
 	</body>
 </html>

@@ -98,6 +98,14 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         models: {}
     };
 
+    $scope.ShowLoadingDialog = function() {
+        $('#loading-dialog').modal();
+    };
+
+    $scope.HideLoadingDialog = function() {
+        $('#loading-dialog').modal('hide');
+    };
+
     Statuses.get() //retrieve the list of possible statuses from the back end
         .success(function(status_types_response)
         {
@@ -147,10 +155,13 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         bootbox.confirm("Are you sure you want to delete this suit?", function(user_response) {
             if (user_response === true)
             {
+                $scope.ShowLoadingDialog();
                 Suits.destroy(suit_id).success(function(suits_response)
                 {
                     $scope.suits = suits_response; //use the updated list of suits from the backend
                     $scope.equipment_list = [];
+                }).then(function(response) {
+                    $scope.HideLoadingDialog();
                 });
             }
         });
@@ -161,12 +172,15 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         bootbox.confirm("Are you sure you want to update this suit?", function(user_response) {
             if (user_response === true)
             {
+                $scope.ShowLoadingDialog();
                 Suits.update(suit_to_be_updated).success(function(suits_response)
                 {
                     $scope.suits = suits_response;
                 }).error(function(err_response)
                 {
                     bootbox.alert("The following error occurred while updating the suit:" + err_response);
+                }).then(function(response) {
+                    $scope.HideLoadingDialog();
                 });
             }
         });
@@ -186,12 +200,15 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
     $scope.SubmitNewEquipmentForm = function(){
 
+        $scope.ShowLoadingDialog();
         Equipment.create($scope.new_equipment_data).success(function(equipment_response)
         {
             $scope.new_equipment_data = equipment_response;
         }).error(function(response)
         {
             console.log(response);
+        }).then(function(response) {
+            $scope.HideLoadingDialog();
         });
     };
 
@@ -209,12 +226,17 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
     $scope.UpdatePage = function(page) {
         page = page || $scope.suits_current_page;
 
+        $scope.ShowLoadingDialog();
+
         Suits.search($scope.suits_search_term, page, $scope.suits_per_page)
             .success(function(data) {
                 $scope.suits = data.results;
                 $scope.total_suits = data.total;
+            })
+            .then(function(response) {
+                $scope.HideLoadingDialog();
             });
-    };
+    }.bind($scope);
     $scope.UpdatePage();
 
 }]);

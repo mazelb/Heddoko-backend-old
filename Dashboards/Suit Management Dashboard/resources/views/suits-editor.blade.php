@@ -42,5 +42,12 @@
             <br />
 
 		</div>
+
+		{{-- Loading dialog --}}
+		<div class="modal" id="loading-dialog" data-backdrop="static" data-keyboard="false">
+            <h1 style="position: relative; width: 200px; height: auto; margin: 0 auto; top: 50%; transform: translateY(-50%); color: white;">
+                Working...
+            </h1>
+        </div>
 	</body>
 </html>

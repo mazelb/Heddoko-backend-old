@@ -17,10 +17,38 @@ class SuitEquipmentController extends Controller {
 	 */
 	public function index()
 	{
-		return SuitEquipment::with('equipment')
-            ->take(Request::input('per_page', 5))
-            ->orderBy('id', 'desc')
-            ->get();
+        // Retrieve search parameters.
+        $page = (int) Request::input('page', 1);
+        $perPage = (int) Request::input('per_page', 5);
+        $perPage = max(1, min(100, $perPage));
+
+        // Build the database query.
+        $query = DB::table('suits_equipment')
+            ->select('suits_equipment.id')
+            ->leftJoin('equipment', 'suits_equipment.id', '=', 'equipment.suits_equipment_id')
+            ->orderBy('suits_equipment.id', 'desc')
+            ->distinct();
+
+        // Filter by search term.
+        $search_term = strip_tags(trim(Request::input('search_query')));
+        if (strlen($search_term))
+        {
+            $query->where('equipment.serial_no', 'LIKE', '%'. $search_term .'%')
+                ->orWhere('equipment.physical_location', 'LIKE', '%'. $search_term .'%');
+        }
+
+        // Retrieve suits by page.
+        $total = $query->count('suits_equipment.id');
+        $offset = ($page - 1) * $perPage;
+        $ids = $query->skip($offset)->take($perPage)->lists('id');
+        $results = SuitEquipment::with('equipment.material')->whereIn('id', $ids)->orderBy('id', 'desc')->get();
+
+        return [
+            'total' => $total,
+            'page' => $page,
+            'per_page' => $perPage,
+            'results' => $results
+        ];
 	}
 
 	/**
@@ -41,7 +69,7 @@ class SuitEquipmentController extends Controller {
 			$equipment_model->status_id = Status::getByName('unavailable')->id;
 			$equipment_model->save();
 		}
-		
+
 		return $this->index();
 	}
 
@@ -71,7 +99,7 @@ class SuitEquipmentController extends Controller {
 			$existing_equipment->status_id = Status::getByName('unavailable')->id;
 			$existing_equipment->save();	
 		}
-		
+
 		return $this->index();
 	}
 
@@ -93,43 +121,8 @@ class SuitEquipmentController extends Controller {
 		}
 		
 		$suit_equipment_of_interest->delete();
-		
-		return $this->index();
+
+        return $this->index();
 	}
-
-    public function search()
-    {
-        // Retrieve search parameters.
-        $page = (int) Request::input('page', 1);
-        $perPage = (int) Request::input('per_page', 5);
-        $perPage = max(0, min(100, $perPage));
-
-        // Build the database query.
-        $query = DB::table('suits_equipment')
-            ->select('suits_equipment.id')
-            ->leftJoin('equipment', 'suits_equipment.id', '=', 'equipment.suits_equipment_id')
-            ->distinct();
-
-        // Filter by search term.
-        $search_term = strip_tags(trim(Request::input('q')));
-        if (strlen($search_term))
-        {
-            $query->where('equipment.serial_no', 'LIKE', '%'. $search_term .'%')
-                ->orWhere('equipment.physical_location', 'LIKE', '%'. $search_term .'%');
-        }
-
-        // Retrieve suits by page.
-        $total = $query->count('suits_equipment.id');
-        $offset = ($page - 1) * $perPage;
-        $ids = $query->skip($offset)->take($perPage)->lists('id');
-        $results = SuitEquipment::with('equipment')->whereIn('id', $ids)->orderBy('id', 'desc')->get();
-
-        return [
-            'total' => $total,
-            'page' => $page,
-            'per_page' => $perPage,
-            'results' => $results
-        ];
-    }
 }
 

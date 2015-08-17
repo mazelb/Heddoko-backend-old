@@ -27,4 +27,9 @@ class Equipment extends Model
 	{
 		return $this->belongsTo('App\Models\Status');
 	}
+
+    public function material()
+    {
+        return $this->belongsTo('App\Models\Material');
+    }
 }

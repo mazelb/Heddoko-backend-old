@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('suits-editor');
 });
 
+Route::get('equipment/search', 'EquipmentController@search');
 Route::get('suitsequipment/search', 'SuitEquipmentController@search');
 Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store']]);

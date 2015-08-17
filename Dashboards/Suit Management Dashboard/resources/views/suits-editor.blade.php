@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v1.0.5</title>
+		<title>Suits Editor v1.0.6</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -17,7 +17,7 @@
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">
 			<div class="page-header">
-				<h1>Heddoko Suit Editor <small>V1.0.5</small></h1>
+				<h1>Heddoko Suit Editor <small>V1.0.6</small></h1>
 			</div>
 
 			{{-- Navigation tabs --}}

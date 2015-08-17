@@ -85,6 +85,7 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             {{-- Equipment details --}}
             <div class="col-sm-6" ng-hide="new_suit.current_equipment == null">
                 Serial #: <b>@{{ new_suit.current_equipment.serial_no }}</b><br/>
+                Material: <b>@{{ new_suit.current_equipment.material.name }}</b><br/>
                 Location: <b>@{{ new_suit.current_equipment.physical_location }}</b><br/>
             </div>
         </div>
@@ -142,7 +143,7 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
                     <div class="list-group-item clearfix" ng-repeat="equipment in suit.equipment" ng-class="{'list-group-item-info': equipment == suit.current_equipment}" ng-click="$parent.suit.current_equipment = equipment">
                         <b>@{{equipment.serial_no}}</b>
                         <span class="pull-right">
-                            <button class="btn btn-xs btn-warning" ng-click="RemoveExistingSensor(suit.equipment, equipment, suit.current_equipment)">
+                            <button class="btn btn-xs btn-warning" ng-click="RemoveEquipmentFromSuit(suit, equipment)">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </span>
@@ -153,6 +154,7 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             {{-- Equipment details --}}
             <div class="col-sm-6" ng-hide="suit.current_equipment == null">
                 Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
+                Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
                 Location: <b>@{{ suit.current_equipment.physical_location }}</b><br/>
             </div>
         </div>

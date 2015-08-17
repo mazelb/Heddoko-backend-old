@@ -1,6 +1,6 @@
 var app = angular.module('suit-editor', ['backend', 'selectize', 'angularUtils.directives.dirPagination']);
 
-app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', 'Equipment', 'Statuses', 'Materials', function($scope, Suits, SensorTypes, AnatomicalPositions, Equipment, Statuses, Materials)
+app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', 'Equipment', 'Statuses', 'Materials', '$timeout', function($scope, Suits, SensorTypes, AnatomicalPositions, Equipment, Statuses, Materials, $timeout)
 {
     $scope.suits_search_term = '';  // The value of the search term the user has typed into the search box
     $scope.suits = [];              // Contains all the suits currently displayed.
@@ -12,7 +12,8 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
     // New suit data.
     $scope.new_suit = {
-        equipment: []
+        equipment: [],
+        current_equipment: null
     };
 
     // Everything related to selectize.
@@ -21,6 +22,10 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         // Configuration for selectize controls.
         config:
         {
+            create: false,
+            preload: false,
+            openOnFocus: true,
+            hideSelected: true,
             valueField: 'id',
             labelField: 'serial_no',
             searchField: ['serial_no', 'physical_location'],
@@ -29,38 +34,44 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
             render: {
                 option: function(item, escape) {
                     return  '<div>' +
-                    '<span class="title">' + escape(item.serial_no) +'</span> ' +
-                    '<span class="description">' + escape(item.physical_location) + '</span>' +
+                    '<b>' + escape(item.serial_no) +'</b><br />' +
+                    '<span>'+ escape(item.material.name) +
+                    ' located in "' + escape(item.physical_location) + '"</span>' +
                     '</div>';
                 }
             },
             load: function(query, callback) {
+
+                // Performance check.
                 if (!query.length) return callback();
+
+                var selectize = this;
                 $.ajax({
-                    url: '/equipment?q=' + encodeURIComponent(query),
+                    url: '/equipment?search_term=' + encodeURIComponent(query),
                     type: 'GET',
+                    cache: false,
                     error: function() {
                         callback();
                     },
                     success: function(response) {
-                        callback(response);
+                        callback(response.results);
                     }
                 });
             },
             onFocus: function() {
+
                 // Update the currently selected equipment for this specific selectize input.
                 $scope.selectize_container.current.suit_id = this.$input.context.dataset.suitId;
                 $scope.selectize_container.current.equipment_list = this.$input.data('equipmentList');
+
             },
             onBlur: function() {
 
-                // Clear all selectize bindings. We use $scope.$apply so
-                // that bindings are updated right away.
-                $scope.$apply(function() {
-                    $scope.selectize_container.models = {};
-                });
+                // Clear the cached options.
+                this.clearOptions();
             },
             onLoad: function(data) {
+
                 // Update the equipment available to a specific selectize input.
                 for (var index in data)
                 {
@@ -85,17 +96,14 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
                 suit.equipment.push(equipment);
             }
         },
-        
+
         // Stores data related to currently focused selectize control.
         current:
         {
             suit_id: 0,
             equipment_list: [],
             available_equipment_list: {}
-        },
-        
-        // Store selectize models here, to keep them from intefering with each other
-        models: {}
+        }
     };
 
     $scope.ShowLoadingDialog = function() {
@@ -104,6 +112,11 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
     $scope.HideLoadingDialog = function() {
         $('#loading-dialog').modal('hide');
+    };
+
+    $scope.ResetNewSuitForm = function() {
+        $scope.new_suit.equipment = [];
+        $scope.new_suit.current_equipment = null;
     };
 
     Statuses.get() //retrieve the list of possible statuses from the back end
@@ -135,62 +148,93 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         bootbox.confirm("Are you sure you want to add this new suit?", function(user_response) {
             if (user_response === true)
             {
-                Suits.create($scope.new_suit.equipment).success(function(create_suits_response)
-                {
-                    $scope.suits = create_suits_response;
-                    $scope.new_suit.equipment = [];
-                    $scope.selectize_container.models['new-suit'] = [];
-                }).error(function(err_response)
-                {
-                    console.log(err_response);
-                    bootbox.alert("The following error occurred while submitting the new suit to the database:" + err_response);
+                $scope.ShowLoadingDialog();
+                Suits.create($scope.new_suit.equipment).then(function(response) {
+
+                    // Update the page (this will also hide the loading dialog).
+                    if (response.status == 200)
+                    {
+                        $scope.UpdatePage(response.data);
+                        $scope.ResetNewSuitForm();
+                        bootbox.alert('Suit successfully created.');
+                    }
+
+                }, function(response) {
+
+                    // Display the error message.
+                    $scope.HideLoadingDialog();
+                    console.log('Error adding new suit: '+ response.statusText);
+                    bootbox.alert('An error occurred:' + response.statusText);
                 });
             }
         });
 
     };
 
-    $scope.DeleteSuit = function(suit_id){
+    $scope.DeleteSuit = function(suit_id) {
 
         bootbox.confirm("Are you sure you want to delete this suit?", function(user_response) {
             if (user_response === true)
             {
                 $scope.ShowLoadingDialog();
-                Suits.destroy(suit_id).success(function(suits_response)
-                {
-                    $scope.suits = suits_response; //use the updated list of suits from the backend
-                    $scope.equipment_list = [];
-                }).then(function(response) {
-                    $scope.HideLoadingDialog();
+                Suits.destroy(suit_id).then(function(response) {
+
+                    // Update the page (this will also hide the loading dialog).
+                    if (response.status == 200)
+                    {
+                        $scope.UpdatePage(response.data);
+                        bootbox.alert('Suit successfully deleted.');
+                    }
+
+                }, function(response) {
+
+                    // Display the error message.
+                    console.log('Error deleting suit: '+ response.statusText);
+                    bootbox.alert('An error occurred:' + response.statusText);
                 });
             }
         });
     };
 
+    // Updates the equipments in a suit and refreshes the page.
     $scope.UpdateExistingSuit = function(suit_to_be_updated){
 
         bootbox.confirm("Are you sure you want to update this suit?", function(user_response) {
             if (user_response === true)
             {
                 $scope.ShowLoadingDialog();
-                Suits.update(suit_to_be_updated).success(function(suits_response)
-                {
-                    $scope.suits = suits_response;
-                }).error(function(err_response)
-                {
-                    bootbox.alert("The following error occurred while updating the suit:" + err_response);
-                }).then(function(response) {
-                    $scope.HideLoadingDialog();
+                Suits.update(suit_to_be_updated).then(function(response) {
+
+                    // Update the page (this will also hide the loading dialog).
+                    if (response.status == 200)
+                    {
+                        $scope.UpdatePage(response.data);
+                        bootbox.alert('Suit successfully updated.');
+                    }
+
+                }, function(response) {
+
+                    // Display the error message.
+                    console.log('Error updating suit: '+ response.statusText);
+                    bootbox.alert('An error occurred:' + response.statusText);
                 });
             }
         });
 
     };
 
-    $scope.RemoveExistingSensor = function(sensors_list, sensor_to_be_removed, active_sensor){
+    // Removes an equipment from a list of equipments.
+    $scope.RemoveEquipmentFromSuit = function(suit, equipment) {
 
-        $index = sensors_list.indexOf(sensor_to_be_removed);
-        sensors_list.splice( $index, 1 );
+        // Update the equipment list.
+        $index = suit.equipment.indexOf(equipment);
+        suit.equipment.splice( $index, 1 );
+
+        // If the deleted equipment was active (selected), set the current equipment to null.
+        if (suit.current_equipment && suit.current_equipment.id == equipment.id) {
+            suit.current_equipment = null;
+        }
+
     };
 
     $scope.ResetNewEquipmentForm = function(){
@@ -224,21 +268,35 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
     // Queries the database to update the suits on the current page.
     $scope.UpdatePage = function(page) {
+
+        // If we have a response, update the page with that info.
+        if (typeof page == 'object') {
+
+            $scope.suits = page.results;
+            $scope.total_suits = page.total;
+            $scope.HideLoadingDialog();
+            return;
+        }
+
+        // If not, make sure we have a valid page number.
         page = page || $scope.suits_current_page;
 
+        // Show loading dialog and update the page.
         $scope.ShowLoadingDialog();
-
         Suits.search($scope.suits_search_term, page, $scope.suits_per_page)
-            .success(function(data) {
-                $scope.suits = data.results;
-                $scope.total_suits = data.total;
-            })
             .then(function(response) {
+
+                if (response.status == 200)
+                {
+                    $scope.suits = response.data.results;
+                    $scope.total_suits = response.data.total;
+                }
+
                 $scope.HideLoadingDialog();
             });
     }.bind($scope);
-    $scope.UpdatePage();
 
+    $scope.UpdatePage();
 }]);
 
 //CRUD methods for communicating with the back end
@@ -277,7 +335,7 @@ angular.module('backend', []).factory('Suits', function($http)
         },
 
         search : function(query, page, per_page) {
-            return $http.get('/suitsequipment/search?q='+ query +'&page='+ page +'&per_page='+ per_page);
+            return $http.get('/suitsequipment?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
         }
 
     };

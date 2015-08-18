@@ -38,15 +38,23 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-3">Material ID</div>
-    <div class="col-sm-3">Serial #</div>
-    <div class="col-sm-3">Location</div>
-    <div class="col-sm-3">Status</div>
-</div>
-<div class="row" ng-repeat="equipment in equipment_list">
-    <div class="col-sm-3">@{{equipment.material_id}}</div>
-    <div class="col-sm-3">@{{equipment.serial_no}}</div>
-    <div class="col-sm-3">@{{equipment.physical_location}}</div>
-    <div class="col-sm-3">@{{equipment.status_id}}</div>
-</div>
+
+{{-- Equipment table --}}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Material</th>
+            <th>Serial #</th>
+            <th>Location</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="equipment in data.equipment.list">
+            <td>@{{ equipment.material.name }}</td>
+            <td>@{{ equipment.serial_no }}</td>
+            <td>@{{ equipment.physical_location }}</td>
+            <td>@{{ equipment.status.name }}</td>
+        </tr>
+    </tbody>
+</table>

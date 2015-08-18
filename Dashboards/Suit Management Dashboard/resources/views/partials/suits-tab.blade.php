@@ -1,6 +1,6 @@
 
 {{-- Search form --}}
-<form ng-submit="UpdatePage()">
+<form ng-submit="data.suits.updatePage()">
     <div class="input-group">
         <span class="input-group-addon" id="search-bar-addon">Search</span>
         <input
@@ -8,32 +8,32 @@
             class="form-control"
             placeholder="Enter sensor serial # or physical location"
             aria-describedby="search-bar-addon"
-            ng-model="suits_search_term">
+            ng-model="data.suits.search_term">
 
         <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="UpdatePage()">Search</button>
+            <button class="btn btn-default" type="button" ng-click="data.suits.updatePage()">Search</button>
             <button
                 type="button"
                 class="btn btn-default dropdown-toggle"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">
-                    Show <span>@{{ suits_per_page }}</span> suits per page
+                    Show <span>@{{ data.suits.per_page }}</span> suits per page
                     <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#" ng-click="suits_per_page=5">Show 5 suits per page</a></li>
-                <li><a href="#" ng-click="suits_per_page=10">Show 10 suits per page</a></li>
-                <li><a href="#" ng-click="suits_per_page=20">Show 20 suits per page</a></li>
-                <li><a href="#" ng-click="suits_per_page=50">Show 50 suits per page</a></li>
-                <li><a href="#" ng-click="suits_per_page=100">Show 100 suits per page</a></li>
+                <li><a href="#" ng-click="data.suits.per_page=5">Show 5 suits per page</a></li>
+                <li><a href="#" ng-click="data.suits.per_page=10">Show 10 suits per page</a></li>
+                <li><a href="#" ng-click="data.suits.per_page=20">Show 20 suits per page</a></li>
+                <li><a href="#" ng-click="data.suits.per_page=50">Show 50 suits per page</a></li>
+                <li><a href="#" ng-click="data.suits.per_page=100">Show 100 suits per page</a></li>
             </ul>
         </span>
     </div>
 </form>
 <br />
 
-Total suits matching this query: <span class="badge">@{{total_suits}}</span>
+Total suits matching this query: <span class="badge">@{{data.suits.total}}</span>
 <br />
 <br />
 
@@ -42,8 +42,8 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
     <div class="panel-heading">
         <h3 class="panel-title pull-left">Add new suit</h3>
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-warning" ng-click="new_suit.equipment = []">Reset</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="AddNewSuit()">Submit</button>
+            <button type="button" class="btn btn-sm btn-warning" ng-click="data.suits.new_item.reset()">Reset</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.add()">Submit</button>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -54,9 +54,9 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             <div class="col-sm-12">
                 <selectize
                     id="new-suit-select"
-                    config="selectize_container.config"
-                    ng-model="selectize_container.models['new-suit']"
-                    data-suit-id="new-suit"
+                    config="data.suits.selectize.config"
+                    ng-model="data.suits.selectize.models['new-item']"
+                    data-item-id="new-item"
                     data-equipment-list="{}">
                 </selectize>
 
@@ -70,10 +70,17 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             <div class="col-sm-6">
                 <div class="list-group">
 
-                    <div class="list-group-item clearfix" ng-repeat="equipment in new_suit.equipment" ng-class="{'list-group-item-info': equipment == new_suit.current_equipment}" ng-click="new_suit.current_equipment = equipment">
+                    <div
+                        class="list-group-item clearfix"
+                        ng-repeat="equipment in data.suits.new_item.equipment"
+                        ng-class="{'list-group-item-info': equipment == data.suits.new_item.current_equipment}"
+                        ng-click="data.suits.new_item.current_equipment = equipment">
+                        
                         <b>@{{equipment.serial_no}}</b>
                         <span class="pull-right">
-                            <button class="btn btn-xs btn-warning" ng-click="RemoveExistingSensor(new_suit.equipment, equipment, new_suit.current_equipment)">
+                            <button class="btn btn-xs btn-warning"
+                                ng-click="RemoveExistingSensor(data.suits.new_item.equipment, equipment, data.suits.new_item.current_equipment)">
+                                
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </span>
@@ -83,10 +90,10 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             </div>
 
             {{-- Equipment details --}}
-            <div class="col-sm-6" ng-hide="new_suit.current_equipment == null">
-                Serial #: <b>@{{ new_suit.current_equipment.serial_no }}</b><br/>
-                Material: <b>@{{ new_suit.current_equipment.material.name }}</b><br/>
-                Location: <b>@{{ new_suit.current_equipment.physical_location }}</b><br/>
+            <div class="col-sm-6" ng-hide="data.suits.new_item.current_equipment== null">
+                Serial #: <b>@{{ data.suits.new_item.current_equipment.serial_no }}</b><br/>
+                Material: <b>@{{ data.suits.new_item.current_equipment.material.name }}</b><br/>
+                Location: <b>@{{ data.suits.new_item.current_equipment.physical_location }}</b><br/>
             </div>
         </div>
     </div>
@@ -96,15 +103,15 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
 <div class="row" style="text-align: center">
     <dir-pagination-controls
         template-url="views/dirPagination.tpl.html"
-        on-page-change="UpdatePage(newPageNumber)">
+        on-page-change="data.suits.updatePage(newPageNumber)">
     </dir-pagination-controls>
 </div>
 
 {{-- List of suits --}}
 <div
     class="panel panel-primary"
-    dir-paginate="suit in suits | itemsPerPage: suits_per_page track by suit.id"
-    total-items="total_suits"
+    dir-paginate="suit in data.suits.list | itemsPerPage: data.suits.per_page track by suit.id"
+    total-items="data.suits.total"
     current-page="pagination.current">
 
     <div class="panel-heading">
@@ -112,8 +119,8 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             <span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.equipment.length}} sensor(s)
         </h3>
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="DeleteSuit(suit.id)">Delete Suit</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="UpdateExistingSuit(suit)">Save</button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">Delete Suit</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">Save</button>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -125,8 +132,8 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
             <div class="col-sm-12">
                 <selectize
                     id="suit-select-@{{$index}}"
-                    config="selectize_container.config"
-                    ng-model="selectize_container.models[$index]"
+                    config="data.suits.selectize.config"
+                    ng-model="data.suits.selectize.models[$index]"
                     data-suit-id="@{{suit.id}}"
                     data-equipment-list="@{{suit.equipment}}">
                 </selectize>
@@ -143,7 +150,7 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
                     <div class="list-group-item clearfix" ng-repeat="equipment in suit.equipment" ng-class="{'list-group-item-info': equipment == suit.current_equipment}" ng-click="$parent.suit.current_equipment = equipment">
                         <b>@{{equipment.serial_no}}</b>
                         <span class="pull-right">
-                            <button class="btn btn-xs btn-warning" ng-click="RemoveEquipmentFromSuit(suit, equipment)">
+                            <button class="btn btn-xs btn-warning" ng-click="data.suits.removeEquipment(suit, equipment)">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </span>
@@ -166,6 +173,6 @@ Total suits matching this query: <span class="badge">@{{total_suits}}</span>
 <div class="row" style="text-align: center">
     <dir-pagination-controls
         template-url="views/dirPagination.tpl.html"
-        on-page-change="UpdatePage(newPageNumber)">
+        on-page-change="data.suits.updatePage(newPageNumber)">
     </dir-pagination-controls>
 </div>

@@ -102,6 +102,7 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
 {{-- Pagination controls --}}
 <div class="row" style="text-align: center">
     <dir-pagination-controls
+        pagination-id="suits"
         template-url="views/dirPagination.tpl.html"
         on-page-change="data.suits.updatePage(newPageNumber)">
     </dir-pagination-controls>
@@ -110,17 +111,18 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
 {{-- List of suits --}}
 <div
     class="panel panel-primary"
-    dir-paginate="suit in data.suits.list | itemsPerPage: data.suits.per_page track by suit.id"
+    pagination-id="suits"
+    dir-paginate="suit in data.suits.list | itemsPerPage: data.suits.per_page"
     total-items="data.suits.total"
-    current-page="pagination.current">
+    current-page="data.suits.current_page">
 
     <div class="panel-heading">
         <h3 class="panel-title pull-left">
             <span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.equipment.length}} sensor(s)
         </h3>
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">Delete Suit</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">Save</button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="$parent.destroy(suit.id)">Delete Suit</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="$parent.update(suit)">Save</button>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -132,8 +134,8 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
             <div class="col-sm-12">
                 <selectize
                     id="suit-select-@{{$index}}"
-                    config="data.suits.selectize.config"
-                    ng-model="data.suits.selectize.models[$index]"
+                    config="$parent.selectize.config"
+                    ng-model="$parent.selectize.models[$index]"
                     data-suit-id="@{{suit.id}}"
                     data-equipment-list="@{{suit.equipment}}">
                 </selectize>
@@ -172,6 +174,7 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
 {{-- Pagination controls --}}
 <div class="row" style="text-align: center">
     <dir-pagination-controls
+        pagination-id="suits"
         template-url="views/dirPagination.tpl.html"
         on-page-change="data.suits.updatePage(newPageNumber)">
     </dir-pagination-controls>

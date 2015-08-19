@@ -39,6 +39,15 @@
     </div>
 </div>
 
+{{-- Pagination controls --}}
+<div class="row" style="text-align: center">
+    <dir-pagination-controls
+        pagination-id="equipment"
+        template-url="views/dirPagination.tpl.html"
+        on-page-change="data.equipment.updatePage(newPageNumber)">
+    </dir-pagination-controls>
+</div>
+
 {{-- Equipment table --}}
 <table class="table table-hover">
     <thead>
@@ -50,7 +59,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="equipment in data.equipment.list">
+        {{--<tr ng-repeat="equipment in data.equipment.list">--}}
+        <tr
+            pagination-id="equipment"
+            dir-paginate="equipment in data.equipment.list | itemsPerPage: data.equipment.per_page"
+            total-items="data.equipment.total"
+            current-page="data.equipment.current_page">
+
             <td>@{{ equipment.material.name }}</td>
             <td>@{{ equipment.serial_no }}</td>
             <td>@{{ equipment.physical_location }}</td>
@@ -58,3 +73,12 @@
         </tr>
     </tbody>
 </table>
+
+{{-- Pagination controls --}}
+<div class="row" style="text-align: center">
+    <dir-pagination-controls
+        pagination-id="equipment"
+        template-url="views/dirPagination.tpl.html"
+        on-page-change="data.equipment.updatePage(newPageNumber)">
+    </dir-pagination-controls>
+</div>

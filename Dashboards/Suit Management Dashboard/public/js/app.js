@@ -135,7 +135,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
     // Equipment model.
     $scope.data.equipment = $.extend(true, {}, dataTemplate, {
         name: 'Equipment',
-        per_page: 100,
+        per_page: 20,
         service: Equipment
     });
 

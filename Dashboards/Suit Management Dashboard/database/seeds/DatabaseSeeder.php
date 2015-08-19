@@ -44,13 +44,15 @@ class SuitDBSeeder extends Seeder
 
         $this->command->info('Entries successfully deleted. Beginning seed.');
 
-        $new_status = Status::create(['name' => 'unavailable']);
-        $new_status = Status::create(['name' => 'available']);
-        $new_status = Status::create(['name' => 'on loan']);
-        $new_status = Status::create(['name' => 'in transit']);
+        // Create statuses.
+        $status_unavailable = Status::create(['name' => 'unavailable']);
+        $status_available = Status::create(['name' => 'available']);
+        $status_loan = Status::create(['name' => 'on loan']);
+        $status_transit = Status::create(['name' => 'in transit']);
 
         $new_material_type = MaterialType::create(['identifier' => 'Sensor']);
 
+        // Create anatomical positions.
         AnatomicalPosition::create(['name' => 'Upper spin',		 'id' => 0]);
         AnatomicalPosition::create(['name' => 'Right upper arm', 'id' => 1]);
         AnatomicalPosition::create(['name' => 'Right forearm',   'id' => 2]);
@@ -61,12 +63,18 @@ class SuitDBSeeder extends Seeder
         AnatomicalPosition::create(['name' => 'Left thigh',		 'id' => 7]);
         $left_tibia_pos = AnatomicalPosition::create(['name' => 'Left tibia', 	 'id' => 8]);
 
+        // Create materials.
         $new_material = Material::create(['material_type_id' => $new_material_type->id, 'name' => 'NOD Sensor', 'part_no' => 123321]);
+
+//        for ($x = 0; $x <= rand(100, 200); $x++) {
+//            Material::create(['material_type_id' => $new_material_type->id, 'name' => 'StretchSensor', 'part_no' => 274321]);
+//        }
+
 
         $new_suit_equipment = SuitEquipment::create(['id' => 4444444, 'anatomical_position_id' => $left_tibia_pos->id]);
 
-        for ($x = 0; $x <= rand(20, 50); $x++) {
-            Equipment::create(['material_id' => $new_material->id, 'serial_no' => substr(str_shuffle(MD5(microtime())), 0, 10), 'physical_location' => 'Box2', 'status_id' => Status::getByName('available')->id]);
+        for ($x = 0; $x <= rand(100, 200); $x++) {
+            Equipment::create(['material_id' => $new_material->id, 'serial_no' => substr(str_shuffle(MD5(microtime())), 0, 10), 'physical_location' => 'Box2', 'status_id' => $status_available->id]);
         }
 
         //$this->command->info('ddddd ' . count($new_suit_equipment->equipment));

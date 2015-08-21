@@ -8,7 +8,7 @@ use Request;
 class EquipmentController extends Controller {
 
 	/**
-	 * Display a listing of the sensor types.
+	 * Display a listing of equipment.
 	 *
 	 * @return Response
 	 */
@@ -23,10 +23,8 @@ class EquipmentController extends Controller {
         $search_term = strip_tags(trim(Request::input('search_term')));
         if (strlen($search_term))
         {
-            $query->where(function($query) use ($search_term) {
-                $query->where('serial_no', 'LIKE', '%'. $search_term .'%')
+            $query->where('serial_no', 'LIKE', '%'. $search_term .'%')
                     ->orWhere('physical_location', 'LIKE', '%'. $search_term .'%');
-            });
         }
 
         // Retrieve search parameters.

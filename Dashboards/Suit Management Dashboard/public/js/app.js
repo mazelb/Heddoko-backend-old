@@ -52,6 +52,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
         // Stores the information related to new items.
         new_item: {
+            name: '',
             equipment: [],
             current_equipment: null,
             reset: function() {
@@ -95,7 +96,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
                         bootbox.alert('An error occurred:' + response.statusText);
                     }.bind(this));
                 }
-            });
+            }.bind(this));
 
         },
 
@@ -129,20 +130,41 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         selectize: null
     };
 
+    //
     // Materials model.
-    $scope.data.materials = $.extend(true, {}, dataTemplate, {name: 'Material', service: Materials});
+    //
+    $scope.data.materials = $.extend(true, {}, dataTemplate, {
+        name: 'Material',
+        per_page: 20,
+        service: Materials
+    });
 
+    //
     // Equipment model.
+    //
     $scope.data.equipment = $.extend(true, {}, dataTemplate, {
         name: 'Equipment',
         per_page: 20,
         service: Equipment
     });
 
+    //
+    // Anatomical positions model.
+    //
+    $scope.data.anatomical_positions = $.extend(true, {}, dataTemplate, {
+        name: 'Anatomical Position',
+        per_page: 10,
+        service: AnatomicalPositions
+    });
+
+    //
     // Statuses model.
+    //
     $scope.data.statuses = $.extend(true, {}, dataTemplate, {name: 'Status', service: Statuses});
 
+    //
     // Suitsequipment model.
+    //
     $scope.data.suits = $.extend(true, {}, dataTemplate, {
         name: 'Suit',
         per_page: 5,
@@ -178,7 +200,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
                         bootbox.alert('An error occurred:' + response.statusText);
                     });
                 }
-            });
+            }.bind(this));
 
         },
         removeEquipment: function(suit, equipment) {
@@ -350,7 +372,7 @@ angular.module('backend', [])
             },
 
             search : function(query, page, per_page) {
-                return $http.get('/suitsequipment?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get('/suitsequipment?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
@@ -366,15 +388,21 @@ angular.module('backend', [])
 
         };
     }).factory('AnatomicalPositions', function($http) {
+
         return {
 
             get : function()
             {
                 return $http.get('/anatomicalpositions');
+            },
+
+            search : function(query, page, per_page) {
+                return $http.get('/anatomicalpositions?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
     }).factory('Statuses', function($http) {
+
         return {
 
             get : function()
@@ -407,22 +435,22 @@ angular.module('backend', [])
             },
 
             search : function(query, page, per_page) {
-                return $http.get('/equipment?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get('/equipment?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-}).factory('Materials', function($http)
-{
-    return {
+    }).factory('Materials', function($http) {
 
-        get : function()
-        {
-            return $http.get('/materials');
-        },
+        return {
 
-        search : function(query, page, per_page) {
-            return $http.get('/dummy-for-testing?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
-        }
+            get : function()
+            {
+                return $http.get('/materials');
+            },
 
-    };
-});
+            search : function(query, page, per_page) {
+                return $http.get('/materials?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
+            }
+
+        };
+    });

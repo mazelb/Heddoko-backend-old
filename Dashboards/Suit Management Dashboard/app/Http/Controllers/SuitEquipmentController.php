@@ -30,7 +30,7 @@ class SuitEquipmentController extends Controller {
             ->distinct();
 
         // Filter by search term.
-        $search_term = strip_tags(trim(Request::input('search_query')));
+        $search_term = strip_tags(trim(Request::input('search_term')));
         if (strlen($search_term))
         {
             $query->where('equipment.serial_no', 'LIKE', '%'. $search_term .'%')

@@ -1,5 +1,44 @@
 
-<h3>hello</h3>
+{{-- Search form --}}
+<form ng-submit="data.equipment.updatePage()">
+    <div class="input-group">
+        <span class="input-group-addon" id="search-bar-addon">Search</span>
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Enter the serial # or location of an equipment"
+            aria-describedby="search-bar-addon"
+            ng-model="data.equipment.search_term">
+
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="data.equipment.updatePage()">Search</button>
+            <button
+                type="button"
+                class="btn btn-default dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                    Show <span>@{{ data.equipment.per_page }}</span> equipment per page
+                    <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#" ng-click="data.equipment.per_page=5">Show 5 equipment per page</a></li>
+                <li><a href="#" ng-click="data.equipment.per_page=10">Show 10 equipment per page</a></li>
+                <li><a href="#" ng-click="data.equipment.per_page=20">Show 20 equipment per page</a></li>
+                <li><a href="#" ng-click="data.equipment.per_page=50">Show 50 equipment per page</a></li>
+                <li><a href="#" ng-click="data.equipment.per_page=100">Show 100 equipment per page</a></li>
+            </ul>
+        </span>
+    </div>
+</form>
+<br />
+
+Total equipment matching this query: <span class="badge">@{{data.equipment.total}}</span>
+<br />
+<br />
+
+{{-- New equipment form --}}
+<h3>Hello</h3>
 <p>Use this page to view the status of stored equipment</p>
 <p>You can also upload a CSV file to add to this page</p>
 <div class="panel panel-success">
@@ -14,25 +53,26 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-3">
-                <!--<input type="text" ng-model="new_equipment_data.material_id" />-->
                 <select
                     ng-model="new_equipment_data.material_id"
                     ng-selected="new_equipment_data.material_id"
-                    ng-options="material.name for material in materials_list">
+                    ng-options="material.name for material in materials_list"
+                    class="form-control">
                 </select>
             </div>
             <div class="col-sm-3">
-                <input type="text" ng-model="new_equipment_data.serial_no" />
+                <input type="text" ng-model="new_equipment_data.serial_no" class="form-control" placeholder="Serial #" />
             </div>
             <div class="col-sm-3">
-                <input type="text" ng-model="new_equipment_data.physical_location" />
+                <input type="text" ng-model="new_equipment_data.physical_location" class="form-control" placeholder="Physical location" />
             </div>
             <div class="col-sm-3">
                 @{{new_equipment_data.status_id}}
                 <select
                     ng-model="new_equipment_data.status_id"
                     ng-selected="new_equipment_data.status_id"
-                    ng-options="status.name for status in status_types track by status.id">
+                    ng-options="status.name for status in status_types track by status.id"
+                    class="form-control">
                 </select>
             </div>
         </div>

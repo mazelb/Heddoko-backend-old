@@ -56,7 +56,7 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
                     id="new-suit-select"
                     config="data.suits.selectize.config"
                     ng-model="data.suits.selectize.models['new-item']"
-                    data-item-id="new-item"
+                    data-suit-id="new-item"
                     data-equipment-list="{}">
                 </selectize>
 
@@ -121,8 +121,8 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
             <span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.equipment.length}} sensor(s)
         </h3>
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="$parent.destroy(suit.id)">Delete Suit</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="$parent.update(suit)">Save</button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">Delete Suit</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">Save</button>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -134,8 +134,8 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
             <div class="col-sm-12">
                 <selectize
                     id="suit-select-@{{$index}}"
-                    config="$parent.selectize.config"
-                    ng-model="$parent.selectize.models[$index]"
+                    config="data.suits.selectize.config"
+                    ng-model="data.suits.selectize.models[$index]"
                     data-suit-id="@{{suit.id}}"
                     data-equipment-list="@{{suit.equipment}}">
                 </selectize>
@@ -149,7 +149,12 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
                 <div class="list-group">
 
                     {{-- Equipment list --}}
-                    <div class="list-group-item clearfix" ng-repeat="equipment in suit.equipment" ng-class="{'list-group-item-info': equipment == suit.current_equipment}" ng-click="$parent.suit.current_equipment = equipment">
+                    <div
+                        class="list-group-item clearfix"
+                        ng-repeat="equipment in suit.equipment"
+                        ng-class="{'list-group-item-info': equipment == suit.current_equipment}"
+                        ng-click="$parent.suit.current_equipment = equipment">
+
                         <b>@{{equipment.serial_no}}</b>
                         <span class="pull-right">
                             <button class="btn btn-xs btn-warning" ng-click="data.suits.removeEquipment(suit, equipment)">

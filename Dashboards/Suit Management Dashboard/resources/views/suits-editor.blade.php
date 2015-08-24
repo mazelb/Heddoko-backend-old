@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v1.0.8</title>
+		<title>Suits Editor v1.0.9</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -17,7 +17,7 @@
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">
 			<div class="page-header">
-				<h1>Heddoko Suit Editor <small>V1.0.8</small></h1>
+				<h1>Heddoko Suit Editor <small>V1.0.9</small></h1>
 			</div>
 
 			{{-- Navigation tabs --}}
@@ -25,6 +25,7 @@
 				<li class="active"><a data-toggle="tab" href="#suits">Suits</a></li>
 				<li><a data-toggle="tab" href="#equipment">Equipment</a></li>
 				<li><a data-toggle="tab" href="#materials">Materials</a></li>
+				<li><a data-toggle="tab" href="#material_types">Material Types</a></li>
 				<li><a data-toggle="tab" href="#anatomical_positions">Anatomical Positions</a></li>
 			</ul>
 
@@ -41,6 +42,10 @@
 
 				<div id="materials" class="tab-pane fade">
 				    @include('partials/materials-tab')
+				</div>
+
+				<div id="material_types" class="tab-pane fade">
+				    @include('partials/material-types-tab')
 				</div>
 
 				<div id="anatomical_positions" class="tab-pane fade">

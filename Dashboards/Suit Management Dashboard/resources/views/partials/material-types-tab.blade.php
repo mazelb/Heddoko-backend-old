@@ -17,7 +17,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-12">
-                <input type="text" ng-model="data.anatomical_positions.new_item.name" placeholder="Name" class="form-control" />
+                <input type="text" ng-model="data.material_types.new_item.identifier" placeholder="Name" class="form-control" />
             </div>
         </div>
     </div>

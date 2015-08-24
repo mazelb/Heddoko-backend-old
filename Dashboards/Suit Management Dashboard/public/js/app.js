@@ -133,7 +133,7 @@ app.controller('MainController', [
                 }
             }
 
-            bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
+            bootbox.confirm('Are you sure you want to add a new '+ this.name +'?', function(user_response) {
                 if (user_response === true)
                 {
                     $scope.ShowLoadingDialog();
@@ -153,6 +153,8 @@ app.controller('MainController', [
                         // Display the error message.
                         console.log('Error updating '+ this.name +': '+ response.statusText);
                         bootbox.alert('An error occurred:' + response.statusText);
+                        $scope.HideLoadingDialog();
+
                     }.bind(this));
                 }
             }.bind(this));
@@ -482,6 +484,16 @@ angular.module('backend', [])
             get : function()
             {
                 return $http.get('/materialtypes');
+            },
+
+            create : function(new_material_type_form_data) {
+
+                return $http({
+                    method: 'POST',
+                    url: '/materialtypes',
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({new_material_type_data: new_material_type_form_data})
+                });
             },
 
             search : function(query, page, per_page) {

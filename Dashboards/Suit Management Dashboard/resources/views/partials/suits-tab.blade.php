@@ -1,36 +1,10 @@
 
 {{-- Search form --}}
-<form ng-submit="data.suits.updatePage()">
-    <div class="input-group">
-        <span class="input-group-addon" id="search-bar-addon">Search</span>
-        <input
-            type="text"
-            class="form-control"
-            placeholder="Enter sensor serial # or physical location"
-            aria-describedby="search-bar-addon"
-            ng-model="data.suits.search_term">
-
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="data.suits.updatePage()">Search</button>
-            <button
-                type="button"
-                class="btn btn-default dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                    Show <span>@{{ data.suits.per_page }}</span> suits per page
-                    <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#" ng-click="data.suits.per_page=5">Show 5 suits per page</a></li>
-                <li><a href="#" ng-click="data.suits.per_page=10">Show 10 suits per page</a></li>
-                <li><a href="#" ng-click="data.suits.per_page=20">Show 20 suits per page</a></li>
-                <li><a href="#" ng-click="data.suits.per_page=50">Show 50 suits per page</a></li>
-                <li><a href="#" ng-click="data.suits.per_page=100">Show 100 suits per page</a></li>
-            </ul>
-        </span>
-    </div>
-</form>
+@include('partials/_search-form', [
+    'model_name' => 'suits',
+    'data_object' => 'suits',
+    'placeholder' => 'Enter sensor serial # or physical location'
+])
 <br />
 
 Total suits matching this query: <span class="badge">@{{data.suits.total}}</span>
@@ -75,12 +49,12 @@ Total suits matching this query: <span class="badge">@{{data.suits.total}}</span
                         ng-repeat="equipment in data.suits.new_item.equipment"
                         ng-class="{'list-group-item-info': equipment == data.suits.new_item.current_equipment}"
                         ng-click="data.suits.new_item.current_equipment = equipment">
-                        
+
                         <b>@{{equipment.serial_no}}</b>
                         <span class="pull-right">
                             <button class="btn btn-xs btn-warning"
                                 ng-click="RemoveExistingSensor(data.suits.new_item.equipment, equipment, data.suits.new_item.current_equipment)">
-                                
+
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </span>

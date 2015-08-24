@@ -15,9 +15,23 @@ class EquipmentController extends Controller {
 	public function index()
 	{
         // Build the database query.
-        $query = Equipment::with('status', 'material')
-            ->where('status_id', Status::getByName('available')->id)
-            ->orderBy('id', 'desc');
+        $query = Equipment::with('status', 'material')->orderBy('id', 'desc');
+
+		// Filter by status ID.
+		$status_id = (int) Request::input('status_id', -1);
+		switch ($status_id)
+		{
+			case -1:
+				$query->where('status_id', Status::getByName('available')->id);
+				break;
+
+			case 0:
+				// Retrieve all equipment.
+				break;
+
+			default:
+				$query->where('status_id', $status_id);
+		}
 
         // Filter by search term.
         $search_term = strip_tags(trim(Request::input('search_term')));
@@ -42,7 +56,7 @@ class EquipmentController extends Controller {
             'results' => $results
         ];
 	}
-	
+
 		/**
 	 * Store a newly created suit-equipment in storage.
 	 *
@@ -51,7 +65,7 @@ class EquipmentController extends Controller {
 	public function store()
 	{
 		Equipment::create(Request::input('new_equipment_data', array()));
-		
+
 		return $this->index();
 	}
 

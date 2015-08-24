@@ -1,11 +1,15 @@
 var app = angular.module('suit-editor', ['backend', 'selectize', 'angularUtils.directives.dirPagination']);
 
-app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalPositions', 'Equipment', 'Statuses', 'Materials', '$timeout', function($scope, Suits, SensorTypes, AnatomicalPositions, Equipment, Statuses, Materials, $timeout)
-{
+app.controller('MainController', [
+    '$scope', 'AnatomicalPositions', 'Equipment', 'Materials', 'MaterialTypes', 'Statuses', 'Suits',
+    function($scope, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, Suits) {
+
+
     // We use a template object that we will clone for each data model, and store
     // these models in $scope.data for easy access.
     $scope.data = {};
-    var dataTemplate = {
+    var dataTemplate =
+    {
         name: '',           // Title for a data item.
         list: [],           // List of data items.
         total: 0,           // Total number of data items matching the current query.
@@ -51,13 +55,51 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         },
 
         // Stores the information related to new items.
-        new_item: {
-            name: '',
-            equipment: [],
-            current_equipment: null,
-            reset: function() {
-                this.equipment = [];
-                this.current_equipment = null;
+        new_item:
+        {
+            // Returns the new item without the unrelated data.
+            getAttributes: function()
+            {
+                var new_item = {};
+
+                for (var attribute in this)
+                {
+                    if (['number', 'string'].indexOf(typeof this[attribute]) != -1) {
+                        new_item[attribute] = this[attribute];
+                    }
+                }
+
+                return new_item;
+            },
+
+            // Resets the new item form.
+            reset: function()
+            {
+                for (var attribute in this)
+                {
+                    // Performance check.
+                    if (!this[attribute]) {
+                        continue;
+                    }
+
+                    switch (typeof this[attribute])
+                    {
+                        case 'number':
+                            this[attribute] = 0;
+                            break;
+
+                        case 'string':
+                            this[attribute] = '';
+                            break;
+
+                        case 'object':
+                            this[attribute] = (typeof this[attribute].push == 'function') ? [] : {};
+                            break;
+
+                        default:
+                            // Do nothing.
+                    }
+                }
             }
         },
 
@@ -71,6 +113,50 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
             var search_results = $.grep(this.list, function(item) { return item.id == id; });
             return search_results.length == 1 ? search_results[0] : null;
+        },
+
+        // Adds a new item.
+        create: function() {
+
+            // Check that all attributes have valid values.
+            for (var attribute in this.new_item)
+            {
+                // Only strings and integers need to be validated.
+                if (['string', 'number'].indexOf(typeof this.new_item[attribute]) != -1)
+                {
+                    // Consider any empty string or default values to be invalid.
+                    if (this.new_item[attribute] == 0 || this.new_item[attribute] == '0' || this.new_item[attribute] == '')
+                    {
+                        bootbox.alert('Please fill out all details before adding a new '+ this.name);
+                        return;
+                    }
+                }
+            }
+
+            bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
+                if (user_response === true)
+                {
+                    $scope.ShowLoadingDialog();
+                    this.service.create(this.new_item.getAttributes()).then(function(response) {
+
+                        // Update the page (this will also hide the loading dialog).
+                        if (response.status == 200)
+                        {
+                            this.updatePage(response.data);
+                            bootbox.alert(this.name +' successfully updated.');
+                        }
+
+                        this.new_item.reset();
+
+                    }.bind(this), function(response) {
+
+                        // Display the error message.
+                        console.log('Error updating '+ this.name +': '+ response.statusText);
+                        bootbox.alert('An error occurred:' + response.statusText);
+                    }.bind(this));
+                }
+            }.bind(this));
+
         },
 
         // Updates an existing item.
@@ -131,12 +217,12 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
     };
 
     //
-    // Materials model.
+    // Anatomical positions model.
     //
-    $scope.data.materials = $.extend(true, {}, dataTemplate, {
-        name: 'Material',
-        per_page: 20,
-        service: Materials
+    $scope.data.anatomical_positions = $.extend(true, {}, dataTemplate, {
+        name: 'Anatomical Position',
+        per_page: 10,
+        service: AnatomicalPositions
     });
 
     //
@@ -147,20 +233,46 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
         per_page: 20,
         service: Equipment
     });
+    $scope.data.equipment.new_item = $.extend(true, {}, dataTemplate.new_item, {
+        material_id: 0,
+        serial_no: '',
+        physical_location: '',
+        status_id: 0
+    });
 
     //
-    // Anatomical positions model.
+    // Materials model.
     //
-    $scope.data.anatomical_positions = $.extend(true, {}, dataTemplate, {
-        name: 'Anatomical Position',
-        per_page: 10,
-        service: AnatomicalPositions
+    $scope.data.materials = $.extend(true, {}, dataTemplate, {
+        name: 'Material',
+        per_page: 20,
+        service: Materials
+    });
+    $scope.data.materials.new_item = $.extend(true, {}, dataTemplate.new_item, {
+        name: '',
+        part_no: '',
+        material_type_id: 0
+    });
+
+    //
+    // Material types model.
+    //
+    $scope.data.material_types = $.extend(true, {}, dataTemplate, {
+        name: 'Material Type',
+        per_page: 20,
+        service: MaterialTypes
+    });
+    $scope.data.material_types.new_item = $.extend(true, {}, dataTemplate.new_item, {
+        identifier: ''
     });
 
     //
     // Statuses model.
     //
-    $scope.data.statuses = $.extend(true, {}, dataTemplate, {name: 'Status', service: Statuses});
+    $scope.data.statuses = $.extend(true, {}, dataTemplate, {
+        name: 'Status',
+        service: Statuses
+    });
 
     //
     // Suitsequipment model.
@@ -182,7 +294,7 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
                 if (user_response === true)
                 {
                     $scope.ShowLoadingDialog();
-                    Suits.create(this.new_item.equipment).then(function(response) {
+                    this.service.create(this.new_item.equipment).then(function(response) {
 
                         // Update the page (this will also hide the loading dialog).
                         if (response.status == 200)
@@ -301,6 +413,11 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
             }
         }
     });
+    $scope.data.suits.new_item = $.extend(true, {}, dataTemplate.new_item, {
+        name: '',
+        equipment: [],
+        current_equipment: null
+    });
 
     $scope.ShowLoadingDialog = function() {
         $('#loading-dialog').modal();
@@ -308,25 +425,6 @@ app.controller('MainController', ['$scope', 'Suits', 'SensorTypes', 'AnatomicalP
 
     $scope.HideLoadingDialog = function() {
         $('#loading-dialog').modal('hide');
-    };
-
-    $scope.ResetNewEquipmentForm = function(){
-
-        $scope.new_equipment_data = {};
-    };
-
-    $scope.SubmitNewEquipmentForm = function(){
-
-        $scope.ShowLoadingDialog();
-        Equipment.create($scope.new_equipment_data).success(function(equipment_response)
-        {
-            $scope.new_equipment_data = equipment_response;
-        }).error(function(response)
-        {
-            console.log(response);
-        }).then(function(response) {
-            $scope.HideLoadingDialog();
-        });
     };
 
     // Load the data for each tab.
@@ -377,13 +475,17 @@ angular.module('backend', [])
 
         };
 
-    }).factory('SensorTypes', function($http) {
+    }).factory('MaterialTypes', function($http) {
 
         return {
 
             get : function()
             {
-                return $http.get('/sensortypes');
+                return $http.get('/materialtypes');
+            },
+
+            search : function(query, page, per_page) {
+                return $http.get('/materialtypes?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
@@ -411,7 +513,7 @@ angular.module('backend', [])
             },
 
             search : function(query, page, per_page) {
-                return $http.get('/dummy-for-testing?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get('/statuses?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
@@ -428,14 +530,14 @@ angular.module('backend', [])
 
                 return $http({
                     method: 'POST',
-                    url: '/equipment',
+                    url: '/equipment?status_id=0',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_equipment_data: new_equipment_form_data})
                 });
             },
 
             search : function(query, page, per_page) {
-                return $http.get('/equipment?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get('/equipment?status_id=0&search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
@@ -446,6 +548,16 @@ angular.module('backend', [])
             get : function()
             {
                 return $http.get('/materials');
+            },
+
+            create : function(new_material_form_data) {
+
+                return $http({
+                    method: 'POST',
+                    url: '/materials',
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({new_material_data: new_material_form_data})
+                });
             },
 
             search : function(query, page, per_page) {

@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Material;
 
 
-class MaterialController extends Controller {
-
+class MaterialController extends Controller
+{
 	/**
 	 * Display a listing of materials.
 	 *
@@ -46,4 +46,15 @@ class MaterialController extends Controller {
         ];
 	}
 
+	/**
+	 * Store a newly created material in storage.
+	 *
+	 * @return Response: The updated list of materials
+	 */
+	public function store()
+	{
+		Material::create(Request::input('new_material_data', array()));
+
+		return $this->index();
+	}
 }

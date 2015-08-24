@@ -18,6 +18,6 @@ Route::get('/', function () {
 Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store']]);
 Route::resource('statuses', 'StatusController', ['only' => ['index']]);
-Route::resource('materials', 'MaterialController', ['only' => ['index']]);
+Route::resource('materials', 'MaterialController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('anatomicalpositions', 'AnatomicalPositionController', ['only' => ['index']]);
 Route::resource('materialtypes', 'MaterialTypeController', ['only' => ['index']]);

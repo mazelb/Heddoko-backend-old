@@ -1,36 +1,10 @@
 
 {{-- Search form --}}
-<form ng-submit="data.anatomical_positions.updatePage()">
-    <div class="input-group">
-        <span class="input-group-addon" id="search-bar-addon">Search</span>
-        <input
-            type="text"
-            class="form-control"
-            placeholder="Enter the name or part # of a material"
-            aria-describedby="search-bar-addon"
-            ng-model="data.anatomical_positions.search_term">
-
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="data.anatomical_positions.updatePage()">Search</button>
-            <button
-                type="button"
-                class="btn btn-default dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                    Show <span>@{{ data.anatomical_positions.per_page }}</span> anatomical positions per page
-                    <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#" ng-click="data.anatomical_positions.per_page=5">Show 5 anatomical positions per page</a></li>
-                <li><a href="#" ng-click="data.anatomical_positions.per_page=10">Show 10 anatomical positions per page</a></li>
-                <li><a href="#" ng-click="data.anatomical_positions.per_page=20">Show 20 anatomical positions per page</a></li>
-                <li><a href="#" ng-click="data.anatomical_positions.per_page=50">Show 50 anatomical positions per page</a></li>
-                <li><a href="#" ng-click="data.anatomical_positions.per_page=100">Show 100 anatomical positions per page</a></li>
-            </ul>
-        </span>
-    </div>
-</form>
+@include('partials/_search-form', [
+    'model_name' => 'anatomical positions',
+    'data_object' => 'anatomical_positions',
+    'placeholder' => 'Enter the name or part # of a material'
+])
 <br />
 
 Total anatomical positions matching this query: <span class="badge">@{{data.anatomical_positions.total}}</span>
@@ -38,7 +12,8 @@ Total anatomical positions matching this query: <span class="badge">@{{data.anat
 <br />
 
 {{-- New anatomical position form --}}
-<div class="panel panel-success">
+{{-- Disabled until we actually need this... --}}
+<!-- <div class="panel panel-success">
 
     <div class="panel-heading">
         <h3 class="panel-title pull-left">Add an anatomical position</h3>
@@ -56,7 +31,7 @@ Total anatomical positions matching this query: <span class="badge">@{{data.anat
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 {{-- Pagination controls --}}
 <div class="row" style="text-align: center">

@@ -5,24 +5,14 @@
     'data_object' => 'anatomical_positions',
     'placeholder' => 'Enter the name or part # of a material'
 ])
-<br />
-
-Total anatomical positions matching this query: <span class="badge">@{{data.anatomical_positions.total}}</span>
-<br />
-<br />
 
 {{-- New anatomical position form --}}
-{{-- Disabled until we actually need this... --}}
-<!-- <div class="panel panel-success">
+<div class="panel panel-success">
 
-    <div class="panel-heading">
-        <h3 class="panel-title pull-left">Add an anatomical position</h3>
-        <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-warning" ng-click="">Reset</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="">Submit</button>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+    @include('partials/_new-item-heading', [
+        'model_name' => 'anatomical position',
+        'data_object' => 'anatomical_positions'
+    ])
 
     <div class="panel-body">
         <div class="row">
@@ -31,7 +21,7 @@ Total anatomical positions matching this query: <span class="badge">@{{data.anat
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 {{-- Pagination controls --}}
 <div class="row" style="text-align: center">

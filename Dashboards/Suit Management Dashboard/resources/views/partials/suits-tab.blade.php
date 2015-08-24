@@ -5,22 +5,15 @@
     'data_object' => 'suits',
     'placeholder' => 'Enter sensor serial # or physical location'
 ])
-<br />
-
-Total suits matching this query: <span class="badge">@{{data.suits.total}}</span>
-<br />
-<br />
 
 {{-- New suit form --}}
 <div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title pull-left">Add new suit</h3>
-        <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-warning" ng-click="data.suits.new_item.reset()">Reset</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.add()">Submit</button>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+
+    @include('partials/_new-item-heading', [
+        'model_name' => 'suit',
+        'data_object' => 'suits'
+    ])
+
     <div class="panel-body">
 
         {{-- Input box --}}

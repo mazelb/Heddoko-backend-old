@@ -40,3 +40,8 @@
         </span>
     </div>
 </form>
+<br />
+
+Total {{ $model_name }} matching this query: <span class="badge">{{ data.<?= $data_object ?>.total }}</span>
+<br />
+<br />

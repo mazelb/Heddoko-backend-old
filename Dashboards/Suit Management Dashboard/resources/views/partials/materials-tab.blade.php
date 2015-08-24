@@ -5,11 +5,6 @@
     'data_object' => 'materials',
     'placeholder' => 'Enter the name or part # of a material'
 ])
-<br />
-
-Total materials matching this query: <span class="badge">@{{data.materials.total}}</span>
-<br />
-<br />
 
 {{-- New material form --}}
 <h3>Hello</h3>
@@ -20,8 +15,8 @@ Total materials matching this query: <span class="badge">@{{data.materials.total
     <div class="panel-heading">
         <h3 class="panel-title pull-left">Add a material</h3>
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-warning" ng-click="">Reset</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="">Submit</button>
+            <button type="button" class="btn btn-sm btn-warning" ng-click="data.materials.new_item.reset()">Reset</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="data.materials.create()">Submit</button>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -37,7 +32,7 @@ Total materials matching this query: <span class="badge">@{{data.materials.total
             <div class="col-sm-4">
                 <select ng-model="data.materials.new_item.material_type_id" class="form-control">
                     <option value="0">-- select a material type --</option>
-                    <option ng-repeat="material_type in data.material_type.list" value="@{{material_type.id}}">@{{material_type.identifier}}</option>
+                    <option ng-repeat="material_type in data.material_types.list" value="@{{material_type.id}}">@{{material_type.identifier}}</option>
                 </select>
             </div>
         </div>

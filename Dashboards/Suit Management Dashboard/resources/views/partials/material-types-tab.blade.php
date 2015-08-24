@@ -7,17 +7,12 @@
 ])
 
 {{-- New material type form --}}
-{{-- Disabled for now --}}
-<!-- <div class="panel panel-success">
+<div class="panel panel-success">
 
-    <div class="panel-heading">
-        <h3 class="panel-title pull-left">Add an anatomical position</h3>
-        <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-warning" ng-click="">Reset</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="">Submit</button>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+    @include('partials/_new-item-heading', [
+        'model_name' => 'material type',
+        'data_object' => 'material_types'
+    ])
 
     <div class="panel-body">
         <div class="row">
@@ -26,7 +21,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 {{-- Pagination controls --}}
 <div class="row" style="text-align: center">
@@ -51,7 +46,7 @@
             total-items="data.material_types.total"
             current-page="data.material_types.current_page">
 
-            <td>@{{ material_type.name }}</td>
+            <td>@{{ material_type.identifier }}</td>
         </tr>
     </tbody>
 </table>

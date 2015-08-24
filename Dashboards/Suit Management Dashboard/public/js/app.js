@@ -226,6 +226,10 @@ app.controller('MainController', [
         per_page: 10,
         service: AnatomicalPositions
     });
+    $scope.data.anatomical_positions.new_item = $.extend(true, {}, dataTemplate.new_item, {
+        id: 0,
+        name: ''
+    });
 
     //
     // Equipment model.
@@ -261,7 +265,7 @@ app.controller('MainController', [
     //
     $scope.data.material_types = $.extend(true, {}, dataTemplate, {
         name: 'Material Type',
-        per_page: 20,
+        per_page: 10,
         service: MaterialTypes
     });
     $scope.data.material_types.new_item = $.extend(true, {}, dataTemplate.new_item, {

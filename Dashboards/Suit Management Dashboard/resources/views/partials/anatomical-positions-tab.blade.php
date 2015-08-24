@@ -16,7 +16,10 @@
 
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-2">
+                <input type="text" ng-model="data.anatomical_positions.new_item.id" placeholder="ID" class="form-control" />
+            </div>
+            <div class="col-sm-10">
                 <input type="text" ng-model="data.anatomical_positions.new_item.name" placeholder="Name" class="form-control" />
             </div>
         </div>
@@ -36,6 +39,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
         </tr>
     </thead>
@@ -46,6 +50,7 @@
             total-items="data.anatomical_positions.total"
             current-page="data.anatomical_positions.current_page">
 
+            <td>@{{ anatomical_position.id }}</td>
             <td>@{{ anatomical_position.name }}</td>
         </tr>
     </tbody>

@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AnatomicalPosition;
 
 
-class AnatomicalPositionController extends Controller {
-
+class AnatomicalPositionController extends Controller
+{
 	/**
 	 * Display a listing of anatomical positions.
 	 *
@@ -42,4 +42,15 @@ class AnatomicalPositionController extends Controller {
         ];
 	}
 
+	/**
+	 * Store a newly created material type in storage.
+	 *
+	 * @return Response: The updated list of material types
+	 */
+	public function store()
+	{
+		AnatomicalPosition::create(Request::input('new_anatomical_position_data', array()));
+
+		return $this->index();
+	}
 }

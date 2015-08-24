@@ -510,6 +510,16 @@ angular.module('backend', [])
                 return $http.get('/anatomicalpositions');
             },
 
+            create : function(new_anatomical_position_form_data) {
+
+                return $http({
+                    method: 'POST',
+                    url: '/anatomicalpositions',
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({new_anatomical_position_data: new_anatomical_position_form_data})
+                });
+            },
+
             search : function(query, page, per_page) {
                 return $http.get('/anatomicalpositions?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }

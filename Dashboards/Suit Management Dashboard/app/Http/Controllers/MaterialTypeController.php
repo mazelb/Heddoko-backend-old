@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Models\MaterialType;
+use App\Http\Controllers\Controller;
 
 
 class MaterialTypeController extends Controller
@@ -14,7 +14,7 @@ class MaterialTypeController extends Controller
 	 */
 	public function index()
 	{
-		$material_types = MaterialTypes::all();
+		$material_types = MaterialType::all();
 
 		return [
 			'total' => count($material_types),

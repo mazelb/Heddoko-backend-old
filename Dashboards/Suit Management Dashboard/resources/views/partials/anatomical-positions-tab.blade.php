@@ -51,7 +51,14 @@
             current-page="data.anatomical_positions.current_page">
 
             <td>@{{ anatomical_position.id }}</td>
-            <td>@{{ anatomical_position.name }}</td>
+            <td>
+                @{{ anatomical_position.name }}
+                <span class="pull-right delete-button">
+                    <button class="btn btn-xs btn-warning" ng-click="data.anatomical_positions.destroy(anatomical_position.id)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </span>
+            </td>
         </tr>
     </tbody>
 </table>

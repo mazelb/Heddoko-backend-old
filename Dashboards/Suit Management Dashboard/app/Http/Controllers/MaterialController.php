@@ -57,4 +57,19 @@ class MaterialController extends Controller
 
 		return $this->index();
 	}
+
+	/**
+	 * Remove the specified material from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of materials.
+	 */
+	public function destroy($id)
+	{
+		// Delete the material.
+		$model = Material::findOrFail($id);
+		$model->delete($id);
+
+        return $this->index();
+	}
 }

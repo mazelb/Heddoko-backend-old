@@ -46,7 +46,14 @@
             total-items="data.material_types.total"
             current-page="data.material_types.current_page">
 
-            <td>@{{ material_type.identifier }}</td>
+            <td>
+                @{{ material_type.identifier }}
+                <span class="pull-right delete-button">
+                    <button class="btn btn-xs btn-warning" ng-click="data.material_types.destroy(material_type.id)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </span>
+            </td>
         </tr>
     </tbody>
 </table>

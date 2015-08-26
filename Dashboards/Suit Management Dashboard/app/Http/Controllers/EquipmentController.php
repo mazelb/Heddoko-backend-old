@@ -79,8 +79,8 @@ class EquipmentController extends Controller {
 	public function destroy($id)
 	{
 		// Delete the equipment.
-		$equipmemt = Equipment::findOrFail($id);
-		$equipmemt->delete($id);
+		$model = Equipment::findOrFail($id);
+		$model->delete($id);
 
         return $this->index();
 	}

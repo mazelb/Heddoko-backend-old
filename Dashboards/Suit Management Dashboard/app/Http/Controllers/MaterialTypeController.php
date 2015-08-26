@@ -37,4 +37,19 @@ class MaterialTypeController extends Controller
 
 		return $this->index();
 	}
+
+	/**
+	 * Remove the specified material type from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of material types.
+	 */
+	public function destroy($id)
+	{
+		// Delete the material type.
+		$model = MaterialType::findOrFail($id);
+		$model->delete($id);
+
+        return $this->index();
+	}
 }

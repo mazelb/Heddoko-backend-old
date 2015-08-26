@@ -492,8 +492,8 @@ angular.module('backend', [])
                 return $http.get('/materialtypes');
             },
 
-            create : function(new_material_type_form_data) {
-
+            create : function(new_material_type_form_data)
+            {
                 return $http({
                     method: 'POST',
                     url: '/materialtypes',
@@ -502,7 +502,13 @@ angular.module('backend', [])
                 });
             },
 
-            search : function(query, page, per_page) {
+            destroy : function(id)
+            {
+                return $http.delete('/materialtypes/'+ id);
+            },
+
+            search : function(query, page, per_page)
+            {
                 return $http.get('/materialtypes?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
@@ -516,8 +522,8 @@ angular.module('backend', [])
                 return $http.get('/anatomicalpositions');
             },
 
-            create : function(new_anatomical_position_form_data) {
-
+            create : function(new_anatomical_position_form_data)
+            {
                 return $http({
                     method: 'POST',
                     url: '/anatomicalpositions',
@@ -526,13 +532,18 @@ angular.module('backend', [])
                 });
             },
 
+            destroy : function(id)
+            {
+                return $http.delete('/anatomicalpositions/'+ id);
+            },
+
             search : function(query, page, per_page) {
                 return $http.get('/anatomicalpositions?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-    }).factory('Statuses', function($http) {
-
+    }).factory('Statuses', function($http)
+    {
         return {
 
             get : function()
@@ -540,13 +551,14 @@ angular.module('backend', [])
                 return $http.get('/statuses');
             },
 
-            search : function(query, page, per_page) {
+            search : function(query, page, per_page)
+            {
                 return $http.get('/statuses?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-    }).factory('Equipment', function($http) {
-
+    }).factory('Equipment', function($http)
+    {
         return {
 
             get : function()
@@ -583,8 +595,8 @@ angular.module('backend', [])
                 return $http.get('/materials');
             },
 
-            create : function(new_material_form_data) {
-
+            create : function(new_material_form_data)
+            {
                 return $http({
                     method: 'POST',
                     url: '/materials',
@@ -593,7 +605,13 @@ angular.module('backend', [])
                 });
             },
 
-            search : function(query, page, per_page) {
+            destroy : function(id)
+            {
+                return $http.delete('/materials/'+ id);
+            },
+
+            search : function(query, page, per_page)
+            {
                 return $http.get('/materials?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 

@@ -63,7 +63,14 @@
 
             <td>@{{ material.name }}</td>
             <td>@{{ material.part_no }}</td>
-            <td>@{{ material.material_type.identifier }}</td>
+            <td>
+                @{{ material.material_type.identifier }}
+                <span class="pull-right delete-button">
+                    <button class="btn btn-xs btn-warning" ng-click="data.materials.destroy(material.id)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </span>
+            </td>
         </tr>
     </tbody>
 </table>

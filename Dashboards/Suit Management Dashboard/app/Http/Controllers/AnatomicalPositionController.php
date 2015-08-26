@@ -53,4 +53,19 @@ class AnatomicalPositionController extends Controller
 
 		return $this->index();
 	}
+
+	/**
+	 * Remove the specified anatomical position from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of anatomical positions.
+	 */
+	public function destroy($id)
+	{
+		// Delete the anatomical position.
+		$model = AnatomicalPosition::findOrFail($id);
+		$model->delete($id);
+
+        return $this->index();
+	}
 }

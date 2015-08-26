@@ -5,16 +5,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Status;
 
 
-class StatusController extends Controller {
-
+class StatusController extends Controller
+{
 	/**
-	 * Display a listing of the sensor types.
+	 * Display a listing of statuses.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		return Status::all();
-	}
+		$statuses = Status::all();
 
+		return [
+			'total' => count($statuses),
+            'page' => 1,
+            'per_page' => count($statuses),
+            'results' => $statuses
+		];
+	}
 }

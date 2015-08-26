@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 
 Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
-Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store']]);
+Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('statuses', 'StatusController', ['only' => ['index']]);
-Route::resource('materials', 'MaterialController', ['only' => ['index']]);
-Route::resource('anatomicalpositions', 'AnatomicalPositionController', ['only' => ['index']]);
+Route::resource('materials', 'MaterialController', ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('anatomicalpositions', 'AnatomicalPositionController', ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('materialtypes', 'MaterialTypeController', ['only' => ['index', 'store', 'update', 'destroy']]);

@@ -7,3 +7,6 @@ Dashboards/Team Management Dashboard/node_modules
 Dashboards/Team Management Dashboard/dist
 TEMPLATE/*
 .idea
+.tags
+.tags_swap
+tags

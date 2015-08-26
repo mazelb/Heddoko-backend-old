@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\MaterialType;
 use Illuminate\Database\Eloquent\Model;
 
-class Material extends Model
+class SensorType extends Model
 {
 
     /**
@@ -13,20 +12,16 @@ class Material extends Model
      *
      * @var string
      */
-    protected $table = 'materials';
+    protected $table = 'sensor_types';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'material_type_id', 'name', 'part_no'];
+    protected $fillable = ['id', 'name'];
 	
+	public $incrementing = false;
 	public $timestamps = false;
-
-    public function material_type()
-    {
-        return $this->belongsTo('App\Models\MaterialType');
-    }
 
 }

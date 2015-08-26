@@ -1,14 +1,11 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\AnatomicalPosition;
 use App\Models\Equipment;
-use App\Models\Sensor;
-use App\Models\SensorType;
 use App\Models\SuitEquipment;
 use App\Models\Status;
 
-use Input;
+use DB;
 use Request;
 
 class SuitEquipmentController extends Controller {
@@ -20,7 +17,38 @@ class SuitEquipmentController extends Controller {
 	 */
 	public function index()
 	{
-		return SuitEquipment::with('equipment')->get();
+        // Retrieve search parameters.
+        $page = (int) Request::input('page', 1);
+        $perPage = (int) Request::input('per_page', 5);
+        $perPage = max(1, min(100, $perPage));
+
+        // Build the database query.
+        $query = DB::table('suits_equipment')
+            ->select('suits_equipment.id')
+            ->leftJoin('equipment', 'suits_equipment.id', '=', 'equipment.suits_equipment_id')
+            ->orderBy('suits_equipment.id', 'desc')
+            ->distinct();
+
+        // Filter by search term.
+        $search_term = strip_tags(trim(Request::input('search_term')));
+        if (strlen($search_term))
+        {
+            $query->where('equipment.serial_no', 'LIKE', '%'. $search_term .'%')
+                ->orWhere('equipment.physical_location', 'LIKE', '%'. $search_term .'%');
+        }
+
+        // Retrieve suits by page.
+        $total = $query->count('suits_equipment.id');
+        $offset = ($page - 1) * $perPage;
+        $ids = $query->skip($offset)->take($perPage)->lists('id');
+        $results = SuitEquipment::with('equipment.material')->whereIn('id', $ids)->orderBy('id', 'desc')->get();
+
+        return [
+            'total' => $total,
+            'page' => $page,
+            'per_page' => $perPage,
+            'results' => $results
+        ];
 	}
 
 	/**
@@ -32,16 +60,16 @@ class SuitEquipmentController extends Controller {
 	{
 		$new_suit_equipment = SuitEquipment::create();
 		
-		$new_suit_equipment_list_ids = Request::input('new_suit_equipment_list');
+		$new_suit_equipment_list = Request::input('new_suit_equipment_list');
 		
-		foreach ($new_suit_equipment_list_ids as $new_suit_equipment_item_id)
+		foreach ($new_suit_equipment_list as $new_suit_equipment_item)
 		{
-			$equipment_model = Equipment::findOrFail($new_suit_equipment_item_id);
+			$equipment_model = Equipment::findOrFail($new_suit_equipment_item['id']);
 			$equipment_model->suits_equipment_id = $new_suit_equipment->id;
 			$equipment_model->status_id = Status::getByName('unavailable')->id;
 			$equipment_model->save();
 		}
-		
+
 		return $this->index();
 	}
 
@@ -71,7 +99,7 @@ class SuitEquipmentController extends Controller {
 			$existing_equipment->status_id = Status::getByName('unavailable')->id;
 			$existing_equipment->save();	
 		}
-		
+
 		return $this->index();
 	}
 
@@ -93,8 +121,8 @@ class SuitEquipmentController extends Controller {
 		}
 		
 		$suit_equipment_of_interest->delete();
-		
-		return $this->index();
-	}
 
+        return $this->index();
+	}
 }
+

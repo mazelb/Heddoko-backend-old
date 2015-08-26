@@ -116,8 +116,8 @@ app.controller('MainController', [
         },
 
         // Adds a new item.
-        create: function() {
-
+        create: function()
+        {
             // Check that all attributes have valid values.
             for (var attribute in this.new_item)
             {
@@ -161,15 +161,35 @@ app.controller('MainController', [
 
         },
 
-        // Updates an existing item.
-        update: function(item) {
+        // Makes an item row editable.
+        edit: function(id, namespace)
+        {
+            // Make the item row editable.
+            var fieldsClassName = '.editable-'+ namespace +'-'+ id;
+            $(fieldsClassName).addClass('live');
 
+            // Hide all action buttons and show the save button.
+            var actionsClassName = '.actions-'+ namespace +'-'+ id;
+            $(actionsClassName).addClass('live');
+        },
+
+        // Updates an existing item.
+        update: function(item, namespace)
+        {
             bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
                 if (user_response === true)
                 {
-                    $scope.ShowLoadingDialog();
-                    this.service.update(item).then(function(response) {
+                    // Make the item row uneditable.
+                    var fieldsClassName = '.editable-'+ namespace +'-'+ item.id;
+                    $(fieldsClassName).removeClass('live');
 
+                    // Show all action buttons and hide the save button.
+                    var actionsClassName = '.actions-'+ namespace +'-'+ item.id;
+                    $(actionsClassName).removeClass('live');
+
+                    $scope.ShowLoadingDialog();
+                    this.service.update(item).then(function(response)
+                    {
                         // Update the page (this will also hide the loading dialog).
                         if (response.status == 200)
                         {
@@ -177,11 +197,13 @@ app.controller('MainController', [
                             bootbox.alert(this.name +' successfully updated.');
                         }
 
-                    }.bind(this), function(response) {
-
+                    }.bind(this), function(response)
+                    {
                         // Display the error message.
                         console.log('Error updating '+ this.name +': '+ response.statusText);
                         bootbox.alert('An error occurred:' + response.statusText);
+                        $scope.HideLoadingDialog();
+
                     }.bind(this));
                 }
             }.bind(this));
@@ -195,8 +217,8 @@ app.controller('MainController', [
                 if (user_response === true)
                 {
                     $scope.ShowLoadingDialog();
-                    this.service.destroy(id).then(function(response) {
-
+                    this.service.destroy(id).then(function(response)
+                    {
                         // Update the page (this will also hide the loading dialog).
                         if (response.status == 200)
                         {
@@ -204,11 +226,13 @@ app.controller('MainController', [
                             bootbox.alert(this.name +' successfully deleted.');
                         }
 
-                    }.bind(this), function(response) {
-
+                    }.bind(this), function(response)
+                    {
                         // Display the error message.
                         console.log('Error deleting '+ this.name +': '+ response.statusText);
                         bootbox.alert('An error occurred:' + response.statusText);
+                        $scope.HideLoadingDialog();
+
                     }.bind(this));
                 }
             }.bind(this));
@@ -573,6 +597,16 @@ angular.module('backend', [])
                     url: '/equipment?status_id=0',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_equipment_data: new_equipment_form_data})
+                });
+            },
+
+            update : function(equipment)
+            {
+                return $http({
+                    method: 'PUT',
+                    url: '/equipment/' + equipment.id +'?status_id=0',
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({updated_equipment: equipment})
                 });
             },
 

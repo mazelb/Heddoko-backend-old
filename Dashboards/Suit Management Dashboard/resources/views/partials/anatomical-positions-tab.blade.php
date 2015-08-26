@@ -53,7 +53,7 @@
             <td>@{{ anatomical_position.id }}</td>
             <td>
                 @{{ anatomical_position.name }}
-                <span class="pull-right delete-button">
+                <span class="pull-right action-buttons">
                     <button class="btn btn-xs btn-warning" ng-click="data.anatomical_positions.destroy(anatomical_position.id)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>

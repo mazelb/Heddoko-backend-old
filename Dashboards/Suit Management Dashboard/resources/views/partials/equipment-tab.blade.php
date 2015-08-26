@@ -60,6 +60,7 @@
             <th>Serial #</th>
             <th>Location</th>
             <th>Status</th>
+            <th><span class="pull-right">Actions</span></th>
         </tr>
     </thead>
     <tbody>
@@ -69,13 +70,33 @@
             total-items="data.equipment.total"
             current-page="data.equipment.current_page">
 
-            <td>@{{ equipment.material.name }}</td>
-            <td>@{{ equipment.serial_no }}</td>
-            <td>@{{ equipment.physical_location }}</td>
+            <td>
+                @{{ equipment.material.name }}
+            </td>
+            <td>
+                <div class="editable editable-equipment-@{{ equipment.id }}">
+                    <span>@{{ equipment.serial_no }}</span>
+                    <input type="text" ng-model="equipment.serial_no" class="form-control" />
+                </div>
+            </td>
+            <td>
+                <div class="editable editable-equipment-@{{ equipment.id }}">
+                    <span>@{{ equipment.physical_location }}</span>
+                    <input type="text" ng-model="equipment.physical_location" class="form-control" />
+                </div>
+            </td>
             <td>
                 @{{ equipment.status.name }}
-                <span class="pull-right delete-button">
-                    <button class="btn btn-xs btn-warning" ng-click="data.equipment.destroy(equipment.id)">
+            </td>
+            <td>
+                <span class="actions actions-equipment-@{{ equipment.id }} pull-right">
+                    <button class="btn btn-xs btn-warning edit" ng-click="data.equipment.edit(equipment.id, 'equipment')">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-xs btn-success update" ng-click="data.equipment.update(equipment, 'equipment')">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <button class="btn btn-xs btn-danger destroy" ng-click="data.equipment.destroy(equipment.id)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </span>

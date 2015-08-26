@@ -71,6 +71,27 @@ class EquipmentController extends Controller {
 	}
 
 	/**
+	 * Update the specified equipment in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of suits
+	 */
+	public function update($id)
+	{
+		// Retrieve the equipment model.
+		$model = Equipment::find($id); //retrieve the equipment model
+
+		// Retrieve the update data for this model.
+		$updated_model = Request::input('updated_equipment', []);
+
+		// Update the model.
+		$model->fill($updated_model);
+		$model->save();
+
+		return $this->index();
+	}
+
+	/**
 	 * Remove the specified equipment from storage.
 	 *
 	 * @param  int  $id

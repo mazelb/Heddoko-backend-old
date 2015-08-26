@@ -176,9 +176,9 @@ app.controller('MainController', [
         // Updates an existing item.
         update: function(item, namespace)
         {
-            bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
-                if (user_response === true)
-                {
+            // bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
+            //     if (user_response === true)
+            //     {
                     // Make the item row uneditable.
                     var fieldsClassName = '.editable-'+ namespace +'-'+ item.id;
                     $(fieldsClassName).removeClass('live');
@@ -188,7 +188,7 @@ app.controller('MainController', [
                     $(actionsClassName).removeClass('live');
 
                     $scope.ShowLoadingDialog();
-                    this.service.update(item).then(function(response)
+                    this.service.update(item, this.search_term, this.current_page, this.per_page).then(function(response)
                     {
                         // Update the page (this will also hide the loading dialog).
                         if (response.status == 200)
@@ -205,8 +205,8 @@ app.controller('MainController', [
                         $scope.HideLoadingDialog();
 
                     }.bind(this));
-                }
-            }.bind(this));
+            //     }
+            // }.bind(this));
 
         },
 
@@ -526,11 +526,11 @@ angular.module('backend', [])
                 });
             },
 
-            update : function(material_type)
+            update : function(material_type, query, page, per_page)
             {
                 return $http({
                     method: 'PUT',
-                    url: '/materialtypes/' + material_type.id,
+                    url: '/materialtypes/' + material_type.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_material_type: material_type})
                 });
@@ -566,11 +566,11 @@ angular.module('backend', [])
                 });
             },
 
-            update : function(anatomical_position)
+            update : function(anatomical_position, query, page, per_page)
             {
                 return $http({
                     method: 'PUT',
-                    url: '/anatomicalpositions/' + anatomical_position.id,
+                    url: '/anatomicalpositions/' + anatomical_position.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_anatomical_position: anatomical_position})
                 });
@@ -620,11 +620,11 @@ angular.module('backend', [])
                 });
             },
 
-            update : function(equipment)
+            update : function(equipment, query, page, per_page)
             {
                 return $http({
                     method: 'PUT',
-                    url: '/equipment/' + equipment.id +'?status_id=0',
+                    url: '/equipment/' + equipment.id +'?status_id=0&search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_equipment: equipment})
                 });
@@ -659,11 +659,11 @@ angular.module('backend', [])
                 });
             },
 
-            update : function(material)
+            update : function(material, query, page, per_page)
             {
                 return $http({
                     method: 'PUT',
-                    url: '/materials/' + material.id,
+                    url: '/materials/' + material.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_material: material})
                 });

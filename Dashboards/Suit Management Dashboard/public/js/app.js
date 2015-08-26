@@ -451,8 +451,8 @@ angular.module('backend', [])
                 return $http.get('/suitsequipment');
             },
 
-            create : function(new_suit_sensors_form_data) {
-
+            create : function(new_suit_sensors_form_data)
+            {
                 return $http({
                     method: 'POST',
                     url: '/suitsequipment',
@@ -461,7 +461,8 @@ angular.module('backend', [])
                 });
             },
 
-            update : function(suit) {
+            update : function(suit)
+            {
                 return $http({
                     method: 'PUT',
                     url: '/suitsequipment/' + suit.id,
@@ -475,7 +476,8 @@ angular.module('backend', [])
                 return $http.delete('/suitsequipment/' + suit_id);
             },
 
-            search : function(query, page, per_page) {
+            search : function(query, page, per_page)
+            {
                 return $http.get('/suitsequipment?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
@@ -560,6 +562,11 @@ angular.module('backend', [])
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_equipment_data: new_equipment_form_data})
                 });
+            },
+
+            destroy : function(id)
+            {
+                return $http.delete('/equipment/'+ id +'?status_id=0');
             },
 
             search : function(query, page, per_page) {

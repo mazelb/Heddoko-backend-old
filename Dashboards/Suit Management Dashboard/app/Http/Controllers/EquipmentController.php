@@ -21,6 +21,7 @@ class EquipmentController extends Controller {
 		$status_id = (int) Request::input('status_id', -1);
 		switch ($status_id)
 		{
+			// No status ID was explicitly specified, assume we want available equipemnt.
 			case -1:
 				$query->where('status_id', Status::getByName('available')->id);
 				break;
@@ -69,4 +70,18 @@ class EquipmentController extends Controller {
 		return $this->index();
 	}
 
+	/**
+	 * Remove the specified equipment from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of equipment.
+	 */
+	public function destroy($id)
+	{
+		// Delete the equipment.
+		$equipmemt = Equipment::findOrFail($id);
+		$equipmemt->delete($id);
+
+        return $this->index();
+	}
 }

@@ -72,7 +72,14 @@
             <td>@{{ equipment.material.name }}</td>
             <td>@{{ equipment.serial_no }}</td>
             <td>@{{ equipment.physical_location }}</td>
-            <td>@{{ equipment.status.name }}</td>
+            <td>
+                @{{ equipment.status.name }}
+                <span class="pull-right delete-button">
+                    <button class="btn btn-xs btn-warning" ng-click="data.equipment.destroy(equipment.id)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </span>
+            </td>
         </tr>
     </tbody>
 </table>

@@ -311,7 +311,7 @@ app.controller('MainController', [
         name: 'Suit',
         per_page: 5,
         service: Suits,
-        add: function() {
+        create: function() {
 
             // Confirm that we have equipment in our new suit.
             if (this.new_item.equipment.length == 0)

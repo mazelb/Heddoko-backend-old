@@ -78,6 +78,7 @@ module.exports = function(grunt) {
                         'bower_components/weather-icons/css/weather-icons.min.css',
                         'bower_components/bootstrap/dist/css/bootstrap.min.css',
                         'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+                        'bower_components/chartist/dist/chartist.min.css',
                         'angular-app/styles/main.css'
                     ]
                 }
@@ -143,6 +144,8 @@ module.exports = function(grunt) {
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'angular-app/scripts/other_charts.js',
                     'angular-app/scripts/extras.js',
+                    'bower_components/chartist/dist/chartist.js',
+                    'bower_components/angular-chartist.js/dist/angular-chartist.min.js',
                     'angular-app/app/*.js' ],
                 dest: 'public/js/app.js'
             }
@@ -212,6 +215,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bower-task');
 
     grunt.registerTask('dev', [ 'bower', 'watch:dev' ]);
-    grunt.registerTask('test', [ 'bower', 'jshint' ]);
     grunt.registerTask('minified', [ 'bower', 'watch:min' ]);
 };

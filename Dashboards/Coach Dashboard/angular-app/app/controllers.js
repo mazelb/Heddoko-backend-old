@@ -4,81 +4,77 @@
  * @author Maxwell Mowbray (max@heddoko.com)
  * @date June 2015
  */
- 
-angular.module("app.controllers", []).controller("MainController", ["$scope", '$localStorage', 'Teams', 'Athletes', "loggit",
-  function($scope, $localStorage, Teams, Athletes, loggit) {
 
-		/**
-		* @brief This is the central controller which runs whenever the dashboard is loaded
-		* It keeps an eye on local scope variables keeps them in sync with the local storage
-		* It also fetches the teams list when the page is loaded, and loads a team's athletes when the selected team changes
-		* @param $scope and $localStorage (variables used by the view), Teams factory (for retrieving list of teams), TeamsAthletes factory (for retrieving athletes on a team)
-		* @return void
-		*/
+angular.module("app.controllers", []).controller("MainController", ["$scope", '$sessionStorage', 'Teams', 'Athletes', "loggit",
+  function($scope, $sessionStorage, Teams, Athletes, loggit) {
 
-    $scope.data = $localStorage; //tie the local scope to the local web storage
+	/**
+	* @brief This is the central controller which runs whenever the dashboard is loaded
+	* It keeps an eye on local scope variables keeps them in sync with the local storage
+	* It also fetches the teams list when the page is loaded, and loads a team's athletes when the selected team changes
+	* @param $scope and $sessionStorage (variables used by the view), Teams factory (for retrieving list of teams), TeamsAthletes factory (for retrieving athletes on a team)
+	* @return void
+	*/
+
+    $scope.data = $sessionStorage; //tie the local scope to the local web storage
 
     $scope.$watch('data.selected_team', function(new_team_value, old_team_value) {
-		
-		if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
-			return;
-		  }
-			
-      $localStorage.athletes = $localStorage.selected_athlete = null;
-			
-			Athletes.get($localStorage.selected_team.id)
-			.success(function(athletes_reponse) {
-				$localStorage.athletes = athletes_reponse;
-				
-				if ($localStorage.athletes.length > 0) {
-					$localStorage.selected_athlete = $localStorage.athletes[0]; //select the first athlete by default
-				}
 
-			});
+	if ((new_team_value === null) || (typeof new_team_value === "undefined")) {
+		return;
+	  }
 
-    }, true);
-		
-		if ($localStorage.teams === null || typeof $localStorage.teams === "undefined"){
+	  $sessionStorage.athletes = $sessionStorage.selected_athlete = null;
+
+				Athletes.get($sessionStorage.selected_team.id)
+				.success(function(athletes_reponse) {
+					$sessionStorage.athletes = athletes_reponse;
+
+					if ($sessionStorage.athletes.length > 0) {
+						$sessionStorage.selected_athlete = $sessionStorage.athletes[0]; //select the first athlete by default
+					}
+
+				});
+
+		}, true);
+
+		if ($sessionStorage.teams === null || typeof $sessionStorage.teams === "undefined"){
 			Teams.get()
 			.success(function(teams_response) {
-				$localStorage.teams = teams_response;
-				if ($localStorage.teams.length > 0) {
-					$localStorage.selected_team = $localStorage.teams[0]; //select the first team by default
+				$sessionStorage.teams = teams_response;
+				if ($sessionStorage.teams.length > 0) {
+					$sessionStorage.selected_team = $sessionStorage.teams[0]; //select the first team by default
 				}
 			});
 		}	
-		
+
 		$scope.submitNewTeamForm = function() {		
 
 			$scope.waiting_server_response = true;
-			
-			$localStorage.new_team_form_data.sport_id = $localStorage.selected_sport.id;
-			
-			Teams.create($localStorage.new_team_form_data)
+
+			$sessionStorage.new_team_form_data.sport_id = $sessionStorage.selected_sport.id;
+
+			Teams.create($sessionStorage.new_team_form_data)
 			.success(function(updated_teams_data) {	
-				$localStorage.new_team_form_data = null;
-				$localStorage.teams = updated_teams_data; //store the updated teams list sent back by the server
+				$sessionStorage.new_team_form_data = null;
+				$sessionStorage.teams = updated_teams_data; //store the updated teams list sent back by the server
 				$scope.waiting_server_response = false;
 				loggit.logSuccess("New Team successfully created");
 			});
 		};		
-		
+
 		$scope.submitNewAthleteForm = function() {		
-		
+
 			$scope.waiting_server_response = true;
-		
-			Athletes.create($localStorage.selected_team.id, $localStorage.new_athlete_form_data)
+
+			Athletes.create($sessionStorage.selected_team.id, $sessionStorage.new_athlete_form_data)
 			.success(function(updated_athletes_data) {			
-				$localStorage.new_athlete_form_data = null;
-				$localStorage.athletes = updated_athletes_data;
+				$sessionStorage.new_athlete_form_data = null;
+				$sessionStorage.athletes = updated_athletes_data;
 				$scope.waiting_server_response = false;
 				loggit.logSuccess("New Athlete successfully created");
 			});
 		};
-
-		$scope.endSession = function() {
-			$localStorage.$reset();	
-		};	
 
 		$scope.waiting_server_response = false;
 
@@ -111,8 +107,8 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
         $scope.current_dashboard_page++;
       }
     };
-  }).controller("FMSFormController", ["$scope", '$localStorage', 'FMSForm', "loggit",
-  function($scope, $localStorage, FMSForm, loggit) {
+  }).controller("FMSFormController", ["$scope", '$sessionStorage', 'FMSForm', "loggit",
+  function($scope, $sessionStorage, FMSForm, loggit) {
 
 		/**
 		* @brief This is the FMS Form controller used on the FMS Form submission page and the previous FMS Form retrieval page
@@ -121,10 +117,10 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 		* @param $scope and FMSForm, the factory which allows for the sending and retrieving of FMS forms
 		* @return void
 		*/
-		
-		$localStorage.show_fms_edit = false;
+
+		$sessionStorage.show_fms_edit = false;
 		$scope.waiting_server_response = false;
-		$localStorage.selected_fms_form = null;
+		$sessionStorage.selected_fms_form = null;
 
     $scope.$watch('data.selected_athlete', function(new_selected_athlete_value) {
 
@@ -132,9 +128,9 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
         return;
       }
 
-      FMSForm.get($localStorage.selected_athlete.id)
+      FMSForm.get($sessionStorage.selected_athlete.id)
         .success(function(athletes_fms_forms_response) {
-          $localStorage.selected_athlete.fms_forms = athletes_fms_forms_response;
+          $sessionStorage.selected_athlete.fms_forms = athletes_fms_forms_response;
         })
         .error(function(error_msg) {
           console.log('error retrieving forms from the database' + error_msg);
@@ -143,20 +139,20 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
     }, true);
 
     $scope.submitFMSForm = function() {
-		
-			$scope.waiting_server_response = true;
-			
-			console.debug($localStorage.fms_form_data);
 
-      FMSForm.create($localStorage.selected_athlete.id, $scope.data.fms_form_data, $scope.data.fms_form_movement_files)
+			$scope.waiting_server_response = true;
+
+			console.debug($sessionStorage.fms_form_data);
+
+      FMSForm.create($sessionStorage.selected_athlete.id, $scope.data.fms_form_data, $scope.data.fms_form_movement_files)
         .success(function(updated_fms_form_data) {
-				
+
 					console.log(updated_fms_form_data);
-					
-					
-				
-          $localStorage.fms_form_data = {}; //reset the form data upon successful FMS form submission
-          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
+
+
+
+          $sessionStorage.fms_form_data = {}; //reset the form data upon successful FMS form submission
+          $sessionStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
 					$scope.waiting_server_response = false;
 					loggit.logSuccess("FMS Form successfully submitted");
         })
@@ -165,82 +161,367 @@ angular.module("app.controllers", []).controller("MainController", ["$scope", '$
 			$scope.waiting_server_response = false;
         });
     };
-		
-		$scope.updateFMS = function() {
-		
+
+	$scope.updateFMS = function() {
+
 			$scope.waiting_server_response = true;
 
-      FMSForm.update($localStorage.selected_athlete.id, $localStorage.selected_fms_form)
+      FMSForm.update($sessionStorage.selected_athlete.id, $sessionStorage.selected_fms_form)
         .success(function(updated_fms_form_data) {
-          $localStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
+          $sessionStorage.selected_athlete.fms_forms = updated_fms_form_data; //store the updated FMS forms sent back by the server
 					$scope.waiting_server_response = false;
-					$localStorage.show_fms_edit = false;
+					$sessionStorage.show_fms_edit = false;
 					loggit.logSuccess("FMS Form successfully updated");
         })
         .error(function() {
-          loggit.logError("There was an error while attempting to update the FMS Form");
-					$scope.waiting_server_response = false;
+			loggit.logError("There was an error while attempting to update the FMS Form");
+			$scope.waiting_server_response = false;
         });
     };
 
     $scope.fmsdisplay = function(form) {
-      $localStorage.selected_fms_form = form;
+      $sessionStorage.selected_fms_form = form;
     };
   }
-]).controller("SportsController", ["$scope", '$localStorage', 'Sports', 'SportMovements',
-  function($scope, $localStorage, Sports, SportMovements) {
+]).controller("SportsController", ["$scope", '$sessionStorage', 'Sports', 'SportMovements',
+  function($scope, $sessionStorage, Sports, SportMovements) {
 
 		/**
 		* @brief The sports controller takes care of retrieving sports and movement types from the back-end
 		* @param $scope, Sports, and SportMovements
 		* @return void
 		*/
-		
+
     Sports.get() //retrieve the list of all sports from the back-end
 		.success(function(sports_response) {
-			$localStorage.sports = sports_response;
-			
-			if ($localStorage.sports.length > 0) {
-				$localStorage.selected_sport = $localStorage.sports[0]; //select the first sport by default
+			$sessionStorage.sports = sports_response;
+
+			if ($sessionStorage.sports.length > 0) {
+				$sessionStorage.selected_sport = $sessionStorage.sports[0]; //select the first sport by default
 			}
 		});
 
     $scope.$watch('data.selected_sport', function() {
-			$localStorage.selected_sport_movement = $localStorage.sport_movements = null;
-      SportMovements.get($localStorage.selected_sport.id)
+		$sessionStorage.selected_sport_movement = $sessionStorage.sport_movements = null;
+		
+		SportMovements.get($sessionStorage.selected_sport.id)
 			.success(function(sports_movements_response) {
-				$localStorage.sport_movements = sports_movements_response;
+				$sessionStorage.sport_movements = sports_movements_response;
 			});
 
     }, true);
   }
-]).controller("MovementController", ["$scope", '$localStorage', 'Movements', "loggit",
-  function($scope, $localStorage, Movements, loggit) {
+]).controller("MovementController", ["$scope", '$sessionStorage', 'Movements', "loggit",
+  function($scope, $sessionStorage, Movements, loggit) {
 
 	/**
 	* @brief The movement controller takes care of uploading movement data (files) from the suit
 	* @param $scope, Movements
 	* @return void
 	*/
-	
+
 	$scope.uploadMovements = function() {
 
-		Movements.upload($localStorage.selected_athlete.id, $localStorage.selected_sport_movement.id, $scope.data.new_movement_submission_data)
+		Movements.upload($sessionStorage.selected_athlete.id, $sessionStorage.selected_sport_movement.id, $scope.data.new_movement_submission_data)
 		.error(function(err_msg) {
 			loggit.logError('error uploading movements to server');
 			console.log(err_msg);
 		})
 		.success(function(succ_msg) {
-			$localStorage.selected_sport_movement = $localStorage.new_movement_submission_data = null;
+			$sessionStorage.selected_sport_movement = $sessionStorage.new_movement_submission_data = null;
 			loggit.logSuccess('movements succesfully uploaded to server');
 			console.log(succ_msg);
 		});
 
     };
+
+  }
+]).controller("MovementScreenController", ["$scope", '$sessionStorage', "loggit", 'MovementStore', '$document',
+  function($scope, $sessionStorage, loggit, MovementStore, $document) {
+
+	$scope.select_movement = function(new_current_movement_page){
+		MovementStore.current_movement_page = new_current_movement_page;
+	};
+
+	$scope.data = MovementStore; //store the movement_pages and current_movement_page in this store
+								//so it can be shared by the nav bar and the movement pages
+
+	$scope.SelectTrial = function(new_current_trial){
+		MovementStore.current_movement_page.active_trial = new_current_trial;
+	};
+
+	$scope.StartTest = function(){
+		MovementStore.current_movement_page.active_side.active_trial.status = 'recording';
+
+		document.getElementById("FrontVideoPlayer").currentTime = 0;
+		document.getElementById("FrontVideoPlayer").play();
+
+		document.getElementById("TopVideoPlayer").currentTime = 0;
+		document.getElementById("TopVideoPlayer").play();
+
+		document.getElementById("SideVideoPlayer").currentTime = 0;
+		document.getElementById("SideVideoPlayer").play();
+	};
+
+	$scope.EndTest = function()
+	{
+		document.getElementById("FrontVideoPlayer").pause();
+		document.getElementById("TopVideoPlayer").pause();
+		document.getElementById("SideVideoPlayer").pause();
+
+		if(MovementStore.current_movement_page.active_side.active_trial.status != 'recording')
+		{
+			return;
+		}
+		MovementStore.current_movement_page.active_side.active_trial.status = 'stopped';
+	};
+
+	$scope.IndicateTestPain = function(){
+		MovementStore.current_movement_page.active_side.active_trial.status = 'pain';
+
+		document.getElementById("FrontVideoPlayer").pause();
+		document.getElementById("TopVideoPlayer").pause();
+		document.getElementById("SideVideoPlayer").pause();
+	};
+
+	$scope.CancelCurrentTrial = function(){
+
+		document.getElementById("FrontVideoPlayer").currentTime = 0;		
+		document.getElementById("TopVideoPlayer").currentTime = 0;		
+		document.getElementById("SideVideoPlayer").currentTime = 0;
+
+		MovementStore.current_movement_page.active_side.active_trial.status = 'idle';
+	};
+
+	$scope.SaveCurrentTrial = function(){
+		//perform some action to actually save the current trial data
+
+		//update the status
+		MovementStore.current_movement_page.active_side.active_trial.status = 'saved';
+
+		//if there is another trial available to complete
+		var index = MovementStore.current_movement_page.active_side.trials.indexOf(MovementStore.current_movement_page.active_side.active_trial);
+
+		if(index < MovementStore.current_movement_page.active_side.trials.length)
+		{
+			MovementStore.current_movement_page.active_side.active_trial = MovementStore.current_movement_page.active_side.trials[index + 1];
+
+			document.getElementById("FrontVideoPlayer").currentTime = 0;		
+			document.getElementById("TopVideoPlayer").currentTime = 0;		
+			document.getElementById("SideVideoPlayer").currentTime = 0;
+		}
+	};
 	
+	$scope.SaveCurrentTrialPain = function(){
+		
+		MovementStore.current_movement_page.active_side.active_trial.status = 'saved_pain';
+		
+		//if there is another trial available to complete
+		var index = MovementStore.current_movement_page.active_side.trials.indexOf(MovementStore.current_movement_page.active_side.active_trial);
+
+		if(index < MovementStore.current_movement_page.active_side.trials.length)
+		{
+			MovementStore.current_movement_page.active_side.active_trial = MovementStore.current_movement_page.active_side.trials[index + 1];
+
+			document.getElementById("FrontVideoPlayer").currentTime = 0;		
+			document.getElementById("TopVideoPlayer").currentTime = 0;		
+			document.getElementById("SideVideoPlayer").currentTime = 0;
+		}
+	};
+
+	$scope.SubmitTest = function(){
+		document.getElementById("FrontVideoPlayer").currentTime = 0;
+		MovementStore.current_movement_page.submitted = true;
+		
+		if (MovementStore.current_movement_page.active_side == MovementStore.current_movement_page.sides[0])
+		{
+			MovementStore.current_movement_page.active_side.test_page_data.other_side_warning = true;
+		}
+	};
+
+	$scope.PlayAnalysisVideo = function()
+	{
+		document.getElementById("AnalysisSideVideoPlayer").playbackRate = MovementStore.current_movement_page.analysis_page_data.playback_rate;
+		document.getElementById("AnalysisFrontVideoPlayer").playbackRate = MovementStore.current_movement_page.analysis_page_data.playback_rate;
+		document.getElementById("AnalysisHorizontalVideoPlayer").playbackRate = MovementStore.current_movement_page.analysis_page_data.playback_rate;
+
+		console.log('playback at: ' + document.getElementById("AnalysisSideVideoPlayer").playbackRate);
+
+		document.getElementById("AnalysisSideVideoPlayer").play();
+		document.getElementById("AnalysisFrontVideoPlayer").play();
+		document.getElementById("AnalysisHorizontalVideoPlayer").play();		
+	};
+
+	$scope.ForwardAnalysisVideo = function()
+	{
+		//needs to be implemented
+	};
+
+	$scope.PauseAnalysisVideo = function()
+	{
+		document.getElementById("AnalysisSideVideoPlayer").pause();
+		document.getElementById("AnalysisFrontVideoPlayer").pause();
+		document.getElementById("AnalysisHorizontalVideoPlayer").pause();		
+	};
+	
+	$scope.ResetAnalysisVideo = function()
+	{
+		document.getElementById("AnalysisSideVideoPlayer").pause();
+		document.getElementById("AnalysisSideVideoPlayer").currentTime = 0;
+		document.getElementById("AnalysisFrontVideoPlayer").pause();
+		document.getElementById("AnalysisFrontVideoPlayer").currentTime = 0;		
+		document.getElementById("AnalysisHorizontalVideoPlayer").pause();
+		document.getElementById("AnalysisHorizontalVideoPlayer").currentTime = 0;
+	};
+	
+	$scope.tbl_data =[];
+
+	for (var i = 0; i < 5; i++)
+	{
+		$scope.tbl_data.push({});
+	}
+
+	$scope.DataTableToggleMovSel = function(newly_toggled_movement){
+		
+		newly_toggled_movement.data_tbl_selected = !newly_toggled_movement.data_tbl_selected;
+
+		var tbl_data = [];
+		var movement_row = [];
+		
+		for (i = 0; i < MovementStore.current_movement_page.active_side.active_trial.joints.length; i++)
+		{
+			for (var j = 0; j < MovementStore.current_movement_page.active_side.active_trial.joints[i].movements.length; j++)
+			{
+				if(MovementStore.current_movement_page.active_side.active_trial.joints[i].movements[j].data_tbl_selected)
+				{
+					movement_row.push({val:MovementStore.current_movement_page.active_side.active_trial.joints[i].movements[j].name});
+				}
+				else
+				{
+					movement_row.push({});
+				}
+				
+			}
+		}
+
+		tbl_data.push(movement_row);
+		
+		for (i = 0; i < 4; i++)
+		{
+			var new_row = [];
+
+			for (var k = 0; k < MovementStore.current_movement_page.active_side.active_trial.joints.length; k++)
+			{
+				for (var m = 0; m < MovementStore.current_movement_page.active_side.active_trial.joints[k].movements.length; m++)
+				{
+					if(MovementStore.current_movement_page.active_side.active_trial.joints[k].movements[m].data_tbl_selected)
+					{
+						new_row.push({ val: '0.1' + i});
+					}
+					else
+					{
+						new_row.push({});
+					}
+				}
+			}
+
+			tbl_data.push(new_row);
+		}
+		
+		$scope.tbl_data = tbl_data;
+	
+	};
+	
+	$scope.UpdateDataGraphSeries = function(){
+
+		$scope.lineData.series = [];
+	
+		for (var i = 0; i < MovementStore.current_movement_page.active_side.active_trial.joints.length; i++)
+		{
+			for (var j = 0; j < MovementStore.current_movement_page.active_side.active_trial.joints[i].movements.length; j++)
+			{
+				if ($scope.data.current_movement_page.data_page_data.see_all ||MovementStore.current_movement_page.active_side.active_trial.joints[i].movements[j].data_graph_selected)
+				{
+					$scope.lineData.series.push(MovementStore.current_movement_page.active_side.active_trial.joints[i].movements[j].series_data);
+				}
+			}
+		}
+	};
+	
+	$scope.ToggleSelectMovement = function(element, array)
+	{
+		
+		if (element.selected)
+		{
+			element.selected = false;
+			var index = array.indexOf(element);			
+			if (index > -1)
+			{
+				array.splice(index, 1);
+			}
+		}
+		else
+		{
+			element.selected = true;
+			array.push(element);
+		}
+
+	};
+	
+	$scope.InitializeGraph = function(){
+		
+		$scope.lineData = {
+			labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
+			series: []
+		};
+
+		$scope.lineOptions = {
+			
+			axisY:{
+				referenceValue: 100,
+				type : Chartist.FixedScaleAxis,
+				ticks: [25, 50, 75, 100]
+			},
+			axisX:{
+				showGrid: false,
+				labelInterpolationFnc: function(value) {
+					return value + '%';
+				}
+			},
+			showPoint: false
+
+		};
+		
+		var $chart = $( ".movement_data_chart" );
+		
+		var $toolTip = $chart
+		  .append('<div class="chartist-tooltip"></div>')
+		  .find('.chartist-tooltip')
+		  .hide();
+
+		$chart.on('mouseenter', '.ct-line', function() {
+		  var $line = $(this),
+			seriesName = $line.parent().attr('ct:series-name');
+			$toolTip.html(seriesName).show();
+		});
+
+		$chart.on('mouseleave', '.ct-line', function() {
+		  $toolTip.hide();
+		});
+
+		$chart.on('mousemove', function(event) {
+		  $toolTip.css({
+			left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+			top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40,
+			background : '#F4C63D'
+		  });
+		});
+
+	};
+
   }
 ]);
- 
+
 /**
 * @brief the following code was written by a third party, it provides controllers for the graph JS plugins
 */
@@ -455,7 +736,7 @@ angular.module("app.chart.ctrls", []).controller("chartingCtrl", ["$scope",
       playstation: 119400
     }], $scope.simpleData = [{
       year: "2008",
-      value: 20
+      value: 22
     }, {
       year: "2009",
       value: 10
@@ -1058,13 +1339,13 @@ angular.module("app.chart.ctrls", []).controller("chartingCtrl", ["$scope",
 
 /*
  App tasks controllers
- Main task controllers (includes saving tasks into localStorage)
+ Main task controllers (includes saving tasks into sessionStorage)
  */
 
 angular.module("app.task", []).factory("taskStorage", function() {
 
   /**************************
-   Saves and loads tasks from the localStorage
+   Saves and loads tasks from the sessionStorage
    **************************/
 
   var DEMO_TASKS, STORAGE_ID;
@@ -1077,10 +1358,10 @@ angular.module("app.task", []).factory("taskStorage", function() {
     '{"title": "Complete proposal for spaceship", "completed": false}, ' +
     '{"title": "Do inventory of everything", "completed": false} ]', {
       get: function() {
-        return JSON.parse(localStorage.getItem(STORAGE_ID) || DEMO_TASKS);
+        return JSON.parse(sessionStorage.getItem(STORAGE_ID) || DEMO_TASKS);
       },
       put: function(tasks) {
-        return localStorage.setItem(STORAGE_ID, JSON.stringify(tasks));
+        return sessionStorage.setItem(STORAGE_ID, JSON.stringify(tasks));
       }
     };
 }).controller("taskCtrl", ["$scope", "taskStorage", "filterFilter", "$rootScope", "loggit",

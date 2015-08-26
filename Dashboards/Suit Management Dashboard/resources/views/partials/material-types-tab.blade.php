@@ -37,6 +37,7 @@
     <thead>
         <tr>
             <th>Identifier</th>
+            <th><span class="pull-right">Actions</span></th>
         </tr>
     </thead>
     <tbody>
@@ -47,9 +48,20 @@
             current-page="data.material_types.current_page">
 
             <td>
-                @{{ material_type.identifier }}
-                <span class="pull-right action-buttons">
-                    <button class="btn btn-xs btn-warning" ng-click="data.material_types.destroy(material_type.id)">
+                <div class="editable editable-material_type-@{{ material_type.id }}">
+                    <span>@{{ material_type.identifier }}</span>
+                    <input type="text" ng-model="material_type.identifier" class="form-control" />
+                </div>
+            </td>
+            <td>
+                <span class="actions actions-material_type-@{{ material_type.id }} pull-right">
+                    <button class="btn btn-xs btn-warning edit" ng-click="data.material_types.edit(material_type.id, 'material_type')">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-xs btn-success update" ng-click="data.material_types.update(material_type, 'material_type')">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <button class="btn btn-xs btn-danger destroy" ng-click="data.material_types.destroy(material_type.id)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </span>

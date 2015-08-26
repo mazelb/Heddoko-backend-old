@@ -59,6 +59,27 @@ class MaterialController extends Controller
 	}
 
 	/**
+	 * Update the specified material in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of materials
+	 */
+	public function update($id)
+	{
+		// Retrieve the material model.
+		$model = Material::find($id);
+
+		// Retrieve the updated data for this model.
+		$updated_model = Request::input('updated_material', []);
+
+		// Update the model.
+		$model->fill(array_except($updated_model, ['id']));
+		$model->save();
+
+		return $this->index();
+	}
+
+	/**
 	 * Remove the specified material from storage.
 	 *
 	 * @param  int  $id

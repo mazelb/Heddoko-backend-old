@@ -21,10 +21,10 @@
 /*
  * Tables: editable fields.
  */
-.table .editable input {
+.table .editable .form-control {
     display: none;
 }
-.table .editable.live input {
+.table .editable.live .form-control {
     display: block;
 }
 .table .editable.live span {

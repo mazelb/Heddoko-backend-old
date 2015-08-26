@@ -39,6 +39,27 @@ class MaterialTypeController extends Controller
 	}
 
 	/**
+	 * Update the specified material type in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of material types
+	 */
+	public function update($id)
+	{
+		// Retrieve the material model.
+		$model = MaterialType::find($id);
+
+		// Retrieve the updated data for this model.
+		$updated_model = Request::input('updated_material_type', []);
+
+		// Update the model.
+		$model->fill(array_except($updated_model, ['id']));
+		$model->save();
+
+		return $this->index();
+	}
+
+	/**
 	 * Remove the specified material type from storage.
 	 *
 	 * @param  int  $id

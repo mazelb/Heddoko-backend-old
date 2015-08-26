@@ -71,7 +71,18 @@
             current-page="data.equipment.current_page">
 
             <td>
-                @{{ equipment.material.name }}
+                <div class="editable editable-equipment-@{{ equipment.id }}">
+                    <span>@{{ equipment.material.name }}</span>
+                    <select ng-model="equipment.material_id" class="form-control">
+                        <option
+                            ng-repeat="material in data.materials.list"
+                            ng-selected="material.id == equipment.material_id"
+                            value="@{{material.id}}">
+
+                            @{{material.name}} (@{{material.part_no}})
+                        </option>
+                    </select>
+                </div>
             </td>
             <td>
                 <div class="editable editable-equipment-@{{ equipment.id }}">
@@ -86,7 +97,18 @@
                 </div>
             </td>
             <td>
-                @{{ equipment.status.name }}
+                <div class="editable editable-equipment-@{{ equipment.id }}">
+                    <span>@{{ equipment.status.name }}</span>
+                    <select ng-model="equipment.status_id" class="form-control">
+                        <option
+                            ng-repeat="status in data.statuses.list"
+                            ng-selected="status.id == equipment.status_id"
+                            value="@{{status.id}}">
+
+                            @{{status.name}}
+                        </option>
+                    </select>
+                </div>
             </td>
             <td>
                 <span class="actions actions-equipment-@{{ equipment.id }} pull-right">

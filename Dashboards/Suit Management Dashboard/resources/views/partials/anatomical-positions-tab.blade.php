@@ -41,6 +41,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th><span class="pull-right">Actions</span></th>
         </tr>
     </thead>
     <tbody>
@@ -50,11 +51,27 @@
             total-items="data.anatomical_positions.total"
             current-page="data.anatomical_positions.current_page">
 
-            <td>@{{ anatomical_position.id }}</td>
             <td>
-                @{{ anatomical_position.name }}
-                <span class="pull-right action-buttons">
-                    <button class="btn btn-xs btn-warning" ng-click="data.anatomical_positions.destroy(anatomical_position.id)">
+                <div class="editable editable-anatomical_position-@{{ anatomical_position.id }}">
+                    <span>@{{ anatomical_position.updated_id }}</span>
+                    <input type="text" ng-model="anatomical_position.updated_id" class="form-control" />
+                </div>
+            </td>
+            <td>
+                <div class="editable editable-anatomical_position-@{{ anatomical_position.id }}">
+                    <span>@{{ anatomical_position.name }}</span>
+                    <input type="text" ng-model="anatomical_position.name" class="form-control" />
+                </div>
+            </td>
+            <td>
+                <span class="actions actions-anatomical_position-@{{ anatomical_position.id }} pull-right">
+                    <button class="btn btn-xs btn-warning edit" ng-click="data.anatomical_positions.edit(anatomical_position.id, 'anatomical_position')">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-xs btn-success update" ng-click="data.anatomical_positions.update(anatomical_position, 'anatomical_position')">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <button class="btn btn-xs btn-danger destroy" ng-click="data.anatomical_positions.destroy(anatomical_position.id)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </span>

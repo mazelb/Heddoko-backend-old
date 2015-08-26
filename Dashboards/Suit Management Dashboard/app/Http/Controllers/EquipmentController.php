@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+use Request;
+
 use App\Http\Controllers\Controller;
 use App\Models\Equipment;
 use App\Models\Status;
-use Request;
+
 
 class EquipmentController extends Controller {
 
@@ -79,13 +81,13 @@ class EquipmentController extends Controller {
 	public function update($id)
 	{
 		// Retrieve the equipment model.
-		$model = Equipment::find($id); //retrieve the equipment model
+		$model = Equipment::find($id);
 
-		// Retrieve the update data for this model.
+		// Retrieve the updated data for this model.
 		$updated_model = Request::input('updated_equipment', []);
 
 		// Update the model.
-		$model->fill($updated_model);
+		$model->fill(array_except($updated_model, ['id', 'suits_equipment_id']));
 		$model->save();
 
 		return $this->index();

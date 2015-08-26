@@ -51,22 +51,58 @@
             <th>Name</th>
             <th>Part #</th>
             <th>Type</th>
+            <th><span class="pull-right">Actions</span></th>
         </tr>
     </thead>
     <tbody>
-        {{--<tr ng-repeat="equipment in data.equipment.list">--}}
         <tr
             pagination-id="materials"
             dir-paginate="material in data.materials.list | itemsPerPage: data.materials.per_page"
             total-items="data.materials.total"
             current-page="data.materials.current_page">
 
-            <td>@{{ material.name }}</td>
-            <td>@{{ material.part_no }}</td>
+            {{-- Name --}}
             <td>
-                @{{ material.material_type.identifier }}
-                <span class="pull-right action-buttons">
-                    <button class="btn btn-xs btn-warning" ng-click="data.materials.destroy(material.id)">
+                <div class="editable editable-material-@{{ material.id }}">
+                    <span>@{{ material.name }}</span>
+                    <input type="text" ng-model="material.name" class="form-control" />
+                </div>
+            </td>
+
+            {{-- Part # --}}
+            <td>
+                <div class="editable editable-material-@{{ material.id }}">
+                    <span>@{{ material.part_no }}</span>
+                    <input type="text" ng-model="material.part_no" class="form-control" />
+                </div>
+            </td>
+
+            {{-- Material type --}}
+            <td>
+                <div class="editable editable-material-@{{ material.id }}">
+                    <span>@{{ material.material_type.identifier }}</span>
+                    <select ng-model="material.material_type_id" class="form-control">
+                        <option
+                            ng-repeat="material_type in data.material_types.list"
+                            ng-selected="material_type.id == material.material_type_id"
+                            value="@{{material_type.id}}">
+
+                            @{{material_type.identifier}}
+                        </option>
+                    </select>
+                </div>
+            </td>
+            
+            {{-- Actions --}}
+            <td>
+                <span class="actions actions-material-@{{ material.id }} pull-right">
+                    <button class="btn btn-xs btn-warning edit" ng-click="data.materials.edit(material.id, 'material')">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-xs btn-success update" ng-click="data.materials.update(material, 'material')">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <button class="btn btn-xs btn-danger destroy" ng-click="data.materials.destroy(material.id)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </span>

@@ -34,6 +34,16 @@ class AnatomicalPositionController extends Controller
         $offset = ($page - 1) * $perPage;
         $results = $query->skip($offset)->take($perPage)->get();
 
+		// Add an "updated_id" attribute, so we can modify it later if needed.
+		// We need to do this because the ID attribute is non-incrementing and user editable,
+		// which means we need some way to reference this model while updating it other than
+		// by ID.
+		if (count($results)) {
+			foreach ($results as $anatomical_position) {
+				$anatomical_position['updated_id'] = $anatomical_position['id'];
+			}
+		}
+
         return [
             'total' => $total,
             'page' => $page,
@@ -50,6 +60,32 @@ class AnatomicalPositionController extends Controller
 	public function store()
 	{
 		AnatomicalPosition::create(Request::input('new_anatomical_position_data', array()));
+
+		return $this->index();
+	}
+
+	/**
+	 * Update the specified anatomical position in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response: The updated list of anatomical positions
+	 */
+	public function update($id)
+	{
+		// Retrieve the anatomical position model.
+		$model = AnatomicalPosition::find($id);
+
+		// Retrieve the updated data for this model.
+		$updated_model = Request::input('updated_anatomical_position', []);
+
+		// Update the ID.
+		if (isset($updated_model['updated_id'])) {
+			$updated_model['id'] = $updated_model['updated_id'];
+		}
+
+		// Update the model.
+		$model->fill(array_except($updated_model, ['updated_id']));
+		$model->save();
 
 		return $this->index();
 	}

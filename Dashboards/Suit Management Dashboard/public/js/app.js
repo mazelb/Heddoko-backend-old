@@ -526,6 +526,16 @@ angular.module('backend', [])
                 });
             },
 
+            update : function(material_type)
+            {
+                return $http({
+                    method: 'PUT',
+                    url: '/materialtypes/' + material_type.id,
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({updated_material_type: material_type})
+                });
+            },
+
             destroy : function(id)
             {
                 return $http.delete('/materialtypes/'+ id);
@@ -553,6 +563,16 @@ angular.module('backend', [])
                     url: '/anatomicalpositions',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_anatomical_position_data: new_anatomical_position_form_data})
+                });
+            },
+
+            update : function(anatomical_position)
+            {
+                return $http({
+                    method: 'PUT',
+                    url: '/anatomicalpositions/' + anatomical_position.id,
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({updated_anatomical_position: anatomical_position})
                 });
             },
 
@@ -636,6 +656,16 @@ angular.module('backend', [])
                     url: '/materials',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_material_data: new_material_form_data})
+                });
+            },
+
+            update : function(material)
+            {
+                return $http({
+                    method: 'PUT',
+                    url: '/materials/' + material.id,
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                    data: $.param({updated_material: material})
                 });
             },
 

@@ -176,9 +176,9 @@ app.controller('MainController', [
         // Updates an existing item.
         update: function(item, namespace)
         {
-            // bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
-            //     if (user_response === true)
-            //     {
+            bootbox.confirm('Are you sure you want to update this '+ this.name +'?', function(user_response) {
+                if (user_response === true)
+                {
                     // Make the item row uneditable.
                     var fieldsClassName = '.editable-'+ namespace +'-'+ item.id;
                     $(fieldsClassName).removeClass('live');
@@ -205,8 +205,8 @@ app.controller('MainController', [
                         $scope.HideLoadingDialog();
 
                     }.bind(this));
-            //     }
-            // }.bind(this));
+                }
+            }.bind(this));
 
         },
 
@@ -236,10 +236,7 @@ app.controller('MainController', [
                     }.bind(this));
                 }
             }.bind(this));
-        },
-
-        // Stores everything related to selectize models.
-        selectize: null
+        }
     };
 
     //

@@ -7,6 +7,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ url('css/selectize.css') }}">
+		<link rel="stylesheet" href="{{ url('css/suits-editor.css') }}">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ url('js/bootbox.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url('js/dirPagination.js') }}"></script>

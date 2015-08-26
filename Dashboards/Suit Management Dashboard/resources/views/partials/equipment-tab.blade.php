@@ -63,7 +63,6 @@
         </tr>
     </thead>
     <tbody>
-        {{--<tr ng-repeat="equipment in data.equipment.list">--}}
         <tr
             pagination-id="equipment"
             dir-paginate="equipment in data.equipment.list | itemsPerPage: data.equipment.per_page"

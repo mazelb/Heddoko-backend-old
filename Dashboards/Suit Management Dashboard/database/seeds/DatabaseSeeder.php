@@ -36,10 +36,10 @@ class SuitDBSeeder extends Seeder
         $this->command->info('Deleting entries from the Suits database before beginning a new seed.');
 
         DB::table('equipment')->delete();
-        DB::table('suits_equipment')->delete();
+        DB::table('statuses')->delete();
         DB::table('materials')->delete();
         DB::table('material_types')->delete();
-        DB::table('statuses')->delete();
+        DB::table('suits_equipment')->delete();
         DB::table('anatomical_positions')->delete();
 
         $this->command->info('Entries successfully deleted. Beginning seed.');
@@ -49,8 +49,6 @@ class SuitDBSeeder extends Seeder
         $status_available = Status::create(['name' => 'available']);
         $status_loan = Status::create(['name' => 'on loan']);
         $status_transit = Status::create(['name' => 'in transit']);
-
-        $new_material_type = MaterialType::create(['identifier' => 'Sensor']);
 
         // Create anatomical positions.
         AnatomicalPosition::create(['name' => 'Upper spin',		 'id' => 0]);
@@ -63,21 +61,67 @@ class SuitDBSeeder extends Seeder
         AnatomicalPosition::create(['name' => 'Left thigh',		 'id' => 7]);
         $left_tibia_pos = AnatomicalPosition::create(['name' => 'Left tibia', 	 'id' => 8]);
 
+        // Create material types.
+        $material_type_sensor = MaterialType::create(['identifier' => 'Sensor']);
+        $material_type_battery = MaterialType::create(['identifier' => 'Battery']);
+
         // Create materials.
-        $new_material = Material::create(['material_type_id' => $new_material_type->id, 'name' => 'NOD Sensor', 'part_no' => 123321]);
+        $material_nod = Material::create(['material_type_id' => $material_type_sensor->id, 'name' => 'Sample Nod', 'part_no' => 12345]);
+        $material_ss = Material::create(['material_type_id' => $material_type_sensor->id, 'name' => 'Sample StretchSense sensor', 'part_no' => 12345]);
+        $material_battery = Material::create(['material_type_id' => $material_type_battery->id, 'name' => 'Sample Battery Pack', 'part_no' => 12345]);
 
 //        for ($x = 0; $x <= rand(100, 200); $x++) {
 //            Material::create(['material_type_id' => $new_material_type->id, 'name' => 'StretchSensor', 'part_no' => 274321]);
 //        }
 
+        // Create SuitEquipments.
+        $materials = [$material_nod->id, $material_ss->id, $material_battery->id];
+        for ($x = 0; $x <= rand(15, 30); $x++)
+        {
+            // Generate a random MAC address.
+            $mac_address = [];
+            $hex = str_shuffle(md5(microtime() . $x));
+            for ($y = 0; $y <= 12; $y++) {
+                $mac_address[] = substr($hex, $y++, 2);
+            }
 
-        $new_suit_equipment = SuitEquipment::create(['id' => 4444444, 'anatomical_position_id' => $left_tibia_pos->id]);
+            // Create a new SuitEquipment.
+            $suit_equipment = SuitEquipment::create([
+                'mac_address' => implode(':', $mac_address),
+                'physical_location' => 'Warehouse',
+                'anatomical_position_id' => $left_tibia_pos->id
+            ]);
 
-        for ($x = 0; $x <= rand(100, 200); $x++) {
-            Equipment::create(['material_id' => $new_material->id, 'serial_no' => substr(str_shuffle(MD5(microtime())), 0, 10), 'physical_location' => 'Box2', 'status_id' => $status_available->id]);
+            // Attach some equipment.
+            for ($z = 0; $z <= rand(1, 4); $z++)
+            {
+                Equipment::create([
+                    'suits_equipment_id' => $suit_equipment->id,
+                    'material_id' => $materials[rand(0, 1)],
+                    'serial_no' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 10),
+                    'physical_location' => 'Box 2',
+                    'status_id' => $status_unavailable->id]
+                );
+            }
+
+            Equipment::create([
+                'suits_equipment_id' => $suit_equipment->id,
+                'material_id' => $material_battery->id,
+                'serial_no' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 10),
+                'physical_location' => 'Box 2',
+                'status_id' => $status_unavailable->id]
+            );
         }
 
-        //$this->command->info('ddddd ' . count($new_suit_equipment->equipment));
+        // Create other sample equipment.
+        for ($x = 0; $x <= rand(200, 300); $x++)
+        {
+            Equipment::create([
+                'material_id' => $materials[rand(0, 2)],
+                'serial_no' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 10),
+                'physical_location' => 'Box 2',
+                'status_id' => $status_available->id]
+            );
+        }
     }
-
 }

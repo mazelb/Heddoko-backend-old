@@ -3,7 +3,7 @@
  Initialize the Angular App
  **************************/
 
-var app = angular.module("app", ["ngStorage", "ngRoute", "ngAnimate", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.chart.ctrls", "app.chart.directives","countTo", "backendHeddoko"]).run(["$rootScope", "$location",
+var app = angular.module("app", ["ngStorage", "ngRoute", "ngAnimate", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.chart.ctrls", "app.chart.directives","countTo", "backendHeddoko", "angular-chartist"]).run(["$rootScope", "$location",
     function ($rootScope, $location) {
 
         $(document).ready(function(){
@@ -18,22 +18,24 @@ var app = angular.module("app", ["ngStorage", "ngRoute", "ngAnimate", "ui.bootst
     }] ).config(["$routeProvider",
     function($routeProvider) {
         return $routeProvider.when("/", {
-				redirectTo: "/dashboard"
-			}).when("/dashboard", {
-                templateUrl: "/views/dashboard.html"
-            }).when("/movementsubmit", {
-                templateUrl: "/views/movementsubmit.html"
-            }).when("/fmstest", {
-                templateUrl: "/views/fmstest.html"
-            }).when("/fmsdata", {
-                templateUrl: "/views/fmsdata.html"
-            }).when("/fmsresults", {
-                templateUrl: "/views/fmsresults.html"
-            }).when("/settings", {
-                templateUrl: "/views/settings.html"
-            }).otherwise({
-                redirectTo: "/404"
-            });
+			redirectTo: "/dashboard"
+		}).when("/dashboard", {
+			templateUrl: "/views/dashboard.html"
+		}).when("/movementsubmit", {
+			templateUrl: "/views/movementsubmit.html"
+		}).when("/fmstest", {
+			templateUrl: "/views/fmstest.html"
+		}).when("/fmsdata", {
+			templateUrl: "/views/fmsdata.html"
+		}).when("/fmsresults", {
+			templateUrl: "/views/fmsresults.html"
+		}).when("/movementscreen", {
+			templateUrl: "/views/movementscreen.html"
+		}).when("/movements", {
+			templateUrl: "/views/outer.html"
+		}).otherwise({
+			redirectTo: "/404"
+		});
     }
 ]);
 

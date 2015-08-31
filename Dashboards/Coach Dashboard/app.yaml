@@ -1,4 +1,4 @@
-application:    lithe-quest-96316
+application:    heddoko-1043
 version:        1
 runtime:        php55
 api_version:    1
@@ -23,6 +23,9 @@ handlers:
         - url: /js
           static_dir: public/js
 
+        - url: /video
+          static_dir: public/video
+
         - url: /views
           static_dir: public/views
 
@@ -40,7 +43,4 @@ skip_files:
         - ^(.*/)?\.DS_Store$
 
 env_variables:
-        GAE_CACHE_SERVICES_FILE: false
-        GAE_CACHE_CONFIG_FILE: false
-        GAE_CACHE_ROUTES_FILE: false
         GAE_SKIP_GCS_INIT: false

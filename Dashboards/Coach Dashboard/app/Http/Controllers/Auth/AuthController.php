@@ -25,6 +25,8 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers;
+	
+	protected $username = 'username';
 
 	protected $redirectPath = '/';
 		
@@ -69,7 +71,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-			
+		
 		$new_user = User::create([
 
 			'email' => $data['email'],

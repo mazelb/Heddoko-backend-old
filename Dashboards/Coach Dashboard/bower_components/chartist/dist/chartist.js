@@ -3063,8 +3063,7 @@ var Chartist = {
       // Write attributes to series group element. If series name or meta is undefined the attributes will not be written
       seriesElement.attr({
         'series-name': series.name,
-        'meta': Chartist.serialize(series.meta),
-		'alpha-index': Chartist.alphaNumerate(seriesIndex)
+        'meta': Chartist.serialize(series.meta)
       }, Chartist.xmlNs.uri);
 
       // Use series class from series data or if not set generate one
@@ -3577,8 +3576,7 @@ var Chartist = {
       // Write attributes to series group element. If series name or meta is undefined the attributes will not be written
       seriesElement.attr({
         'series-name': series.name,
-        'meta': Chartist.serialize(series.meta),
-		'alpha-index': Chartist.alphaNumerate(seriesIndex)
+        'meta': Chartist.serialize(series.meta)
       }, Chartist.xmlNs.uri);
 
       // Use series class from series data or if not set generate one
@@ -3886,8 +3884,7 @@ var Chartist = {
 
       // If the series is an object and contains a name or meta data we add a custom attribute
       seriesGroups[i].attr({
-        'series-name': series.name,
-		'alpha-index': Chartist.alphaNumerate(seriesIndex)
+        'series-name': series.name
       }, Chartist.xmlNs.uri);
 
       // Use series class from series data or if not set generate one

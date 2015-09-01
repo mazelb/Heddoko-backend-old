@@ -105,17 +105,12 @@
 
 
 
-
-
-
-
-
 <div class="row">
 	<div class="col-sm-12" >
 		<div class="panel panel-default">
 			<div class="panel-body" style="padding:0px;">
 				<div class="movement-left-column non-test-pages">
-					<div class="row" style="height:56px;margin:0;line-height:56px;">
+					<div class="row" style="padding:0">
 						<div class="col-sm-8">
 							Select Trial
 						</div>
@@ -124,6 +119,57 @@
 							<i style="line-height:inherit;transform:scale(1, 1.5);" class="fa fa-2x fa-caret-down" ng-hide="data.current_movement_page.data_page_data.choose_trial"/>
 						</div>
 					</div>
+					<div ng-if="data.current_movement_page.data_page_data.choose_trial" class="row hierarchy-2" ng-repeat="trial in data.current_movement_page.active_side.trials" ng-if="true" ng-click="data.current_movement_page.active_side.active_trial = trial">
+						<div class="col-sm-8">
+							{{trial.name}}
+						</div>
+						<div class="col-sm-4" ng-click="joint.selected = !joint.selected">
+							<i style="line-height:inherit;" ng-show="data.current_movement_page.active_side.active_trial == trial" class="fa fa-2x fa-check"/>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					<div ng-hide="data.current_movement_page.data_page_data.see_all" ng-repeat="joint in data.current_movement_page.active_side.active_trial.joints">
+						<div class="row" style="height:56px;margin:0;line-height:56px;" ng-click="joint.data_graph_selected = !joint.data_graph_selected">
+							<div class="col-sm-8">
+								{{joint.name}}
+							</div>
+							<div class="col-sm-4" style="height:56px;" >
+								<i ng-show="joint.data_graph_selected" class="fa fa-2x fa-caret-up" style="transform:scale(1, 1.5);" />
+								<i ng-hide="joint.data_graph_selected" class="fa fa-2x fa-caret-down" style="transform:scale(1, 1.5);" />
+							</div>
+						</div>
+						<div class="row hierarchy-2" ng-repeat="movement in joint.movements" ng-click="movement.data_graph_selected = !movement.data_graph_selected;UpdateDataGraphSeries();" ng-class="{'selected':movement.data_graph_selected}" ng-if="joint.data_graph_selected">
+							<div class="col-sm-8">
+								{{movement.name}}
+							</div>
+							<div class="col-sm-4">
+								<i ng-show="movement.data_graph_selected" class="fa fa-2x fa-check-square-o"/>
+								<i ng-hide="movement.data_graph_selected" class="fa fa-2x fa-square-o"/>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				</div>
 			</div>
 		</div>

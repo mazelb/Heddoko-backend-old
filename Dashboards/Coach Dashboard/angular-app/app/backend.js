@@ -82,12 +82,12 @@
 		*/
 		
 		create : function(team_id, new_athlete_form_data) {
-		console.log(new_athlete_form_data);
-			return $http({
-				method: 'POST',
-				url: '/api/teams/' + team_id + '/athletes',
-				headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-				data: $.param(new_athlete_form_data)
+		    console.log(new_athlete_form_data);
+			    return $http({
+				    method: 'POST',
+				    url: '/api/teams/' + team_id + '/athletes',
+				    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+				    data: $.param(new_athlete_form_data)
 			});
 		}		
 

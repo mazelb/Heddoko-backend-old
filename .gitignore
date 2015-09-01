@@ -2,12 +2,16 @@
 
 Dashboards/User Dashboard/node_modules
 Dashboards/User Dashboard/dist
+Dashboards/User Dashboard/bower_components
 
 Dashboards/Coach Dashboard/node_modules
 Dashboards/Coach Dashboard/dist
+Dashboards/Coach Dashboard/bower_components
 
 Dashboards/Team Management Dashboard/node_modules
 Dashboards/Team Management Dashboard/dist
+Dashboards/Team Management Dashboard/bower_components
+
 TEMPLATE/*
 .idea
 .tags

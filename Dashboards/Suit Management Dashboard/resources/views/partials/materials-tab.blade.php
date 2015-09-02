@@ -7,9 +7,6 @@
 ])
 
 {{-- New material form --}}
-<h3>Hello</h3>
-<p>Use this page to view the status of stored equipment</p>
-<p>You can also upload a CSV file to add to this page</p>
 <div class="panel panel-success">
 
     @include('partials/_new-item-heading', [
@@ -92,7 +89,7 @@
                     </select>
                 </div>
             </td>
-            
+
             {{-- Actions --}}
             <td>
                 <span class="actions actions-material-@{{ material.id }} pull-right">

@@ -104,6 +104,7 @@ class SuitDBSeeder extends Seeder
                 );
             }
 
+            // Attach a battery pack
             Equipment::create([
                 'suits_equipment_id' => $suit_equipment->id,
                 'material_id' => $material_battery->id,

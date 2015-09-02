@@ -3,7 +3,7 @@
 @include('partials/_search-form', [
     'model_name' => 'suits',
     'data_object' => 'suits',
-    'placeholder' => 'Enter sensor serial # or physical location'
+    'placeholder' => 'Enter a MAC address, a physical location, or a sensor\'s serial #'
 ])
 
 {{-- New suit form --}}
@@ -15,23 +15,40 @@
     ])
 
     <div class="panel-body">
-
-        {{-- Input box --}}
         <div class="row">
-            <div class="col-sm-12">
-                <selectize
-                    id="new-suit-select"
-                    config="data.suits.selectize.config"
-                    ng-model="data.suits.selectize.models['new-item']"
-                    data-suit-id="new-item"
-                    data-equipment-list="{}">
-                </selectize>
 
-                <br/>
+            {{-- Equipment details --}}
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        {{-- Equipment search form --}}
+                        <selectize
+                            id="new-suit-select"
+                            config="data.suits.selectize.config"
+                            ng-model="data.suits.selectize.models['new-item']"
+                            data-suit-id="new-item"
+                            data-equipment-list="{}">
+                        </selectize>
+                        <hr />
+
+                        {{-- MAC Address --}}
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="data.suits.new_item.mac_address"
+                            placeholder="MAC address" />
+                        <br />
+
+                        {{-- Physical Location --}}
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="data.suits.new_item.physical_location"
+                            placeholder="Physical location" />
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="row">
 
             {{-- Equipment list --}}
             <div class="col-sm-6">
@@ -54,13 +71,6 @@
                     </div>
 
                 </div>
-            </div>
-
-            {{-- Equipment details --}}
-            <div class="col-sm-6" ng-hide="data.suits.new_item.current_equipment== null">
-                Serial #: <b>@{{ data.suits.new_item.current_equipment.serial_no }}</b><br/>
-                Material: <b>@{{ data.suits.new_item.current_equipment.material.name }}</b><br/>
-                Location: <b>@{{ data.suits.new_item.current_equipment.physical_location }}</b><br/>
             </div>
         </div>
     </div>
@@ -133,10 +143,19 @@
             </div>
 
             {{-- Equipment details --}}
-            <div class="col-sm-6" ng-hide="suit.current_equipment == null">
-                Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
-                Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
-                Location: <b>@{{ suit.current_equipment.physical_location }}</b><br/>
+            <div class="col-sm-6">
+                <div class="row" ng-hide="suit.current_equipment == null">
+                    <h4>Selected equipment details</h4>
+                    Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
+                    Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
+                    Location: <b>@{{ suit.current_equipment.physical_location }}</b>
+                    <hr />
+                </div>
+                <div class="row">
+                    <h4>Suit details</h4>
+                    MAC Address: <b>@{{ suit.mac_address }}</b><br/>
+                    Physical location: <b>@{{ suit.physical_location }}</b><br/>
+                </div>
             </div>
         </div>
 

@@ -7,9 +7,6 @@
 ])
 
 {{-- New equipment form --}}
-<h3>Hello</h3>
-<p>Use this page to view the status of stored equipment</p>
-<p>You can also upload a CSV file to add to this page</p>
 <div class="panel panel-success">
 
     @include('partials/_new-item-heading', [

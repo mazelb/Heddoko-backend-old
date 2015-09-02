@@ -64,7 +64,7 @@ app.controller('MainController', [
 
                 for (var attribute in this)
                 {
-                    if (['number', 'string'].indexOf(typeof this[attribute]) != -1) {
+                    if (['number', 'string'].indexOf(typeof this[attribute]) != -1 || $.isArray(this[attribute])) {
                         new_item[attribute] = this[attribute];
                     }
                 }
@@ -127,6 +127,7 @@ app.controller('MainController', [
                     // Consider any empty string or default values to be invalid.
                     if (this.new_item[attribute] == 0 || this.new_item[attribute] == '0' || this.new_item[attribute] == '')
                     {
+                        console.log(attribute);
                         bootbox.alert('Please fill out all details before adding a new '+ this.name);
                         return;
                     }
@@ -308,40 +309,6 @@ app.controller('MainController', [
         name: 'Suit',
         per_page: 5,
         service: Suits,
-        create: function() {
-
-            // Confirm that we have equipment in our new suit.
-            if (this.new_item.equipment.length == 0)
-            {
-                bootbox.alert('Add a minimum of 1 equipment before creating a new suit');
-                return;
-            }
-
-            bootbox.confirm("Are you sure you want to add this new suit?", function(user_response) {
-                if (user_response === true)
-                {
-                    $scope.ShowLoadingDialog();
-                    this.service.create(this.new_item.equipment).then(function(response) {
-
-                        // Update the page (this will also hide the loading dialog).
-                        if (response.status == 200)
-                        {
-                            this.updatePage(response.data);
-                            this.new_item.reset();
-                            bootbox.alert('Suit successfully created.');
-                        }
-
-                    }.bind(this), function(response) {
-
-                        // Display the error message.
-                        $scope.HideLoadingDialog();
-                        console.log('Error adding new suit: '+ response.statusText);
-                        bootbox.alert('An error occurred:' + response.statusText);
-                    });
-                }
-            }.bind(this));
-
-        },
         removeEquipment: function(suit, equipment) {
 
             // Update the equipment list.
@@ -363,7 +330,7 @@ app.controller('MainController', [
                 valueField: 'id',
                 labelField: 'serial_no',
                 searchField: ['serial_no', 'physical_location'],
-                placeholder: 'Pick a sensor',
+                placeholder: 'Search for equipment to add',
                 onInitialize: function(selectize) {},
                 render: {
                     option: function(item, escape) {
@@ -441,7 +408,8 @@ app.controller('MainController', [
         }
     });
     $scope.data.suits.new_item = $.extend(true, {}, dataTemplate.new_item, {
-        name: '',
+        mac_address: '',
+        physical_location: '',
         equipment: [],
         current_equipment: null
     });
@@ -472,13 +440,13 @@ angular.module('backend', [])
                 return $http.get('/suitsequipment');
             },
 
-            create : function(new_suit_sensors_form_data)
+            create : function(data)
             {
                 return $http({
                     method: 'POST',
                     url: '/suitsequipment',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-                    data: $.param({new_suit_equipment_list: new_suit_sensors_form_data})
+                    data: $.param({new_suit_equipment: data})
                 });
             },
 
@@ -488,7 +456,7 @@ angular.module('backend', [])
                     method: 'PUT',
                     url: '/suitsequipment/' + suit.id,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-                    data: $.param({updated_suit_equipment: suit.equipment})
+                    data: $.param({updated_suit: suit})
                 });
             },
 

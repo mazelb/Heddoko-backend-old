@@ -19,10 +19,10 @@ class SuitEquipment extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'anatomical_position_id', 'suits_equipment_id'];
-	
+    protected $fillable = ['id', 'anatomical_position_id', 'suits_equipment_id', 'mac_address', 'physical_location'];
+
 	public $timestamps = false;
-	
+
 	public function equipment()
 	{
 		return $this->hasMany('App\Models\Equipment', 'suits_equipment_id');

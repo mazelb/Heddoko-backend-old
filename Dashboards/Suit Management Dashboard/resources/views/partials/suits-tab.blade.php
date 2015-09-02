@@ -3,7 +3,7 @@
 @include('partials/_search-form', [
     'model_name' => 'suits',
     'data_object' => 'suits',
-    'placeholder' => 'Enter sensor serial # or physical location'
+    'placeholder' => 'Enter a MAC address, a physical location, or a sensor\'s serial #'
 ])
 
 {{-- New suit form --}}
@@ -15,23 +15,40 @@
     ])
 
     <div class="panel-body">
-
-        {{-- Input box --}}
         <div class="row">
-            <div class="col-sm-12">
-                <selectize
-                    id="new-suit-select"
-                    config="data.suits.selectize.config"
-                    ng-model="data.suits.selectize.models['new-item']"
-                    data-suit-id="new-item"
-                    data-equipment-list="{}">
-                </selectize>
 
-                <br/>
+            {{-- Equipment details --}}
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        {{-- Equipment search form --}}
+                        <selectize
+                            id="new-suit-select"
+                            config="data.suits.selectize.config"
+                            ng-model="data.suits.selectize.models['new-item']"
+                            data-suit-id="new-item"
+                            data-equipment-list="{}">
+                        </selectize>
+                        <hr />
+
+                        {{-- MAC Address --}}
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="data.suits.new_item.mac_address"
+                            placeholder="MAC address" />
+                        <br />
+
+                        {{-- Physical Location --}}
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="data.suits.new_item.physical_location"
+                            placeholder="Physical location" />
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="row">
 
             {{-- Equipment list --}}
             <div class="col-sm-6">
@@ -54,13 +71,6 @@
                     </div>
 
                 </div>
-            </div>
-
-            {{-- Equipment details --}}
-            <div class="col-sm-6" ng-hide="data.suits.new_item.current_equipment== null">
-                Serial #: <b>@{{ data.suits.new_item.current_equipment.serial_no }}</b><br/>
-                Material: <b>@{{ data.suits.new_item.current_equipment.material.name }}</b><br/>
-                Location: <b>@{{ data.suits.new_item.current_equipment.physical_location }}</b><br/>
             </div>
         </div>
     </div>
@@ -87,16 +97,25 @@
         <h3 class="panel-title pull-left">
             <span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.equipment.length}} sensor(s)
         </h3>
+
+        {{-- Action buttons --}}
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">Delete Suit</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">Save</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-warning" ng-click="data.suits.edit(suit.id, 'suit')">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
         </div>
         <div class="clearfix"></div>
     </div>
 
     <div class="panel-body">
 
-        {{-- Input box --}}
+        {{-- Equipment search form --}}
         <div class="row">
             <div class="col-sm-12">
                 <selectize
@@ -133,10 +152,34 @@
             </div>
 
             {{-- Equipment details --}}
-            <div class="col-sm-6" ng-hide="suit.current_equipment == null">
-                Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
-                Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
-                Location: <b>@{{ suit.current_equipment.physical_location }}</b><br/>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-3" style="text-align: right;">
+                        Suit details:
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="editable editable-suit-@{{ suit.id }}">
+
+                            <span>MAC Address: <b>@{{ suit.mac_address }}</b></span>
+                            <input type="text" class="form-control" ng-model="suit.mac_address" placeholder="MAC address" />
+                            <br />
+
+                            <span>Physical location: <b>@{{ suit.physical_location }}</b></span>
+                            <input type="text" class="form-control" ng-model="suit.physical_location" placeholder="Physical location" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-hide="suit.current_equipment == null">
+                    <hr />
+                    <div class="col-sm-3" style="text-align: right;">
+                        Selected equipment:
+                    </div>
+                    <div class="col-sm-9">
+                        Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
+                        Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
+                        Location: <b>@{{ suit.current_equipment.physical_location }}</b>
+                    </div>
+                </div>
             </div>
         </div>
 

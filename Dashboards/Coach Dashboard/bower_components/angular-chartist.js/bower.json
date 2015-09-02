@@ -1,8 +1,8 @@
 {
   "name": "angular-chartist.js",
-  "version": "3.3.6",
+  "version": "3.3.9",
   "authors": [
-    "will@intandem.io"
+    "will.soto9@gmail.com"
   ],
   "description": "Angular directive for Chartist.js",
   "main": "dist/angular-chartist.js",

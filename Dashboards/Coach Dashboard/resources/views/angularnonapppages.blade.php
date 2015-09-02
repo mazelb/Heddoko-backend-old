@@ -20,7 +20,7 @@
 			<header>		
 
 				<a class="nav-logo" href="/">
-					<img src="/images/logo/heddoko_logo.svg" alt="Heddoko">
+					<img src="{{ URL::asset('images/logo/heddoko_logo.svg') }}" alt="Heddoko">
 				</a>	
 
 				<div class="social">

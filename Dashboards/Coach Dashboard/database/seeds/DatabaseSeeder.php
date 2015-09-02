@@ -166,15 +166,59 @@ class DBSeeder extends Seeder {
 											'last_name' => 'Bob',
 											'team_id' => $dummyTeam->id,
 											'user_id' => $newAthleteUser->id,
-											'age' => 25]);		
+											'age' => 25,
+											'height_cm' => 193,
+											'weight_cm' => 90,
+											'primary_sport' => 'Soccer',
+											'primary_position' => 'Midfielder',
+											'hand_leg_dominance' => 'Right',
+											'previous_injuries' => 'none',
+											'underlying_medical' => '',
+											'notes' => '',
+											]);		
 
 		$this->command->info('creating a movementSubmission');
 		
 		$newMovementSubmission = MovementSubmission::create(['coach_id' => $dummyCoach->id, 'athlete_id' => $dummyAthlete->id, 'comment' => 'needs improvement']);
 		
-		$newFMSForm = FMSForm::create(['deepsquat' => 3]);
+		$this->command->info('creating a FMS From');
+
+		$newFMSForm = FMSForm::create([
+			'deepsquat' => 3,
+			'deepsquatcomments' => '',
+			'Lhurdle' => 3,
+			'Rhurdle' => 3,
+			'hurdlecomments' => '',
+			'Llunge' => 3,
+			'Rlunge' => 3,
+			'lungecomments' => '',
+			'Lshoulder' => 3,
+			'Rshoulder' => 3,
+			'shouldercomments' => '',
+			'Limpingement' => 3,
+			'Rimpingement' => 3,
+			'impingementcomments' => '',
+			'Lactive' => 3,
+			'Ractive' => 3,
+			'activecomments' => '',
+			'trunk' => 3,
+			'trunkcomments' => '',
+			'press' => 3,
+			'presscomments' => '',
+			'Lrotary' => 3,
+			'Rrotary' => 3,
+			'rotarycomments' => '',
+			'posterior' => 3,
+			'posteriorcomments' => '',
+			'totalscore' => 3,
+		]);
+
+
+		$this->command->info('creating a FMS FromSubmission');
+
 		$newFMSFormSubmission = FMSFormSubmission::create(['coach_id' => $dummyCoach->id, 'athlete_id' => $dummyAthlete->id, 'fmsform_id' => $newFMSForm->id, 'comment' => 'not bad']);
-	
+
+
 		$this->command->info('creating movement 1');
 
 		$movementPartOfFMS= Movement::create(['name' => 'Elbow Flex', 'sportmovement_id' => $sportmovement->id, 'movementsub_id' => null, 'fmsformsub_id' => $newFMSFormSubmission->id]);

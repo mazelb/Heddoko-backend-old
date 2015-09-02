@@ -829,12 +829,12 @@ $text-colors:(
 				margin:0;
 			}
 			
-			.movement-left-column.non-test-pages>div.row.hierarchy-2 {
-				background-color:#E3E3E3;
+			.hierarchy-2 {
+				background-color: #E3E3E3;
 				height: 36px;
-				line-height:36px;
+				line-height: 36px;
+				margin:0;
 			}
-			
 			.movement-left-column>div:hover {
 				background-color: white;
 			}

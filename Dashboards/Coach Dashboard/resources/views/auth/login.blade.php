@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 style="position:fixed;width:100%;top:50%;"><b>{{ Inspiring::quote() }}</b></span></h1>
+<h1 style="position:fixed;width:100%;top:50%;"><b>{{ Inspiring::quote() }}</b></h1>
 
 <div class="page-signin" style="position:fixed;width:100%;bottom:-2%;">
 
@@ -45,7 +45,7 @@
 
                 <section>
                     <p class="text-center"><a style="color:white" href="{{ url('/password/email') }}">Forgot your password?</a></p>
-                    <p class="text-center" style="color:white" text-muted text-small">Don't have an account yet? <a href="{{ url('/auth/register') }}">Sign up</a></p>
+                    <p class="text-center" style="color:white" text-muted text-small>Don't have an account yet? <a href="{{ url('/auth/register') }}">Sign up</a></p>
                 </section>
                 
             </div>

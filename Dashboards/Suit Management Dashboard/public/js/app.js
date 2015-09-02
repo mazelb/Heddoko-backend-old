@@ -309,40 +309,6 @@ app.controller('MainController', [
         name: 'Suit',
         per_page: 5,
         service: Suits,
-        // create: function() {
-        //
-        //     // Confirm that we have equipment in our new suit.
-        //     if (this.new_item.equipment.length == 0)
-        //     {
-        //         bootbox.alert('Add a minimum of 1 equipment before creating a new suit');
-        //         return;
-        //     }
-        //
-        //     bootbox.confirm("Are you sure you want to add this new suit?", function(user_response) {
-        //         if (user_response === true)
-        //         {
-        //             $scope.ShowLoadingDialog();
-        //             this.service.create(this.new_item.equipment).then(function(response) {
-        //
-        //                 // Update the page (this will also hide the loading dialog).
-        //                 if (response.status == 200)
-        //                 {
-        //                     this.updatePage(response.data);
-        //                     this.new_item.reset();
-        //                     bootbox.alert('Suit successfully created.');
-        //                 }
-        //
-        //             }.bind(this), function(response) {
-        //
-        //                 // Display the error message.
-        //                 $scope.HideLoadingDialog();
-        //                 console.log('Error adding new suit: '+ response.statusText);
-        //                 bootbox.alert('An error occurred:' + response.statusText);
-        //             });
-        //         }
-        //     }.bind(this));
-        //
-        // },
         removeEquipment: function(suit, equipment) {
 
             // Update the equipment list.
@@ -490,7 +456,7 @@ angular.module('backend', [])
                     method: 'PUT',
                     url: '/suitsequipment/' + suit.id,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-                    data: $.param({updated_suit_equipment: suit.equipment})
+                    data: $.param({updated_suit: suit})
                 });
             },
 

@@ -21,13 +21,13 @@
 /*
  * Tables: editable fields.
  */
-.table .editable .form-control {
+.editable .form-control {
     display: none;
 }
-.table .editable.live .form-control {
+.editable.live .form-control {
     display: block;
 }
-.table .editable.live span {
+.editable.live span {
     display: none;
 }
 

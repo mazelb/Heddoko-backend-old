@@ -97,16 +97,25 @@
         <h3 class="panel-title pull-left">
             <span class="badge">@{{$index + 1}}</span> Heddoko Suit with @{{suit.equipment.length}} sensor(s)
         </h3>
+
+        {{-- Action buttons --}}
         <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">Delete Suit</button>
-            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">Save</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="data.suits.update(suit)">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-warning" ng-click="data.suits.edit(suit.id, 'suit')">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="data.suits.destroy(suit.id)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
         </div>
         <div class="clearfix"></div>
     </div>
 
     <div class="panel-body">
 
-        {{-- Input box --}}
+        {{-- Equipment search form --}}
         <div class="row">
             <div class="col-sm-12">
                 <selectize
@@ -144,17 +153,32 @@
 
             {{-- Equipment details --}}
             <div class="col-sm-6">
-                <div class="row" ng-hide="suit.current_equipment == null">
-                    <h4>Selected equipment details</h4>
-                    Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
-                    Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
-                    Location: <b>@{{ suit.current_equipment.physical_location }}</b>
-                    <hr />
-                </div>
                 <div class="row">
-                    <h4>Suit details</h4>
-                    MAC Address: <b>@{{ suit.mac_address }}</b><br/>
-                    Physical location: <b>@{{ suit.physical_location }}</b><br/>
+                    <div class="col-sm-3" style="text-align: right;">
+                        Suit details:
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="editable editable-suit-@{{ suit.id }}">
+
+                            <span>MAC Address: <b>@{{ suit.mac_address }}</b></span>
+                            <input type="text" class="form-control" ng-model="suit.mac_address" placeholder="MAC address" />
+                            <br />
+
+                            <span>Physical location: <b>@{{ suit.physical_location }}</b></span>
+                            <input type="text" class="form-control" ng-model="suit.physical_location" placeholder="Physical location" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-hide="suit.current_equipment == null">
+                    <hr />
+                    <div class="col-sm-3" style="text-align: right;">
+                        Selected equipment:
+                    </div>
+                    <div class="col-sm-9">
+                        Serial #: <b>@{{ suit.current_equipment.serial_no }}</b><br/>
+                        Material: <b>@{{ suit.current_equipment.material.name }}</b><br/>
+                        Location: <b>@{{ suit.current_equipment.physical_location }}</b>
+                    </div>
                 </div>
             </div>
         </div>

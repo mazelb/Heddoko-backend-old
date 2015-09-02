@@ -83,18 +83,29 @@ class SuitEquipmentController extends Controller {
 	 */
 	public function update($suit_equipment_id)
 	{
-		$suit_equipment_of_interest = SuitEquipment::find($suit_equipment_id); //retrieve the suit model
+        // Retrieve the suit model.
+		$suit_equipment_of_interest = SuitEquipment::findOrFail($suit_equipment_id);
 
-		foreach ($suit_equipment_of_interest->equipment as $existing_equipment) //unlink each piece of equipment from the suit
+        // Retrieve data sent with the request.
+        $data = Request::input('updated_suit');
+
+        // Update the SuitEquipment.
+        $suit_equipment_of_interest->fill(array_only($data, ['mac_address', 'physical_location']));
+        $suit_equipment_of_interest->save();
+
+        // Unlink each piece of equipment from the suit.
+		foreach ($suit_equipment_of_interest->equipment as $existing_equipment)
 		{
 			$existing_equipment->status_id = Status::getByName('available')->id;
 			$existing_equipment->suits_equipment_id = null;
 			$existing_equipment->save();
 		}
 
-		$new_equipment = Request::input('updated_suit_equipment', array()); //retrieve the updated list of equipment that belongs to the suit
+        // Retrieve the updated list of equipment that belongs to the suit.
+        $new_equipment = $data['equipment'];
 
-		foreach ($new_equipment as $new_equipment_unit) //attach each updated piece of equipment to the suit
+        // Attach each updated piece of equipment to the suit.
+		foreach ($new_equipment as $new_equipment_unit)
 		{
 			$existing_equipment = Equipment::findOrFail($new_equipment_unit['id']);
 			$existing_equipment->suits_equipment_id = $suit_equipment_of_interest->id;

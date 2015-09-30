@@ -169,3 +169,52 @@ php artisan db:seed
 ```
 
 This empties the database and re-populates it according to DatabaseSeeder.php
+
+# Deployment to Microsoft Azure
+
+A few steps must be taken in order to be able to deploy the dashboards on Microsoft Azure. These include:
+
+- Setting up the web application and database
+- Deploying the app with FTP
+
+## Setting up the web application and database
+
+First, create an account with Microsoft Azure by visiting their [web page](http://azure.microsoft.com/en-us/).
+
+After the account is created, you will be lead to the Azure dashboard. On the bottom-left corner of the page, click the '+ New' button.
+
+Select Compute->Web App->Custom Create
+
+Enter a URL and select and geographical location for the web app. Under 'Database', select 'Create a new MySQL Database'.
+
+On the next page, configure the name and region for the MySQL Database.
+
+After having setup the web app, it will appear in the Azure Dashboard. Click on its name to view its properties.
+
+As before, the connection settings for the MySQL Database must be configured in Laravel. The IP, username, and password can be obtained by selecting the 'Linked Resources' tab and selecting the database. This brings you to a link on cleardb.com (apparently partnerest with Microsoft to Host MySQL DBs). On that page, click the 'Endpoint Information' tab. There, the hostname, username, and passwod are indicated.
+
+Important: Remember to input these into the env.production file in the root of the Dashboard. Then, if you are intending to deploy the app in Azure, copy the contents of env.production into .env before deployment.
+
+## Setting the PHP version
+
+Select the 'configure' tab for the web app (which appears in the tab list beginnng with Dashboard, Monitor, Webjobs, ...).
+
+Select PHP version 5.6 and click the save icon at the bottom of the screen.
+
+## Setting the FTP settings
+
+Azure supports a variety of ways to deploy a web application. Here is how to setup deployment by FTP.
+
+Click the little blue cloud icon to the left of the 'Dashboard' tab. 
+
+Under the 'publish your app' heading click 'Configure deployment credentials'. Enter a username (must be unique among all Azure instances) and a password. This becomes the FTP login credentials.
+
+Now click the 'Dashboard' tab. In the rightmost column, near the bottom, you will see the 'Deployment/FTP User' and the 'FTP HOST NAME' that must be entered into an FTP client (ie FileZilla) to connect.
+
+Once connected, you will have FTP access to the web app filesystem.
+
+## Deploying the app with FTP
+
+Once connected with FTP, simply drag and drop the web app files to /site/wwwroot
+
+More research needs to be done because copying files over FTP is extremely slow for some reason (and sometimes halts), and most likely an alternate deployment method will be faster.

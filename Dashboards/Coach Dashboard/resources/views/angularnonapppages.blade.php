@@ -1,9 +1,9 @@
 <!doctype html>
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Admin Box - AngularJS theme</title>
+        <title>Heddoko</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
@@ -13,33 +13,36 @@
 
         <link rel="stylesheet" href="{{ url('css/main.css') }}">
         <link rel="stylesheet" href="{{ url('css/app.css') }}">
-
+		
+		<script>
+			sessionStorage.clear(); //clear session storage to prevent data from one user showing up for another
+		</script>
     </head>
     <body>
-		
-			<header>		
 
-				<a class="nav-logo" href="/">
-					<img src="{{ URL::asset('images/logo/heddoko_logo.svg') }}" alt="Heddoko">
-				</a>	
+		<header>
 
-				<div class="social">
-					<p>
-						<a href="https://www.facebook.com/heddoko" target="_blank"><i class="fa fa-3x fa-facebook"></i></a>
-						<a href="https://twitter.com/heddoko" target="_blank"><i class="fa fa-3x fa-twitter"></i></a>
-						<a href="https://www.linkedin.com/company/heddoko" target="_blank"><i class="fa fa-3x fa-linkedin"></i></a>
-						<a href="https://instagram.com/heddoko/" target="_blank"><i class="fa fa-3x fa-instagram"></i></a>						
-					</p>
-				</div>
-		
-			</header>
-		
-			@yield('content')
-			
-			<div id="footer" class="navbar-fixed-bottom" style="color:white;text-align:center;">
-				&copy; Copyright Heddoko
+			<a class="nav-logo" href="/">
+				<img src="{{ URL::asset('images/logo/heddoko_logo.svg') }}" alt="Heddoko">
+			</a>
+
+			<div class="social">
+				<p>
+					<a href="https://www.facebook.com/heddoko" target="_blank"><i class="fa fa-3x fa-facebook"></i></a>
+					<a href="https://twitter.com/heddoko" target="_blank"><i class="fa fa-3x fa-twitter"></i></a>
+					<a href="https://www.linkedin.com/company/heddoko" target="_blank"><i class="fa fa-3x fa-linkedin"></i></a>
+					<a href="https://instagram.com/heddoko/" target="_blank"><i class="fa fa-3x fa-instagram"></i></a>						
+				</p>
 			</div>
 
+		</header>
+
+		@yield('content')
+
+		<div id="footer" class="navbar-fixed-bottom" style="color:white;text-align:center;">
+			&copy; Copyright Heddoko
+		</div>
+
     </body>
-		
+
 </html>

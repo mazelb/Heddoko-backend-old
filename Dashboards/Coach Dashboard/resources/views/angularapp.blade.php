@@ -1,5 +1,5 @@
 <!doctype html>
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">		
@@ -15,7 +15,6 @@
 		
         <!-- Theme's own CSS file -->
         <link rel="stylesheet" href="{{ url('css/main.css') }}">
-
     </head>
     <body data-ng-app="app" id="app" data-custom-background="" data-off-canvas-nav="" data-ng-controller="MainController">
 
@@ -34,7 +33,6 @@
             </div>
         </div>
         <div class="page-loading-overlay"> <div class="loader-2"></div> </div>
-
         <div class="load_circle_wrapper">
 
             <div class="loading_spinner">

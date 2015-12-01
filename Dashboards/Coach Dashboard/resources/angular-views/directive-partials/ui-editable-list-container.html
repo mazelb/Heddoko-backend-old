@@ -1,0 +1,34 @@
+
+<div class="panel panel-default ui-editable-list-container">
+    <div class="panel-heading">
+        {{ heading }}
+
+        <!-- Action buttons -->
+        <div class="pull-right">
+            <span ng-click="save()" ng-show="state == 'editing'">
+                Save &nbsp; <i class="fa fa-toggle-on"></i>
+            </span>
+            <span ng-click="edit()" ng-show="state == 'idle'">
+                Edit &nbsp; <i class="fa fa-toggle-off"></i>
+            </span>
+            <span ng-show="state == 'saving'" style="color: #ccc;">
+                <i class="fa fa-toggle-off"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="row" ng-switch="state">
+
+            <!-- Working animation -->
+            <div ng-switch-when="saving" class="text-center" style="padding: 20px 0;">
+                <i class="fa fa-spin fa-4x fa-spinner"></i>
+            </div>
+
+            <!-- Model fields -->
+            <div ng-switch-default ng-transclude class="col-sm-12">
+            </div>
+        </div>
+    </div>
+</div>

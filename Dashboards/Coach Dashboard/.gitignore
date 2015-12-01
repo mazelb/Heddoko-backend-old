@@ -3,4 +3,9 @@
 Homestead.yaml
 /.sass-cache
 /bower_components
-/node_modules
+
+# IDE files
+/.idea
+/.tags
+/.tags_swap
+/tags

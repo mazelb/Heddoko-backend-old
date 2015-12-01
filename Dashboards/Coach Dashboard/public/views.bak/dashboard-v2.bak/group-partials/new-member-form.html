@@ -1,0 +1,102 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Add an Athlete
+    </div>
+    <div class="panel-body">
+
+        <!-- Athlete picture -->
+        <div class="col-sm-4">
+            <div style="
+                display: block;
+                margin: 0 auto;
+                height: 120px;
+                width: 120px;
+                line-height: 120px;
+                font-size: .8em;
+                text-align: center;
+                cursor: pointer;
+                border: 1px solid #ccc;">
+
+                Photo
+            </div>
+        </div>
+
+        <!-- Athlete details -->
+        <div class="col-sm-8">
+            <form ng-submit="submitNewAthleteForm()">
+
+                <!-- First name -->
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="data.member.new.first_name"
+                        placeholder="First Name"
+                        required>
+                </div>
+
+                <!-- Last name -->
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="data.member.new.last_name"
+                        placeholder="Last Name"
+                        required>
+                </div>
+
+                <!-- Height -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            Height
+                        </div>
+                        <div class="col-xs-5">
+                            <input
+                                class="form-control"
+                                ng-model="data.member.new.feet"
+                                placeholder="Feet"
+                                type="number"
+                                min="1" max="10"
+                                required>
+                        </div>
+                        <div class="col-xs-5">
+                            <input
+                                class="form-control"
+                                ng-model="data.member.new.inches"
+                                placeholder="Inches"
+                                type="number"
+                                min="0" max="11"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weight -->
+                <div class="form-group">
+                    <input
+                        class="form-control"
+                        ng-model="data.member.new.weight_lbs"
+                        placeholder="Weight (lbs)"
+                        type="number"
+                        min="50" max="500"
+                        required>
+                </div>
+
+                <!-- Age -->
+                <div class="form-group">
+                    <input
+                        class="form-control"
+                        ng-model="data.member.new.age"
+                        placeholder="Age"
+                        type="number"
+                        min="1" max="100"
+                        required>
+                </div>
+
+                <button type="submit" class="btn btn-info pull-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

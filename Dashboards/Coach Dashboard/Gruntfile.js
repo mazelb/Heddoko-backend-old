@@ -1,6 +1,10 @@
 /*jslint node: true */
 "use strict";
 
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved
+ */
+
 module.exports = function(grunt) {
 
     grunt.initConfig({
@@ -17,92 +21,99 @@ module.exports = function(grunt) {
             }
         },
 
+        // clean: {
+        //     temp: {
+        //         src: [ 'tmp' ]
+        //     }
+        // },
+
         copy: {
             main: {
-                files: [{
-                    //for bootstrap fonts
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components/jquery/dist',
-                    src: ['jquery.min.js','jquery.min.map'],
-                    dest: 'public/js'
-                },{
-                    //for bootstrap fonts
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components/bootstrap/dist',
-                    src: ['fonts/*.*'],
-                    dest: 'public'
-                },{
-                    //for weather fonts
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components/weather-icons',
-                    src: ['font/*.*'],
-                    dest: 'public'
-                },{
-                    //for font-awesome
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components/font-awesome',
-                    src: ['fonts/*.*'],
-                    dest: 'public'
-                },
-                {
-                    //for Images
-                    expand: true,
-                    dot: true,
-                    cwd: 'angular-app/images',
-                    src: ['*.*','background/*','logo/*'],
-                    dest: 'public/images'
-                }]
+                files: [
+                    //
+                    // // jQuery
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'bower_components/jquery/dist',
+                    //     src: ['jquery.min.js','jquery.min.map'],
+                    //     dest: 'public/js'
+                    // },
+                    //
+                    // // Bootstrap fonts
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'bower_components/bootstrap/dist',
+                    //     src: ['fonts/*.*'],
+                    //     dest: 'public'
+                    // },
+                    //
+                    // // Weather icons
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'bower_components/weather-icons',
+                    //     src: ['font/*.*'],
+                    //     dest: 'public'
+                    // },
+                    //
+                    // // Font-awesome
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'bower_components/font-awesome',
+                    //     src: ['fonts/*.*'],
+                    //     dest: 'public'
+                    // },
+                    //
+                    // // Other images
+                    // {
+                    //     expand: true,
+                    //     dot: true,
+                    //     cwd: 'angular-app/images',
+                    //     src: ['*.*','background/*','logo/*'],
+                    //     dest: 'public/images'
+                    // }
+                ]
             }
         },
 
-        uglify: {
-            dist: {
-                files: {
-                    'public/js/app.js': [ 'public/js/app.js' ]
-                },
-                options: {
-                    mangle: false,
-                    preserveComments: 'some'
-                }
-            }
+        jshint: {
+            dist: [
+                'Gruntfile.js',
+                'resources/assets/js/*.js',
+                'resources/assets/js/**/*.js'
+            ]
         },
-        cssmin: {
-            combine: {
-                files: {
-                    'public/css/main.css': [
-                        'bower_components/fontawesome/css/font-awesome.min.css',
-                        'bower_components/weather-icons/css/weather-icons.min.css',
-                        'bower_components/bootstrap/dist/css/bootstrap.min.css',
-                        'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-                        'bower_components/chartist/dist/chartist.min.css',
-                        'angular-app/styles/main.css'
-                    ]
+
+        uglify: {
+            options: {
+                mangle: {
+                    except: ['jQuery', '$']
                 }
             },
-            add_banner: {
-                options: {
-                    banner: '/* My minified admin css file */'
-                },
+            dist: {
                 files: {
-                    'public/css/main.css': ['public/css/main.css']
+                    'resources/assets/build/scripts.js': [
+                        'resources/assets/js/**/*.js',
+                        'resources/assets/js/*.js'
+                    ]
                 }
             }
         },
 
         html2js: {
+            options: {
+                base: 'resources/angular-views',
+                module: 'app.views'
+            },
             dist: {
-                src: [ 'angular-app/app/views/*.html','angular-app/app/views/charts/*.html','angular-app/app/views/forms/*.html','angular-app/app/views/mail/*.html','angular-app/app/views/maps/*.html','angular-app/app/views/pages/*.html','angular-app/app/views/tables/*.html','angular-app/app/views/tables/*.html','angular-app/app/views/tasks/*.html','angular-app/app/views/ui_elements/*.html' ],
-                dest: 'tmp/views.js'
-            }
-        },
-
-        clean: {
-            temp: {
-                src: [ 'tmp' ]
+                src: [
+                    'resources/angular-views/*.html',
+                    'resources/angular-views/**/*.html'
+                ],
+                dest: 'resources/assets/build/views.js'
             }
         },
 
@@ -111,7 +122,10 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             dist: {
-                src: ['bower_components/bootstrap/dist/js/bootstrap.min.js',
+                src: [
+
+                    // Main dependencides.
+                    'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'angular-app/scripts/gmap.js',
                     'bower_components/slimScroll/jquery.slimscroll.min.js',
                     'bower_components/angular/angular.min.js',
@@ -119,8 +133,30 @@ module.exports = function(grunt) {
                     'bower_components/angular-route/angular-route.min.js',
                     'bower_components/angular-sanitize/angular-sanitize.min.js',
                     'bower_components/underscore/underscore-min.js',
+
+                    // ngFileUpload: Angular directive to upload files.
+                    // https://github.com/danialfarid/ng-file-upload
+                    'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
+                    'bower_components/ng-file-upload/ng-file-upload.min.js',
+
+                    // Intro.js: for onboarding.
+                    'bower_components/intro.js/minified/intro.min.js',
+
+                    // Bootstrap 3 Datepicker.
+                    'bower_components/moment/min/moment.min.js',
+                    'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+
+                    // Selectize: select boxes with AJAX options.
+                    'bower_components/selectize/dist/js/standalone/selectize.min.js',
+                    'bower_components/angular-selectize2/dist/angular-selectize.js',
+
+                    // morris.js: creates charts.
+                    // http://morrisjs.github.io/morris.js/
                     'bower_components/raphael/raphael-min.js',
                     'bower_components/morrisjs/morris.min.js',
+
+                    // Flot: creates charts.
+                    // http://www.flotcharts.org/
                     'bower_components/flot/jquery.flot.js',
                     'bower_components/flot/jquery.flot.canvas.js',
                     'bower_components/flot/jquery.flot.categories.js',
@@ -132,7 +168,11 @@ module.exports = function(grunt) {
                     'bower_components/flot/jquery.flot.resize.js',
                     'bower_components/flot/jquery.flot.selection.js',
                     'bower_components/flot/jquery.flot.stack.js',
+
+                    // Chart.js: creates charts.
+                    // http://www.chartjs.org/
                     'bower_components/chartjs/Chart.min.js',
+
                     'bower_components/jquery.sparkline.build/dist/jquery.sparkline.min.js',
                     'bower_components/easypie/dist/angular.easypiechart.min.js',
                     'bower_components/angular-wizard/dist/angular-wizard.js',
@@ -146,30 +186,122 @@ module.exports = function(grunt) {
                     'angular-app/scripts/extras.js',
                     'bower_components/chartist/dist/chartist.js',
                     'bower_components/angular-chartist.js/dist/angular-chartist.min.js',
-                    'angular-app/app/*.js' ],
+
+                    // Pre-compiled Angular views.
+                    'resources/assets/build/views.js',
+
+                    // Application scripts.
+                    'resources/assets/build/scripts.js'
+                ],
+
                 dest: 'public/js/app.js'
             }
         },
 
-        jshint: {
-            all: [ 'Gruntfile.js', 'angular-app/app/*.js', 'angular-app/app/**/*.js' ]
+		sass: {
+            dist: {
+                files: {
+                    'resources/assets/build/styles.css': 'resources/assets/sass/main.scss'
+                }
+            }
+        },
+
+        cssmin: {
+            combine: {
+                files: {
+                    'public/css/main.css': [
+                        'bower_components/fontawesome/css/font-awesome.min.css',
+                        'bower_components/weather-icons/css/weather-icons.min.css',
+                        'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                        'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+                        'bower_components/chartist/dist/chartist.min.css',
+
+                        // Intro.js: for onboarding.
+                        'bower_components/intro.js/minified/introjs.min.css',
+
+                        // Bootstrap 3 Datepicker.
+                        'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+
+                        // Selectize.
+                        'bower_components/selectize/dist/css/selectize.bootstrap3.css',
+
+                        // Application styles.
+                        'resources/assets/build/styles.css'
+                    ]
+                }
+            },
+            add_banner: {
+                options: {
+                    banner: '/* Copyright Heddoko(TM) 2015, all rights reserved */'
+                },
+                files: {
+                    'public/css/main.css': ['public/css/main.css']
+                }
+            }
         },
 
         watch: {
-            dev: {
-                files: [ 'Gruntfile.js', 'angular-app/app/*.js', 'angular-app/styles/*.scss' ],
-                tasks: [ 'jshint','html2js:dist','copy:main', 'concat:dist', 'clean:temp', 'sass', 'cssmin' ],
-                options: {
-                    atBegin: true
-                }
-            },
-            min: {
-                files: [ 'Gruntfile.js', 'angular-app/app/*.js', 'angular-app/styles/*.scss' ],
-                tasks: [ 'jshint','html2js:dist','copy:main', 'concat:dist', 'clean:temp', 'uglify:dist','cssmin' ],
+            dist: {
+                files: [
+                    'Gruntfile.js',
+                    'resources/angular-views/*.html',
+                    'resources/angular-views/**/*.html',
+                    'resources/assets/js/*.js',
+                    'resources/assets/js/**/*.js',
+                    'resources/assets/sass/*.scss',
+                    'resources/assets/sass/**/*.scss'
+                ],
+                tasks: [
+                    // 'clean:temp',
+                    'jshint:dist',
+                    'uglify:dist',
+                    'html2js:dist',
+                    'concat:dist',
+                    'sass',
+                    'cssmin'
+                ],
                 options: {
                     atBegin: true
                 }
             }
+            // dev: {
+            //     files: [
+            //         'Gruntfile.js',
+            //         'resources/assets/js/*.js',
+            //         'resources/assets/js/**/*.js',
+            //         'angular-app/styles/*.scss'
+            //     ],
+            //     // tasks: [ 'jshint', 'html2js:dist', 'copy:main', 'concat:dist', 'clean:temp', 'sass', 'cssmin' ],
+            //     tasks: [
+            //         'jshint',
+            //         'concat:dist',
+            //         'sass',
+            //         'cssmin'
+            //     ],
+            //     options: {
+            //         atBegin: true
+            //     }
+            // },
+            // min: {
+            //     files: [
+            //         'Gruntfile.js',
+            //         'resources/assets/js/*.js',
+            //         'resources/assets/js/**/*.js',
+            //         'angular-app/styles/*.scss'
+            //     ],
+            //     tasks: [
+            //         'jshint',
+            //         'html2js:dist',
+            //         'copy:main',
+            //         'concat:dist',
+            //         'clean:temp',
+            //         'uglify:dist',
+            //         'cssmin'
+            //     ],
+            //     options: {
+            //         atBegin: true
+            //     }
+            // }
         },
 
         compress: {
@@ -191,14 +323,6 @@ module.exports = function(grunt) {
                     dest: 'app/'
                 }]
             }
-        },
-		 
-		sass: {
-            dist: {
-                files: {
-                    'angular-app/styles/main.css': 'angular-app/styles/main.scss'
-                }
-            }
         }
     });
 
@@ -214,6 +338,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower-task');
 
-    grunt.registerTask('dev', [ 'bower', 'watch:dev' ]);
-    grunt.registerTask('minified', [ 'bower', 'watch:min' ]);
+    // grunt.registerTask('dev', [ 'bower', 'watch:dev' ]);
+    // grunt.registerTask('production', [ 'bower', 'watch:min' ]);
+
+    grunt.registerTask('css', ['sass', 'cssmin']);
+    grunt.registerTask('js', ['jshint', 'uglify', 'html2js', 'concat']);
 };

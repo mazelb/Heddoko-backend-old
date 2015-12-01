@@ -1,3 +1,29 @@
+<a name="3.3.12"></a>
+## [3.3.12](https://github.com/paradox41/angular-chartist.js/compare/v3.3.11...v3.3.12) (2015-11-26)
+
+
+### Features
+
+* **travis:** test against several node versions ([40a21bb](https://github.com/paradox41/angular-chartist.js/commit/40a21bb))
+
+
+
+<a name="3.3.11"></a>
+## [3.3.11](https://github.com/paradox41/angular-chartist.js/compare/v3.3.10...v3.3.11) (2015-11-25)
+
+
+### Bug Fixes
+
+* **package.json:** Don't try to install Bower dependencies ([5062cc6](https://github.com/paradox41/angular-chartist.js/commit/5062cc6)), closes [#64](https://github.com/paradox41/angular-chartist.js/issues/64)
+
+
+
+<a name="3.3.10"></a>
+## [3.3.10](https://github.com/paradox41/angular-chartist.js/compare/v3.3.9...v3.3.10) (2015-11-20)
+
+
+
+
 <a name="3.3.9"></a>
 ## [3.3.9](https://github.com/paradox41/angular-chartist.js/compare/v3.3.8...v3.3.9) (2015-08-26)
 

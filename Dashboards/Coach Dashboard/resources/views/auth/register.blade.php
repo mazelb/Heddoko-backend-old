@@ -1,15 +1,16 @@
-@extends('angularnonapppages')
+@extends('layouts.web')
+
+@section('html-class', 'auth-register')
 
 @section('content')
 
 <div class="page-signup">
 
 	<div class="main-body">
-	
-		<div class="container" style="position:fixed;width:100%;top:5%;">
 
+		<!-- <div class="container" style="position:fixed;width:100%;top:5%;"> -->
+        <div>
 			<div class="form-container">
-
 				<section>
 
 					@if (count($errors) > 0)
@@ -21,11 +22,11 @@
 								@endforeach
 							</ul>
 						</div>
-					@endif				
+					@endif
 
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">		
-						
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
 						<div style="margin:20px 0 25px 0;">
 							<div class="form-group">
 								<label for="accType" style="color:white">Account Type:</label>
@@ -37,7 +38,7 @@
 
 							</div>
 						</div>
-						
+
 						<!--<div style="background-color:white">
 							Account Type
 							 <label class="checkbox-inline">
@@ -63,7 +64,7 @@
 												value="{{ old('first_name') }}">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon">
@@ -113,8 +114,8 @@
 											placeholder="Password"
 											name="password">
 							</div>
-						</div>	
-						
+						</div>
+
 						<div class="form-group">
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon">
@@ -153,7 +154,7 @@
 											value="{{ old('dob') }}" >
 							</div>
 						</div>
-						
+
 						<!--<div style="background-color:white">
 							Sex
 							 <label class="checkbox-inline">
@@ -166,7 +167,7 @@
 									<input type="radio" name="sex" value="female">female
 							 </label>
 						</div>-->
-						
+
 						<div style="margin:20px 0 25px 0;">
 							<div class="form-group">
 								<label for="sex" style="color:white">Sex:</label>
@@ -187,19 +188,19 @@
 								<input type="text"
 											class="form-control"
 											placeholder="Mobile"
-											name="mobile"
-											value="{{ old('mobile') }}" >
+											name="phone"
+											value="{{ old('phone') }}" >
 							</div>
 						</div>
 
 						<div class="form-group">
-							<p style="color:white" class="text-muted text-small">By clicking on Sign up, you agree to our <a href="javascript:;">terms & conditions</a> and <a href="javascript:;">privacy policy</a></p>
+							<p style="color:white" class="text-muted text-small">By clicking on Sign up, you agree to our <a href="{{ url('terms') }}">terms & conditions</a> and <a href="{{ url('privacy') }}">privacy policy</a></p>
 							<div class="divider"></div>
 							<button type="submit" class="btn btn-primary btn-block btn-lg">Sign up</button>
 						</div>
 
 					</form>
-						
+
 				</section>
 
 				<section>
@@ -210,5 +211,7 @@
 		</div>
 	</div>
 </div>
+<br>
+<br>
 
 @endsection

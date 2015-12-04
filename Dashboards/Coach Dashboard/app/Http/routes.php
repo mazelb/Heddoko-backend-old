@@ -1,8 +1,6 @@
 <?php
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  * Here is where all the application routes are registered. There are global patterns for some
  * route parameters defined in App\Providers\RouteServiceProvider.
@@ -20,6 +18,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api'], function()
     Route::resource('profile', 'ProfileController', [
         'only' => ['index', 'store', 'show', 'update', 'destroy']
     ]);
+    Route::resource('profile.movement', 'MovementDataController', [
+        'only' => ['index', 'store', 'show', 'update', 'destroy']
+    ]);
 
     // Group endpoints.
     Route::post('group/{id}/avatar', 'GroupController@saveAvatar');
@@ -31,11 +32,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api'], function()
     // Tag endpoints.
     Route::resource('tag', 'TagController', [
         'only' => ['index', 'store']
-    ]);
-
-    // Movement data endpoints.
-    Route::resource('profile.movement', 'MovementDataController', [
-        'only' => ['index', 'store', 'show', 'update', 'destroy']
     ]);
 
     // Screening endpoints.
@@ -57,18 +53,17 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api'], function()
     // Deprecated.
     //
 
-	Route::resource('teams', 'TeamController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-    Route::post('/teams/{id}/photo', 'TeamController@uploadPhoto');
-
-    // Replaced by "profiles"
-	Route::resource('teams.athletes', 'TeamAthleteController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
-    Route::post('/teams/{groupId}/athletes/{profileId}/photo', 'TeamAthleteController@uploadPhoto');
-
-	Route::resource('athletes.fmsforms', 'AthleteFMSFormController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-	Route::resource('athletes.movements', 'AthleteMovementController', ['only' => ['index', 'show', 'store']]);
-
-	Route::resource('sports', 'SportsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-	Route::resource('sports.sportmovements', 'SportSportMovementController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+	// Route::resource('teams', 'TeamController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+    // Route::post('/teams/{id}/photo', 'TeamController@uploadPhoto');
+    //
+	// Route::resource('teams.athletes', 'TeamAthleteController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    // Route::post('/teams/{groupId}/athletes/{profileId}/photo', 'TeamAthleteController@uploadPhoto');
+    //
+	// Route::resource('athletes.fmsforms', 'AthleteFMSFormController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+	// Route::resource('athletes.movements', 'AthleteMovementController', ['only' => ['index', 'show', 'store']]);
+    //
+	// Route::resource('sports', 'SportsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+	// Route::resource('sports.sportmovements', 'SportSportMovementController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 });
 
 /**

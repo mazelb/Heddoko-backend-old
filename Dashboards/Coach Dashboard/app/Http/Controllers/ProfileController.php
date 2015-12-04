@@ -1,6 +1,8 @@
 <?php
 /**
- * @brief   Handles profile actions.
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * @brief   Handles profile-related http requests.
  * @author  Francis Amankrah (frank@heddoko.com)
  * @date    November 2015
  */
@@ -12,6 +14,7 @@ use Image;
 use App\Models\Tag;
 use App\Models\Group;
 use App\Models\Profile;
+use App\Models\ProfileMeta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,16 +29,13 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays a listing of the resource.
      *
      * @return Response
      */
     public function index()
     {
-        // TODO: filter profiles somehow.
-
-
-        // Retrieve query builder.
+        // Retrieve a query builder.
         $groupId = (int) $this->request->input('group');
         if ($groupId && $group = Group::find($groupId)) {
             $builder = $group->profiles();
@@ -43,15 +43,27 @@ class ProfileController extends Controller
             $builder = Profile::query();
         }
 
+        // Determine which relations to embed with the profile list.
+        if ($this->request->has('embed')) {
+            $embed = explode(',', $this->request->input('embed'));
+        } else {
+            $embed = ['profile_meta', 'groups', 'primaryTag', 'secondaryTags', 'avatar'];
+        }
+
         // Retrieve profiles.
-        // TODO: only embed specified relations.
-        $embed = ['groups', 'primaryTag', 'secondaryTags', 'avatar'];
         $profiles = $builder->with($embed)->get();
 
-        // Resize avatars.
-        if (count($profiles)) {
-            foreach ($profiles as $profile) {
+        if (count($profiles))
+        {
+            foreach ($profiles as $profile)
+            {
+                // Resize avatar.
                 $profile->resizeAvatar(400);
+
+                // Append meta data.
+                if (in_array('profile_meta', $embed)) {
+                    $profile->appendMeta();
+                }
             }
         }
 
@@ -59,19 +71,27 @@ class ProfileController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created resource in storage.
      *
      * @return Response
      */
     public function store()
     {
-        // TODO: who is authorized to create profiles?
+        // TODO: validate incoming data.
+        // ... Maybe do this in model, through 'create' and 'saving' events?
 
+        $data = $this->request->only(['first_name', 'last_name']);
 
-        // Retrieve profile data.
-        $data = $this->request->only([
-            'first_name',
-            'last_name',
+        // Create new profile.
+        try {
+            $profile = Profile::create($data);
+        }
+        catch (\Exception $error) {
+            return response($error->getMessage(), 500);
+        }
+
+        // Add meta data.
+        $profile->meta()->create($this->request->only([
             'height',
             'mass',
             'dob',
@@ -82,10 +102,7 @@ class ProfileController extends Controller
             'injuries',
             'notes',
             'meta'
-        ]);
-
-        // Create new profile.
-        $profile = Profile::create($data);
+        ]));
 
         // Assign current user as a manager.
         $profile->managers()->attach(Auth::id());
@@ -97,12 +114,10 @@ class ProfileController extends Controller
         }
 
         // Embed extra data.
+        $profile->appendMeta();
         $groups = $profile->groups;
 
-        return [
-            'list' => $this->index(),
-            'profile' => $profile
-        ];
+        return $profile;
     }
 
     /**

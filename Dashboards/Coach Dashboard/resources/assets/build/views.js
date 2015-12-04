@@ -1,4 +1,4 @@
-angular.module('app.views', ['dashboard.html', 'fmsresults.html', 'fmstest.html', 'placeholder.html', 'submit-movement-demo.html', 'analysis/index.html', 'capture/index.html', 'comparison/index.html', 'directive-partials/ui-avatar.html', 'directive-partials/ui-editable-field.html', 'directive-partials/ui-editable-list-container.html', 'directive-partials/ui-editable-list-item.html', 'directive-partials/ui-movement-placeholder.html', 'directive-partials/ui-movement-preview.html', 'directive-partials/ui-page-title.html', 'directive-partials/ui-taggable-input.html', 'fms/demo/analysis.html', 'fms/demo/index.html', 'fms/demo/partials/analysis-coronal.html', 'fms/demo/partials/analysis-layout-emphasized.html', 'fms/demo/partials/analysis-sagittal.html', 'fms/demo/partials/analysis-transverse.html', 'fms/demo/partials/summary-content.html', 'fms/demo/partials/summary-layout.html', 'fms/demo/partials/summary-menu.html', 'fms/demo/partials/summary-movement-overview.html', 'fms/demo/partials/summary-overall-scores.html', 'fms/demo/partials/test-coronal.html', 'fms/demo/partials/test-layout-emphasized.html', 'fms/demo/partials/test-sagittal.html', 'fms/demo/partials/test-transverse.html', 'fms/demo/summary.html', 'fms/demo/test.html', 'fms/index.html', 'fms/live/analysis.html', 'fms/live/index.html', 'fms/live/partials/analysis-menu.html', 'fms/live/partials/breadcrumbs.html', 'fms/live/partials/header.html', 'fms/live/partials/iterations.html', 'fms/live/partials/summary-legend.html', 'fms/live/partials/summary-menu.html', 'fms/live/partials/test-menu.html', 'fms/live/partials/test-trials.html', 'fms/live/summary.html', 'fms/live/test.html', 'group/create.html', 'group/edit.html', 'group/list.html', 'group/partials/details.html', 'group/partials/form.html', 'group/partials/upload-photo.html', 'group/view.html', 'import/index.html', 'movement-editor/footer.html', 'movement-editor/index.html', 'movements/index.html', 'partials/breadcrumbs.html', 'partials/header.html', 'partials/modal.html', 'partials/navigation.html', 'partials/no-profile-selected-notice.html', 'profile/create.html', 'profile/edit.html', 'profile/list.html', 'profile/partials/current-fms-plot.html', 'profile/partials/details.html', 'profile/partials/final-fms-plot.html', 'profile/partials/upload-photo.html', 'profile/view.html', 'thumbnail-selector/footer.html', 'thumbnail-selector/index.html', 'user/view.html']);
+angular.module('app.views', ['dashboard.html', 'fmsresults.html', 'fmstest.html', 'placeholder.html', 'submit-movement-demo.html', 'analysis/index.html', 'capture/index.html', 'comparison/index.html', 'directive-partials/ui-avatar.html', 'directive-partials/ui-editable-fields/field-value-generic.html', 'directive-partials/ui-editable-fields/field-value-timestamp.html', 'directive-partials/ui-editable-fields/field-value-with-units.html', 'directive-partials/ui-editable-fields/field.html', 'directive-partials/ui-editable-fields/fields.html', 'directive-partials/ui-editable-fields/standalone-field.html', 'directive-partials/ui-movement-placeholder.html', 'directive-partials/ui-movement-preview.html', 'directive-partials/ui-page-title.html', 'directive-partials/ui-taggable-input.html', 'fms/demo/analysis.html', 'fms/demo/index.html', 'fms/demo/partials/analysis-coronal.html', 'fms/demo/partials/analysis-layout-emphasized.html', 'fms/demo/partials/analysis-sagittal.html', 'fms/demo/partials/analysis-transverse.html', 'fms/demo/partials/summary-content.html', 'fms/demo/partials/summary-layout.html', 'fms/demo/partials/summary-menu.html', 'fms/demo/partials/summary-movement-overview.html', 'fms/demo/partials/summary-overall-scores.html', 'fms/demo/partials/test-coronal.html', 'fms/demo/partials/test-layout-emphasized.html', 'fms/demo/partials/test-sagittal.html', 'fms/demo/partials/test-transverse.html', 'fms/demo/summary.html', 'fms/demo/test.html', 'fms/index.html', 'fms/live/analysis.html', 'fms/live/index.html', 'fms/live/partials/analysis-menu.html', 'fms/live/partials/breadcrumbs.html', 'fms/live/partials/header.html', 'fms/live/partials/iterations.html', 'fms/live/partials/summary-legend.html', 'fms/live/partials/summary-menu.html', 'fms/live/partials/test-menu.html', 'fms/live/partials/test-trials.html', 'fms/live/summary.html', 'fms/live/test.html', 'group/create.html', 'group/edit.html', 'group/list.html', 'group/partials/form.html', 'group/partials/upload-photo.html', 'group/view.html', 'import/index.html', 'movement-editor/footer.html', 'movement-editor/index.html', 'movements/index.html', 'partials/breadcrumbs.html', 'partials/header.html', 'partials/modal.html', 'partials/navigation.html', 'partials/no-profile-selected-notice.html', 'profile/create.html', 'profile/edit.html', 'profile/list.html', 'profile/partials/current-fms-plot.html', 'profile/partials/final-fms-plot.html', 'profile/partials/upload-photo.html', 'profile/view.html', 'thumbnail-selector/footer.html', 'thumbnail-selector/index.html', 'user/view.html']);
 
 angular.module("dashboard.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("dashboard.html",
@@ -856,7 +856,8 @@ angular.module("submit-movement-demo.html", []).run(["$templateCache", function(
     "    </div>\n" +
     "\n" +
     "    <!-- Select a movement -->\n" +
-    "    <div class=\"row\" ng-hide=\"sports.selected == sports.default\">\n" +
+    "    <!-- <div class=\"row\" ng-hide=\"sports.selected == sports.default\"> -->\n" +
+    "    <div class=\"row\">\n" +
     "        <div class=\"col-sm-12\">\n" +
     "            <div class=\"panel panel-default\">\n" +
     "                <div class=\"panel-heading\">\n" +
@@ -876,7 +877,8 @@ angular.module("submit-movement-demo.html", []).run(["$templateCache", function(
     "    </div>\n" +
     "\n" +
     "    <!-- Submit data -->\n" +
-    "    <div class=\"row\" ng-hide=\"movements.selected == movements.default\">\n" +
+    "    <!-- <div class=\"row\" ng-hide=\"movements.selected == movements.default\"> -->\n" +
+    "    <div class=\"row\">\n" +
     "        <div class=\"col-sm-12\">\n" +
     "            <div class=\"panel panel-default\">\n" +
     "                <div class=\"panel-heading\">\n" +
@@ -1067,91 +1069,101 @@ angular.module("directive-partials/ui-avatar.html", []).run(["$templateCache", f
     "");
 }]);
 
-angular.module("directive-partials/ui-editable-field.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("directive-partials/ui-editable-field.html",
-    "<div class=\"panel panel-default ui-editable-list-container\">\n" +
-    "    <div class=\"panel-heading\">\n" +
-    "        {{ heading }}\n" +
+angular.module("directive-partials/ui-editable-fields/field-value-generic.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("directive-partials/ui-editable-fields/field-value-generic.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "        <!-- Action buttons -->\n" +
-    "        <div class=\"pull-right\">\n" +
-    "            <span ng-click=\"save()\" ng-show=\"state == 'editing'\">\n" +
-    "                Save &nbsp; <i class=\"fa fa-toggle-on\"></i>\n" +
-    "            </span>\n" +
-    "            <span ng-click=\"edit()\" ng-show=\"state == 'idle'\">\n" +
-    "                Edit &nbsp; <i class=\"fa fa-toggle-off\"></i>\n" +
-    "            </span>\n" +
-    "            <span ng-show=\"state == 'saving'\" style=\"color: #ccc;\">\n" +
-    "                <i class=\"fa fa-toggle-off\"></i>\n" +
-    "            </span>\n" +
-    "        </div>\n" +
+    "<div ng-show=\"state != 'editing'\" class=\"row no-gutter ui-editable-field-value\">\n" +
+    "\n" +
+    "    <!-- Edit icon -->\n" +
+    "    <div class=\"col-sm-1 text-center\">\n" +
+    "        <a ng-hide=\"isDisabled\" href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "        <i ng-show=\"isDisabled\" class=\"edit-icon fa fa-ban\"></i>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"panel-body\">\n" +
-    "\n" +
-    "        <div class=\"row\" ng-switch=\"state\">\n" +
-    "\n" +
-    "            <!-- Editable field -->\n" +
-    "            <div ng-switch-when=\"editing\" class=\"col-sm-12\">\n" +
-    "                <textarea ng-model=\"model[key]\" class=\"form-control\"></textarea>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Working animation -->\n" +
-    "            <div ng-switch-when=\"saving\" class=\"text-center\" style=\"padding: 20px 0;\">\n" +
-    "                <i class=\"fa fa-spin fa-4x fa-spinner\"></i>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Displayed field -->\n" +
-    "            <div ng-switch-default class=\"col-sm-12\">\n" +
-    "                {{ model[key] || empty }}\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "    <!-- Displayed value -->\n" +
+    "    <div class=\"col-sm-11\">\n" +
+    "        <a ng-hide=\"isDisabled\" href=\"javascript:;\" class=\"edit-text\">\n" +
+    "            {{ display || model[key] }}\n" +
+    "        </a>\n" +
+    "        <b ng-show=\"isDisabled\">\n" +
+    "            {{ display || model[key] }}\n" +
+    "        </b>\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
 }]);
 
-angular.module("directive-partials/ui-editable-list-container.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("directive-partials/ui-editable-list-container.html",
-    "<div class=\"panel panel-default ui-editable-list-container\">\n" +
-    "    <div class=\"panel-heading\">\n" +
-    "        {{ heading }}\n" +
+angular.module("directive-partials/ui-editable-fields/field-value-timestamp.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("directive-partials/ui-editable-fields/field-value-timestamp.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "        <!-- Action buttons -->\n" +
-    "        <div class=\"pull-right\">\n" +
-    "            <span ng-click=\"save()\" ng-show=\"state == 'editing'\">\n" +
-    "                Save &nbsp; <i class=\"fa fa-toggle-on\"></i>\n" +
-    "            </span>\n" +
-    "            <span ng-click=\"edit()\" ng-show=\"state == 'idle'\">\n" +
-    "                Edit &nbsp; <i class=\"fa fa-toggle-off\"></i>\n" +
-    "            </span>\n" +
-    "            <span ng-show=\"state == 'saving'\" style=\"color: #ccc;\">\n" +
-    "                <i class=\"fa fa-toggle-off\"></i>\n" +
-    "            </span>\n" +
-    "        </div>\n" +
+    "<div ng-show=\"state != 'editing'\" class=\"row no-gutter ui-editable-field-value\">\n" +
+    "\n" +
+    "    <!-- Edit icon -->\n" +
+    "    <div class=\"col-sm-1 text-center\">\n" +
+    "        <a ng-hide=\"isDisabled\" href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "        <i ng-show=\"isDisabled\" class=\"edit-icon fa fa-ban\"></i>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"panel-body\">\n" +
-    "\n" +
-    "        <div class=\"row\" ng-switch=\"state\">\n" +
-    "\n" +
-    "            <!-- Working animation -->\n" +
-    "            <div ng-switch-when=\"saving\" class=\"text-center\" style=\"padding: 20px 0;\">\n" +
-    "                <i class=\"fa fa-spin fa-4x fa-spinner\"></i>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Model fields -->\n" +
-    "            <div ng-switch-default ng-transclude class=\"col-sm-12\">\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "    <!-- Displayed value -->\n" +
+    "    <div class=\"col-sm-11\">\n" +
+    "        <a ng-hide=\"isDisabled\" href=\"javascript:;\" class=\"edit-text\">\n" +
+    "            {{ timestamp | date:format }}\n" +
+    "        </a>\n" +
+    "        <b ng-show=\"isDisabled\">\n" +
+    "            {{ timestamp | date:format }}\n" +
+    "        </b>\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
 }]);
 
-angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("directive-partials/ui-editable-list-item.html",
-    "<div class=\"row ui-editable-list-item\">\n" +
+angular.module("directive-partials/ui-editable-fields/field-value-with-units.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("directive-partials/ui-editable-fields/field-value-with-units.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
+    "<div ng-show=\"state != 'editing'\" class=\"row no-gutter ui-editable-field-value\">\n" +
+    "\n" +
+    "    <!-- Edit icons -->\n" +
+    "    <div class=\"col-sm-1 text-center\">\n" +
+    "        <a ng-hide=\"isDisabled\" href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "        <i ng-show=\"isDisabled\" class=\"edit-icon fa fa-ban\"></i>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Unit selector -->\n" +
+    "    <div class=\"col-sm-1 text-center\">\n" +
+    "        <div class=\"dropdown\">\n" +
+    "            <a href=\"javascript:;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\">\n" +
+    "                <i class=\"fa fa-cog\" style=\"color: #ccc;\"></i>\n" +
+    "            </a>\n" +
+    "            <ul class=\"dropdown-menu\">\n" +
+    "                <li ng-repeat=\"unit in units\">\n" +
+    "                    <a ng-click=\"updateUnit(unit)\" href=\"javascript:;\">\n" +
+    "                        {{ unit }}\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Displayed data -->\n" +
+    "    <div class=\"col-sm-10\">\n" +
+    "        <a href=\"javascript:;\" class=\"edit-text\">\n" +
+    "            {{ data.displayStr }}\n" +
+    "        </a>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("directive-partials/ui-editable-fields/field.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("directive-partials/ui-editable-fields/field.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
+    "<div class=\"row ui-editable-field\">\n" +
+    "\n" +
+    "    <!-- Field label -->\n" +
     "    <div class=\"col-sm-4 text-right\">\n" +
     "        {{ label }} <span ng-show=\"isRequired && state == 'editing'\">*</span>\n" +
     "    </div>\n" +
@@ -1160,9 +1172,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Date -->\n" +
     "        <div ng-switch-when=\"date\">\n" +
-    "            <b ng-show=\"state != 'editing'\">\n" +
-    "                {{ timestamp | date:format }}\n" +
-    "            </b>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-timestamp.html'\"></ng-include>\n" +
     "\n" +
     "            <input\n" +
     "                ng-show=\"state == 'editing'\"\n" +
@@ -1174,9 +1184,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Date & time -->\n" +
     "        <div ng-switch-when=\"datetime\">\n" +
-    "            <b ng-show=\"state != 'editing'\">\n" +
-    "                {{ timestamp | date:format }}\n" +
-    "            </b>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-timestamp.html'\"></ng-include>\n" +
     "\n" +
     "            <input\n" +
     "                ng-show=\"state == 'editing'\"\n" +
@@ -1188,29 +1196,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Length -->\n" +
     "        <div ng-switch-when=\"length\">\n" +
-    "\n" +
-    "            <!-- Display string & unit selector -->\n" +
-    "            <div ng-show=\"state != 'editing'\" class=\"row no-gutter\">\n" +
-    "                <div class=\"col-sm-1\">\n" +
-    "                    <div class=\"dropdown text-center\">\n" +
-    "                        <a href=\"javascript:;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\">\n" +
-    "                            <i class=\"fa fa-cog\" style=\"color: #ccc;\"></i>\n" +
-    "                        </a>\n" +
-    "                        <ul class=\"dropdown-menu\">\n" +
-    "                            <li ng-repeat=\"unit in units\">\n" +
-    "                                <a ng-click=\"updateUnit(unit)\" href=\"javascript:;\">\n" +
-    "                                    {{ unit }}\n" +
-    "                                </a>\n" +
-    "                            </li>\n" +
-    "                        </ul>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"col-sm-11\">\n" +
-    "                    <b>\n" +
-    "                        {{ data.lengthStr }}\n" +
-    "                    </b>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-with-units.html'\"></ng-include>\n" +
     "\n" +
     "            <!-- Feet & inches -->\n" +
     "            <div class=\"row\" ng-show=\"state == 'editing' && config.unitForLength == 'ft/in'\">\n" +
@@ -1258,9 +1244,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Gender -->\n" +
     "        <div ng-switch-when=\"gender\">\n" +
-    "            <b ng-show=\"state != 'editing'\">\n" +
-    "                {{ display }}\n" +
-    "            </b>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-generic.html'\"></ng-include>\n" +
     "\n" +
     "            <select\n" +
     "                ng-show=\"state == 'editing'\"\n" +
@@ -1277,29 +1261,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Mass -->\n" +
     "        <div ng-switch-when=\"mass\">\n" +
-    "\n" +
-    "            <!-- Display string & unit selector -->\n" +
-    "            <div ng-show=\"state != 'editing'\" class=\"row no-gutter\">\n" +
-    "                <div class=\"col-sm-1\">\n" +
-    "                    <div class=\"dropdown text-center\">\n" +
-    "                        <a href=\"javascript:;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\">\n" +
-    "                            <i class=\"fa fa-cog\" style=\"color: #ccc;\"></i>\n" +
-    "                        </a>\n" +
-    "                        <ul class=\"dropdown-menu\">\n" +
-    "                            <li ng-repeat=\"unit in units\">\n" +
-    "                                <a ng-click=\"updateUnit(unit)\" href=\"javascript:;\">\n" +
-    "                                    {{ unit }}\n" +
-    "                                </a>\n" +
-    "                            </li>\n" +
-    "                        </ul>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"col-sm-11\">\n" +
-    "                    <b>\n" +
-    "                        {{ data.massStr }}\n" +
-    "                    </b>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-with-units.html'\"></ng-include>\n" +
     "\n" +
     "            <!-- Edit field -->\n" +
     "            <div class=\"input-group\" ng-show=\"state == 'editing'\">\n" +
@@ -1316,9 +1278,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Tag -->\n" +
     "        <div ng-switch-when=\"tag\">\n" +
-    "            <b ng-show=\"state != 'editing'\">\n" +
-    "                {{ display }}\n" +
-    "            </b>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-generic.html'\"></ng-include>\n" +
     "\n" +
     "            <div ng-show=\"state == 'editing'\">\n" +
     "                <selectize\n" +
@@ -1332,9 +1292,7 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "\n" +
     "        <!-- Default -->\n" +
     "        <div ng-switch-default>\n" +
-    "            <b ng-show=\"state != 'editing'\">\n" +
-    "                {{ display || model[key] }}\n" +
-    "            </b>\n" +
+    "            <ng-include src=\"'directive-partials/ui-editable-fields/field-value-generic.html'\"></ng-include>\n" +
     "\n" +
     "            <input\n" +
     "                ng-show=\"state == 'editing'\"\n" +
@@ -1343,6 +1301,90 @@ angular.module("directive-partials/ui-editable-list-item.html", []).run(["$templ
     "                ng-required=\"isRequired\"\n" +
     "                type=\"text\"\n" +
     "                class=\"form-control\">\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("directive-partials/ui-editable-fields/fields.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("directive-partials/ui-editable-fields/fields.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
+    "<div class=\"panel panel-default ui-editable-fields\">\n" +
+    "    <div class=\"panel-heading\">\n" +
+    "        {{ heading }}\n" +
+    "\n" +
+    "        <!-- Action buttons -->\n" +
+    "        <div class=\"pull-right\">\n" +
+    "            <span ng-click=\"save()\" ng-show=\"state == 'editing'\">\n" +
+    "                Save &nbsp; <i class=\"fa fa-toggle-on\"></i>\n" +
+    "            </span>\n" +
+    "            <span ng-click=\"edit()\" ng-show=\"state == 'idle'\">\n" +
+    "                Edit All Fields &nbsp; <i class=\"fa fa-toggle-off\"></i>\n" +
+    "            </span>\n" +
+    "            <span ng-show=\"state == 'saving'\" style=\"color: #ccc;\">\n" +
+    "                <i class=\"fa fa-toggle-off\"></i>\n" +
+    "            </span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"panel-body\">\n" +
+    "\n" +
+    "        <div class=\"row\" ng-switch=\"state\">\n" +
+    "\n" +
+    "            <!-- Working animation -->\n" +
+    "            <div ng-switch-when=\"saving\" class=\"text-center\" style=\"padding: 20px 0;\">\n" +
+    "                <i class=\"fa fa-spin fa-4x fa-spinner\"></i>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Model fields -->\n" +
+    "            <div ng-switch-default ng-transclude class=\"col-sm-12\">\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("directive-partials/ui-editable-fields/standalone-field.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("directive-partials/ui-editable-fields/standalone-field.html",
+    "<div class=\"panel panel-default ui-editable-list-container\">\n" +
+    "    <div class=\"panel-heading\">\n" +
+    "        {{ heading }}\n" +
+    "\n" +
+    "        <!-- Action buttons -->\n" +
+    "        <div class=\"pull-right\">\n" +
+    "            <span ng-click=\"save()\" ng-show=\"state == 'editing'\">\n" +
+    "                Save &nbsp; <i class=\"fa fa-toggle-on\"></i>\n" +
+    "            </span>\n" +
+    "            <span ng-click=\"edit()\" ng-show=\"state == 'idle'\">\n" +
+    "                Edit &nbsp; <i class=\"fa fa-toggle-off\"></i>\n" +
+    "            </span>\n" +
+    "            <span ng-show=\"state == 'saving'\" style=\"color: #ccc;\">\n" +
+    "                <i class=\"fa fa-toggle-off\"></i>\n" +
+    "            </span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"panel-body\">\n" +
+    "\n" +
+    "        <div class=\"row\" ng-switch=\"state\">\n" +
+    "\n" +
+    "            <!-- Editable field -->\n" +
+    "            <div ng-switch-when=\"editing\" class=\"col-sm-12\">\n" +
+    "                <textarea ng-model=\"model[key]\" class=\"form-control\"></textarea>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Working animation -->\n" +
+    "            <div ng-switch-when=\"saving\" class=\"text-center\" style=\"padding: 20px 0;\">\n" +
+    "                <i class=\"fa fa-spin fa-4x fa-spinner\"></i>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Displayed field -->\n" +
+    "            <div ng-switch-default class=\"col-sm-12\">\n" +
+    "                {{ model[key] || empty }}\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
@@ -2541,34 +2583,6 @@ angular.module("group/list.html", []).run(["$templateCache", function($templateC
     "");
 }]);
 
-angular.module("group/partials/details.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("group/partials/details.html",
-    "<div\n" +
-    "    data-ui-editable-list-container\n" +
-    "    data-model=\"global.state.group.selected\"\n" +
-    "    data-save=\"saveGroupDetails\"\n" +
-    "    data-save-callback=\"saveGroupDetailsCallback\"\n" +
-    "    data-heading=\"{{ global.state.group.selected.name }}'s details\">\n" +
-    "\n" +
-    "    <!-- Group name -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Name\"\n" +
-    "        data-key=\"name\"\n" +
-    "        data-required=\"true\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Tags -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Sport\"\n" +
-    "        data-key=\"tags\"\n" +
-    "        data-type=\"tag\">\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
 angular.module("group/partials/form.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("group/partials/form.html",
     "<div class=\"panel panel-default\">\n" +
@@ -2694,7 +2708,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                            <div class=\"modal-body\">\n" +
     "                                <p ng-show=\"global.state.profile.list.length > 0\">\n" +
     "                                    Are you sure you want to delete <b>{{ group.name }}</b>\n" +
-    "                                    and the {{ global.state.profile.list.length }}\n" +
+    "                                    and the {{ global.state.profile.filtered.length }}\n" +
     "                                    associated athletes?\n" +
     "                                </p>\n" +
     "                                <p ng-show=\"global.state.profile.list.length === 0\">\n" +
@@ -2712,15 +2726,6 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "\n" +
-    "                <!-- Edit group button -->\n" +
-    "                <button\n" +
-    "                    ng-show=\"group.id > 0\"\n" +
-    "                    ng-click=\"Rover.browseTo.path('group/edit')\"\n" +
-    "                    class=\"btn btn-default\">\n" +
-    "\n" +
-    "                    Edit <b>{{ group.name }}</b>\n" +
-    "                </button>\n" +
     "\n" +
     "                <!-- Create profile button -->\n" +
     "                <button\n" +
@@ -2742,14 +2747,33 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                    <ui-avatar\n" +
     "                        data-upload-endpoint=\"uploadAvatarEndpoint\"\n" +
     "                        data-success-callback=\"uploadAvatarCallback\"\n" +
-    "                        data-src=\"group.avatar_src\">\n" +
+    "                        data-src=\"global.state.group.list[global.store.groupId].avatar_src\">\n" +
     "                    </ui-avatar>\n" +
     "                </div>\n" +
     "    		</div>\n" +
     "\n" +
     "            <!-- Group details -->\n" +
     "            <div class=\"col-sm-12 col-md-6\">\n" +
-    "                <div data-ng-include=\"'group/partials/details.html'\"></div>\n" +
+    "                <ui-editable-fields\n" +
+    "                    data-model=\"global.state.group.list[global.store.groupId]\"\n" +
+    "                    data-save=\"saveGroupDetails\"\n" +
+    "                    data-save-callback=\"saveGroupDetailsCallback\"\n" +
+    "                    data-heading=\"Details for {{ global.state.group.list[global.store.groupId].name }}\">\n" +
+    "\n" +
+    "                    <!-- Group name -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Name\"\n" +
+    "                        data-key=\"name\"\n" +
+    "                        data-required=\"true\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Tags -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Sport\"\n" +
+    "                        data-key=\"tags\"\n" +
+    "                        data-type=\"tag\">\n" +
+    "                    </ui-editable-field>\n" +
+    "                </ui-editable-fields>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </section>\n" +
@@ -2759,14 +2783,14 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "        <!-- Profile list -->\n" +
     "        <div class=\"panel panel-default\">\n" +
     "            <div class=\"panel-heading\">\n" +
-    "                Athletes in {{ global.state.group.selected.name }}\n" +
+    "                Athletes in {{ group.name }}\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"panel-body\">\n" +
     "                <div class=\"row\">\n" +
     "                    <div class=\"col-sm-12\">\n" +
-    "                        <div ng-show=\"global.state.profile.list.length === 0\">\n" +
-    "                            The <b>{{ global.state.group.selected.name }}</b> do not have any\n" +
+    "                        <div ng-show=\"global.state.profile.filtered.length === 0\">\n" +
+    "                            The <b>{{ group.name }}</b> do not have any\n" +
     "                            members yet. Add one above to get started!\n" +
     "                        </div>\n" +
     "                    </div>\n" +
@@ -2777,7 +2801,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        <a\n" +
     "                            href=\"javascript:;\"\n" +
     "                            class=\"btn btn-primary btn-metro\"\n" +
-    "                            ng-repeat=\"profile in global.state.profile.list\"\n" +
+    "                            ng-repeat=\"profile in global.state.profile.filtered\"\n" +
     "                            ng-click=\"Rover.browseTo.profile(profile)\"\n" +
     "                            style=\"background-image: url({{ profile.avatar_src || '' }});background-size: cover;\">\n" +
     "\n" +
@@ -2799,7 +2823,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "\n" +
     "                    <div class=\"panel-body\">\n" +
     "                        Avatar: {{ group.avatar_src ? 'has avatar' : 'no avatar' }} <br>\n" +
-    "                        Global: {{ global.state.group.selected.name }} <br>\n" +
+    "                        Global: {{ group.name }} <br>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -2826,12 +2850,12 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
 angular.module("import/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("import/index.html",
     "<!-- Import page -->\n" +
-    "<div ng-show=\"global.state.profile.selected.id > 0\" class=\"page import-page\">\n" +
+    "<div ng-show=\"global.getSelectedProfile().id > 0\" class=\"page import-page\">\n" +
     "    <ui-page-title data-title=\"'Import'\" data-icon=\"'cloud-upload'\"></ui-page-title>\n" +
     "    <div class=\"clearfix\"></div>\n" +
     "\n" +
     "    Import movement data for\n" +
-    "    <b>{{ global.state.profile.selected.first_name + ' ' + global.state.profile.selected.last_name }}</b>\n" +
+    "    <b>{{ global.getSelectedProfile().first_name + ' ' + global.getSelectedProfile().last_name }}</b>\n" +
     "\n" +
     "    <div class=\"movement-import row\">\n" +
     "\n" +
@@ -2879,7 +2903,7 @@ angular.module("import/index.html", []).run(["$templateCache", function($templat
     "            <!-- Movement preview -->\n" +
     "            <div class=\"row\">\n" +
     "                <div class=\"col-xs-12\">\n" +
-    "                    <ui-movement-placeholder data-aspect-ratio=\"4:3\"></ui-movement-placeholder>\n" +
+    "                    <ui-movement-preview data-aspect-ratio=\"4:3\"></ui-movement-preview>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -2928,7 +2952,7 @@ angular.module("import/index.html", []).run(["$templateCache", function($templat
     "\n" +
     "<!-- No profile selected -->\n" +
     "<div\n" +
-    "    ng-show=\"global.state.profile.selected.id === 0\"\n" +
+    "    ng-show=\"global.getSelectedProfile().id === 0\"\n" +
     "    ng-include=\"'partials/no-profile-selected-notice.html'\"\n" +
     "    class=\"page\">\n" +
     "</div>\n" +
@@ -3033,19 +3057,19 @@ angular.module("partials/breadcrumbs.html", []).run(["$templateCache", function(
     "            Dashboard\n" +
     "        </a>\n" +
     "    </li>\n" +
-    "    <li ng-show=\"global.state.group.selected.id > 0\">\n" +
+    "    <li ng-show=\"global.store.groupId > 0\">\n" +
     "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.path('/group/list')\">\n" +
     "            Teams\n" +
     "        </a>\n" +
     "    </li>\n" +
-    "    <li ng-show=\"isProfilePage && global.state.group.selected.id > 0\">\n" +
+    "    <li ng-show=\"isProfilePage && global.store.groupId > 0\">\n" +
     "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.group()\">\n" +
-    "            {{ global.state.group.selected.name }}\n" +
+    "            {{ global.state.group.list[global.store.groupId].name }}\n" +
     "        </a>\n" +
     "    </li>\n" +
-    "    <li ng-show=\"currentPath == '/profile/view'\">\n" +
+    "    <li ng-show=\"currentPath == '/profile/view' && global.store.profileId > 0\">\n" +
     "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.profile()\">\n" +
-    "            {{ global.state.profile.selected.first_name }}\n" +
+    "            {{ global.state.profile.list[global.store.profileId].first_name }}\n" +
     "        </a>\n" +
     "    </li>\n" +
     "    <li ng-show=\"currentPath == '/group/create'\">\n" +
@@ -3092,8 +3116,7 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "			<li\n" +
     "                class=\"onboarding-general\"\n" +
     "                data-step=\"2\"\n" +
-    "                data-intro=\"Here is where you can find the groups you manage. The black arrow is a shortcut to view\n" +
-    "                            the <strong>{{ global.state.group.selected.name }}</strong>'s details.\">\n" +
+    "                data-intro=\"Here is where you can find the groups you manage.\">\n" +
     "\n" +
     "                <div class=\"btn-group\">\n" +
     "\n" +
@@ -3107,7 +3130,7 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                        aria-haspopup=\"true\"\n" +
     "                        aria-expanded=\"false\">\n" +
     "\n" +
-    "                        {{ global.state.group.selected.name || '(no team selected)' }}\n" +
+    "                        {{ global.getSelectedGroup().name || '(no team selected)' }}\n" +
     "                        <span ng-hide=\"global.data.isFetchingProfiles\" class=\"caret\"></span>\n" +
     "                    </button>\n" +
     "\n" +
@@ -3117,12 +3140,12 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                        class=\"dropdown-menu\">\n" +
     "\n" +
     "                        <li>\n" +
-    "                            <a href=\"javascript:;\" ng-click=\"global.state.group.selected = {id: 0}\">\n" +
+    "                            <a href=\"javascript:;\" ng-click=\"global.store.groupId = 0\">\n" +
     "                                (none)\n" +
     "                            </a>\n" +
     "                        </li>\n" +
-    "                        <li ng-repeat=\"group in global.state.group.list\">\n" +
-    "                            <a href=\"javascript:;\" ng-click=\"global.state.group.selected = group\">\n" +
+    "                        <li ng-repeat=\"(id, group) in global.state.group.list\">\n" +
+    "                            <a href=\"javascript:;\" ng-click=\"global.store.groupId = group.id\">\n" +
     "                                {{ group.name }}\n" +
     "                            </a>\n" +
     "                        </li>\n" +
@@ -3130,18 +3153,18 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "\n" +
     "                    <!-- Loading animation, indicating that groups are being fetched -->\n" +
     "                    <button\n" +
-    "                        ng-show=\"global.data.isFetchingGroups ||\n" +
-    "                            (global.data.isFetchingProfiles && global.state.group.selected.id === 0)\"\n" +
+    "                        ng-show=\"global.data.isFetchingGroups\"\n" +
     "                        type=\"button\"\n" +
-    "                        class=\"btn btn-info\">\n" +
+    "                        class=\"btn btn-info\"\n" +
+    "                        disabled>\n" +
     "\n" +
     "                        <i class=\"fa fa-spinner fa-spin\"></i>\n" +
     "                    </button>\n" +
     "\n" +
     "                    <!-- Link to group page -->\n" +
     "                    <button\n" +
-    "                        ng-hide=\"global.state.group.selected.id === 0 || global.data.isFetchingGroups\"\n" +
-    "                        ng-click=\"global.browseTo.group(global.state.group.selected)\"\n" +
+    "                        ng-hide=\"global.store.groupId === 0 || global.data.isFetchingGroups\"\n" +
+    "                        ng-click=\"global.browseTo.group()\"\n" +
     "                        type=\"button\"\n" +
     "                        class=\"btn btn-info\"\n" +
     "                        data-toggle=\"tooltip\"\n" +
@@ -3155,29 +3178,27 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "\n" +
     "            <!-- Profile dropdown -->\n" +
     "			<li\n" +
-    "                ng-show=\"global.state.group.selected.id > 0\"\n" +
     "                class=\"onboarding-general\"\n" +
     "                data-step=\"3\"\n" +
-    "                data-intro=\"Here is where you can find the profiles you manage. If a group is selected, the\n" +
-    "                            profiles listed will be restricted to that group. The black arrow is a\n" +
-    "                            shortcut to view <strong>{{ global.state.profile.selected.first_name }}\n" +
-    "                            </strong>'s details.\">\n" +
+    "                data-intro=\"Here is where you can find the profiles you manage. If a team is\n" +
+    "                            selected, the profiles listed will be restricted to that team.\">\n" +
     "\n" +
     "                <div class=\"btn-group\">\n" +
     "\n" +
     "                    <!-- Face of dropdown -->\n" +
     "                    <button\n" +
-    "                        ng-hide=\"global.state.profile.list.length === 0\"\n" +
+    "                        ng-hide=\"global.state.profile.filtered.length === 0\"\n" +
     "                        type=\"button\"\n" +
     "                        class=\"btn btn-default dropdown-toggle\"\n" +
     "                        data-toggle=\"dropdown\"\n" +
     "                        aria-haspopup=\"true\"\n" +
     "                        aria-expanded=\"false\">\n" +
     "\n" +
-    "                        <span ng-show=\"global.state.profile.selected.id > 0\">\n" +
-    "                            {{ global.state.profile.selected.first_name +' '+ global.state.profile.selected.last_name }}\n" +
+    "                        <span ng-show=\"global.store.profileId > 0\">\n" +
+    "                            {{ global.getSelectedProfile().first_name }}\n" +
+    "                            {{ global.getSelectedProfile().last_name }}\n" +
     "                        </span>\n" +
-    "                        <span ng-show=\"global.state.profile.selected.id === 0\">\n" +
+    "                        <span ng-show=\"global.store.profileId === 0\">\n" +
     "                            {{ '(no athlete selected)' }}\n" +
     "                        </span>\n" +
     "\n" +
@@ -3185,14 +3206,14 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                    </button>\n" +
     "\n" +
     "                    <!-- Contents of dropdown -->\n" +
-    "                    <ul ng-hide=\"global.state.profile.list.length === 0\" class=\"dropdown-menu\">\n" +
+    "                    <ul ng-hide=\"global.state.profile.filtered.length === 0\" class=\"dropdown-menu\">\n" +
     "                        <li>\n" +
-    "                            <a href=\"javascript:;\" ng-click=\"global.state.profile.selected = {id: 0}\">\n" +
+    "                            <a href=\"javascript:;\" ng-click=\"global.store.profileId = 0\">\n" +
     "                                (none)\n" +
     "                            </a>\n" +
     "                        </li>\n" +
-    "                        <li ng-repeat=\"profile in global.state.profile.list\">\n" +
-    "                            <a href=\"javascript:;\" ng-click=\"global.state.profile.selected = profile\">\n" +
+    "                        <li ng-repeat=\"profile in global.state.profile.filtered\">\n" +
+    "                            <a href=\"javascript:;\" ng-click=\"global.store.profileId = profile.id\">\n" +
     "                                {{ profile.first_name +' '+ profile.last_name }}\n" +
     "                            </a>\n" +
     "                        </li>\n" +
@@ -3202,15 +3223,17 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                    <button\n" +
     "                        ng-show=\"global.data.isFetchingProfiles\"\n" +
     "                        type=\"button\"\n" +
-    "                        class=\"btn btn-info\">\n" +
+    "                        class=\"btn btn-info\"\n" +
+    "                        disabled>\n" +
     "\n" +
     "                        <i class=\"fa fa-spinner fa-spin\"></i>\n" +
     "                    </button>\n" +
     "\n" +
     "                    <!-- Link to profile page -->\n" +
     "                    <button\n" +
-    "                        ng-show=\"global.state.profile.selected.id > 0 && !global.data.isFetchingProfiles\"\n" +
-    "                        ng-click=\"global.browseTo.profile(global.state.profile.selected)\"\n" +
+    "                        ng-show=\"global.state.profile.filtered.length > 0 &&\n" +
+    "                            global.store.profileId > 0 && !global.data.isFetchingProfiles\"\n" +
+    "                        ng-click=\"global.browseTo.profile()\"\n" +
     "                        type=\"button\"\n" +
     "                        class=\"btn btn-info\"\n" +
     "                        data-toggle=\"tooltip\"\n" +
@@ -3222,7 +3245,7 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "\n" +
     "                    <!-- Create new profile button -->\n" +
     "                    <button\n" +
-    "                        ng-show=\"global.state.profile.list.length === 0 && !global.data.isFetchingProfiles\"\n" +
+    "                        ng-show=\"global.state.profile.filtered.length === 0 && !global.data.isFetchingProfiles\"\n" +
     "                        ng-click=\"global.browseTo.path('/profile/create')\"\n" +
     "                        type=\"button\"\n" +
     "                        class=\"btn btn-default\">\n" +
@@ -3252,13 +3275,14 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                        <li>\n" +
     "                            <a href=\"javascript:;\">\n" +
     "                                Total groups: {{ global.state.group.list.length }} /\n" +
-    "                                Selected: {{ global.state.group.selected.name || 'None' }}\n" +
+    "                                Selected: {{ global.getSelectedGroup().name || 'None' }}\n" +
     "                            </a>\n" +
     "                        </li>\n" +
     "                        <li>\n" +
     "                            <a href=\"javascript:;\">\n" +
     "                                Total profiles: {{ global.state.profile.list.length }} /\n" +
-    "                                Selected: {{ global.state.profile.selected.first_name || 'None' }}\n" +
+    "                                Selected (callback): {{ global.getSelectedProfile().first_name || 'None' }} /\n" +
+    "                                Selected (local): {{ global.store.profileId }}\n" +
     "                            </a>\n" +
     "                        </li>\n" +
     "                        <li>\n" +
@@ -3272,9 +3296,10 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "		</ul>\n" +
     "\n" +
     "        <ul class=\"nav-right list-unstyled\">\n" +
-    "            <!-- <li ng-controller=\"SearchController\">\n" +
     "\n" +
-    "                <div class=\"input-group\">\n" +
+    "            <!-- Search input -->\n" +
+    "            <li ng-controller=\"SearchController\">\n" +
+    "                <div class=\"input-group search-input\">\n" +
     "                    <div class=\"input-group-btn\">\n" +
     "                        <button\n" +
     "                            type=\"button\"\n" +
@@ -3295,9 +3320,14 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                            </li>\n" +
     "                        </ul>\n" +
     "                    </div>\n" +
-    "                    <input type=\"text\" class=\"form-control\" placeholder=\"search...\">\n" +
+    "                    <selectize\n" +
+    "                        ng-model=\"model\"\n" +
+    "                        class=\"form-control\"\n" +
+    "                        config=\"config\"\n" +
+    "                        options=\"options\">\n" +
+    "                    </selectize>\n" +
     "                </div>\n" +
-    "            </li> -->\n" +
+    "            </li>\n" +
     "            <li>\n" +
     "                <div class=\"btn-group\">\n" +
     "\n" +
@@ -3893,105 +3923,6 @@ angular.module("profile/partials/current-fms-plot.html", []).run(["$templateCach
     "");
 }]);
 
-angular.module("profile/partials/details.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("profile/partials/details.html",
-    "<div\n" +
-    "    data-ui-editable-list-container\n" +
-    "    data-model=\"global.state.profile.selected\"\n" +
-    "    data-save=\"saveProfileDetails\"\n" +
-    "    data-save-callback=\"saveProfileDetailsCallback\"\n" +
-    "    data-heading=\"{{ global.state.profile.selected.first_name }}'s details\">\n" +
-    "\n" +
-    "    <!-- First name -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"First Name\"\n" +
-    "        data-key=\"first_name\"\n" +
-    "        data-required=\"true\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Last name -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Last Name\"\n" +
-    "        data-key=\"last_name\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Height -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Height\"\n" +
-    "        data-key=\"height\"\n" +
-    "        data-type=\"length\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Weight -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Weight\"\n" +
-    "        data-key=\"mass\"\n" +
-    "        data-type=\"mass\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Date of Birth -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Date of Birth\"\n" +
-    "        data-key=\"dob\"\n" +
-    "        data-type=\"date\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Gender -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Gender\"\n" +
-    "        data-key=\"gender\"\n" +
-    "        data-type=\"gender\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Phone -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Phone #\"\n" +
-    "        data-key=\"phone\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Email -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Email\"\n" +
-    "        data-key=\"email\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Profile creation date -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Profile Created\"\n" +
-    "        data-key=\"created_at\"\n" +
-    "        data-type=\"datetime\"\n" +
-    "        data-disabled=\"true\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Primary Tag -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Primary Sport\"\n" +
-    "        data-key=\"primary_tag\"\n" +
-    "        data-type=\"tag\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Secondary tags -->\n" +
-    "    <div\n" +
-    "        data-ui-editable-list-item\n" +
-    "        data-label=\"Other Sports\"\n" +
-    "        data-key=\"secondary_tags\"\n" +
-    "        data-type=\"tag\"\n" +
-    "        data-max-tags=\"10\">\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
 angular.module("profile/partials/final-fms-plot.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("profile/partials/final-fms-plot.html",
     "<div class=\"panel panel-default\">\n" +
@@ -4131,7 +4062,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <section>\n" +
+    "    <section ng-hide=\"profile.id === 0\">\n" +
     "    	<div class=\"row\">\n" +
     "\n" +
     "            <!-- Avatar -->\n" +
@@ -4147,43 +4078,124 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "\n" +
     "            <!-- Profile details -->\n" +
     "            <div class=\"col-sm-12 col-md-6\">\n" +
-    "                <div data-ng-include=\"'profile/partials/details.html'\"></div>\n" +
+    "                <ui-editable-fields\n" +
+    "                    data-model=\"global.state.profile.list[global.store.profileId]\"\n" +
+    "                    data-save=\"saveProfileDetails\"\n" +
+    "                    data-save-callback=\"saveProfileDetailsCallback\"\n" +
+    "                    data-heading=\"{{ global.state.profile.list[global.store.profileId].first_name }}'s details\">\n" +
+    "\n" +
+    "                    <!-- First name -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"First Name\"\n" +
+    "                        data-key=\"first_name\"\n" +
+    "                        data-required=\"true\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Last name -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Last Name\"\n" +
+    "                        data-key=\"last_name\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Height -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Height\"\n" +
+    "                        data-key=\"height\"\n" +
+    "                        data-type=\"length\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Weight -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Weight\"\n" +
+    "                        data-key=\"mass\"\n" +
+    "                        data-type=\"mass\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Date of Birth -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Date of Birth\"\n" +
+    "                        data-key=\"dob\"\n" +
+    "                        data-type=\"date\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Gender -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Gender\"\n" +
+    "                        data-key=\"gender\"\n" +
+    "                        data-type=\"gender\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Phone -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Phone #\"\n" +
+    "                        data-key=\"phone\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Email -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Email\"\n" +
+    "                        data-key=\"email\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Profile creation date -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Profile Created\"\n" +
+    "                        data-key=\"created_at\"\n" +
+    "                        data-type=\"datetime\"\n" +
+    "                        data-disabled=\"true\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Primary Tag -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Primary Sport\"\n" +
+    "                        data-key=\"primary_tag\"\n" +
+    "                        data-type=\"tag\">\n" +
+    "                    </ui-editable-field>\n" +
+    "\n" +
+    "                    <!-- Secondary tags -->\n" +
+    "                    <ui-editable-field\n" +
+    "                        data-label=\"Other Sports\"\n" +
+    "                        data-key=\"secondary_tags\"\n" +
+    "                        data-type=\"tag\"\n" +
+    "                        data-max-tags=\"10\">\n" +
+    "                    </ui-editable-field>\n" +
+    "                </ui-editable-fields>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- General notes -->\n" +
     "        <div class=\"row\">\n" +
     "    		<div class=\"col-sm-12 col-md-4\">\n" +
-    "                <ui-editable-field\n" +
+    "                <ui-editable-standalone-field\n" +
     "                    data-heading=\"Medical Information\"\n" +
-    "                    data-model=\"global.state.profile.selected\"\n" +
+    "                    data-model=\"global.state.profile.list[global.store.profileId]\"\n" +
     "                    data-key=\"medical_history\"\n" +
     "                    data-empty=\"No medical information provided.\"\n" +
     "                    data-save=\"saveProfileDetails\"\n" +
     "                    data-save-callback=\"saveProfileDetailsCallback\">\n" +
-    "                </ui-editable-field>\n" +
+    "                </ui-editable-standalone-field>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"col-sm-12 col-md-4\">\n" +
-    "                <ui-editable-field\n" +
+    "                <ui-editable-standalone-field\n" +
     "                    data-heading=\"Previous Injuries\"\n" +
-    "                    data-model=\"global.state.profile.selected\"\n" +
+    "                    data-model=\"global.state.profile.list[global.store.profileId]\"\n" +
     "                    data-key=\"injuries\"\n" +
     "                    data-empty=\"No previous injuries.\"\n" +
     "                    data-save=\"saveProfileDetails\"\n" +
     "                    data-save-callback=\"saveProfileDetailsCallback\">\n" +
-    "                </ui-editable-field>\n" +
+    "                </ui-editable-standalone-field>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"col-sm-12 col-md-4\">\n" +
-    "                <ui-editable-field\n" +
+    "                <ui-editable-standalone-field\n" +
     "                    data-heading=\"Other Notes\"\n" +
-    "                    data-model=\"global.state.profile.selected\"\n" +
+    "                    data-model=\"global.state.profile.list[global.store.profileId]\"\n" +
     "                    data-key=\"notes\"\n" +
     "                    data-empty=\"No other notes.\"\n" +
     "                    data-save=\"saveProfileDetails\"\n" +
     "                    data-save-callback=\"saveProfileDetailsCallback\">\n" +
-    "                </ui-editable-field>\n" +
+    "                </ui-editable-standalone-field>\n" +
     "    		</div>\n" +
     "    	</div>\n" +
     "    </section>\n" +
@@ -4215,7 +4227,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        <div class=\"panel-body\">\n" +
     "                            FMS Forms: {{ fmsForms }} <br><br>\n" +
     "                            Profile alias: {{ profile.first_name }} ({{ profile.id }}) <br>\n" +
-    "                            Profile global: ({{ global.state.profile.selected.id }}) <br>\n" +
+    "                            Profile global: ({{ global.state.profile.list[global.store.profileId].id }}) <br>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -4266,17 +4278,46 @@ angular.module("user/view.html", []).run(["$templateCache", function($templateCa
     "            </div>\n" +
     "\n" +
     "            <!-- User details -->\n" +
-    "            <div class=\"panel panel-default\">\n" +
-    "                <div class=\"panel-heading\">\n" +
-    "                    Your Details\n" +
-    "                </div>\n" +
+    "            <ui-editable-fields\n" +
+    "                data-model=\"user\"\n" +
+    "                data-save=\"savePreferences\"\n" +
+    "                data-save-callback=\"savePreferencesCallback\"\n" +
+    "                data-heading=\"Your Details\">\n" +
     "\n" +
-    "                <div class=\"panel-body\">\n" +
-    "                    <div style=\"color: #ccc; text-align: center\">\n" +
-    "                        In Development\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "                <!-- Username -->\n" +
+    "                <ui-editable-field\n" +
+    "                    data-label=\"Username\"\n" +
+    "                    data-key=\"username\"\n" +
+    "                    data-disabled=\"true\">\n" +
+    "                </ui-editable-field>\n" +
+    "\n" +
+    "                <!-- First name -->\n" +
+    "                <ui-editable-field\n" +
+    "                    data-label=\"First Name\"\n" +
+    "                    data-key=\"firstName\"\n" +
+    "                    data-required=\"true\">\n" +
+    "                </ui-editable-field>\n" +
+    "\n" +
+    "                <!-- Last name -->\n" +
+    "                <ui-editable-field\n" +
+    "                    data-label=\"Last Name\"\n" +
+    "                    data-key=\"lastName\">\n" +
+    "                </ui-editable-field>\n" +
+    "\n" +
+    "                <!-- Phone -->\n" +
+    "                <ui-editable-field\n" +
+    "                    data-label=\"Phone #\"\n" +
+    "                    data-key=\"phone\">\n" +
+    "                </ui-editable-field>\n" +
+    "\n" +
+    "                <!-- Email -->\n" +
+    "                <ui-editable-field\n" +
+    "                    data-label=\"Email\"\n" +
+    "                    data-key=\"email\"\n" +
+    "                    data-required=\"true\">\n" +
+    "                </ui-editable-field>\n" +
+    "\n" +
+    "            </ui-editable-fields>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Avatar -->\n" +
@@ -4285,7 +4326,7 @@ angular.module("user/view.html", []).run(["$templateCache", function($templateCa
     "                <ui-avatar\n" +
     "                    data-upload-endpoint=\"uploadAvatarEndpoint\"\n" +
     "                    data-success-callback=\"uploadAvatarCallback\"\n" +
-    "                    data-src=\"profile.avatar_src\">\n" +
+    "                    data-src=\"user.avatarSrc\">\n" +
     "                </ui-avatar>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -4299,6 +4340,14 @@ angular.module("user/view.html", []).run(["$templateCache", function($templateCa
     "        <br>\n" +
     "        <br>\n" +
     "        <i class=\"fa fa-spinner fa-spin fa-3x\"></i>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Debug -->\n" +
+    "    <div ng-show=\"global.isLocal\" class=\"panel panel-default\">\n" +
+    "        <div class=\"panel-heading\">Debug</div>\n" +
+    "        <div class=\"panel-body\">\n" +
+    "            Avatar: {{ user.avatarSrc ? 'Yes' : 'No' }} <br>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "");

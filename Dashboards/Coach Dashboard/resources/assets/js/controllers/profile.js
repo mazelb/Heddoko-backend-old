@@ -1,7 +1,5 @@
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  * @brief   Controller for profile views.
  * @author  Francis Amankrah (frank@heddoko.com)
@@ -10,9 +8,9 @@
 angular.module('app.controllers')
 
 .controller('ProfileController',
-    ['$scope', '$location', '$filter', 'Teams', 'Athletes', 'FMSForm', 'Rover', 'ProfileService', 'GroupService',
+    ['$scope', '$location', '$filter', 'Rover', 'ProfileService', 'GroupService',
     'Utilities', '$http',
-    function($scope, $location, $filter, Teams, Athletes, FMSForm, Rover, ProfileService, GroupService, Utilities, $http) {
+    function($scope, $location, $filter, Rover, ProfileService, GroupService, Utilities, $http) {
 
         Rover.debug('ProfileController');
 
@@ -38,14 +36,14 @@ angular.module('app.controllers')
 
         // Shortcut for the currently selected profile.
         else {
-            $scope.profile = $scope.global.state.profile.selected;
+            $scope.profile = $scope.global.getSelectedProfile();
         }
 
         // Alias for the list of groups.
         $scope.groups = $scope.global.state.group.list;
 
         // Alias for the selected group.
-        $scope.group = $scope.global.state.group.selected;
+        $scope.group = $scope.global.getSelectedGroup();
 
         // Alias for the list of profiles.
         $scope.profiles = $scope.global.state.profile.list;
@@ -60,14 +58,14 @@ angular.module('app.controllers')
 
             // Add group info.
             // TODO: allow multiple groups.
-            profile.groups = [$scope.global.state.group.selected.id];
+            profile.groups = [$scope.global.getSelectedGroup().id];
 
             ProfileService.create(profile, $scope.group.id).then(
 
                 // On success, update profile list and browse to newly created profile.
                 function(response) {
-                    $scope.global.state.profile.list = response.data.list;
-                    Rover.browseTo.profile(response.data.profile);
+                    $scope.global.state.profile.list[response.data.id] = response.data;
+                    Rover.browseTo.profile(response.data);
                     Rover.doneBackgroundProcess();
                 },
 
@@ -82,7 +80,7 @@ angular.module('app.controllers')
         // Saves a profile through the uiEditableListContainer directive.
         $scope.saveProfileDetails = function() {
 
-            profile = ProfileService.formatForStorage($scope.global.state.profile.selected);
+            profile = ProfileService.formatForStorage($scope.global.getSelectedProfile());
 
             return ProfileService.update(profile.id, profile);
         };
@@ -92,14 +90,12 @@ angular.module('app.controllers')
 
             // Update profile list.
             if (profileSaved) {
-                $scope.global.state.profile.list = $scope.profiles = this.list;
+                $scope.global.state.profile.list[this.profile.id] =
+                    $scope.profiles[this.profile.id] =
+                    this.profile;
 
                 // Update the selected profile.
-                angular.forEach(this.list, function(obj, i) {
-                    if (obj.id === $scope.profile.id) {
-                        $scope.global.state.profile.selected =  $scope.profile = obj;
-                    }
-                });
+                $scope.global.store.profileId = this.profile.id;
 
                 // Navigate to profile page.
                 Rover.browseTo.profile();
@@ -109,47 +105,6 @@ angular.module('app.controllers')
             else {
                 Rover.alert('Could not save profile details. Please try again later.');
             }
-
-            Rover.doneBackgroundProcess();
-        };
-
-        $scope.updateProfile = function() {
-
-            Rover.addBackgroundProcess();
-            Rover.debug('Updating profile...');
-
-            var profile = ProfileService.formatForStorage($scope.profile);
-
-            // Add group info.
-            // TODO: allow multiple groups.
-            profile.groups = [$scope.global.state.group.selected.id];
-
-            // Update profile data.
-            // Athletes.update(profile).then(
-            ProfileService.update(profile.id, profile).then(
-
-                // On success, update profile list and browse to selected profile.
-                function(response) {
-                    $scope.global.state.profile.list = response.data.list;
-
-                    // Update the selected profile.
-                    angular.forEach(response.data.list, function(obj, i) {
-                        if (obj.id === profile.id) {
-                            $scope.global.state.profile.selected = obj;
-                        }
-                    });
-
-                    // Navigate to profile page.
-                    Rover.browseTo.profile();
-                    Rover.doneBackgroundProcess();
-                },
-
-                // On failure.
-                function(response) {
-                    Rover.debug('Could not update profile: ' + response.responseText);
-                    Rover.doneBackgroundProcess();
-                }
-            );
         };
 
         // Deletes a profile
@@ -163,12 +118,18 @@ angular.module('app.controllers')
 
                 // On success, update profile list and browse to selected group.
                 function(response) {
-                    $scope.global.state.profile.list = response.data;
 
-                    // Select another profile by default.
-                    if (response.data.length > 0) {
-                        $scope.global.state.profile.selected = response.data[0];
-                    }
+                    // Reset profile list.
+                    $scope.global.state.profile.list = {length: 0};
+                    angular.forEach(response.data, function(profile) {
+
+                        // Add profile to list.
+                        $scope.global.state.profile.list.length++;
+                        $scope.global.state.profile.list[profile.id] = profile;
+                    });
+
+                    // Unselect profile by default.
+                    $scope.global.store.profileId = 0;
 
                     Rover.browseTo.group();
                     Rover.doneBackgroundProcess();
@@ -221,19 +182,15 @@ angular.module('app.controllers')
         //     $scope.updateFMSForms();
         // }
 
-        $scope.$watch('global.state.profile.selected', function(newPro, oldPro)
+        $scope.$watch('global.store.profileId', function(id, oldId)
         {
             // Performance check.
-            if (newPro.id === oldPro.id) {
+            if (id === oldId) {
                 return;
             }
 
             // Shortcut for the currently selected profile.
-            $scope.profile = $scope.global.state.profile.selected;
-
-            // Update FMS forms.
-            // $scope.fmsForms = [];
-            // $scope.updateFMSForms();
+            $scope.profile = $scope.global.getSelectedProfile();
 
             // Format profile fields.
             $scope.profile = ProfileService.formatForDisplay($scope.profile);

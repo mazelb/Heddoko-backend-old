@@ -1,7 +1,5 @@
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  * @brief   Controller for movement data import.
  * @author  Francis Amankrah (frank@heddoko.com)
@@ -45,7 +43,7 @@ angular.module('app.controllers')
         ];
 
         // Movement upload endpoint.
-        $scope.uploadEndpoint = '/api/profile/' + $scope.global.state.profile.selected.id +'/movement';
+        $scope.uploadEndpoint = '/api/profile/' + $scope.global.getSelectedProfile().id +'/movement';
 
         /**
          * Uploads movement data.

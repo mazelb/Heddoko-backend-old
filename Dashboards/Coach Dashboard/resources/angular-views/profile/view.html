@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <section>
+    <section ng-hide="profile.id === 0">
     	<div class="row">
 
             <!-- Avatar -->
@@ -74,43 +74,124 @@
 
             <!-- Profile details -->
             <div class="col-sm-12 col-md-6">
-                <div data-ng-include="'profile/partials/details.html'"></div>
+                <ui-editable-fields
+                    data-model="global.state.profile.list[global.store.profileId]"
+                    data-save="saveProfileDetails"
+                    data-save-callback="saveProfileDetailsCallback"
+                    data-heading="{{ global.state.profile.list[global.store.profileId].first_name }}'s details">
+
+                    <!-- First name -->
+                    <ui-editable-field
+                        data-label="First Name"
+                        data-key="first_name"
+                        data-required="true">
+                    </ui-editable-field>
+
+                    <!-- Last name -->
+                    <ui-editable-field
+                        data-label="Last Name"
+                        data-key="last_name">
+                    </ui-editable-field>
+
+                    <!-- Height -->
+                    <ui-editable-field
+                        data-label="Height"
+                        data-key="height"
+                        data-type="length">
+                    </ui-editable-field>
+
+                    <!-- Weight -->
+                    <ui-editable-field
+                        data-label="Weight"
+                        data-key="mass"
+                        data-type="mass">
+                    </ui-editable-field>
+
+                    <!-- Date of Birth -->
+                    <ui-editable-field
+                        data-label="Date of Birth"
+                        data-key="dob"
+                        data-type="date">
+                    </ui-editable-field>
+
+                    <!-- Gender -->
+                    <ui-editable-field
+                        data-label="Gender"
+                        data-key="gender"
+                        data-type="gender">
+                    </ui-editable-field>
+
+                    <!-- Phone -->
+                    <ui-editable-field
+                        data-label="Phone #"
+                        data-key="phone">
+                    </ui-editable-field>
+
+                    <!-- Email -->
+                    <ui-editable-field
+                        data-label="Email"
+                        data-key="email">
+                    </ui-editable-field>
+
+                    <!-- Profile creation date -->
+                    <ui-editable-field
+                        data-label="Profile Created"
+                        data-key="created_at"
+                        data-type="datetime"
+                        data-disabled="true">
+                    </ui-editable-field>
+
+                    <!-- Primary Tag -->
+                    <ui-editable-field
+                        data-label="Primary Sport"
+                        data-key="primary_tag"
+                        data-type="tag">
+                    </ui-editable-field>
+
+                    <!-- Secondary tags -->
+                    <ui-editable-field
+                        data-label="Other Sports"
+                        data-key="secondary_tags"
+                        data-type="tag"
+                        data-max-tags="10">
+                    </ui-editable-field>
+                </ui-editable-fields>
             </div>
         </div>
 
         <!-- General notes -->
         <div class="row">
     		<div class="col-sm-12 col-md-4">
-                <ui-editable-field
+                <ui-editable-standalone-field
                     data-heading="Medical Information"
-                    data-model="global.state.profile.selected"
+                    data-model="global.state.profile.list[global.store.profileId]"
                     data-key="medical_history"
                     data-empty="No medical information provided."
                     data-save="saveProfileDetails"
                     data-save-callback="saveProfileDetailsCallback">
-                </ui-editable-field>
+                </ui-editable-standalone-field>
             </div>
 
             <div class="col-sm-12 col-md-4">
-                <ui-editable-field
+                <ui-editable-standalone-field
                     data-heading="Previous Injuries"
-                    data-model="global.state.profile.selected"
+                    data-model="global.state.profile.list[global.store.profileId]"
                     data-key="injuries"
                     data-empty="No previous injuries."
                     data-save="saveProfileDetails"
                     data-save-callback="saveProfileDetailsCallback">
-                </ui-editable-field>
+                </ui-editable-standalone-field>
             </div>
 
             <div class="col-sm-12 col-md-4">
-                <ui-editable-field
+                <ui-editable-standalone-field
                     data-heading="Other Notes"
-                    data-model="global.state.profile.selected"
+                    data-model="global.state.profile.list[global.store.profileId]"
                     data-key="notes"
                     data-empty="No other notes."
                     data-save="saveProfileDetails"
                     data-save-callback="saveProfileDetailsCallback">
-                </ui-editable-field>
+                </ui-editable-standalone-field>
     		</div>
     	</div>
     </section>
@@ -142,7 +223,7 @@
                         <div class="panel-body">
                             FMS Forms: {{ fmsForms }} <br><br>
                             Profile alias: {{ profile.first_name }} ({{ profile.id }}) <br>
-                            Profile global: ({{ global.state.profile.selected.id }}) <br>
+                            Profile global: ({{ global.state.profile.list[global.store.profileId].id }}) <br>
                         </div>
                     </div>
                 </div>

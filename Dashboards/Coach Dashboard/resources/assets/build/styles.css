@@ -479,15 +479,21 @@ pre {
 
   .nav-min .top-header .top-nav {
     padding: 0 0 0 60px; } }
-/* Search input */
-.top-header .top-nav .input-group .fa {
-  margin-right: 4px; }
+/*
+ * Search input
+ */
+.top-header .search-input {
+  width: 250px; }
 
-.top-header .top-nav .input-group .caret {
+.top-header .search-input .fa {
+  margin-right: 3px; }
+
+.top-header .search-input .caret {
   color: #ccc; }
 
-.top-header .top-nav .input-group input[type="text"].form-control,
-.top-header .top-nav .input-group input[type="text"].form-control:focus {
+.top-header .search-input .selectize-control {
+  display: block;
+  height: 34px;
   border-color: #ddd;
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
@@ -495,6 +501,18 @@ pre {
   -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
 
+.top-header .search-input .selectize-input {
+  display: block;
+  height: 34px;
+  border: none;
+  background-color: transparent; }
+
+.top-header .search-input .selectize-dropdown {
+  position: absolute !important; }
+
+@media (min-width: 768px) {
+  .top-header .search-input {
+    width: 400px; } }
 .top-header .top-nav .nav-left,
 .top-header .top-nav .nav-right {
   font-size: 18px;
@@ -639,12 +657,20 @@ pre {
   left: 15px; }
 
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
- *
- *    Pages
  */
+/*
+ * Laravel pages.
+ */
+.inspiring-quote {
+  position: fixed;
+  margin: 0 5%;
+  width: 90%;
+  top: 45%;
+  text-transform: uppercase;
+  font-weight: bold; }
+
 /*
  * Angular - Import pages.
  */
@@ -4839,9 +4865,17 @@ button.toast-close-button {
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
  *
- *    - Dropdowns / Toolbars / Navigation
+ *    Dropdowns / Toolbars / Navigation
+ */
+/*
+ * Dropdown menus
  */
 .dropdown-menu {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
@@ -4850,27 +4884,22 @@ button.toast-close-button {
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
   text-decoration: none;
-  color: #fff;
+  color: #333 !important;
   background-color: #db5031; }
 
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-  color: #fff;
+  color: #767676;
   text-decoration: none;
   outline: 0;
   background-color: #db5031; }
 
-.dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
   color: #999; }
 
 .dropdown-header {
   color: #999; }
-
-.dropdown-menu {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  -ms-box-shadow: none;
-  -o-box-shadow: none;
-  box-shadow: none; }
 
 .dropdown-menu.dropdown-dark {
   background-color: #272b2f; }
@@ -4953,6 +4982,9 @@ button.toast-close-button {
 .dropdown-menu.with-arrow.panel-danger:after {
   border-bottom: 7px solid #fff1ed; }
 
+/*
+ * ...
+ */
 .btn-toolbar:before, .btn-toolbar:after {
   content: " ";
   display: table; }
@@ -5577,17 +5609,9 @@ button.toast-close-button {
   font-size: 23px; }
 
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
- *
  */
-.inspiring-quote {
-  position: fixed;
-  margin: 0 5%;
-  width: 90%;
-  top: 45%; }
-
 .breadcrumb a {
   color: #767676; }
 
@@ -8338,7 +8362,31 @@ svg {
 
 /* Directives */
 /**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
  *
+ */
+.ui-editable-field-value .edit-icon {
+  color: #999;
+  opacity: 0;
+  filter: alpha(opacity=0); }
+
+.ui-editable-field-value:hover .edit-icon,
+.ui-editable-field-value:focus .edit-icon {
+  color: #767676;
+  text-decoration: none;
+  opacity: 1;
+  filter: alpha(opacity=100); }
+
+.ui-editable-field-value .edit-text {
+  color: #767676;
+  font-weight: bold; }
+
+.ui-editable-field-value .edit-text:hover,
+.ui-editable-field-value .edit-text:focus {
+  text-decoration: none;
+  background-color: #eee; }
+
+/**
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
  */
@@ -8367,7 +8415,6 @@ svg {
   text-align: center; }
 
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
  */
@@ -8407,7 +8454,6 @@ svg {
   margin: auto 10px; }
 
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
  */

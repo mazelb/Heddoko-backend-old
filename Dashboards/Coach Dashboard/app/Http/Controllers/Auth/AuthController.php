@@ -1,66 +1,54 @@
 <?php
-
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * @brief   Handles authentication-related http requests.
+ * @author  Maxwell (max@heddoko.com) & Francis Amankrah (frank@heddoko.com)
+ */
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Models\Role;
-use App\Models\Admin;
-use App\Models\Coach;
-use App\Models\Athlete;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
     use AuthenticatesAndRegistersUsers;
 
 	protected $username = 'username';
 
-	protected $redirectPath = '/';
-
     /**
-     * Create a new authentication controller instance.
+     * Creates a new authentication controller instance.
      *
      * @return void
      */
     public function __construct()
     {
+        // Apply the "guest" middleware.
         $this->middleware('guest', ['except' => 'getLogout']);
+
+        // Update the authentication paths.
+        $this->loginPath = route('auth.login');
+        $this->redirectPath = route('home');
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Gets a validator for an incoming registration request.
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
-
 		return Validator::make($data, [
 			'first_name' => 'required|max:100',
 			'last_name' => 'required|max:100',
 			'email' => 'required|email|max:255',
 			'username' => 'required|max:255|unique:users',
 			'password' => 'required|confirmed|min:6',
-			// 'city' => 'required',
-			// 'dob' => 'required',
-			// 'sex' => 'required|in:unspecified,male,female',
-			// 'mobile' => 'numeric',
 		]);
-
     }
 
     /**
@@ -71,61 +59,33 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-
-		$new_user = User::create([
-
+        // Create new user.
+		$user = User::create([
 			'email' => $data['email'],
 			'username' => $data['username'],
 			'password' => bcrypt($data['password']),
-			// 'city' => $data['city'],
-			// 'dob' => $data['dob'],
-			// 'sex' => $data['sex'],
-			'phone' => $data['phone'],
+			'first_name' => $data['first_name'],
+			'last_name' => @$data['last_name'],
+			'phone' => @$data['phone'],
+			'country' => isset($data['country']) ? $data['country'] : 'US',
 		]);
 
-		switch ($data['newAccountType'])
-		{
+        // Attach role to user.
+        switch ($data['role'])
+        {
+            case 'admin':
+                if ($role = Role::where('name', 'admin')->first()) {
+                    $user->attachRole($role->id);
+                }
+                break;
 
-			case 'athlete':
+            case 'manager':
+                if ($role = Role::where('name', 'manager')->first()) {
+                    $user->attachRole($role->id);
+                }
+                break;
+        }
 
-				$new_user->attachRole(Role::where('name', 'athlete')->firstOrFail()->id);
-
-				// Athlete::create([
-				// 				'first_name' => $data['first_name'],
-				// 				'last_name' => $data['last_name'],
-				// 				'user_id' => $new_user->id
-				// ]);
-
-				break;
-
-			case 'coach':
-
-				$new_user->attachRole(Role::where('name', 'coach')->firstOrFail()->id);
-
-				// Coach::create([
-				// 				'first_name' => $data['first_name'],
-				// 				'last_name' => $data['last_name'],
-				// 				'user_id' => $new_user->id
-				// ]);
-
-				break;
-
-			case 'admin':
-
-				$new_user->attachRole(Role::where('name', 'admin')->firstOrFail()->id);
-
-				// Admin::create([
-				// 				'first_name' => $data['first_name'],
-				// 				'last_name' => $data['last_name'],
-				// 				'user_id' => $new_user->id
-				// ]);
-
-				break;
-
-			default:
-
-		}
-
-		return $new_user;
+		return $user;
     }
 }

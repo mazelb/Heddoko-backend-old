@@ -1,217 +1,215 @@
 @extends('layouts.web')
 
 @section('html-class', 'auth-register')
+@section('body-class', 'auth-register')
 
 @section('content')
 
-<div class="page-signup">
+<div class="row">
+    <div class="main-body col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
 
-	<div class="main-body">
+        {{-- Error messages --}}
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-		<!-- <div class="container" style="position:fixed;width:100%;top:5%;"> -->
-        <div>
-			<div class="form-container">
-				<section>
+        <form class="form-horizontal" role="form" method="POST" action="{{ route('auth.register.post') }}">
+            {!! csrf_field() !!}
 
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+            {{-- Account type --}}
+            <div style="margin:20px 0 25px 0;">
+                <div class="form-group">
+                    <label for="role">Account Type:</label>
+                    <select class="form-control" id="role" name="role">
+                        <option value="manager" selected>Coach</option>
+                        <option value="manager">Athlete</option>
+                        <option value="admin" >Admin</option>
+                    </select>
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                </div>
+            </div>
 
-						<div style="margin:20px 0 25px 0;">
-							<div class="form-group">
-								<label for="accType" style="color:white">Account Type:</label>
-								<select class="form-control"  id="accType" name="newAccountType">
-									<option value="coach" selected>Coach</option>
-									<option value="athlete">Athlete</option>
-									<option value="admin" >Admin</option>
-								</select>
+            {{-- First name --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    <input
+                        type="text"
+                        maxlength="100"
+                        class="form-control"
+                        placeholder="First Name"
+                        name="first_name"
+                        value="{{ old('first_name') }}">
+                </div>
+            </div>
 
-							</div>
-						</div>
+            {{-- Last name --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    <input
+                        type="text"
+                        maxlength="100"
+                        class="form-control"
+                        placeholder="Last Name"
+                        name="last_name"
+                        value="{{ old('last_name') }}">
+                </div>
+            </div>
 
-						<!--<div style="background-color:white">
-							Account Type
-							 <label class="checkbox-inline">
-									<input type="radio" name="newAccountType" value="athlete">Athlete
-							 </label>
-							 <label class="checkbox-inline">
-									<input type="radio" name="newAccountType" value="coach" checked>Coach
-							 </label>
-							 <label class="checkbox-inline">
-									<input type="radio" name="newAccountType" value="admin">Admin
-							 </label>
-						</div>-->
+            {{-- Email --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </span>
+                    <input
+                        type="email"
+                        maxlength="255"
+                        class="form-control"
+                        placeholder="E-mail Address"
+                        name="email"
+                        value="{{ old('email') }}">
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-user"></span>
-								</span>
-								<input  type="text"
-												class="form-control"
-												placeholder="First Name"
-												name="first_name"
-												value="{{ old('first_name') }}">
-							</div>
-						</div>
+            {{-- Username --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        @
+                    </span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Username"
+                        name="username"
+                        value="{{ old('username') }}">
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-user"></span>
-								</span>
-								<input  type="text"
-												class="form-control"
-												placeholder="Last Name"
-												name="last_name"
-												value="{{ old('last_name') }}">
-							</div>
-						</div>
+            {{-- Password --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        name="password">
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-										<span class="glyphicon glyphicon-envelope"></span>
-								</span>
-								<input type="email"
-											class="form-control"
-											placeholder="E-mail Address"
-											name="email"
-											value="{{ old('email') }}" >
-							</div>
-						</div>
+            {{-- Password confirmation --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </span>
+                    <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Confirm Password"
+                        name="password_confirmation">
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-										<span class="glyphicon glyphicon-envelope"></span>
-								</span>
-								<input type="text"
-											class="form-control"
-											placeholder="Username"
-											name="username"
-											value="{{ old('username') }}" >
-							</div>
-						</div>
+            {{-- Country --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-globe"></span>
+                    </span>
+                    <input
+                        name="country"
+                        type="text"
+                        class="form-control"
+                        placeholder="Country"
+                        value="{{ old('country') }}"
+                        disabled>
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-lock"></span>
-								</span>
-								<input type="password"
-											class="form-control"
-											placeholder="Password"
-											name="password">
-							</div>
-						</div>
+            {{-- Date of birth --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Date of Birth"
+                        name="dob"
+                        value="{{ old('dob') }}"
+                        disabled>
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-refresh"></span>
-								</span>
-								<input type="password"
-											class="form-control"
-											placeholder="Confirm Password"
-											name="password_confirmation"
-											 >
-							</div>
-						</div>
+            {{-- Gender --}}
+            <!-- <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="" selected>Unspecified</option>
+                    <option value="femail">Female</option>
+                    <option value="male">Male</option>
+                </select>
+            </div> -->
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-										<span class="glyphicon glyphicon-envelope"></span>
-								</span>
-								<input type="text"
-											class="form-control"
-											placeholder="City"
-											name="city"
-											value="{{ old('city') }}" >
-							</div>
-						</div>
+            {{-- Phone # --}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-phone-alt"></span>
+                    </span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Mobile"
+                        name="phone"
+                        value="{{ old('phone') }}">
+                </div>
+            </div>
 
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-										<span class="glyphicon glyphicon-envelope"></span>
-								</span>
-								<input type="text"
-											class="form-control"
-											placeholder="Date of Birth"
-											name="dob"
-											value="{{ old('dob') }}" >
-							</div>
-						</div>
+            <div class="form-group">
 
-						<!--<div style="background-color:white">
-							Sex
-							 <label class="checkbox-inline">
-									<input type="radio" name="sex" value="unspecified" checked>unspecified
-							 </label>
-							 <label class="checkbox-inline">
-									<input type="radio" name="sex" value="male">male
-							 </label>
-							 <label class="checkbox-inline">
-									<input type="radio" name="sex" value="female">female
-							 </label>
-						</div>-->
+                {{-- Privacy policy & terms of use--}}
+                <p class="text-center info">
+                    By clicking on Sign up, you agree to <br> our
+                    <a href="{{ url('terms') }}">terms & conditions</a> and
+                    <a href="{{ url('privacy') }}">privacy policy</a>
+                </p>
 
-						<div style="margin:20px 0 25px 0;">
-							<div class="form-group">
-								<label for="sex" style="color:white">Sex:</label>
-								<select class="form-control"  id="sex" name="sex">
-									<option selected>unspecified</option>
-									<option>male</option>
-									<option >female</option>
-								</select>
+                {{-- Submit button --}}
+                <input
+                    type="submit"
+                    class="btn btn-default"
+                    name="name"
+                    value="Sign up">
+            </div>
 
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-										<span class="glyphicon glyphicon-envelope"></span>
-								</span>
-								<input type="text"
-											class="form-control"
-											placeholder="Mobile"
-											name="phone"
-											value="{{ old('phone') }}" >
-							</div>
-						</div>
-
-						<div class="form-group">
-							<p style="color:white" class="text-muted text-small">By clicking on Sign up, you agree to our <a href="{{ url('terms') }}">terms & conditions</a> and <a href="{{ url('privacy') }}">privacy policy</a></p>
-							<div class="divider"></div>
-							<button type="submit" class="btn btn-primary btn-block btn-lg">Sign up</button>
-						</div>
-
-					</form>
-
-				</section>
-
-				<section>
-					<p style="color:white" class="text-center text-muted">Already have an account? <a href={{ url('/auth/login') }} >Log in now</a></p>
-				</section>
-
-			</div>
-		</div>
-	</div>
+            {{-- Login link --}}
+            <div class="form-group">
+                <p class="text-center">
+                    Already have an account?
+                    <a href="{{ route('auth.login') }}" class="emphasize">Log in now</a>
+                </p>
+            </div>
+        </form>
+    </div>
 </div>
-<br>
-<br>
 
 @endsection

@@ -10,16 +10,16 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        bower: {
-            install: {
-                options: {
-                    install: true,
-                    copy: false,
-                    targetDir: './libs',
-                    cleanTargetDir: true
-                }
-            }
-        },
+        // bower: {
+        //     install: {
+        //         options: {
+        //             install: true,
+        //             copy: false,
+        //             targetDir: './libs',
+        //             cleanTargetDir: true
+        //         }
+        //     }
+        // },
 
         // clean: {
         //     temp: {
@@ -46,15 +46,6 @@ module.exports = function(grunt) {
                     //     dot: true,
                     //     cwd: 'bower_components/bootstrap/dist',
                     //     src: ['fonts/*.*'],
-                    //     dest: 'public'
-                    // },
-                    //
-                    // // Weather icons
-                    // {
-                    //     expand: true,
-                    //     dot: true,
-                    //     cwd: 'bower_components/weather-icons',
-                    //     src: ['font/*.*'],
                     //     dest: 'public'
                     // },
                     //
@@ -119,12 +110,15 @@ module.exports = function(grunt) {
 
         concat: {
             options: {
-                separator: ';'
+                separator: ';\n',
+                stripBanners: true,
+                banner: '/*! Copyright Heddoko(TM) 2015, all rights reserved. */\n\n'
             },
             dist: {
                 src: [
 
                     // Main dependencides.
+                    'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'angular-app/scripts/gmap.js',
                     'bower_components/slimScroll/jquery.slimscroll.min.js',
@@ -194,7 +188,7 @@ module.exports = function(grunt) {
                     'resources/assets/build/scripts.js'
                 ],
 
-                dest: 'public/js/app.js'
+                dest: 'public/js/scripts.js'
             }
         },
 
@@ -209,23 +203,28 @@ module.exports = function(grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'public/css/main.css': [
-                        'bower_components/fontawesome/css/font-awesome.min.css',
-                        'bower_components/weather-icons/css/weather-icons.min.css',
+                    'public/css/styles.css': [
+
+                        // Bootstrap
                         'bower_components/bootstrap/dist/css/bootstrap.min.css',
                         'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+
+                        // Font-Awesome icons
+                        'bower_components/fontawesome/css/font-awesome.min.css',
+
+                        // Charts
                         'bower_components/chartist/dist/chartist.min.css',
 
-                        // Intro.js: for onboarding.
+                        // Intro.js: for onboarding
                         'bower_components/intro.js/minified/introjs.min.css',
 
-                        // Bootstrap 3 Datepicker.
+                        // Bootstrap 3 Datepicker
                         'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
 
-                        // Selectize.
+                        // Selectize
                         'bower_components/selectize/dist/css/selectize.bootstrap3.css',
 
-                        // Application styles.
+                        // Application styles
                         'resources/assets/build/styles.css'
                     ]
                 }
@@ -235,10 +234,26 @@ module.exports = function(grunt) {
                     banner: '/* Copyright Heddoko(TM) 2015, all rights reserved */'
                 },
                 files: {
-                    'public/css/main.css': ['public/css/main.css']
+                    'public/css/styles.css': ['public/css/styles.css']
                 }
             }
         },
+
+        // assets_versioning: {
+        //     options: {
+        //         versionsMapFile: 'resources/assets/rev.json'
+        //     },
+        //     js: {
+        //         files: {
+        //             'public/js/scripts.js': ['public/js/scripts.js']
+        //         }
+        //     },
+        //     css: {
+        //         files: {
+        //             'public/css/styles.css': ['public/css/styles.css']
+        //         }
+        //     }
+        // },
 
         watch: {
             dist: {
@@ -326,17 +341,18 @@ module.exports = function(grunt) {
         }
     });
 
+    // grunt.loadNpmTasks('grunt-assets-versioning');
+    grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compress');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-bower-task');
+    grunt.loadNpmTasks('grunt-html2js');
 
     // grunt.registerTask('dev', [ 'bower', 'watch:dev' ]);
     // grunt.registerTask('production', [ 'bower', 'watch:min' ]);

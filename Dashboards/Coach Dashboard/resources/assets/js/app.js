@@ -13,7 +13,8 @@ var app = angular.module('app', [
 
     // General dependencies.
     'backendHeddoko',
-    'app.controllers', 'app.directives', 'app.rover', 'app.services', 'app.utilities', 'app.views',
+    'app.controllers', 'app.directives', 'app.filters', 'app.rover', 'app.services', 'app.utilities',
+    'app.views',
 
     // TODO: review what these dependencies do and whether they can be removed or not.
     "app.ui.services", "app.ui.form.ctrls", "app.ui.form.directives", "app.ui.ctrls",
@@ -34,7 +35,7 @@ var app = angular.module('app', [
 ]);
 
 // Defines some constants.
-var _appVersion = '0.4.5';
+var _appVersion = '0.4.7';
 var _appIsLocal =
     (window.location.hostname == 'localhost' ||
         window.location.hostname.match(/.*\.local$/i) ||
@@ -45,11 +46,14 @@ app.constant('appVersion', _appVersion)
     .constant('isLocalEnvironment', _appIsLocal)
     .constant('assetVersion', _appAssetVersion);
 
-// Initializes the 'app.services' module so we can add factories in separate files.
+// Initializes the 'app.services' module so we can add factories from separate files.
 var appServices = angular.module('app.services', ['app.rover']);
 
-// Initializes the 'app.directives' module so we can add directives in separate files.
+// Initializes the 'app.directives' module so we can add directives from separate files.
 var appDirectives = angular.module('app.directives', ['app.rover']);
+
+// Initializes the 'app.filters' module so we can add filters from separate files.
+var appFilters = angular.module('app.filters', ['app.utilities']);
 
 // Configures the application.
 app.config(['$routeProvider', 'isLocalEnvironment',
@@ -147,13 +151,13 @@ app.config(['$routeProvider', 'isLocalEnvironment',
 		})
 
         //
-        // FMS routes.
+        // Screening routes.
         //
-        .when('/fms', {
-			templateUrl: 'fms/index.html',
+        .when('/screening', {
+			templateUrl: 'screening/index.html',
             controller: 'TestController'
 		})
-        .when('/fms/demo/:name?/:step?',
+        .when('/screening/demo/:name?/:step?',
         {
             templateUrl: function(params)
             {
@@ -164,11 +168,11 @@ app.config(['$routeProvider', 'isLocalEnvironment',
                     tmpl = 'test';
                 }
 
-                return 'fms/demo/'+ tmpl +'.html';
+                return 'screening/demo/'+ tmpl +'.html';
             },
             controller: 'FMSDemoController'
         })
-        .when('/fms/live/:name?/:step?',
+        .when('/screening/live/:name?/:step?',
         {
             templateUrl: function(params)
             {
@@ -179,7 +183,7 @@ app.config(['$routeProvider', 'isLocalEnvironment',
                     tmpl = 'test';
                 }
 
-                return 'fms/live/'+ tmpl +'.html';
+                return 'screening/live/'+ tmpl +'.html';
             },
             controller: 'FMSController'
         })
@@ -187,9 +191,13 @@ app.config(['$routeProvider', 'isLocalEnvironment',
         //
         // Other routes.
         //
-        .when('/settings', {
-			templateUrl: 'user/view.html',
+        .when('/account', {
+			templateUrl: 'account.html',
             controller: 'UserController'
+		})
+        .when('/config', {
+			templateUrl: 'configuration.html',
+            controller: 'TestController'
 		})
 
         //

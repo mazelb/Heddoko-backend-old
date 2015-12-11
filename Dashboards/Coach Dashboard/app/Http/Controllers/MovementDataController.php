@@ -8,9 +8,11 @@
  */
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 
 use App\Http\Requests;
+use App\Models\Profile;
 use App\Models\Movement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,18 +34,70 @@ class MovementDataController extends Controller
      */
     public function index()
     {
-        abort(501);
+        // Profile-based query builder.
+        if ($this->request->has('profileId'))
+        {
+            $profileId = (int) $this->request->input('profileId');
+            if (!$profile = Auth::user()->profiles()->find($profileId)) {
+                return response('Profile Not Found.', 400);
+            }
+
+            $builder = $profile->movements();
+        }
+
+        // General query builder. We will limit the accessible scope to the profiles managed
+        // by the authenticated user.
+        else
+        {
+            // Retrieve accessible profile IDs. The alternative here would be to use
+            // `Auth::user()->profiles()->lists('profiles.id')`
+            // but the generated SQL has an ambiguous "id" field.
+            $profiles = DB::table('profiles')
+                ->select('profiles.id')
+                ->join('manager_profile', 'profiles.id', '=', 'manager_profile.profile_id')
+                ->where('manager_profile.manager_id', '=', Auth::id())
+                ->get();
+            if (count($profiles) < 1) {
+                return ['total' => 0, 'results' => []];
+            }
+
+            $profileIDs = [];
+            foreach ($profiles as $profile) {
+                $profileIDs[] = $profile->id;
+            }
+
+            $builder = Movement::whereIn('profile_id', $profileIDs);
+        }
+
+        // ...
+
+        $offset = 0;
+        $limit = 16;
+        $orderBy = 'created_at';
+        $orderDir = 'desc';
+
+        $builder->orderBy($orderBy, $orderDir)->skip($offset)->take($limit);
+
+        return [
+            'total' => $builder->count(),
+            'offset' => $offset,
+            'limit' => $limit,
+            'results' => $builder->get()
+        ];
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created resource in storage.
      *
-     * @param int $profileId
      * @return Response
      */
-    public function store($profileId)
+    public function store()
     {
         // Retrieve profile this movement belongs to.
+        if (!$profileId = (int) $this->request->input('profileId')) {
+            return response('Invalid Profile ID.', 400);
+        }
+
         if (!$profile = Auth::user()->profiles()->find($profileId)) {
             return response('Profile Not Found.', 400);
         }
@@ -76,7 +130,7 @@ class MovementDataController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified resource.
      *
      * @param  int  $id
      * @return Response

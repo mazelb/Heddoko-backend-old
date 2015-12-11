@@ -18,11 +18,11 @@ angular.module('app.controllers')
         $scope.uploadAvatarCallback = function(data) {
 
             // Update user data.
-            $scope.user = Rover.state.userData = data;
+            $scope.user = Rover.state.user = data;
         };
 
         // Retrieve user data.
-        $scope.user = Rover.state.userData || {id: 0};
+        $scope.user = Rover.state.user || {id: 0};
         if ($scope.user.id === 0)
         {
             Utilities.debug('Retrieving user details');
@@ -31,31 +31,31 @@ angular.module('app.controllers')
 
                 // Update user data.
                 function(response) {
-                    $scope.user = Rover.state.userData = response.data;
+                    $scope.user = Rover.state.user = response.data;
                 },
 
                 function(response) {
                     Utilities.alert('Could not retrieve user details. Please try again later.');
-                    $scope.user = Rover.state.userData = {id: 0};
+                    $scope.user = Rover.state.user = {id: 0};
                 }
             );
         }
 
-        // Saves user preferences.
-        $scope.savePreferences = function() {
+        // Saves user details.
+        $scope.saveUserDetails = function() {
             return UserService.update(Rover.userHash, $scope.user);
         };
 
         // Callback for uiEditableFields directive.
-        $scope.savePreferencesCallback = function(prefsSaved) {
+        $scope.saveUserDetailsCallback = function(detailsSaved) {
 
-            if (prefsSaved) {
+            if (detailsSaved) {
                 // ...
             }
 
             //
             else {
-                Rover.alert('Could not save your preferences. Please try again later.');
+                Utilities.alert('Could not save your details. Please try again later.');
             }
         };
     }

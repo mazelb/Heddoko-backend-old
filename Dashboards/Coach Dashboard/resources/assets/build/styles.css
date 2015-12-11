@@ -1,7 +1,5 @@
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  */
 /* Base */
@@ -12,11 +10,32 @@
  *
  */
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
+ * @author Francis Amankrah (frank@heddoko.com)
+ * @date   December 2015
+ */
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/ProximaNova-Regular.eot);
+  src: local("Proxima Nova Regular"), local("ProximaNova-Regular"), url(/fonts/ProximaNova-Regular.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNova-Regular.woff) format("woff"), url(/fonts/ProximaNova-Regular.ttf) format("truetype"), url(/fonts/ProximaNova-Regular.svg) format("svg"); }
+@font-face {
+  font-family: 'Proxima Nova Light';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/fonts/ProximaNova-Light.eot);
+  src: local("Proxima Nova Light"), local("ProximaNova-Light"), url(/fonts/ProximaNova-Light.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNova-Light.woff) format("woff"), url(/fonts/ProximaNova-Light.ttf) format("truetype"), url(/fonts/ProximaNova-Light.svg) format("svg"); }
+@font-face {
+  font-family: 'Proxima Nova Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/ProximaNova-Bold.eot);
+  src: local("Proxima Nova Bold"), local("ProximaNova-Bold"), url(/fonts/ProximaNova-Bold.eot?#iefix) format("embedded-opentype"), url(/fonts/ProximaNova-Bold.woff2) format("woff2"), url(/fonts/ProximaNova-Bold.woff) format("woff"), url(/fonts/ProximaNova-Bold.ttf) format("truetype"), url(/fonts/ProximaNova-Bold.svg#proxima_novabold) format("svg"); }
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
  *
- *    - General CSS
  */
 [ng-click],
 [data-ng-click],
@@ -34,11 +53,11 @@ html.auth-register {
   overflow-y: scroll; }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 18px;
   line-height: 1.42857;
-  color: #767676;
-  background-color: #f3f3f3;
+  color: #ddd;
+  background-color: #272b2f;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important; }
@@ -61,12 +80,17 @@ span.block {
   border: 0; }
 
 a {
-  color: #333;
-  text-decoration: none; }
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s; }
 
 a:hover, a:focus {
-  color: #0d0d0d;
-  text-decoration: underline; }
+  color: #3bd6b2;
+  text-decoration: none; }
 
 .img-responsive {
   width: 100%  \9; }
@@ -411,10 +435,78 @@ pre {
   padding: 2px 5px; }
 
 /**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
  *
+ *    Styles for Selectize.js (https://brianreavis.github.io/selectize.js)
+ */
+.selectize-control {
+  display: inline-block;
+  height: 34px; }
+
+.selectize-control::before {
+  content: ' ';
+  z-index: 2;
+  position: absolute;
+  display: block;
+  top: 10px;
+  right: 16px;
+  width: 16px;
+  height: 16px;
+  background: url(../images/ui/spinner.gif);
+  background-size: 16px 16px;
+  opacity: 0; }
+
+.selectize-control.loading {
+  text-align: left; }
+
+.selectize-control.loading::before {
+  opacity: 0.4; }
+
+.selectize-control .selectize-input,
+.selectize-control .selectize-input.focus,
+.selectize-control .selectize-input.input-active {
+  display: block;
+  height: 34px;
+  border: none;
+  background-color: #383d43 !important;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0; }
+
+.selectize-control .selectize-input input,
+.selectize-control .selectize-input.focus input,
+.selectize-control .selectize-input.input-active input {
+  color: #fff !important; }
+
+.selectize-control.single .selectize-input::after {
+  display: none; }
+
+.selectize-control .selectize-input .item {
+  color: #fff; }
+
+.selectize-dropdown-content .highlight {
+  padding: 1px;
+  background-color: #3bd6b2 !important;
+  color: #333; }
+
+.selectize-dropdown, .selectize-dropdown.form-control {
+  background-color: #383d43; }
+
+/**
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
  */
+.top-header {
+  background-color: #272b2f; }
+
 .top-header .clearfix {
   position: relative; }
 
@@ -483,36 +575,19 @@ pre {
  * Search input
  */
 .top-header .search-input {
+  margin: 8px 5px;
   width: 250px; }
-
-.top-header .search-input .fa {
-  margin-right: 3px; }
-
-.top-header .search-input .caret {
-  color: #ccc; }
-
-.top-header .search-input .selectize-control {
-  display: block;
-  height: 34px;
-  border-color: #ddd;
-  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
 
 .top-header .search-input .selectize-input {
   display: block;
-  height: 34px;
-  border: none;
-  background-color: transparent; }
+  height: 34px; }
 
 .top-header .search-input .selectize-dropdown {
   position: absolute !important; }
 
 @media (min-width: 768px) {
   .top-header .search-input {
-    width: 400px; } }
+    width: 350px; } }
 .top-header .top-nav .nav-left,
 .top-header .top-nav .nav-right {
   font-size: 18px;
@@ -661,6 +736,41 @@ pre {
  *
  */
 /*
+ * Angular - Dashbaord
+ */
+.dashboard-page .bookmark-wrapper {
+  margin: 0 5%; }
+
+.dashboard-page .bookmark-wrapper a {
+  display: block; }
+
+.dashboard-page .bookmarks .fa,
+.dashboard-page .bookmarks span {
+  display: block;
+  text-align: center; }
+
+.dashboard-page .bookmarks .fa {
+  padding: 30px 0 10px; }
+
+.dashboard-page .bookmarks span:first-child {
+  padding: 20px 0 30px;
+  text-transform: uppercase; }
+
+.dashboard-page .bookmarks .bookmark-bottom {
+  height: 5px;
+  width: 60%;
+  margin: 20px auto 0;
+  background-color: #fff;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s; }
+
+.dashboard-page .bookmarks a:hover .bookmark-bottom {
+  background-color: #3bd6b2; }
+
+/*
  * Angular - Import pages.
  */
 .import-page .row.movement-import {
@@ -726,12 +836,12 @@ pre {
   .web-layout .info h2 {
     font-size: 18px;
     color: #272b2f; }
-.web-layout form .form-control, .web-layout form .input-group-addon:first {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  -ms-border-radius: 0px;
-  -o-border-radius: 0px;
-  border-radius: 0px; }
+.web-layout form .form-control, .web-layout form .input-group-addon {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  -ms-border-radius: 0px !important;
+  -o-border-radius: 0px !important;
+  border-radius: 0px !important; }
 .web-layout form input[type="text"], .web-layout form input[type="email"], .web-layout form input[type="password"], .web-layout form select {
   width: 100%;
   height: 55px;
@@ -741,7 +851,12 @@ pre {
   font-style: italic;
   font-weight: bold;
   font-size: 1.1em;
-  background-color: rgba(255, 255, 255, 0.7); }
+  background-color: rgba(255, 255, 255, 0.7);
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px; }
 .web-layout form input[type="submit"] {
   padding: 0 30px;
   width: 100%;
@@ -749,6 +864,7 @@ pre {
   color: #fff;
   border: none;
   background-color: rgba(59, 214, 178, 0.7);
+  text-transform: uppercase;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
@@ -765,13 +881,17 @@ pre {
 .web-layout .auth-login section {
   position: fixed;
   width: 100%;
-  bottom: 0%; }
+  bottom: 0px; }
 .web-layout .auth-login form input {
   text-transform: uppercase; }
 .web-layout .auth-register .main-body {
   margin-bottom: 60px; }
 .web-layout .auth-register #footer {
   background-color: rgba(0, 0, 0, 0.5); }
+.web-layout .auth-reset-password section {
+  position: fixed;
+  width: 100%;
+  bottom: 15%; }
 
 .static-page.signin .line-thru, .page-signup .line-thru, .page-forgot .line-thru {
   margin: 1em 0;
@@ -1416,7 +1536,9 @@ label {
 .page-main-header {
   padding: 20px;
   border-bottom: 1px solid #E5E5E5;
-  background: #f4f4f4; }
+  border-bottom-color: #383d43;
+  background: #f4f4f4;
+  background: #272b2f; }
   .page-main-header h4 {
     margin-bottom: 0;
     border-bottom: none; }
@@ -1717,12 +1839,13 @@ ul.team {
   display: inline-block;
   background-color: #91decb;
   border-right: none;
-  width: 220px;
+  width: 250px;
   margin-left: 20px;
   text-transform: none; }
 
 .breadcrumb-movement > li:first-child > div {
   background-color: #f4f4f4;
+  background-color: #272b2f;
   height: 35px;
   top: 0;
   left: -5px;
@@ -1741,7 +1864,6 @@ ul.team {
   -ms-transform: skewX(26deg);
   -webkit-transform: skewX(26deg);
   transform: skewX(26deg);
-  color: black;
   text-decoration: none; }
 
 .breadcrumb-movement > li:hover, .breadcrumb-movement > li.active {
@@ -1778,37 +1900,14 @@ ul.team {
   background-color: #f48b4a; }
 
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
- *
- *        4 - Forms / Form Elements
  */
 label {
   max-width: 100%; }
 
 output {
   color: #767676; }
-
-.form-control {
-  color: #767676;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #cbd5dd;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  -ms-border-radius: 0px;
-  -o-border-radius: 0px;
-  border-radius: 0px; }
-
-.form-control:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
 
 input[type="date"].input-sm,
 .form-horizontal .form-group-sm input[type="date"].form-control,
@@ -1864,7 +1963,11 @@ input[type="date"].input-lg, .form-horizontal .form-group-lg input[type="date"].
   -o-border-radius: 0px;
   border-radius: 0px; }
 
-select.input-sm, .form-horizontal .form-group-sm select.form-control, .input-group-sm > select.form-control, .input-group-sm > select.input-group-addon, .input-group-sm > .input-group-btn > select.btn {
+select.input-sm,
+.form-horizontal .form-group-sm select.form-control,
+.input-group-sm > select.form-control,
+.input-group-sm > select.input-group-addon,
+.input-group-sm > .input-group-btn > select.btn {
   height: 30px;
   line-height: 30px; }
 
@@ -2167,15 +2270,23 @@ textarea.input-lg, .form-horizontal .form-group-lg textarea.form-control, .input
   color: #C05F44; }
 
 .form-control {
-  border-width: 1px;
+  color: #fff;
+  background-color: #383d43;
+  border: 1px solid #cbd5dd;
+  border: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   -ms-box-shadow: none;
   -o-box-shadow: none;
-  box-shadow: none; }
+  box-shadow: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px; }
 
 .form-control:focus {
-  border-color: #db5031;
+  outline: 0;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   -ms-box-shadow: none;
@@ -4861,12 +4972,19 @@ button.toast-close-button {
   .modal-responsive {
     width: 90%; } }
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  *    Dropdowns / Toolbars / Navigation
  */
+/*
+ * Dashboard menu
+ */
+.dashboard-menu .dashboard-title {
+  margin: 30px auto; }
+  .dashboard-menu .dashboard-title h1 {
+    font-weight: bold;
+    text-transform: uppercase; }
+
 /*
  * Dropdown menus
  */
@@ -4888,7 +5006,7 @@ button.toast-close-button {
   background-color: #db5031; }
 
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-  color: #767676;
+  color: #ddd;
   text-decoration: none;
   outline: 0;
   background-color: #db5031; }
@@ -5319,7 +5437,7 @@ button.toast-close-button {
   transition: all 0.2s ease-in-out; }
 
 #nav a {
-  font-size: 12px;
+  font-size: 16px;
   text-transform: uppercase;
   font-weight: bold;
   color: #cbd4e3;
@@ -5505,12 +5623,7 @@ button.toast-close-button {
   left: 0;
   right: 0;
   height: 80px;
-  background-color: #ffffff;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+  background-color: #272b2f; }
 
 @media (min-width: 768px) {
   .top-header {
@@ -5539,8 +5652,8 @@ button.toast-close-button {
   width: 100%;
   height: 80px;
   padding-left: 20px;
-  background-color: #3bd6b2;
-  color: #ffffff;
+  background-color: #383d43;
+  color: #fff;
   line-height: 80px;
   text-align: left;
   padding: 10px 26px 26px 26px; }
@@ -5551,12 +5664,12 @@ button.toast-close-button {
   position: relative; }
 
 .logo1 {
-  width: 50px;
+  width: 40px;
   left: 0; }
 
 .logo2 {
-  width: 75%;
-  right: 0; }
+  width: 63%;
+  right: 14%; }
 
 .logo1, .logo2 {
   height: auto;
@@ -5574,7 +5687,7 @@ button.toast-close-button {
   #nav-container .logo {
     display: inline-block;
     width: 270px;
-    background-color: #3bd6b2;
+    background-color: #383d43;
     color: #ffffff;
     border-right: none; }
 
@@ -5758,7 +5871,6 @@ button.toast-close-button {
   font-weight: normal;
   font-style: normal; }
 .movement-pages {
-  font-family: proxima_novaregular;
   font-weight: bold; }
 
 .data_bottom_table {
@@ -5863,7 +5975,7 @@ button.toast-close-button {
 
 .movement-trial-list > div {
   min-height: 50px;
-  background-color: #fff;
+  background-color: #383d43;
   line-height: 50px;
   text-align: center; }
   .movement-trial-list > div > div.trial-label {
@@ -5875,7 +5987,7 @@ button.toast-close-button {
     height: 100%; }
 
 .movement-trial-list > div.active {
-  background-color: #f5f6f8; }
+  background-color: #3bd6b2; }
 
 .movement-trial-list > div.movement-submit-button {
   background-color: #f48b4a;
@@ -8306,47 +8418,6 @@ svg {
   color: #e08833; }
 
 /**
- *
- * Copyright Heddoko(TM) 2015, all rights reserved.
- *
- *
- *    - Selectize.js, https://brianreavis.github.io/selectize.js/
- */
-.selectize-control::before {
-  content: ' ';
-  z-index: 2;
-  position: absolute;
-  display: block;
-  top: 10px;
-  right: 16px;
-  width: 16px;
-  height: 16px;
-  background: url(../images/ui/spinner.gif);
-  background-size: 16px 16px;
-  opacity: 0; }
-
-.selectize-control.loading {
-  text-align: left; }
-
-.selectize-control.loading::before {
-  opacity: 0.4; }
-
-.selectize-control .selectize-input {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
-  border-radius: 0; }
-
-.selectize-control.single .selectize-input::after {
-  display: none; }
-
-.selectize-dropdown-content .highlight {
-  padding: none;
-  background-color: #3bd6b2 !important;
-  color: #333; }
-
-/**
  * Temporary styles
  */
 .temp-landing-badge {
@@ -8372,13 +8443,13 @@ svg {
 
 .ui-editable-field-value:hover .edit-icon,
 .ui-editable-field-value:focus .edit-icon {
-  color: #767676;
+  color: #ddd;
   text-decoration: none;
   opacity: 1;
   filter: alpha(opacity=100); }
 
 .ui-editable-field-value .edit-text {
-  color: #767676;
+  color: #ddd;
   font-weight: bold; }
 
 .ui-editable-field-value .edit-text:hover,
@@ -8423,7 +8494,7 @@ svg {
   margin: 5px 0 30px 30px;
   position: relative;
   height: 50px;
-  background-color: rgba(59, 214, 178, 0.4);
+  background-color: #3bd6b2;
   -webkit-transform: skewX(-26deg);
   -moz-transform: skewX(-26deg);
   -ms-transform: skewX(-26deg);
@@ -8436,7 +8507,7 @@ svg {
   top: 0px;
   left: -5px;
   height: 45px;
-  background-color: #f3f3f3; }
+  background-color: #272b2f; }
 
 .ui-page-title-background .ui-page-title-skew .ui-page-title {
   display: inline-block;

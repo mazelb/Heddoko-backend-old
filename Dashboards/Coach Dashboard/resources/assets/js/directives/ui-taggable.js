@@ -1,7 +1,5 @@
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  * @brief   Angular directive for tags.
  * @author  Francis Amankrah (frank@heddoko.com)
@@ -9,6 +7,9 @@
  */
 angular.module('app.directives')
 
+/**
+ * Tag lookup input.
+ */
 .directive('uiTaggableInput', function() {
     return {
         restrict: 'E',
@@ -19,8 +20,8 @@ angular.module('app.directives')
             key: '@',
             maxTags: '@'
         },
-        controller: ['$scope', '$http', 'Rover',
-            function($scope, $http, Rover) {
+        controller: ['$scope', '$http', 'Utilities',
+            function($scope, $http, Utilities) {
 
                 // Default scope variables.
                 $scope.data = [];
@@ -50,8 +51,6 @@ angular.module('app.directives')
                     // Single tag
                     else if (angular.isObject($scope.model[$scope.key]))
                     {
-                        Rover.debug('Inspecting tag object...');
-
                         if ($scope.model[$scope.key].id)
                         {
                             $scope.data = $scope.model[scope.key].id;
@@ -87,8 +86,8 @@ angular.module('app.directives')
                     load: function(query, callback) {
 
                         // Performance check.
-                        Rover.debug('Fetching tags...');
-                        Rover.debug(query);
+                        Utilities.debug('Fetching tags...');
+                        Utilities.debug(query);
                         if (!query || !query.length) {
                             return callback();
                         }
@@ -123,7 +122,7 @@ angular.module('app.directives')
                         }
 
                         // Create the new tag.
-                        Rover.debug('Creating tag: ' + value);
+                        Utilities.debug('Creating tag: ' + value);
                         $http.post('/api/tag', {
                             title: value.trim()
                         });
@@ -135,8 +134,6 @@ angular.module('app.directives')
                      * @param array data
                      */
                     onChange: function(data) {
-                        Rover.debug('updating data');
-                        Rover.debug(data);
                         $scope.model[$scope.key] = data;
                     }
                 };
@@ -145,6 +142,123 @@ angular.module('app.directives')
                 $scope.$watch('model', function(model) {
                     $scope.updateData();
                 });
+            }
+        ]
+    };
+})
+
+/**
+ * Profile lookup input.
+ *
+ * Basic usage:
+ *  <ui-profile-lookup
+ *
+ *  </ui-profile-lookup>
+ */
+.directive('uiProfileLookup', function() {
+    return {
+        restrict: 'E',
+        transclude: true,
+        templateUrl: 'directive-partials/ui-taggable-input.html',
+        scope: {
+            model: '=?',
+            profiles: '=?',
+            select: '&selectProfile'
+        },
+        controller: ['$scope', '$http', 'Utilities',
+            function($scope, $http, Utilities) {
+
+                // Default scope variables.
+                $scope.model = $scope.model || {};
+                $scope.profiles = $scope.profiles || [];
+
+                // Generates the displayed label.
+                $scope.getLabel = function(profile) {
+
+                    var label = profile.first_name;
+
+                    if (profile.last_name && profile.last_name.length) {
+                        label += ' ' + profile.last_name;
+                    }
+
+                    // TODO: add main group.
+
+                    return label;
+                };
+
+                // Format option data for selectize input.
+                $scope.options = [];
+                if ($scope.profiles.length > 0)
+                {
+                    angular.forEach($scope.profiles, function(profile) {
+                        if (profile && profile.id) {
+                            $scope.options.push({
+                                id: profile.id,
+                                title: $scope.getLabel(profile)
+                            });
+                        }
+                    });
+                }
+
+                // Updates the model whenever necessary.
+                $scope.updateData = function() {
+
+                    if ($scope.model && $scope.model.id)
+                    {
+                        $scope.data = $scope.model.id;
+                        $scope.options = [{
+                            id: $scope.model.id,
+                            title: $scope.getLabel($scope.model)
+                        }];
+                    }
+
+                    // Default value.
+                    else {
+                        $scope.model = {};
+                    }
+                };
+                $scope.updateData();
+
+                // Selectize configuration.
+                $scope.config = {
+                    create: false,
+                    valueField: 'id',
+                    labelField: 'title',
+                    searchField: ['title'],
+                    maxOptions: 15,
+                    maxItems: 1,
+
+                    /**
+                     * Called anytime the user types into the input box.
+                     *
+                     * @param string query
+                     * @param function callback
+                     */
+                    load: function(query, callback) {
+
+                        // Performance check.
+                        if (!query || !query.length) {
+                            return callback();
+                        }
+
+                        // ...
+                        callback($scope.options);
+                    },
+
+                    /**
+                     * Called anytime the value of the input changes.
+                     *
+                     * @param array data
+                     */
+                    onChange: function(data) {
+                        $scope.select({profile: parseInt(data)});
+                    }
+                };
+
+                // Updates the view whenever the model changes.
+                // $scope.$watch('model', function(model) {
+                //     $scope.updateData();
+                // });
             }
         ]
     };

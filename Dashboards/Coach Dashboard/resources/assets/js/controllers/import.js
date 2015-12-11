@@ -12,13 +12,13 @@ angular.module('app.controllers')
         Utilities.debug('ImportController');
 
         // Uploading movement flag.
-        $scope.isUploading = false;
+        $scope.isImporting = false;
 
         // Uploaded movement data.
-        $scope.uploadedMovements = [];
+        $scope.global.data.importedMovements = $scope.global.data.importedMovements || [];
 
         /**
-         * Uploads movement data.
+         * Imports movement data.
          *
          * @param array files
          */
@@ -30,24 +30,27 @@ angular.module('app.controllers')
             }
 
             // Turn on "uploading" flag.
-            $scope.isUploading = true;
+            $scope.isImporting = true;
             $scope.pendingMovements = files;
             Utilities.debug('Uploading movement data...');
 
             // Upload data files one by one. This ensures compatibility with IE8/9
             angular.forEach(files, function(file) {
                 file.upload = Upload.upload({
-                    url: '/api/profile/' + $scope.global.getSelectedProfile().id +'/movement',
-                    data: {file: file}
+                    url: '/api/movement',
+                    data: {
+                        file: file,
+                        profileId: $scope.global.getSelectedProfile().id
+                    }
                 }).then(
                     function (response) {
 
                         // On success, add the new movement to the top of the list.
-                        $scope.uploadedMovements.unshift(response.data);
-                        $scope.isUploading = false;
+                        $scope.global.data.importedMovements.unshift(response.data);
+                        $scope.isImporting = false;
                     },
                     function (response) {
-                        $scope.isUploading = false;
+                        $scope.isImporting = false;
                         Utilities.alert('Could not import movement data. Please try again later.');
                         Utilities.debug(response.status + ': ' + response.data);
                     },

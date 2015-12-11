@@ -11,15 +11,16 @@ toc_footers:
   - <a href='http://www.heddoko.com/'>heddoko.com</a>
 
 includes:
-  - authentication
+  - topics
   - profiles
   - movements
   - screenings
   - tags
   - groups
-  - errors
 
 search: true
 ---
 
 # Introduction
+
+The Heddoko API follows a [RESTful design](https://en.wikipedia.org/wiki/Representational_state_transfer) which is simple to understand.

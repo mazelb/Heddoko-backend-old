@@ -2,11 +2,11 @@
 
 ## List movements
 
-`GET /api/movement`
+`GET /api/v1/movement`
 
 ## Retrieve a movement
 
-`GET /api/movement/{id}`
+`GET /api/v1/movement/{id}`
 
 <aside class="warning">
 In Development.
@@ -14,11 +14,11 @@ In Development.
 
 ## Store movement data
 
-`POST /api/movement`
+`POST /api/v1/movement`
 
 ## Update a movement
 
-`PUT /api/movement/{id}`
+`PUT /api/v1/movement/{id}`
 
 <aside class="warning">
 In Development.
@@ -26,7 +26,7 @@ In Development.
 
 ## Delete a movement
 
-`DELETE /api/movement/{id}`
+`DELETE /api/v1/movement/{id}`
 
 <aside class="warning">
 In Development.

@@ -2,7 +2,7 @@
 
 ## List screenings
 
-`GET /api/screening`
+`GET /api/v1/screening`
 
 <aside class="warning">
 In Development.
@@ -10,7 +10,7 @@ In Development.
 
 ## Retrieve a screening
 
-`GET /api/screening/{id}`
+`GET /api/v1/screening/{id}`
 
 <aside class="warning">
 In Development.
@@ -18,7 +18,7 @@ In Development.
 
 ## Create a screening
 
-`POST /api/screening`
+`POST /api/v1/screening`
 
 <aside class="warning">
 In Development.
@@ -26,7 +26,7 @@ In Development.
 
 ## Update a screening
 
-`PUT /api/screening/{id}`
+`PUT /api/v1/screening/{id}`
 
 <aside class="warning">
 In Development.
@@ -34,7 +34,7 @@ In Development.
 
 ## Delete a screening
 
-`DELETE /api/screening/{id}`
+`DELETE /api/v1/screening/{id}`
 
 <aside class="warning">
 In Development.

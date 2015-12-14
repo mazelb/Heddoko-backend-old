@@ -2,11 +2,11 @@
 
 ## List tags
 
-`GET /api/tag`
+`GET /api/v1/tag`
 
 ## Retrieve a tag
 
-`GET /api/tag/{id}`
+`GET /api/v1/tag/{id}`
 
 <aside class="warning">
 Not Implemented.
@@ -14,11 +14,11 @@ Not Implemented.
 
 ## Store tag data
 
-`POST /api/tag`
+`POST /api/v1/tag`
 
 ## Update a tag
 
-`PUT /api/tag/{id}`
+`PUT /api/v1/tag/{id}`
 
 <aside class="warning">
 Not Implemented.
@@ -26,7 +26,7 @@ Not Implemented.
 
 ## Delete a tag
 
-`DELETE /api/tag/{id}`
+`DELETE /api/v1/tag/{id}`
 
 <aside class="warning">
 Not Implemented.

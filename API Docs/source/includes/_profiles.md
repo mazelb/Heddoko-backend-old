@@ -2,28 +2,28 @@
 
 ## List profiles
 
-`GET /api/profile`
+`GET /api/v1/profile`
 
 ## Retrieve a profile
 
-`GET /api/profile/{id}`
+`GET /api/v1/profile/{id}`
 
 ## Create a profile
 
-`POST /api/profile`
+`POST /api/v1/profile`
 
 ## Update a profile
 
-`PUT /api/profile/{id}`
+`PUT /api/v1/profile/{id}`
 
 ## Upload a profile avatar
 
-`POST /api/profile/{id}/avatar`
+`POST /api/v1/profile/{id}/avatar`
 
 ## Delete a profile
 
-`DELETE /api/profile/{id}`
+`DELETE /api/v1/profile/{id}`
 
 ## Delete a profile avatar
 
-`DELETE /api/profile/{id}/avatar`
+`DELETE /api/v1/profile/{id}/avatar`

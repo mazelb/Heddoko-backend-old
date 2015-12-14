@@ -2,28 +2,28 @@
 
 ## List groups
 
-`GET /api/group`
+`GET /api/v1/group`
 
 ## Retrieve a group
 
-`GET /api/group/{id}`
+`GET /api/v1/group/{id}`
 
 ## Create a group
 
-`POST /api/group`
+`POST /api/v1/group`
 
 ## Update a group
 
-`PUT /api/group/{id}`
+`PUT /api/v1/group/{id}`
 
 ## Upload a group avatar
 
-`POST /api/group/{id}/avatar`
+`POST /api/v1/group/{id}/avatar`
 
 ## Delete a group
 
-`DELETE /api/group/{id}`
+`DELETE /api/v1/group/{id}`
 
 ## Delete a group avatar
 
-`DELETE /api/group/{id}/avatar`
+`DELETE /api/v1/group/{id}/avatar`

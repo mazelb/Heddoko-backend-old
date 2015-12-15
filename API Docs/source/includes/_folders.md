@@ -4,6 +4,34 @@ Folders help users organize their movement data.
 
 ## List folders
 
+> Sample response
+
+```json
+{
+    "parent": {
+
+    },
+    "folders": [
+
+    ],
+    "movements": [
+        {
+            "id": ​1,
+            "profileId": ​1,
+            "submittedBy": ​1,
+            "screeningId": null,
+            "folderId": null,
+            "title": "Sample Movement",
+            "score": null,
+            "scoreMax": null,
+            "createdAt": "2016-01-01 11:30:00",
+            "updatedAt": "2016-01-01 11:30:00"
+        },
+        {...}
+    ]
+}
+```
+
 `GET /api/v1/profile/{profileId}/folder`
 
 <aside class="warning">

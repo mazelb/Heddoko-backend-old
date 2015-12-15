@@ -37,8 +37,6 @@ OAuth2 authentication has not yet been implemented.
 
 ## Embeds
 
-In general, will only return what was requested for.
-
 <aside class="notice">
 TODO: further explain embeds.
 </aside>

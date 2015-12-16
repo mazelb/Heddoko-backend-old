@@ -27,11 +27,11 @@
 }
 ```
 
-`GET /api/v1/movement`
+`GET /api/v1/movements`
 
 ## Retrieve a movement
 
-`GET /api/v1/movement/{id}`
+`GET /api/v1/movements/{id}`
 
 <aside class="warning">
 In Development.
@@ -39,11 +39,11 @@ In Development.
 
 ## Store movement data
 
-`POST /api/v1/movement`
+`POST /api/v1/movements`
 
 ## Update a movement
 
-`PUT /api/v1/movement/{id}`
+`PUT /api/v1/movements/{id}`
 
 <aside class="warning">
 In Development.
@@ -51,7 +51,7 @@ In Development.
 
 ## Delete a movement
 
-`DELETE /api/v1/movement/{id}`
+`DELETE /api/v1/movements/{id}`
 
 <aside class="warning">
 In Development.

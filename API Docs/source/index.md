@@ -23,11 +23,7 @@ search: true
 
 # Introduction
 
-The Heddoko API follows a [RESTful design](https://en.wikipedia.org/wiki/Representational_state_transfer).
-
-<aside class="notice">
-TODO: further introduce and describe API.
-</aside>
+The Heddoko API follows a [RESTful design](https://en.wikipedia.org/wiki/Representational_state_transfer). This means that each resource is identified by a Uniform Resource Identifier (or URI) and is manipulated through regular HTTP verbs such as `GET`, `POST`, `PUT`, `PATCH` or `DELETE`.
 
 ## Authentication
 
@@ -37,8 +33,38 @@ OAuth2 authentication has not yet been implemented.
 
 ## Embeds
 
+**Embeds** allow you to include related data to a model in a single request.
+
 <aside class="notice">
 TODO: further explain embeds.
+</aside>
+
+## Working with Collections
+
+### Sorting
+TODO
+
+### Filtering
+TODO
+
+### Field Selection
+TODO
+
+### Paging
+TODO
+
+## Method Spoofing
+
+For clients that don't support the `PUT`, `PATCH` or `DELETE`, these verbs can be simulated with the `X-HTTP-Method-Override` HTTP header.
+
+<aside class="notice">
+TODO: further explain X-HTTP-Method-Override.
+</aside>
+
+## Rate Limiting
+
+<aside class="notice">
+TODO: further explain rate limiting.
 </aside>
 
 ## Errors

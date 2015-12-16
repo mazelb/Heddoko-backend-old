@@ -2,7 +2,7 @@
 
 ## List profiles
 
-`GET /api/v1/profile`
+`GET /api/v1/profiles`
 
 ## Retrieve a profile
 
@@ -47,24 +47,24 @@
 }
 ```
 
-`GET /api/v1/profile/{id}`
+`GET /api/v1/profiles/{id}`
 
 ## Create a profile
 
-`POST /api/v1/profile`
+`POST /api/v1/profiles`
 
 ## Update a profile
 
-`PUT /api/v1/profile/{id}`
+`PUT /api/v1/profiles/{id}`
 
 ## Upload a profile avatar
 
-`POST /api/v1/profile/{id}/avatar`
+`POST /api/v1/profiles/{id}/avatar`
 
 ## Delete a profile
 
-`DELETE /api/v1/profile/{id}`
+`DELETE /api/v1/profiles/{id}`
 
 ## Delete a profile avatar
 
-`DELETE /api/v1/profile/{id}/avatar`
+`DELETE /api/v1/profiles/{id}/avatar`

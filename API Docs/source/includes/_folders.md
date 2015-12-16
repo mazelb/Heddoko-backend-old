@@ -32,7 +32,7 @@ Folders help users organize their movement data.
 }
 ```
 
-`GET /api/v1/profile/{profileId}/folder`
+`GET /api/v1/profiles/{profileId}/folders`
 
 <aside class="warning">
 In Development.
@@ -40,7 +40,7 @@ In Development.
 
 ## Retrieve a folder
 
-`GET /api/v1/profile/{profileId}/folder/{id}`
+`GET /api/v1/profiles/{profileId}/folders/{id}`
 
 <aside class="warning">
 In Development.
@@ -48,7 +48,7 @@ In Development.
 
 ## Create a folder
 
-`POST /api/v1/profile/{profileId}/folder`
+`POST /api/v1/profiles/{profileId}/folders`
 
 <aside class="warning">
 In Development.
@@ -56,7 +56,7 @@ In Development.
 
 ## Update a folder
 
-`PUT /api/v1/profile/{profileId}/folder/{id}`
+`PUT /api/v1/profiles/{profileId}/folders/{id}`
 
 <aside class="warning">
 In Development.
@@ -64,7 +64,7 @@ In Development.
 
 ## Delete a folder
 
-`DELETE /api/v1/profile/{profileId}/folder/{id}`
+`DELETE /api/v1/profiles/{profileId}/folders/{id}`
 
 <aside class="warning">
 In Development.

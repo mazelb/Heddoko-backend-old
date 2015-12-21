@@ -4,7 +4,7 @@ Folders help users organize their movement data.
 
 ## List folders
 
-> Sample response
+> `GET /api/v1/profiles/{profileId}/folders`
 
 ```json
 {
@@ -32,40 +32,40 @@ Folders help users organize their movement data.
 }
 ```
 
-`GET /api/v1/profiles/{profileId}/folders`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`GET /api/v1/profiles/{profileId}/folders`
 
 ## Retrieve a folder
 
-`GET /api/v1/profiles/{profileId}/folders/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`GET /api/v1/profiles/{profileId}/folders/{id}`
 
 ## Create a folder
 
-`POST /api/v1/profiles/{profileId}/folders`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`POST /api/v1/profiles/{profileId}/folders`
 
 ## Update a folder
 
-`PUT /api/v1/profiles/{profileId}/folders/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`PUT /api/v1/profiles/{profileId}/folders/{id}`
 
 ## Delete a folder
 
-`DELETE /api/v1/profiles/{profileId}/folders/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`DELETE /api/v1/profiles/{profileId}/folders/{id}`

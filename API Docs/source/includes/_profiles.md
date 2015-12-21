@@ -2,11 +2,15 @@
 
 ## List profiles
 
+<aside class="success">
+Has embeddable properties.
+</aside>
+
 `GET /api/v1/profiles`
 
 ## Retrieve a profile
 
-> Sample response
+> `GET /api/v1/profiles?embed=groups,managers`
 
 ```json
 {
@@ -47,19 +51,29 @@
 }
 ```
 
+<aside class="success">
+Has embeddable properties.
+</aside>
+
 `GET /api/v1/profiles/{id}`
 
 ## Create a profile
 
 `POST /api/v1/profiles`
 
+
+
 ## Update a profile
 
 `PUT /api/v1/profiles/{id}`
 
+
+
 ## Upload a profile avatar
 
 `POST /api/v1/profiles/{id}/avatar`
+
+
 
 ## Delete a profile
 

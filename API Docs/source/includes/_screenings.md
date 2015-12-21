@@ -37,6 +37,10 @@
 }
 ```
 
+<aside class="success">
+Has embeddable properties.
+</aside>
+
 `GET /api/v1/screenings`
 
 Queries the API for screenings against the specified search parameters.
@@ -98,28 +102,32 @@ movements |
 }
 ```
 
+<aside class="success">
+Has embeddable properties.
+</aside>
+
 `GET /api/v1/screenings/{id}`
 
 ## Create a screening
 
-`POST /api/v1/screenings`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`POST /api/v1/screenings`
 
 ## Update a screening
 
-`PUT /api/v1/screenings/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`PUT /api/v1/screenings/{id}`
 
 ## Delete a screening
 
-`DELETE /api/v1/screenings/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`DELETE /api/v1/screenings/{id}`

@@ -2,7 +2,7 @@
 
 ## List movements
 
-> Sample response
+> `GET /api/v1/movements`
 
 ```json
 {
@@ -31,11 +31,11 @@
 
 ## Retrieve a movement
 
-`GET /api/v1/movements/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`GET /api/v1/movements/{id}`
 
 ## Store movement data
 
@@ -43,16 +43,16 @@ In Development.
 
 ## Update a movement
 
-`PUT /api/v1/movements/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`PUT /api/v1/movements/{id}`
 
 ## Delete a movement
 
-`DELETE /api/v1/movements/{id}`
-
 <aside class="warning">
 In Development.
 </aside>
+
+`DELETE /api/v1/movements/{id}`

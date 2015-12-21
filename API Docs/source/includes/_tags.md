@@ -6,11 +6,11 @@
 
 ## Retrieve a tag
 
-`GET /api/v1/tags/{id}`
-
 <aside class="warning">
 Not Implemented.
 </aside>
+
+`GET /api/v1/tags/{id}`
 
 ## Store tag data
 
@@ -18,16 +18,16 @@ Not Implemented.
 
 ## Update a tag
 
-`PUT /api/v1/tags/{id}`
-
 <aside class="warning">
 Not Implemented.
 </aside>
+
+`PUT /api/v1/tags/{id}`
 
 ## Delete a tag
 
-`DELETE /api/v1/tags/{id}`
-
 <aside class="warning">
 Not Implemented.
 </aside>
+
+`DELETE /api/v1/tags/{id}`

@@ -1,8 +1,6 @@
 <?php
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  * @brief   Handles screening-related http requests.
  * @author  Francis Amankrah (frank@heddoko.com)
@@ -10,10 +8,14 @@
  */
 namespace App\Http\Controllers;
 
-use App\Models\Screening;
+use Auth;
+
 use App\Http\Requests;
-use App\Models\ScreeningTest;
+use App\Models\Folder;
 use App\Models\Profile;
+use App\Models\Movement;
+use App\Models\MovementMeta;
+use App\Models\Screening;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,51 +30,119 @@ class ScreeningController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays a listing of the resource.
      *
      * @return Response
      */
     public function index()
     {
-        // Find related profile.
-        $profile = Profile::find($this->request->input('profile_id'));
+        // Profile-based query builder.
+        if ($this->request->has('profileId'))
+        {
+            $profileId = (int) $this->request->input('profileId');
+            if (!$profile = Auth::user()->profiles()->find($profileId)) {
+                return response('Profile Not Found.', 400);
+            }
 
-        return $profile ? $profile->screenings : [];
+            $builder = $profile->screenings();
+        }
+
+        // General query builder. We will limit the accessible scope to the profiles managed
+        // by the authenticated user.
+        else
+        {
+            $builder = Screening::whereIn('profile_id', Auth::user()->getProfileIDs());
+        }
+
+        // Retrieve other search parameters. We\ll also make sure we have positive values
+        // for "limit" and "offset".
+        $limit = max(0, min(50, $this->request->input('limit', 20)));
+        $offset = max(0, $this->request->input('offset', 0));
+        $orderBy = snake_case($this->request->input('orderBy', 'created_at'));
+        $orderDir = $this->request->input('orderDir', 'desc');
+
+        // Add search query.
+        // TODO...
+
+        $builder->orderBy($orderBy, $orderDir)->skip($offset)->take($limit);
+
+        return [
+            'total' => $builder->count(),
+            'offset' => $offset,
+            'limit' => $limit,
+            'results' => $builder->get()
+        ];
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Creates a new screening.
      *
      * @return Response
      */
     public function store()
     {
-        // Make sure we have an associated profile.
-        if (!$profile = Profile::find($this->request->input('profile_id'))) {
-            return $this->error(400, 'Invalid profile ID.');
+        // Retrieve profile this screening belongs to.
+        if (!$profileId = (int) $this->request->input('profile_id')) {
+            return response('Invalid Profile ID.', 400);
         }
 
-        // Create an FMS record.
-        $fms = $profile->screenings()->create($this->request->only(['score', 'notes']));
+        if (!$profile = Auth::user()->profiles()->find($profileId)) {
+            return response('Profile Not Found.', 400);
+        }
 
-        // Add FMS tests.
-        $rawTestEntries = $this->request->input('tests', null);
-        if (is_array($rawTestEntries) && count($rawTestEntries))
+        // Create a record for the screening.
+        $screening = $profile->screenings()->create($this->request->only([
+            'title',
+            'score',
+            'scoreMax',
+            'notes'
+        ]));
+
+        // We'll also create a folder to organize the screening movements.
+        $screeningsFolder = Folder::where('profile_id', $profileId)
+                                ->where('system_name', 'screenings')
+                                ->first();
+        if (!$screeningsFolder)
         {
-            $fmsTestEntries = [];
-
-            foreach ($rawTestEntries as $test) {
-                $fmsTestEntries[] = new FMSTest($test);
-            }
-
-            $fms->tests()->saveMany($fmsTestEntries);
+            $screeningsFolder = $profile->folders()->create([
+                'name' => 'Movement Tests',
+                'system_name' => 'screenings',
+                'path' => '/'
+            ]);
         }
 
-        // Return all FMS records related to this profile.
-        return [
-            'list' => $profile->screenings,
-            'fms' => $fms
-        ];
+        $folder = $profile->folders()->create([
+            'folder_id' => $screeningsFolder->id,
+            'name' => $screening->title,
+            'system_name' => 'screenings.'. $screening->id,
+            'path' => '/'. $screeningsFolder->name
+        ]);
+
+        // Add movements to the screening.
+        if ($this->request->has('movements'))
+        {
+            $movements = (array) $this->request->input('movements');
+
+            foreach ($movements as $data)
+            {
+                $movement = new Movement(array_only($data, ['title']));
+                $movement->profileId = $screening->profileId;
+                $movement->folderId = $folder->id;
+
+                // Update metadata.
+                $screening->movements()->save($movement);
+                $meta = isset($data['meta']) ? (array) $data['meta'] : [];
+                $meta['scoreMax'] = $screening->scoreMax;
+                $movement->meta()->create($meta);
+            }
+        }
+
+        // Return screening with movements.
+        foreach ($screening->movements as $movement) {
+            $movement->meta;
+        }
+
+        return $screening;
     }
 
     /**

@@ -7,37 +7,42 @@
  */
 angular.module('app.services')
 
-.factory('UserService', ['$http',
-    function($http) {
+.factory('UserService', ['$http', 'apiEndpoint',
+    function($http, apiEndpoint) {
 
         return {
+
+            /**
+             * Base endpoint.
+             */
+            endpoint: apiEndpoint + '/users/',
 
             /**
              *
              */
             get: function(id) {
-    			return $http.get('/api/user/' + id);
+    			return $http.get(this.endpoint + id);
     		},
 
             /**
              *
              */
             create: function(data) {
-                return $http.post('/api/user', data);
+                return $http.post(this.endpoint, data);
     		},
 
             /**
              *
              */
             update: function(id, data) {
-                return $http.put('/api/user/' + id, data);
+                return $http.put(this.endpoint + id, data);
     		},
 
             /**
              *
              */
             destroy: function(id) {
-    			return $http.delete('/api/user/' + id);
+    			return $http.delete(this.endpoint + id);
     		},
 
             /**
@@ -48,7 +53,7 @@ angular.module('app.services')
              * @return $http
              */
             setAvatar: function(id, fileData) {
-                return $http.post('/api/user/'+ id +'/photo', {image: fileData});
+                return $http.post(this.endpoint + id +'/avatar', {image: fileData});
             }
         };
     }

@@ -13,16 +13,16 @@ use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 class Movement extends Model
 {
     use CamelCaseAttrs;
-    
+
     /**
      * Attributes which are mass-assignable.
      */
 	protected $fillable = [
+        'profile_id',
         'submitted_by',
-        'movement_set_id',
+        'screening_id',
+        'folder_id',
         'title',
-        'score',
-        'score_max',
     ];
 
     /**

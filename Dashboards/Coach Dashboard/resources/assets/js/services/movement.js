@@ -7,15 +7,15 @@
  */
 angular.module('app.services')
 
-.factory('MovementService', ['$http',
-    function($http) {
+.factory('MovementService', ['$http', 'apiEndpoint',
+    function($http, apiEndpoint) {
 
         return {
 
             /**
              * Base endpoint.
              */
-            endpoint: '/api/movement/',
+            endpoint: apiEndpoint + '/movements/',
 
             /**
              * Retrieves the specified resource from the API.
@@ -47,7 +47,7 @@ angular.module('app.services')
              * @return object $http
              */
             create: function(profileId, data) {
-                return $http.post(this.endpoint, data, {params: {profileId: profileId}});
+                return $http.post(this.endpoint, data, {params: {profile_id: profileId}});
     		},
 
             /**

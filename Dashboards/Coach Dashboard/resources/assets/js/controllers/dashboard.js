@@ -25,7 +25,7 @@ angular.module('app.controllers')
         $scope.bookmarks = [
             {
                 title: 'Upload a Movement',
-                uri: '#/import',
+                uri: '#/movements/upload',
                 icon: 'cloud-upload'
             },
             {
@@ -34,13 +34,13 @@ angular.module('app.controllers')
                 icon: 'video-camera'
             },
             {
-                title: 'Movement Screenings',
-                uri: '#/screening',
-                icon: 'list-alt'
+                title: 'Movement Tests',
+                uri: '#/screenings',
+                icon: 'pencil-square-o'
             },
             {
                 title: 'Analyze a Movement',
-                uri: '#/analyze',
+                uri: '#/movements/analyze',
                 icon: 'line-chart'
             }
         ];

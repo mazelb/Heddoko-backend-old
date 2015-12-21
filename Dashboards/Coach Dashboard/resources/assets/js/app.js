@@ -9,7 +9,7 @@
 var app = angular.module('app', [
 
     // External dependencies.
-    'ngAnimate', 'ngFileUpload', 'ngRoute', 'ngStorage', 'selectize',
+    'ngAnimate', 'ngFileUpload', 'ngRoute', 'ngStorage', 'selectize', 'truncate',
 
     // General dependencies.
     'backendHeddoko',
@@ -22,7 +22,6 @@ var app = angular.module('app', [
     // "easypiechart",
     // "mgo-angular-wizard",
     // "textAngular",
-    // "ngTagsInput",
     // "app.form.validation", "app.tables",
     // "app.task",
     // "countTo",
@@ -35,16 +34,16 @@ var app = angular.module('app', [
 ]);
 
 // Defines some constants.
-var _appVersion = '0.4.7';
 var _appIsLocal =
     (window.location.hostname == 'localhost' ||
         window.location.hostname.match(/.*\.local$/i) ||
         window.location.hostname.match(/.*\.vagrant$/i)) ? true : false;
 var _appAssetVersion = _appIsLocal ? Date.now() : _appVersion;
+var _apiEndpoint = '/api/v1';
 
-app.constant('appVersion', _appVersion)
-    .constant('isLocalEnvironment', _appIsLocal)
-    .constant('assetVersion', _appAssetVersion);
+app.constant('isLocalEnvironment', _appIsLocal)
+    .constant('assetVersion', _appAssetVersion)
+    .constant('apiEndpoint', _apiEndpoint);
 
 // Initializes the 'app.services' module so we can add factories from separate files.
 var appServices = angular.module('app.services', ['app.rover']);
@@ -117,12 +116,20 @@ app.config(['$routeProvider', 'isLocalEnvironment',
         //
         // Data routes.
         //
-        .when('/import', {
+        .when('/movements/analyze', {
+			templateUrl: 'movements/analysis/index.html',
+            controller: 'TestController'
+		})
+        .when('/movements/compare', {
+			templateUrl: 'movements/comparison/index.html',
+            controller: 'TestController'
+		})
+        .when('/movements/upload', {
 			templateUrl: 'import/index.html',
             controller: 'ImportController'
 		})
-        .when('/movements', {
-			templateUrl: 'movements/index.html',
+        .when('/movements/:rootId?/:folderId?/:path?', {
+			templateUrl: 'movements/explorer/index.html',
             controller: 'MovementController'
 		})
 
@@ -135,58 +142,20 @@ app.config(['$routeProvider', 'isLocalEnvironment',
 		})
 
         //
-        // Data analysis routes.
-        //
-        .when('/analyze', {
-			templateUrl: 'analysis/index.html',
-            controller: 'TestController'
-		})
-
-        //
-        // Data comparison routes.
-        //
-        .when('/compare', {
-			templateUrl: 'comparison/index.html',
-            controller: 'TestController'
-		})
-
-        //
         // Screening routes.
         //
-        .when('/screening', {
-			templateUrl: 'screening/index.html',
-            controller: 'TestController'
+        .when('/screenings', {
+			templateUrl: 'screenings/index.html',
+            controller: 'ScreeningController'
 		})
-        .when('/screening/demo/:name?/:step?',
-        {
-            templateUrl: function(params)
-            {
-                var tmpl = 'index';
-                if (params.step) {
-                    tmpl = params.step;
-                } else if (params.name) {
-                    tmpl = 'test';
-                }
-
-                return 'screening/demo/'+ tmpl +'.html';
-            },
-            controller: 'FMSDemoController'
-        })
-        .when('/screening/live/:name?/:step?',
-        {
-            templateUrl: function(params)
-            {
-                var tmpl = 'index';
-                if (params.step) {
-                    tmpl = params.step;
-                } else if (params.name) {
-                    tmpl = 'test';
-                }
-
-                return 'screening/live/'+ tmpl +'.html';
-            },
-            controller: 'FMSController'
-        })
+        .when('/screenings/current', {
+			templateUrl: 'screenings/current/index.html',
+            controller: 'ScreeningController'
+		})
+        .when('/screenings/:screeningId', {
+			templateUrl: 'screenings/view/index.html',
+            controller: 'ScreeningController'
+		})
 
         //
         // Other routes.
@@ -203,10 +172,36 @@ app.config(['$routeProvider', 'isLocalEnvironment',
         //
         // Demo routes.
         //
-        .when('/submit-movement', {
-			templateUrl: "submit-movement-demo.html",
-            controller: 'SubmitMovementDemoController'
-		})
+        .when('/fms/demo/:name?/:step?',
+        {
+            templateUrl: function(params)
+            {
+                var tmpl = 'index';
+                if (params.step) {
+                    tmpl = params.step;
+                } else if (params.name) {
+                    tmpl = 'test';
+                }
+
+                return 'fms-bak/demo/'+ tmpl +'.html';
+            },
+            controller: 'FMSDemoController'
+        })
+        .when('/fms/live/:name?/:step?',
+        {
+            templateUrl: function(params)
+            {
+                var tmpl = 'index';
+                if (params.step) {
+                    tmpl = params.step;
+                } else if (params.name) {
+                    tmpl = 'test';
+                }
+
+                return 'fms-bak/live/'+ tmpl +'.html';
+            },
+            controller: 'FMSController'
+        })
         .when("/fmstest", {
 			templateUrl: "fmstest.html"
 		}).when("/fmsdata", {
@@ -222,14 +217,14 @@ app.config(['$routeProvider', 'isLocalEnvironment',
 ])
 
 // Runs the application.
-.run(['$rootScope', '$location', 'Rover', 'OnboardingService',
-    function ($rootScope, $location, Rover, OnboardingService) {
+.run(['$rootScope', '$location', 'Rover', 'Utilities',
+    function ($rootScope, $location, Rover, Utilities) {
 
-        Rover.debug('Running app...');
+        Utilities.debug('Running app...');
 
         $(document).ready(function() {
 
-            Rover.debug('DOM ready');
+            Utilities.debug('DOM ready');
 
             // Removes the loading animation.
             Rover.doneBackgroundProcess();

@@ -11,21 +11,17 @@ angular.module('app.controllers')
 
 .controller('MainController',
     ['$scope', '$timeout', 'ProfileService', 'GroupService', 'UserService', 'OnboardingService',
-    'Rover', 'Utilities', 'appVersion', 'isLocalEnvironment',
+    'Rover', 'Utilities', 'isLocalEnvironment',
     function(
         $scope, $timeout, ProfileService, GroupService, UserService, OnboardingService,
-        Rover, Utilities, appVersion, isLocalEnvironment) {
+        Rover, Utilities, isLocalEnvironment) {
         Utilities.debug('MainController');
-
-        // This makes the rover accessible to some views.
-        // @deprecated
-        $scope.Rover = Rover;
 
         // Setup a "global" namespace to store variables that should be inherited in child scopes.
         $scope.global =
         {
             // Information about the application.
-            appVersion: appVersion,
+            appVersion: $('meta[name="version"]').attr('content'),
             isLocal: isLocalEnvironment,
 
             // The localStorage persists across user sessions.
@@ -52,7 +48,6 @@ angular.module('app.controllers')
         $scope.global.state.user = $scope.global.state.user || {id: 0};
 
         // Setup group data.
-        Rover.debug('Setting up group data...');
         $scope.global.state.group = $scope.global.state.group || {};
         $scope.global.state.group.list = $scope.global.state.group.list || {length: 0};
         $scope.global.store.groupId = $scope.global.store.groupId || 0;
@@ -62,7 +57,6 @@ angular.module('app.controllers')
         };
 
         // Setup profile data.
-        Rover.debug('Setting up profile data...');
         $scope.global.state.profile = $scope.global.state.profile || {};
         $scope.global.state.profile.list = $scope.global.state.profile.list || {length: 0};
         $scope.global.state.profile.filtered = $scope.global.state.profile.filtered || [];
@@ -95,7 +89,7 @@ angular.module('app.controllers')
         $scope.fetchGroups = function() {
 
             // Show loading animation.
-            Rover.debug('Fetching groups...');
+            Utilities.debug('Fetching groups...');
             $scope.global.data.isFetchingGroups = true;
 
             // Retrieve available groups.
@@ -127,7 +121,7 @@ angular.module('app.controllers')
                     $scope.global.data.isFetchingGroups = false;
         		},
                 function(response) {
-                    Rover.debug('Could not retrieve group list: ' + response.statusText);
+                    Utilities.debug('Could not retrieve group list: ' + response.statusText);
                     $scope.global.data.isFetchingGroups = false;
                 }
             );
@@ -139,11 +133,11 @@ angular.module('app.controllers')
         $scope.fetchProfiles = function() {
 
             // Show loading animation.
-            Rover.debug('Fetching profiles...');
+            Utilities.debug('Fetching profiles...');
             $scope.global.data.isFetchingProfiles = true;
 
             // Retrieve profiles.
-    		ProfileService.get().then(
+    		ProfileService.list().then(
                 function(response) {
 
                     // Reset profile list.
@@ -163,7 +157,7 @@ angular.module('app.controllers')
                     $scope.global.data.isFetchingProfiles = false;
     		    },
                 function(response) {
-                    Utitlities.debug('Could not retrieve profile list: ' + response.statusText);
+                    Utilities.debug('Could not retrieve profile list: ' + response.statusText);
                     $scope.global.data.isFetchingProfiles = false;
                 }
             );
@@ -179,25 +173,26 @@ angular.module('app.controllers')
 
                 // Update user data.
                 function(response) {
-                    Rover.state.user = response.data;
+                    $scope.global.state.user = response.data;
                     $scope.global.data.isFetchingUser = false;
                 },
                 function(response) {
-                    Utilities.alert('Could not retrieve user details. Please try again later.');
+                    Utilities.debug('Could not retrieve user details: ' + response.statusText);
+                    // Utilities.alert('Could not retrieve user details. Please try again later.');
                     Rover.state.user = {id: 0};
                     $scope.global.data.isFetchingUser = false;
                 }
             );
         }
 
-        // Populate group list.
+        // Fetch groups and profiles. We'll set a timeout for these requests, so that we don't
+        // exceed the maximum # simultaneous requests on the server.
     	if ($scope.global.state.group.list.length === 0) {
-    		$scope.fetchGroups();
+    		$timeout($scope.fetchGroups, 1000);
     	}
 
-        // Populate profile list.
     	if ($scope.global.state.profile.list.length === 0) {
-    		$scope.fetchProfiles();
+    		$timeout($scope.fetchProfiles, 2000);
     	}
 
         /**
@@ -262,7 +257,7 @@ angular.module('app.controllers')
 
         // Watches the selected profile.
         $scope.$watch('global.store.profileId', function(id, oldId) {
-            Rover.debug('Selected profile: ' + id);
+            Utilities.debug('Selected profile: ' + id);
 
             // Performance check.
             if (id === 0) {

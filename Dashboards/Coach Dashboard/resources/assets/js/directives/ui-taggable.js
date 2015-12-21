@@ -93,7 +93,7 @@ angular.module('app.directives')
                         }
 
                         // Queries the API for tags.
-                        $http.get('/api/tag', {
+                        $http.get('/api/v1/tags', {
                             params: {
                                 query: query,
                                 limit: 50
@@ -123,7 +123,7 @@ angular.module('app.directives')
 
                         // Create the new tag.
                         Utilities.debug('Creating tag: ' + value);
-                        $http.post('/api/tag', {
+                        $http.post('/api/v1/tags', {
                             title: value.trim()
                         });
                     },
@@ -175,10 +175,10 @@ angular.module('app.directives')
                 // Generates the displayed label.
                 $scope.getLabel = function(profile) {
 
-                    var label = profile.first_name;
+                    var label = profile.firstName;
 
-                    if (profile.last_name && profile.last_name.length) {
-                        label += ' ' + profile.last_name;
+                    if (profile.lastName && profile.lastName.length) {
+                        label += ' ' + profile.lastName;
                     }
 
                     // TODO: add main group.

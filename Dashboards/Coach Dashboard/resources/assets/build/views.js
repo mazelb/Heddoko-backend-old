@@ -1,10 +1,17 @@
-angular.module('app.views', ['account.html', 'configuration.html', 'dashboard.html', 'fmsresults.html', 'fmstest.html', 'placeholder.html', 'submit-movement-demo.html', 'analysis/index.html', 'capture/index.html', 'comparison/index.html', 'directive-partials/ui-avatar.html', 'directive-partials/ui-editable-fields/field-value-generic.html', 'directive-partials/ui-editable-fields/field-value-timestamp.html', 'directive-partials/ui-editable-fields/field-value-with-units.html', 'directive-partials/ui-editable-fields/field.html', 'directive-partials/ui-editable-fields/fields.html', 'directive-partials/ui-editable-fields/standalone-field.html', 'directive-partials/ui-movement-placeholder.html', 'directive-partials/ui-movement-preview.html', 'directive-partials/ui-page-title.html', 'directive-partials/ui-taggable-input.html', 'group/create.html', 'group/edit.html', 'group/list.html', 'group/partials/form.html', 'group/partials/upload-photo.html', 'group/view.html', 'import/index.html', 'movement-editor/footer.html', 'movement-editor/index.html', 'movements/index.html', 'partials/breadcrumbs.html', 'partials/header.html', 'partials/modal.html', 'partials/navigation.html', 'partials/select-profile.html', 'profile/create.html', 'profile/edit.html', 'profile/list.html', 'profile/partials/current-fms-plot.html', 'profile/partials/final-fms-plot.html', 'profile/partials/upload-photo.html', 'profile/view.html', 'screening/demo/analysis.html', 'screening/demo/index.html', 'screening/demo/partials/analysis-coronal.html', 'screening/demo/partials/analysis-layout-emphasized.html', 'screening/demo/partials/analysis-sagittal.html', 'screening/demo/partials/analysis-transverse.html', 'screening/demo/partials/summary-content.html', 'screening/demo/partials/summary-layout.html', 'screening/demo/partials/summary-menu.html', 'screening/demo/partials/summary-movement-overview.html', 'screening/demo/partials/summary-overall-scores.html', 'screening/demo/partials/test-coronal.html', 'screening/demo/partials/test-layout-emphasized.html', 'screening/demo/partials/test-sagittal.html', 'screening/demo/partials/test-transverse.html', 'screening/demo/summary.html', 'screening/demo/test.html', 'screening/index.html', 'screening/live/analysis.html', 'screening/live/index.html', 'screening/live/partials/analysis-menu.html', 'screening/live/partials/breadcrumbs.html', 'screening/live/partials/header.html', 'screening/live/partials/iterations.html', 'screening/live/partials/summary-legend.html', 'screening/live/partials/summary-menu.html', 'screening/live/partials/test-menu.html', 'screening/live/partials/test-trials.html', 'screening/live/summary.html', 'screening/live/test.html', 'thumbnail-selector/footer.html', 'thumbnail-selector/index.html']);
+angular.module('app.views', ['account.html', 'configuration.html', 'dashboard.html', 'fmsresults.html', 'fmstest.html', 'placeholder.html', 'capture/index.html', 'directive-partials/ui-avatar.html', 'directive-partials/ui-editable-fields/field-value-generic.html', 'directive-partials/ui-editable-fields/field-value-timestamp.html', 'directive-partials/ui-editable-fields/field-value-with-units.html', 'directive-partials/ui-editable-fields/field.html', 'directive-partials/ui-editable-fields/fields.html', 'directive-partials/ui-editable-fields/standalone-field.html', 'directive-partials/ui-movement-placeholder.html', 'directive-partials/ui-movement-preview.html', 'directive-partials/ui-page-title.html', 'directive-partials/ui-taggable-input.html', 'fms-bak/demo/analysis.html', 'fms-bak/demo/index.html', 'fms-bak/demo/partials/analysis-coronal.html', 'fms-bak/demo/partials/analysis-layout-emphasized.html', 'fms-bak/demo/partials/analysis-sagittal.html', 'fms-bak/demo/partials/analysis-transverse.html', 'fms-bak/demo/partials/summary-content.html', 'fms-bak/demo/partials/summary-layout.html', 'fms-bak/demo/partials/summary-menu.html', 'fms-bak/demo/partials/summary-movement-overview.html', 'fms-bak/demo/partials/summary-overall-scores.html', 'fms-bak/demo/partials/test-coronal.html', 'fms-bak/demo/partials/test-layout-emphasized.html', 'fms-bak/demo/partials/test-sagittal.html', 'fms-bak/demo/partials/test-transverse.html', 'fms-bak/demo/summary.html', 'fms-bak/demo/test.html', 'fms-bak/live/analysis.html', 'fms-bak/live/index.html', 'fms-bak/live/partials/analysis-menu.html', 'fms-bak/live/partials/breadcrumbs.html', 'fms-bak/live/partials/header.html', 'fms-bak/live/partials/iterations.html', 'fms-bak/live/partials/summary-legend.html', 'fms-bak/live/partials/summary-menu.html', 'fms-bak/live/partials/test-menu.html', 'fms-bak/live/partials/test-trials.html', 'fms-bak/live/summary.html', 'fms-bak/live/test.html', 'group/create.html', 'group/edit.html', 'group/list.html', 'group/partials/form.html', 'group/partials/upload-photo.html', 'group/view.html', 'import/index.html', 'movement-editor/footer.html', 'movement-editor/index.html', 'movements/analysis/index.html', 'movements/comparison/index.html', 'movements/explorer/index.html', 'movements/explorer/partials/details-layout.html', 'movements/explorer/partials/large-tiles-layout.html', 'movements/explorer/partials/small-tiles-layout.html', 'partials/breadcrumbs.html', 'partials/header.html', 'partials/modal.html', 'partials/navigation.html', 'partials/select-profile.html', 'profile/create.html', 'profile/edit.html', 'profile/list.html', 'profile/partials/current-fms-plot.html', 'profile/partials/final-fms-plot.html', 'profile/partials/upload-photo.html', 'profile/view.html', 'screenings/current/index.html', 'screenings/index.html', 'screenings/view/index.html', 'thumbnail-selector/footer.html', 'thumbnail-selector/index.html']);
 
 angular.module("account.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<!-- User details -->\n" +
     "<div class=\"page\">\n" +
-    "    <ui-page-title data-title=\"'Account'\" data-icon=\"'cogs'\"></ui-page-title>\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Account <i class=\"fa fa-cogs\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <div ng-hide=\"user.id === 0\" class=\"row\">\n" +
     "        <div class=\"col-md-8\">\n" +
@@ -89,7 +96,12 @@ angular.module("configuration.html", []).run(["$templateCache", function($templa
   $templateCache.put("configuration.html",
     "<!-- User details -->\n" +
     "<div class=\"page\">\n" +
-    "    <ui-page-title data-title=\"'Settings'\" data-icon=\"'cogs'\"></ui-page-title>\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Settings <i class=\"fa fa-cogs\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-md-8\">\n" +
@@ -122,17 +134,25 @@ angular.module("configuration.html", []).run(["$templateCache", function($templa
 
 angular.module("dashboard.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("dashboard.html",
-    "<div class=\"page dashboard-page animate-fade-up\">\n" +
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
+    "<div class=\"dashboard page animate-fade-up\">\n" +
     "\n" +
     "    <div class=\"dashboard-menu\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
     "        <div class=\"row dashboard-title\">\n" +
     "            <div class=\"col-sm-12\">\n" +
-    "                <h1 ng-show=\"global.state.user.id > 0\" class=\"text-center\">\n" +
+    "                <h1\n" +
+    "                    ng-show=\"global.state.user.id > 0 && global.state.user.firstName.length\"\n" +
+    "                    class=\"text-center\">\n" +
     "                    {{ greeting }} {{ global.state.user.firstName }},\n" +
     "                </h1>\n" +
-    "                <h1 ng-show=\"global.state.user.id === 0\" class=\"text-center\">\n" +
+    "                <h1\n" +
+    "                    ng-show=\"global.state.user.id === 0\n" +
+    "                        || !global.state.user.firstName\n" +
+    "                        || global.state.user.firstName.length === 0\"\n" +
+    "                    class=\"text-center\">\n" +
     "                    {{ greeting }}.\n" +
     "                </h1>\n" +
     "\n" +
@@ -143,7 +163,7 @@ angular.module("dashboard.html", []).run(["$templateCache", function($templateCa
     "        </div>\n" +
     "\n" +
     "        <!-- Bookmarks -->\n" +
-    "        <div class=\"row bookmarks\">\n" +
+    "        <div class=\"row\">\n" +
     "\n" +
     "            <!-- Padding for bookmarks -->\n" +
     "            <div ng-show=\"bookmarks.length === 4\" class=\"col-md-2\"></div>\n" +
@@ -153,15 +173,13 @@ angular.module("dashboard.html", []).run(["$templateCache", function($templateCa
     "\n" +
     "            <!-- Actual bookmarks -->\n" +
     "            <div ng-repeat=\"bookmark in bookmarks\" class=\"col-md-2\">\n" +
-    "                <div class=\"bookmark-wrapper\">\n" +
-    "                    <a href=\"{{ bookmark.uri }}\" class=\"bookmark\">\n" +
-    "                        <i ng-class=\"'fa fa-2x fa-'+ bookmark.icon\"></i>\n" +
-    "                        <span>\n" +
-    "                            {{ bookmark.title }}\n" +
-    "                        </span>\n" +
-    "                        <span class=\"bookmark-bottom\"></span>\n" +
-    "                    </a>\n" +
-    "                </div>\n" +
+    "                <a href=\"{{ bookmark.uri }}\" class=\"btn-dashboard\">\n" +
+    "                    <i ng-class=\"'fa fa-2x fa-'+ bookmark.icon\"></i>\n" +
+    "                    <span>\n" +
+    "                        {{ bookmark.title }}\n" +
+    "                    </span>\n" +
+    "                    <span></span>\n" +
+    "                </a>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -879,224 +897,15 @@ angular.module("placeholder.html", []).run(["$templateCache", function($template
     "");
 }]);
 
-angular.module("submit-movement-demo.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("submit-movement-demo.html",
-    "<header class=\"page-main-header\">\n" +
-    "    <div class=\"row\">\n" +
-    "		<div class=\"col-sm-6\">\n" +
-    "			<h4>Movement Data</h4>\n" +
-    "            <p ng-if=\"data.member.selected\">\n" +
-    "                Submit movement data for\n" +
-    "                <b>\n" +
-    "                    {{ data.member.selected.first_name }} {{ data.member.selected.last_name }}\n" +
-    "                </b>\n" +
-    "            </p>\n" +
-    "		</div>\n" +
-    "    </div>\n" +
-    "</header>\n" +
-    "\n" +
-    "<div class=\"page page-dashboard\">\n" +
-    "\n" +
-    "    <!-- Select a sport -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            <div class=\"panel panel-default\">\n" +
-    "                <div class=\"panel-heading\">\n" +
-    "                    1. Choose a sport.\n" +
-    "                </div>\n" +
-    "                <div class=\"panel-body\">\n" +
-    "                    <div class=\"btn-group\">\n" +
-    "                        <button\n" +
-    "                            type=\"button\"\n" +
-    "                            class=\"btn btn-default dropdown-toggle\"\n" +
-    "                            data-toggle=\"dropdown\"\n" +
-    "                            aria-haspopup=\"true\"\n" +
-    "                            aria-expanded=\"false\">\n" +
-    "\n" +
-    "                            {{ sports.selected.name }}\n" +
-    "                            <span class=\"caret\"></span>\n" +
-    "                        </button>\n" +
-    "\n" +
-    "                        <ul class=\"dropdown-menu\">\n" +
-    "                            <li ng-repeat=\"sport in sports.list\">\n" +
-    "                                <a href=\"javascript:;\" ng-click=\"sports.selected = sport\">\n" +
-    "                                    {{ sport.name }}\n" +
-    "                                </a>\n" +
-    "                            </li>\n" +
-    "                        </ul>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Select a movement -->\n" +
-    "    <!-- <div class=\"row\" ng-hide=\"sports.selected == sports.default\"> -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            <div class=\"panel panel-default\">\n" +
-    "                <div class=\"panel-heading\">\n" +
-    "                    2. Select a movement.\n" +
-    "                </div>\n" +
-    "                <div class=\"panel-body\">\n" +
-    "                    <a\n" +
-    "                        href=\"javascript:;\"\n" +
-    "                        class=\"btn btn-primary btn-metro\"\n" +
-    "                        ng-repeat=\"movement in movements.list\"\n" +
-    "                        ng-click=\"movements.selected = movement;\">\n" +
-    "                        <span>{{ movement.name }}</span>\n" +
-    "                    </a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Submit data -->\n" +
-    "    <!-- <div class=\"row\" ng-hide=\"movements.selected == movements.default\"> -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            <div class=\"panel panel-default\">\n" +
-    "                <div class=\"panel-heading\">\n" +
-    "                    3. Submit data.\n" +
-    "                </div>\n" +
-    "                <div class=\"panel-body\">\n" +
-    "\n" +
-    "                    <div class=\"row\">\n" +
-    "\n" +
-    "                        <!-- Summary of data -->\n" +
-    "                        <div class=\"col-md-6\">\n" +
-    "                            <h3>Summary</h3>\n" +
-    "\n" +
-    "                            <!-- Name -->\n" +
-    "                            <div class=\"row\">\n" +
-    "                                <div class=\"col-sm-4 text-right\">\n" +
-    "                                    Athlete\n" +
-    "                                </div>\n" +
-    "                                <div class=\"col-sm-8\">\n" +
-    "                                    <b>{{data.member.selected.first_name}} {{data.member.selected.last_name}}</b>\n" +
-    "                                </div>\n" +
-    "                            </div>\n" +
-    "\n" +
-    "                            <!-- Sport -->\n" +
-    "                            <div class=\"row\">\n" +
-    "                                <div class=\"col-sm-4 text-right\">\n" +
-    "                                    Sport\n" +
-    "                                </div>\n" +
-    "                                <div class=\"col-sm-8\">\n" +
-    "                                    <b>{{sports.selected.name}}</b>\n" +
-    "                                </div>\n" +
-    "                            </div>\n" +
-    "\n" +
-    "                            <!-- Movement -->\n" +
-    "                            <div class=\"row\">\n" +
-    "                                <div class=\"col-sm-4 text-right\">\n" +
-    "                                    Movement\n" +
-    "                                </div>\n" +
-    "                                <div class=\"col-sm-8\">\n" +
-    "                                    <b>{{ movements.selected.name }}</b>\n" +
-    "                                </div>\n" +
-    "                            </div>\n" +
-    "\n" +
-    "                            <!-- Suit -->\n" +
-    "                            <div class=\"row\">\n" +
-    "                                <div class=\"col-sm-4 text-right\">\n" +
-    "                                    Suit No.\n" +
-    "                                </div>\n" +
-    "                                <div class=\"col-sm-8\">\n" +
-    "                                    <b></b>\n" +
-    "                                </div>\n" +
-    "                            </div>\n" +
-    "\n" +
-    "                            <!-- Date -->\n" +
-    "                            <div class=\"row\">\n" +
-    "                                <div class=\"col-sm-4 text-right\">\n" +
-    "                                    Date\n" +
-    "                                </div>\n" +
-    "                                <div class=\"col-sm-8\">\n" +
-    "                                    <b></b>\n" +
-    "                                </div>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "\n" +
-    "                        <!-- Form -->\n" +
-    "                        <div class=\"col-md-6\">\n" +
-    "                            <form accept-charset=\"UTF-8\">\n" +
-    "\n" +
-    "                                <!-- Upload button -->\n" +
-    "                                <div class=\"row\">\n" +
-    "                                    <div class=\"col-md-3\">\n" +
-    "                                        <input\n" +
-    "                                            type=\"button\"\n" +
-    "                                            ng-click=\"Rover.alert('Demo')\"\n" +
-    "                                            class=\"btn btn-default\"\n" +
-    "                                            value=\"Select a file\">\n" +
-    "                                    </div>\n" +
-    "                                    <div class=\"col-md-9\">\n" +
-    "                                        (none selected)\n" +
-    "                                    </div>\n" +
-    "                                </div>\n" +
-    "\n" +
-    "                                <br>\n" +
-    "\n" +
-    "                                <!-- Comments -->\n" +
-    "                                <div class=\"row\">\n" +
-    "                                    <div class=\"col-sm-12\">\n" +
-    "                                        <textarea class=\"form-control\" placeholder=\"Comments\"></textarea>\n" +
-    "                                    </div>\n" +
-    "                                </div>\n" +
-    "\n" +
-    "                                <br>\n" +
-    "\n" +
-    "                                <!-- Submit -->\n" +
-    "                                <div class=\"row\">\n" +
-    "                                    <div class=\"col-sm-12 text-center\">\n" +
-    "                                        <input\n" +
-    "                                            type=\"submit\"\n" +
-    "                                            ng-click=\"Rover.alert('Demo')\"\n" +
-    "                                            class=\"btn btn-primary\"\n" +
-    "                                            value=\"Submit\">\n" +
-    "                                    </div>\n" +
-    "                                </div>\n" +
-    "                            </form>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("analysis/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("analysis/index.html",
-    "<div class=\"page\">\n" +
-    "    <ui-page-title data-title=\"'Analyze'\" data-icon=\"'line-chart'\"></ui-page-title>\n" +
-    "\n" +
-    "    <h2 style=\"text-align: center; color: #ccc;\">\n" +
-    "        In Development\n" +
-    "    </h2>\n" +
-    "</div>\n" +
-    "");
-}]);
-
 angular.module("capture/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("capture/index.html",
     "<div class=\"page\">\n" +
-    "    <ui-page-title data-title=\"'Capture'\" data-icon=\"'video-camera'\"></ui-page-title>\n" +
-    "\n" +
-    "    <h2 style=\"text-align: center; color: #ccc;\">\n" +
-    "        In Development\n" +
-    "    </h2>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("comparison/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("comparison/index.html",
-    "<div class=\"page\">\n" +
-    "    <ui-page-title data-title=\"'Compare'\"></ui-page-title>\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Record <i class=\"fa fa-video-camera\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <h2 style=\"text-align: center; color: #ccc;\">\n" +
     "        In Development\n" +
@@ -1518,6 +1327,969 @@ angular.module("directive-partials/ui-taggable-input.html", []).run(["$templateC
     "");
 }]);
 
+angular.module("fms-bak/demo/analysis.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/analysis.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<div class=\"page page-dashboard movement-pages\">\n" +
+    "	<div>\n" +
+    "\n" +
+    "        <!-- Breadcrumbs -->\n" +
+    "        <div ng-include src=\"'fms-bak/live/partials/breadcrumbs.html'\"></div>\n" +
+    "\n" +
+    "        <!-- Selected side -->\n" +
+    "		<div\n" +
+    "            ng-show=\"fms.current.iterations.length > 0\"\n" +
+    "            ng-include src=\"'fms-bak/live/partials/iterations.html'\">\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Demo videos -->\n" +
+    "        <div ng-include src=\"'fms-bak/demo/partials/analysis-layout-emphasized.html'\"></div>\n" +
+    "\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/index.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<div class=\"page page-dashboard movement-pages\">\n" +
+    "	<div>\n" +
+    "		{{ params }}\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/analysis-coronal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/analysis-coronal.html",
+    "<div class=\"panel-heading text-right\">\n" +
+    "    Front/Coronal\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <video class=\"demo-analysis\" style=\"width: 100%;\">\n" +
+    "        <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        Sorry, your browser doesn't support HTML5 video.\n" +
+    "    </video>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/analysis-layout-emphasized.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/analysis-layout-emphasized.html",
+    "<div class=\"col-sm-12 panel-group panel-layout-emphasized\">\n" +
+    "\n" +
+    "    <!-- Emphasized view -->\n" +
+    "    <div class=\"col-sm-9 no-gutter panel panel-default panel-emphasized\">\n" +
+    "            <div class=\"col-sm-3\">\n" +
+    "                <ng-include src=\"'fms-bak/live/partials/analysis-menu.html'\"></ng-include>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"col-sm-9\">\n" +
+    "                <ng-include src=\"'fms-bak/demo/partials/analysis-'+ fms.views[0] +'.html'\"></ng-include>\n" +
+    "            </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Secondary views -->\n" +
+    "    <div class=\"col-sm-3\">\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/demo/partials/analysis-'+ fms.views[1] +'.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/demo/partials/analysis-'+ fms.views[2] +'.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/analysis-sagittal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/analysis-sagittal.html",
+    "<div class=\"panel-heading text-right\">\n" +
+    "    Side/Sagittal\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <video class=\"demo-analysis\" style=\"margin: 0 20%; width: 60%;\">\n" +
+    "        <source ng-src=\"../../../../demo/aslr/analysis/sagittal.webm\" type=\"video/webm\"/>\n" +
+    "        <source src=\"../../../../demo/aslr/analysis/sagittal.mp4\" type=\"video/mp4\"/>\n" +
+    "        Sorry, your browser doesn't support HTML5 video.\n" +
+    "    </video>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/analysis-transverse.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/analysis-transverse.html",
+    "<div class=\"panel-heading text-right\">\n" +
+    "    Horizontal/Transverse\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <video class=\"demo-analysis\" style=\"width: 100%;\">\n" +
+    "        <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        Sorry, your browser doesn't support HTML5 video.\n" +
+    "    </video>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/summary-content.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/summary-content.html",
+    "<div class=\"panel-body\">\n" +
+    "\n" +
+    "    <!-- Total score -->\n" +
+    "    <div class=\"col-sm-4\"\n" +
+    "         style=\"height: 40px; line-height: 40px; background-color: #89c443; color: #333;\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-9\">Total Score</div>\n" +
+    "        <div class=\"col-sm-3\">3</div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "\n" +
+    "    <!-- Hip results -->\n" +
+    "    <table class=\"table table-striped\" ng-show=\"summary.joints.hip\">\n" +
+    "\n" +
+    "        <!-- Dummy heading -->\n" +
+    "        <thead style=\"background-color: #d1d2d4; font-weight: bold; color: #333;\">\n" +
+    "            <tr>\n" +
+    "                <td>Hip</td>\n" +
+    "                <td class=\"text-center\">Left</td>\n" +
+    "                <td class=\"text-center\">Right</td>\n" +
+    "                <td class=\"text-center\">Difference</td>\n" +
+    "            </tr>\n" +
+    "        </thead>\n" +
+    "\n" +
+    "        <!-- Dummy results -->\n" +
+    "        <tbody style=\"font-weight: normal; color: #333;\">\n" +
+    "            <tr>\n" +
+    "                <td>Flexion/Extension</td>\n" +
+    "                <td class=\"text-center\">92</td>\n" +
+    "                <td class=\"text-center\">110</td>\n" +
+    "                <td class=\"text-center\" style=\"background-color: #ed3941;\">18</td>\n" +
+    "            </tr>\n" +
+    "            <tr>\n" +
+    "                <td>Abduction/Adduction</td>\n" +
+    "                <td class=\"text-center\">19</td>\n" +
+    "                <td class=\"text-center\">20</td>\n" +
+    "                <td class=\"text-center\" style=\"background-color: #89c443;\">1</td>\n" +
+    "            </tr>\n" +
+    "            <tr>\n" +
+    "                <td>Internal/External Rot.</td>\n" +
+    "                <td class=\"text-center\">11</td>\n" +
+    "                <td class=\"text-center\">18</td>\n" +
+    "                <td class=\"text-center\" style=\"background-color: #f48b4a;\">7</td>\n" +
+    "            </tr>\n" +
+    "        </tbody>\n" +
+    "    </table>\n" +
+    "\n" +
+    "    <div\n" +
+    "        ng-show=\"summary.joints.hip\"\n" +
+    "        class=\"col-sm-6 col-sm-offset-3\"\n" +
+    "        style=\"margin-top: 10px; margin-bottom: 60px;\">\n" +
+    "\n" +
+    "        <div class=\"row\">\n" +
+    "            <span class=\"pull-left\">\n" +
+    "                <b>Left</b>\n" +
+    "            </span>\n" +
+    "            <span class=\"pull-right\">\n" +
+    "                <b>Right</b>\n" +
+    "            </span>\n" +
+    "        </div>\n" +
+    "        <div class=\"row linear-heat-gradient\">\n" +
+    "            <div style=\"\n" +
+    "                position: absolute;\n" +
+    "                bottom: -5%;\n" +
+    "                left: 60%;\n" +
+    "                display: block;\n" +
+    "                height: 75%;\n" +
+    "                width: 2px;\n" +
+    "                background-color: #000;\">\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Knee results -->\n" +
+    "    <table class=\"table table-striped\" ng-show=\"summary.joints.knee\">\n" +
+    "\n" +
+    "        <!-- Dummy heading -->\n" +
+    "        <thead style=\"background-color: #d1d2d4; font-weight: bold; color: #333;\">\n" +
+    "            <tr>\n" +
+    "                <td>Knee</td>\n" +
+    "                <td class=\"text-center\">Left</td>\n" +
+    "                <td class=\"text-center\">Right</td>\n" +
+    "                <td class=\"text-center\">Difference</td>\n" +
+    "            </tr>\n" +
+    "        </thead>\n" +
+    "\n" +
+    "        <!-- Dummy results -->\n" +
+    "        <tbody style=\"font-weight: normal; color: #333;\">\n" +
+    "            <tr>\n" +
+    "                <td>Flexion/Extension</td>\n" +
+    "                <td class=\"text-center\">120</td>\n" +
+    "                <td class=\"text-center\">109</td>\n" +
+    "                <td class=\"text-center\" style=\"background-color: #f48b4a;\">11</td>\n" +
+    "            </tr>\n" +
+    "            <tr>\n" +
+    "                <td>Internal/External Rot.</td>\n" +
+    "                <td class=\"text-center\">2</td>\n" +
+    "                <td class=\"text-center\">18</td>\n" +
+    "                <td class=\"text-center\" style=\"background-color: #ed3941;\">16</td>\n" +
+    "            </tr>\n" +
+    "        </tbody>\n" +
+    "    </table>\n" +
+    "\n" +
+    "    <div\n" +
+    "        ng-show=\"summary.joints.knee\"\n" +
+    "        class=\"col-sm-6 col-sm-offset-3\"\n" +
+    "        style=\"margin-top: 10px; margin-bottom: 60px;\">\n" +
+    "        <div class=\"row\">\n" +
+    "            <span class=\"pull-left\">\n" +
+    "                <b>Left</b>\n" +
+    "            </span>\n" +
+    "            <span class=\"pull-right\">\n" +
+    "                <b>Right</b>\n" +
+    "            </span>\n" +
+    "        </div>\n" +
+    "        <div class=\"row linear-heat-gradient\">\n" +
+    "            <div style=\"\n" +
+    "                position: absolute;\n" +
+    "                bottom: -5%;\n" +
+    "                left: 52%;\n" +
+    "                display: block;\n" +
+    "                height: 75%;\n" +
+    "                width: 2px;\n" +
+    "                background-color: #000;\">\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/summary-layout.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/summary-layout.html",
+    "<div class=\"col-sm-12 panel-group\">\n" +
+    "\n" +
+    "    <div class=\"col-sm-9 no-gutter panel panel-default\" style=\"padding-left: 0px; height: 700px;\">\n" +
+    "            <div class=\"col-sm-3\" style=\"height: 700px;\">\n" +
+    "                <ng-include src=\"'fms-bak/demo/partials/summary-menu.html'\"></ng-include>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Demo summary content -->\n" +
+    "            <div class=\"col-sm-9\" style=\"height: 700px;\">\n" +
+    "                <ng-include src=\"'fms-bak/demo/partials/summary-content.html'\"></ng-include>\n" +
+    "            </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"col-sm-3\">\n" +
+    "\n" +
+    "        <!-- Movement overview -->\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/demo/partials/summary-movement-overview.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Overall score -->\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/demo/partials/summary-overall-scores.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Legend -->\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/live/partials/summary-legend.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/summary-menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/summary-menu.html",
+    "<div class=\"movement-left-column non-test-pages\" style=\"height: 100%\">\n" +
+    "\n" +
+    "    <!-- Select trial -->\n" +
+    "    <div\n" +
+    "        ng-hide=\"analysis.playbackRatePane || analysis.planePane\"\n" +
+    "        ng-click=\"analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"padding:0;\">\n" +
+    "        <div class=\"col-sm-8\" style=\"height:56px;\">\n" +
+    "            {{ fms.current.trial.name }}\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <i ng-show=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
+    "            <i ng-hide=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-if=\"analysis.trialPane\"\n" +
+    "        ng-repeat=\"trial in fms.current.trials\"\n" +
+    "        ng-click=\"fms.current.trial = trial; analysis.trialPane = false;\"\n" +
+    "        class=\"row hierarchy-2\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            {{trial.name}}\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" ng-click=\"joint.selected = !joint.selected\">\n" +
+    "            <i ng-show=\"fms.current.trial == trial\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Select all joints -->\n" +
+    "    <div\n" +
+    "        ng-click=\"summary.joints.select('all');\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"padding:0;\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\" style=\"height: 56px; color: #333;\">\n" +
+    "            Select All\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <div ng-hide=\"summary.joints.all\" class=\"checkbox\"></div>\n" +
+    "            <div ng-show=\"summary.joints.all\" class=\"checked checkbox\"></div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Select Hip -->\n" +
+    "    <div\n" +
+    "        ng-click=\"summary.joints.select('hip');\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"padding:0;\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\" style=\"height: 56px; color: #333;\">\n" +
+    "            Hip\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <div ng-hide=\"summary.joints.hip\" class=\"checkbox\"></div>\n" +
+    "            <div ng-show=\"summary.joints.hip\" class=\"checked checkbox\"></div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Select Knee -->\n" +
+    "    <div\n" +
+    "        ng-click=\"summary.joints.select('knee');\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"padding:0;\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\" style=\"height: 56px; color: #333;\">\n" +
+    "            Knee\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <div ng-hide=\"summary.joints.knee\" class=\"checkbox\"></div>\n" +
+    "            <div ng-show=\"summary.joints.knee\" class=\"checked checkbox\"></div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/summary-movement-overview.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/summary-movement-overview.html",
+    "<div class=\"panel-heading text-center\">\n" +
+    "    Movement Overview\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <div>\n" +
+    "        <div class=\"text-left col-sm-12\">\n" +
+    "            <h2 style=\"margin:0\";>\n" +
+    "                <b style=\"font-size:40%\">Left</b>\n" +
+    "            </h2>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"panel-body col-sm-12\">\n" +
+    "        <img\n" +
+    "            ng-src=\"{{ '../../../../demo/aslr/summary/heat_map_left.png' }}\"\n" +
+    "            style=\"height:100%;display:block;margin:auto;\">\n" +
+    "    </div>\n" +
+    "    <div>\n" +
+    "        <div class=\"text-left col-sm-12\">\n" +
+    "            <h2 style=\"margin:0\">\n" +
+    "                <b style=\"font-size:40%\">Right</b>\n" +
+    "            </h2>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"panel-body col-sm-12\">\n" +
+    "        <img\n" +
+    "            ng-src=\"{{ '../../../../demo/aslr/summary/heat_map_left.png' }}\"\n" +
+    "            style=\"height:100%;display:block;margin:auto;\">\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/summary-overall-scores.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/summary-overall-scores.html",
+    "<div class=\"panel-heading text-center\">\n" +
+    "    Overall Score\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body text-left\">\n" +
+    "\n" +
+    "    <!-- Total score -->\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-sm-12\">\n" +
+    "            Total Test Score\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <br>\n" +
+    "\n" +
+    "    <div class=\"row \">\n" +
+    "        <div class=\"col-sm-12 no-gutter\">\n" +
+    "            <div class=\"col-sm-1\" style=\"background-color: #f48b4a\">&nbsp;</div>\n" +
+    "            <div class=\"col-sm-1\" style=\"background-color: #ed3941\">&nbsp;</div>\n" +
+    "            <div class=\"col-sm-2\" style=\"background-color: #89c443\">&nbsp;</div>\n" +
+    "            <div class=\"col-sm-1\" style=\"background-color: #ed3941\">&nbsp;</div>\n" +
+    "            <div class=\"col-sm-2\" style=\"background-color: #89c443\">&nbsp;</div>\n" +
+    "            <div class=\"col-sm-4 text-center\" style=\"background-color: black; color: white\">15/21</div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <br>\n" +
+    "\n" +
+    "    <!-- Movement Efficiency -->\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-sm-12 text-left\">\n" +
+    "            Movement Efficiency\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <br>\n" +
+    "\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-sm-12\">\n" +
+    "            <div style=\"position: relative; margin: 0 auto; height: 120px; width: 120px;\">\n" +
+    "                <div class=\"c100 p71 green\">\n" +
+    "                    <span>71%</span>\n" +
+    "                    <div class=\"slice\">\n" +
+    "                        <div class=\"bar\"></div>\n" +
+    "                        <div class=\"fill\"></div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/test-coronal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/test-coronal.html",
+    "<div class=\"panel-heading text-right\">\n" +
+    "    Front/Coronal\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <video class=\"demo-test\" style=\"width: 100%;\">\n" +
+    "        <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        Sorry, your browser doesn't support HTML5 video.\n" +
+    "    </video>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/test-layout-emphasized.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/test-layout-emphasized.html",
+    "<div class=\"col-sm-12 panel-group panel-layout-emphasized\">\n" +
+    "\n" +
+    "    <!-- Emphasized view -->\n" +
+    "    <div class=\"col-sm-9 no-gutter panel panel-default panel-emphasized\">\n" +
+    "            <div class=\"col-sm-3\">\n" +
+    "                <ng-include src=\"'fms-bak/live/partials/test-menu.html'\"></ng-include>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"col-sm-9\">\n" +
+    "                <ng-include src=\"'fms-bak/demo/partials/test-'+ fms.views[0] +'.html'\"></ng-include>\n" +
+    "            </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Secondary views -->\n" +
+    "    <div class=\"col-sm-3\">\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/demo/partials/test-'+ fms.views[1] +'.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-12 panel panel-default\">\n" +
+    "            <ng-include src=\"'fms-bak/demo/partials/test-'+ fms.views[2] +'.html'\"></ng-include>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/test-sagittal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/test-sagittal.html",
+    "<div class=\"panel-heading text-right\">\n" +
+    "    Side/Sagittal\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <video class=\"demo-test\" style=\"margin: 0 20%; width: 60%;\">\n" +
+    "        <!-- <source ng-src=\"{{ '../../../../demo/aslr/analysis/sagittal.webm?1' }}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{ '../../../../demo/aslr/analysis/sagittal.mp4?1' }}\" type=\"video/mp4\"/>\n" +
+    "        <source ng-src=\"{{'../../../../demo/aslr/analysis/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'../../../../demo/aslr/analysis/sagittal.mp4'}}\" type=\"video/mp4\"/> -->\n" +
+    "        <source ng-src=\"{{'../../../../demo/aslr/left/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'../../../../demo/aslr/left/sagittal.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        Sorry, your browser doesn't support HTML5 video.\n" +
+    "    </video>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/partials/test-transverse.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/partials/test-transverse.html",
+    "<div class=\"panel-heading text-right\">\n" +
+    "    Horizontal/Transverse\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"panel-body\">\n" +
+    "    <video class=\"demo-test\" style=\"width: 100%;\">\n" +
+    "        <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
+    "        <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
+    "        Sorry, your browser doesn't support HTML5 video.\n" +
+    "    </video>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/summary.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/summary.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<div class=\"page page-dashboard movement-pages\">\n" +
+    "	<div>\n" +
+    "\n" +
+    "        <!-- Breadcrumbs -->\n" +
+    "        <div ng-include src=\"'fms-bak/live/partials/breadcrumbs.html'\"></div>\n" +
+    "\n" +
+    "        <!-- Demo summary -->\n" +
+    "        <div ng-include src=\"'fms-bak/demo/partials/summary-layout.html'\"></div>\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/demo/test.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/demo/test.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<div class=\"page page-dashboard movement-pages\">\n" +
+    "	<div>\n" +
+    "\n" +
+    "        <!-- Breadcrumbs -->\n" +
+    "        <ng-include src=\"'fms-bak/live/partials/breadcrumbs.html'\"></ng-include>\n" +
+    "\n" +
+    "        <!-- Selected side -->\n" +
+    "		<ng-include\n" +
+    "            ng-show=\"fms.current.iterations.length > 0\"\n" +
+    "            src=\"'fms-bak/live/partials/iterations.html'\">\n" +
+    "        </ng-include>\n" +
+    "\n" +
+    "        <!-- Test run summary -->\n" +
+    "        <div class=\"row\">\n" +
+    "            <div\n" +
+    "                class=\"col-sm-12 text-center\"\n" +
+    "                style=\"margin: 10px auto 20px; font-weight: normal; color: #aaa;\">\n" +
+    "                Current test run: <b>{{ fms.current.trial.name }}</b> / <b>{{ fms.current.iteration }}</b>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Demo videos -->\n" +
+    "        <ng-include src=\"'fms-bak/demo/partials/test-layout-emphasized.html'\"></ng-include>\n" +
+    "\n" +
+    "        <!-- Trials -->\n" +
+    "        <ng-include src=\"'fms-bak/live/partials/test-trials.html'\"></ng-include>\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/analysis.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/analysis.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<!-- Temporary placeholder -->\n" +
+    "<ng-include src=\"'placeholder.html'\"></ng-include>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/index.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<!-- Temporary placeholder -->\n" +
+    "<ng-include src=\"'placeholder.html' + assetVersion\"></ng-include>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/analysis-menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/analysis-menu.html",
+    "<div class=\"movement-left-column non-test-pages\">\n" +
+    "\n" +
+    "    <!-- Select trial -->\n" +
+    "    <div\n" +
+    "        ng-hide=\"analysis.playbackRatePane || analysis.planePane\"\n" +
+    "        ng-click=\"analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"padding:0;\">\n" +
+    "        <div class=\"col-sm-8\" style=\"height:56px;\">\n" +
+    "            {{ fms.current.trial.name }}\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <i ng-show=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
+    "            <i ng-hide=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-if=\"analysis.trialPane\"\n" +
+    "        ng-repeat=\"trial in fms.current.trials\"\n" +
+    "        ng-click=\"fms.current.trial = trial; analysis.trialPane = false;\"\n" +
+    "        class=\"row hierarchy-2\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            {{trial.name}}\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" ng-click=\"joint.selected = !joint.selected\">\n" +
+    "            <i ng-show=\"fms.current.trial == trial\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Select plane -->\n" +
+    "    <div\n" +
+    "        ng-hide=\"analysis.playbackRatePane || analysis.trialPane\"\n" +
+    "        ng-click=\"Rover.alert('Demo')\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"height:56px;margin:0;line-height:56px;\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            Plane\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <i style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\"/>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Select playback rate -->\n" +
+    "    <div\n" +
+    "        ng-click=\"analysis.playbackRatePane = !analysis.playbackRatePane; analysis.trialPane = false\"\n" +
+    "        ng-hide=\"analysis.trialPane || analysis.planePane\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"height:56px;margin:0;line-height:56px;\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            Speed ({{ analysis.playbackRate }}x)\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <i ng-hide=\"analysis.playbackRatePane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
+    "            <i ng-show=\"analysis.playbackRatePane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-if=\"analysis.playbackRatePane\"\n" +
+    "        ng-repeat=\"playbackRate in [0.5, 1, 5, 25]\"\n" +
+    "        ng-click=\"analysis.setPlaybackRate(playbackRate); analysis.playbackRatePane = false;\"\n" +
+    "        class=\"row hierarchy-2\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            {{ playbackRate }}x\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"col-sm-4\">\n" +
+    "            <i ng-if=\"analysis.playbackRate == playbackRate\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Show angles -->\n" +
+    "    <div ng-click=\"Rover.alert('Demo')\" class=\"row\" style=\"height:56px;margin:0;line-height:56px;\">\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            Angles\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <i style=\"line-height:inherit;\" class=\"fa fa-2x fa-check-square-o\"/>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Playback controls -->\n" +
+    "    <div class=\"video-controls\">\n" +
+    "        <i ng-click=\"analysis.play()\" class=\"fa fa-2x fa-play\" style=\"margin-right:5px;\"/>\n" +
+    "        <i ng-click=\"Rover.alert('Demo')\" class=\"fa fa-2x fa-forward\" style=\"margin-right:5px;\"/>\n" +
+    "        <i ng-click=\"analysis.pause()\" class=\"fa fa-2x fa-pause\" style=\"margin-right:5px;\" />\n" +
+    "        <i ng-click=\"analysis.reset()\" class=\"fa fa-2x fa-undo fa-flip-vertical\" />\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/breadcrumbs.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/breadcrumbs.html",
+    "<ol class=\"breadcrumb-movement\">\n" +
+    "\n" +
+    "    <!-- Movement title -->\n" +
+    "    <li>\n" +
+    "        <div>\n" +
+    "            <a>{{ fms.current.name }}</a>\n" +
+    "        </div>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <!-- Movement tabs -->\n" +
+    "    <li\n" +
+    "        ng-click=\"global.browseTo.path('/fms/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/test')\"\n" +
+    "        ng-class=\"{'active': params.step == 'test'}\">\n" +
+    "\n" +
+    "        <a>Test</a>\n" +
+    "    </li>\n" +
+    "    <li\n" +
+    "        ng-click=\"global.browseTo.path('/fms/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/analysis')\"\n" +
+    "        ng-class=\"{'active': params.step == 'analysis'}\">\n" +
+    "        <a>Analysis</a>\n" +
+    "    </li>\n" +
+    "    <li\n" +
+    "        ng-click=\"global.browseTo.path('/fms/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/summary')\"\n" +
+    "        ng-class=\"{'active': params.step == 'summary'}\">\n" +
+    "\n" +
+    "        <a>Summary</a>\n" +
+    "    </li>\n" +
+    "</ol>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/header.html",
+    "<header class=\"page-main-header\">\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-sm-6\">\n" +
+    "            <h4>Functional Movement Screening</h4>\n" +
+    "            <p>Start your tests</p>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</header>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/iterations.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/iterations.html",
+    "<ol class=\"breadcrumb-movement-sm\">\n" +
+    "    <li\n" +
+    "        ng-click=\"fms.current.iteration = iteration\"\n" +
+    "        ng-class=\"{'active': iteration == fms.current.iteration}\"\n" +
+    "        ng-repeat=\"iteration in fms.current.iterations\">\n" +
+    "        \n" +
+    "        <a>\n" +
+    "            {{ iteration }}\n" +
+    "        </a>\n" +
+    "    </li>\n" +
+    "</ol>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/summary-legend.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/summary-legend.html",
+    "<div class=\"panel-heading text-center\">\n" +
+    "    Thresholds\n" +
+    "    <br>\n" +
+    "    <small style=\"font-size: 0.8em; color: #aaa; text-transform: none;\">\n" +
+    "        (in degrees)\n" +
+    "    </small>\n" +
+    "</div>\n" +
+    "<div class=\"panel-body\">\n" +
+    "\n" +
+    "    <div class=\"row no-gutter\" style=\"margin:0; height:32px; color:#89c443;\">\n" +
+    "        <div class=\"col-sm-3\">\n" +
+    "            <b>0-5&deg;</b>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-9\">\n" +
+    "            <b>Within reasonable movement standards</b>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"row no-gutter\" style=\"margin:0;height:32px;color:#f48b4a;\">\n" +
+    "        <div class=\"col-sm-3\">\n" +
+    "            <b>5-15&deg;</b>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-9\">\n" +
+    "            <b>Area of concern</b>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"row no-gutter\" style=\"margin:0;height:32px;color:#ed3941;\">\n" +
+    "        <div class=\"col-sm-3\">\n" +
+    "            <b>15&deg;+</b>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-9\">\n" +
+    "            <b>Area to address</b>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/summary-menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/summary-menu.html",
+    "<div class=\"movement-left-column non-test-pages\" style=\"height: 100%\">\n" +
+    "\n" +
+    "    <!-- Select trial -->\n" +
+    "    <div\n" +
+    "        ng-hide=\"analysis.playbackRatePane || analysis.planePane\"\n" +
+    "        ng-click=\"analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;\"\n" +
+    "        class=\"row\"\n" +
+    "        style=\"padding:0;\">\n" +
+    "        <div class=\"col-sm-8\" style=\"height:56px;\">\n" +
+    "            {{ fms.current.trial.name }}\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
+    "            <i ng-show=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
+    "            <i ng-hide=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-if=\"analysis.trialPane\"\n" +
+    "        ng-repeat=\"trial in fms.current.trials\"\n" +
+    "        ng-click=\"fms.current.trial = trial; analysis.trialPane = false;\"\n" +
+    "        class=\"row hierarchy-2\">\n" +
+    "\n" +
+    "        <div class=\"col-sm-8\">\n" +
+    "            {{trial.name}}\n" +
+    "        </div>\n" +
+    "        <div class=\"col-sm-4\" ng-click=\"joint.selected = !joint.selected\">\n" +
+    "            <i ng-show=\"fms.current.trial == trial\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/test-menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/test-menu.html",
+    "<div class=\"movement-left-column test-page\">\n" +
+    "    <div\n" +
+    "        ng-click=\"run.start()\"\n" +
+    "        ng-show=\"isTestLive == false && !run.exists()\"\n" +
+    "        style=\"background-color: #89c443; color: #fff;\">\n" +
+    "        Start\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-click=\"run.end()\"\n" +
+    "        ng-show=\"isTestLive == true\"\n" +
+    "        style=\"background-color: #ed3941; color: #fff;\">\n" +
+    "        Stop\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-click=\"run.pain()\"\n" +
+    "        ng-show=\"isTestLive == true\"\n" +
+    "        style=\"background-color: #f48b4a; color: #fff;\">\n" +
+    "        Pain\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-click=\"run.fault()\"\n" +
+    "        ng-show=\"isTestLive == true\"\n" +
+    "        style=\"background-color: #f48b4a; color: #fff;\">\n" +
+    "        Fault\n" +
+    "    </div>\n" +
+    "    <div\n" +
+    "        ng-click=\"run.reset()\"\n" +
+    "        ng-show=\"isTestLive == false && run.exists()\"\n" +
+    "        style=\"color:#f48b4a;\">\n" +
+    "        Rerun the test\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/partials/test-trials.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/partials/test-trials.html",
+    "<div class=\"row\">\n" +
+    "	<div class=\"col-sm-4\">\n" +
+    "		<div class=\"panel panel-default\">\n" +
+    "			<div class=\"panel-body\" style=\"padding:0px;\">\n" +
+    "				<div class=\"col-sm-12 ng-scope movement-trial-list\" style=\"padding:0px;\">\n" +
+    "					<div\n" +
+    "                        ng-repeat=\"trial in fms.current.trials\"\n" +
+    "                        ng-click=\"fms.current.trial = trial;run.name = null\"\n" +
+    "                        ng-class=\"{'active': trial == fms.current.trial}\">\n" +
+    "\n" +
+    "						<div class=\"trial-label\">\n" +
+    "							{{ trial.name }}\n" +
+    "                            <span\n" +
+    "                                ng-show=\"run.getRunByTrial(trial) && run.getRunByTrial(trial).numFaults > 0\"\n" +
+    "                                style=\"font-size:.7em;color:#999;font-weight:normal;margin-left: 5px;position:absolute;\">\n" +
+    "\n" +
+    "                                Faults: {{ run.getRunByTrial(trial).numFaults }}\n" +
+    "                            </span>\n" +
+    "						</div>\n" +
+    "\n" +
+    "						<div class=\"trial-status\">\n" +
+    "\n" +
+    "                            <!-- Status text -->\n" +
+    "							<div class=\"col-sm-8\">\n" +
+    "								<div ng-if=\"run.getStatus(trial) == 'saved' && run.getRunByTrial(trial).numFaults == 0\">\n" +
+    "								    No Fault\n" +
+    "								</div>\n" +
+    "								<div ng-if=\"run.getStatus(trial) == 'saved' && run.getRunByTrial(trial).numFaults > 0\">\n" +
+    "								    Faults: {{ run.getRunByTrial(trial).numFaults }}\n" +
+    "								</div>\n" +
+    "								<div ng-if=\"run.getStatus(trial) == 'pain'\">\n" +
+    "                                    Pain\n" +
+    "                                </div>\n" +
+    "							</div>\n" +
+    "\n" +
+    "							<div class=\"col-sm-4\">\n" +
+    "								<img ng-if=\"run.getStatus(trial) == 'live'\" class=\"pull-right\" src=\"../../images/ui/lock_open.png\" alt=\"unsaved\" style=\"height:40px;margin-top:5px;\" />\n" +
+    "								<img ng-if=\"run.getStatus(trial) == 'saved' || run.getStatus(trial) =='pain'\" class=\"pull-right\" src=\"../../images/ui/lock_closed.png\" alt=\"saved\" style=\"height:40px;margin-top:5px;\" />\n" +
+    "							</div>\n" +
+    "						</div>\n" +
+    "					</div>\n" +
+    "					<div ng-click=\"run.submit()\" ng-hide=\"fms.current.isTestSubmitted\" class=\"movement-submit-button\">\n" +
+    "						Submit Results\n" +
+    "					</div>\n" +
+    "					<div ng-show=\"fms.current.isTestSubmitted\" class=\"movement-submit-button\">\n" +
+    "						Results Successfully Submitted\n" +
+    "					</div>\n" +
+    "				</div>\n" +
+    "			</div>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/summary.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/summary.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<!-- Temporary placeholder -->\n" +
+    "<ng-include src=\"'placeholder.html'\"></ng-include>\n" +
+    "");
+}]);
+
+angular.module("fms-bak/live/test.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("fms-bak/live/test.html",
+    "<!-- Header -->\n" +
+    "<div ng-include src=\"'fms-bak/live/partials/header.html'\"></div>\n" +
+    "\n" +
+    "<!-- Temporary placeholder -->\n" +
+    "<ng-include src=\"'placeholder.html'\"></ng-include>\n" +
+    "");
+}]);
+
 angular.module("group/create.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("group/create.html",
     "<div class=\"page page-dashboard\">\n" +
@@ -1624,6 +2396,13 @@ angular.module("group/edit.html", []).run(["$templateCache", function($templateC
 angular.module("group/list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("group/list.html",
     "<div class=\"page page-dashboard\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Teams\n" +
+    "            <i class=\"fa fa-users\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-sm-12\">\n" +
@@ -1637,47 +2416,25 @@ angular.module("group/list.html", []).run(["$templateCache", function($templateC
     "            <div class=\"col-sm-6\">\n" +
     "                <div class=\"btn-group pull-right\">\n" +
     "                    <button\n" +
-    "                        ng-click=\"Rover.browseTo.path('group/create')\"\n" +
+    "                        ng-click=\"global.browseTo.path('group/create')\"\n" +
     "                        class=\"btn btn-default\">Add a Team</button>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
     "\n" +
-    "    <!-- List of groups -->\n" +
-    "    <div class=\"panel panel-default\">\n" +
-    "        <div class=\"panel-heading\">\n" +
-    "            Teams (total: {{ global.state.group.list.length }})\n" +
-    "        </div>\n" +
+    "    <a\n" +
+    "        ng-repeat=\"group in global.state.group.list\"\n" +
+    "        ng-show=\"group.id\"\n" +
+    "        ng-click=\"global.browseTo.group(group)\"\n" +
+    "        href=\"javascript:;\"\n" +
+    "        class=\"btn btn-primary btn-metro\"\n" +
+    "        style=\"background-image: url({{ group.avatarSrc || '' }});background-size: cover;\">\n" +
     "\n" +
-    "        <div class=\"panel-body\">\n" +
-    "            <div class=\"row\">\n" +
-    "                <div ng-hide=\"global.state.group.list.length > 0\" class=\"col-sm-12\">\n" +
-    "                    You don't have any teams yet! Create one above to get started.\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"row\">\n" +
-    "                <div class=\"col-sm-12\">\n" +
-    "                    <a\n" +
-    "                        ng-repeat=\"group in global.state.group.list\"\n" +
-    "                        ng-click=\"Rover.browseTo.group(group)\"\n" +
-    "                        href=\"javascript:;\"\n" +
-    "                        class=\"btn btn-primary btn-metro\"\n" +
-    "                        style=\"background-image: url({{ group.avatar_src || '' }});background-size: cover;\">\n" +
-    "\n" +
-    "                        <!-- <object\n" +
-    "                            ng-hide=\"group.avatar_src\"\n" +
-    "                            style=\"pointer-events:none;\"\n" +
-    "                            type=\"image/svg+xml\"\n" +
-    "                            data=\"/images/sports/{{group.sport_id}}.svg\" /> -->\n" +
-    "\n" +
-    "                        <span>{{ group.name }}</span>\n" +
-    "                    </a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "        <span>{{ group.name | characters:15 }}</span>\n" +
+    "    </a>\n" +
     "</div>\n" +
     "");
 }]);
@@ -1778,6 +2535,12 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
   $templateCache.put("group/view.html",
     "<!-- Group summary -->\n" +
     "<div ng-show=\"group.id\" class=\"page\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            {{ group.name }}\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <div class=\"row\">\n" +
     "\n" +
@@ -1792,12 +2555,12 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "\n" +
     "                <!-- Delete group button -->\n" +
     "                <button\n" +
-    "                    ng-show=\"group.id > 0\"\n" +
+    "                    ng-show=\"global.getSelectedGroup().id > 0\"\n" +
     "                    data-toggle=\"modal\"\n" +
     "                    data-target=\"#deleteGroupConfirmation\"\n" +
     "                    class=\"btn btn-danger\">\n" +
     "\n" +
-    "                    Delete <b>{{ group.name }}</b>\n" +
+    "                    Delete <b>{{ global.getSelectedGroup().name }}</b>\n" +
     "                </button>\n" +
     "\n" +
     "                <!-- Delete confirmation -->\n" +
@@ -1806,12 +2569,12 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        <div class=\"modal-content\">\n" +
     "                            <div class=\"modal-body\">\n" +
     "                                <p ng-show=\"global.state.profile.list.length > 0\">\n" +
-    "                                    Are you sure you want to delete <b>{{ group.name }}</b>\n" +
+    "                                    Are you sure you want to delete <b>{{ global.getSelectedGroup().name }}</b>\n" +
     "                                    and the {{ global.state.profile.filtered.length }}\n" +
     "                                    associated athletes?\n" +
     "                                </p>\n" +
     "                                <p ng-show=\"global.state.profile.list.length === 0\">\n" +
-    "                                    Are you sure you want to delete <b>{{ group.name }}</b>?\n" +
+    "                                    Are you sure you want to delete <b>{{ global.getSelectedGroup().name }}</b>?\n" +
     "                                </p>\n" +
     "                            </div>\n" +
     "                            <div class=\"modal-footer text-center\">\n" +
@@ -1819,7 +2582,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                                    Cancel\n" +
     "                                </button>\n" +
     "                                <button ng-click=\"deleteGroup()\" type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\n" +
-    "                                    Yes, delete {{ group.name }}\n" +
+    "                                    Yes, delete {{ global.getSelectedGroup().name }}\n" +
     "                                </button>\n" +
     "                            </div>\n" +
     "                        </div>\n" +
@@ -1828,7 +2591,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "\n" +
     "                <!-- Create profile button -->\n" +
     "                <button\n" +
-    "                    ng-click=\"Rover.browseTo.path('profile/create')\"\n" +
+    "                    ng-click=\"global.browseTo.path('profile/create')\"\n" +
     "                    class=\"btn btn-default\">\n" +
     "\n" +
     "                    Add an athlete\n" +
@@ -1846,7 +2609,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                    <ui-avatar\n" +
     "                        data-upload-endpoint=\"uploadAvatarEndpoint\"\n" +
     "                        data-success-callback=\"uploadAvatarCallback\"\n" +
-    "                        data-src=\"global.state.group.list[global.store.groupId].avatar_src\">\n" +
+    "                        data-src=\"global.state.group.list[global.store.groupId].avatarSrc\">\n" +
     "                    </ui-avatar>\n" +
     "                </div>\n" +
     "    		</div>\n" +
@@ -1882,14 +2645,14 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "        <!-- Profile list -->\n" +
     "        <div class=\"panel panel-default\">\n" +
     "            <div class=\"panel-heading\">\n" +
-    "                Athletes in {{ group.name }}\n" +
+    "                Athletes in {{ global.getSelectedGroup().name }}\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"panel-body\">\n" +
     "                <div class=\"row\">\n" +
     "                    <div class=\"col-sm-12\">\n" +
     "                        <div ng-show=\"global.state.profile.filtered.length === 0\">\n" +
-    "                            The <b>{{ group.name }}</b> do not have any\n" +
+    "                            The <b>{{ global.getSelectedGroup().name }}</b> do not have any\n" +
     "                            members yet. Add one above to get started!\n" +
     "                        </div>\n" +
     "                    </div>\n" +
@@ -1901,10 +2664,10 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                            href=\"javascript:;\"\n" +
     "                            class=\"btn btn-primary btn-metro\"\n" +
     "                            ng-repeat=\"profile in global.state.profile.filtered\"\n" +
-    "                            ng-click=\"Rover.browseTo.profile(profile)\"\n" +
-    "                            style=\"background-image: url({{ profile.avatar_src || '' }});background-size: cover;\">\n" +
+    "                            ng-click=\"global.browseTo.profile(profile)\"\n" +
+    "                            style=\"background-image: url({{ profile.avatarSrc || '' }});background-size: cover;\">\n" +
     "\n" +
-    "                            <div class=\"btn-title\">{{ profile.first_name }}</div>\n" +
+    "                            <div class=\"btn-title\">{{ profile.firstName }}</div>\n" +
     "                        </a>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -1921,8 +2684,8 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                    </div>\n" +
     "\n" +
     "                    <div class=\"panel-body\">\n" +
-    "                        Avatar: {{ group.avatar_src ? 'has avatar' : 'no avatar' }} <br>\n" +
-    "                        Global: {{ group.name }} <br>\n" +
+    "                        Avatar: {{ global.getSelectedGroup().avatarSrc ? 'has avatar' : 'no avatar' }} <br>\n" +
+    "                        Global: {{ global.getSelectedGroup().name }} <br>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -1931,7 +2694,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "</div>\n" +
     "\n" +
     "<!-- No group selected -->\n" +
-    "<div ng-show=\"group.id === 0\" class=\"page\">\n" +
+    "<div ng-show=\"global.getSelectedGroup().id === 0\" class=\"page\">\n" +
     "    <h1 class=\"text-center\">No group selected</h1>\n" +
     "    <br>\n" +
     "\n" +
@@ -1940,7 +2703,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "        <br>\n" +
     "\n" +
     "        You can also take this opportunity to\n" +
-    "        <a ng-click=\"Rover.browseTo.path('group/create')\" href=\"javascript:;\">create one</a>.\n" +
+    "        <a href=\"#/group/create\">create one</a>.\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
@@ -1948,26 +2711,36 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
 
 angular.module("import/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("import/index.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<div class=\"page import-page\">\n" +
-    "    <ui-page-title data-title=\"'Import'\" data-icon=\"'cloud-upload'\"></ui-page-title>\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Upload <i class=\"fa fa-cloud-upload\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "\n" +
+    "        <!-- Append profile name to page title -->\n" +
+    "        <div ng-show=\"global.getSelectedProfile().id > 0\" class=\"h1-append\">\n" +
+    "            for\n" +
+    "            <a ng-click=\"global.store.profileId = 0\" href=\"javascript:;\">\n" +
+    "                {{ global.getSelectedProfile().firstName }}\n" +
+    "                {{ global.getSelectedProfile().lastName }}\n" +
+    "                <i class=\"fa fa-refresh\"></i>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "    </header>\n" +
     "\n" +
     "    <!-- Import page -->\n" +
     "    <div ng-show=\"global.getSelectedProfile().id > 0\">\n" +
-    "        Import movement data for\n" +
-    "        <b>\n" +
-    "            <a ng-click=\"global.store.profileId = 0\" href=\"javascript:;\">\n" +
-    "                {{ global.getSelectedProfile().first_name + ' ' + global.getSelectedProfile().last_name }}\n" +
-    "            </a>\n" +
-    "        </b>\n" +
-    "\n" +
     "        <div class=\"movement-import row\">\n" +
     "\n" +
     "            <!-- Import new movement -->\n" +
-    "            <div ng-show=\"isImporting === false\" class=\"col-xs-12 text-center\">\n" +
+    "            <div ng-show=\"global.data.isImporting === false\" class=\"col-xs-12 text-center\">\n" +
     "                <button\n" +
-    "                    ngf-select=\"import($files)\"\n" +
-    "                    ngf-drop=\"import($files)\"\n" +
-    "                    accept=\"text/plain,text/csv\"\n" +
+    "                    ngf-select=\"startImport($files)\"\n" +
+    "                    ngf-drop=\"startImport($files)\"\n" +
+    "                    accept=\".csv,.txt\"\n" +
     "                    ngf-max-size=\"2MB\"\n" +
     "                    multiple\n" +
     "                    class=\"btn btn-primary btn-circle btn-lg\">\n" +
@@ -1977,14 +2750,70 @@ angular.module("import/index.html", []).run(["$templateCache", function($templat
     "            </div>\n" +
     "\n" +
     "            <!-- Uploading movement file -->\n" +
-    "            <div ng-show=\"isImporting === true\" class=\"col-xs-12 text-center\">\n" +
-    "                <i class=\"fa fa-spinner fa-spin fa-3x\"></i>\n" +
+    "            <div ng-show=\"global.data.isImporting === true\">\n" +
+    "\n" +
+    "                <!-- Import status -->\n" +
+    "                <br>\n" +
+    "                <br>\n" +
+    "                <h3 class=\"text-center\">\n" +
+    "                    {{ global.data.import.status }}\n" +
+    "\n" +
+    "                    <br>\n" +
+    "                    <small ng-show=\"global.data.import.queue.length > 1\">\n" +
+    "                        {{ global.data.import.queue.length }} movement files left.\n" +
+    "                    </small>\n" +
+    "                    <small ng-show=\"global.data.import.queue.length <= 1\">\n" +
+    "                        Almost done...\n" +
+    "                    </small>\n" +
+    "                </h3>\n" +
+    "                <br>\n" +
+    "\n" +
+    "                <!-- Import progress -->\n" +
+    "                <div class=\"col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4\">\n" +
+    "                    <div class=\"progress\">\n" +
+    "                        <div\n" +
+    "                            class=\"progress-bar progress-bar-info progress-bar-striped active\"\n" +
+    "                            role=\"progressbar\"\n" +
+    "                            aria-valuenow=\"{{ global.data.import.progress }}\"\n" +
+    "                            aria-valuemin=\"0\"\n" +
+    "                            aria-valuemax=\"100\"\n" +
+    "                            style=\"min-width: 2em;\"\n" +
+    "                            ng-style=\"{width: global.data.import.progress + '%'}\">\n" +
+    "\n" +
+    "                            {{ global.data.import.progress }}%\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Import actions -->\n" +
+    "                <br>\n" +
+    "                <div class=\"col-xs-12 text-center\">\n" +
+    "                    <div class=\"btn-group\">\n" +
+    "                        <button\n" +
+    "                            ng-disabled=\"global.data.import.imported.length === 0\"\n" +
+    "                            ng-click=\"global.data.import.imported = []\"\n" +
+    "                            type=\"button\"\n" +
+    "                            class=\"btn btn-default\">\n" +
+    "\n" +
+    "                            Clear List\n" +
+    "                        </button>\n" +
+    "\n" +
+    "                        <button\n" +
+    "                            ng-disabled=\"global.data.import.queue.length <= 1\"\n" +
+    "                            ng-click=\"global.data.import.queue = []\"\n" +
+    "                            type=\"button\"\n" +
+    "                            class=\"btn btn-danger\">\n" +
+    "\n" +
+    "                            Stop Import\n" +
+    "                        </button>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div ng-show=\"global.data.importedMovements.length > 0\">\n" +
+    "        <div ng-show=\"global.data.import.imported.length > 0\">\n" +
     "            <!-- List of uploaded movements -->\n" +
-    "            <div ng-repeat=\"file in global.data.importedMovements\" class=\"movement-import row\">\n" +
+    "            <div ng-repeat=\"file in global.data.import.imported\" class=\"movement-import row\">\n" +
     "                <div class=\"col-md-3 col-md-offset-1\">\n" +
     "\n" +
     "                    <!-- Movement title -->\n" +
@@ -2049,14 +2878,20 @@ angular.module("import/index.html", []).run(["$templateCache", function($templat
     "            <!-- Clear button -->\n" +
     "            <div class=\"movement-import row\">\n" +
     "                <div class=\"col-sm-12 text-center\">\n" +
-    "                    <button type=\"button\" class=\"btn btn-primary\">Done</button>\n" +
+    "                    <button\n" +
+    "                        ng-click=\"global.data.import.imported = []\"\n" +
+    "                        type=\"button\"\n" +
+    "                        class=\"btn btn-default\">\n" +
+    "\n" +
+    "                        Clear List\n" +
+    "                    </button>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- No recently uploaded movement -->\n" +
     "        <div\n" +
-    "            ng-show=\"global.data.importedMovements.length === 0 && isImporting === false\"\n" +
+    "            ng-show=\"global.data.import.imported.length === 0 && global.data.isImporting === false\"\n" +
     "            class=\"col-md-6 col-md-offset-3 text-center\">\n" +
     "\n" +
     "            <h3>There are no movements to display.</h3>\n" +
@@ -2083,7 +2918,7 @@ angular.module("import/index.html", []).run(["$templateCache", function($templat
     "            <br>\n" +
     "\n" +
     "            You can also take this opportunity to\n" +
-    "            <a href=\"#profile/create\">create one</a>.\n" +
+    "            <a href=\"#/profile/create\">create one</a>.\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
@@ -2105,112 +2940,410 @@ angular.module("movement-editor/index.html", []).run(["$templateCache", function
     "");
 }]);
 
-angular.module("movements/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("movements/index.html",
+angular.module("movements/analysis/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("movements/analysis/index.html",
+    "<div class=\"page\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Analyze <i class=\"fa fa-line-chart\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
+    "\n" +
+    "    <h2 style=\"text-align: center; color: #ccc;\">\n" +
+    "        In Development\n" +
+    "    </h2>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("movements/comparison/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("movements/comparison/index.html",
+    "<div class=\"page\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Compare\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
+    "\n" +
+    "    <h2 style=\"text-align: center; color: #ccc;\">\n" +
+    "        In Development\n" +
+    "    </h2>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("movements/explorer/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("movements/explorer/index.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<div class=\"page movements-page\">\n" +
-    "    <ui-page-title data-title=\"'Organize'\" data-icon=\"'th'\"></ui-page-title>\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Organize\n" +
+    "            <i class=\"fa fa-th\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
     "\n" +
-    "    <!-- List of movements -->\n" +
-    "    <div ng-show=\"!global.data.isFetchingMovements && global.data.movement.list.length > 0\" class=\"row\">\n" +
-    "        <div class=\"col-sm-10 col-sm-offset-1\">\n" +
-    "            <div ng-repeat=\"movement in global.data.movement.list\" class=\"col-sm-6 col-md-4 col-lg-3\">\n" +
-    "                <div class=\"aspect-ratio aspect-4-3 active-element text-center\">\n" +
-    "                    <div>\n" +
+    "        <div class=\"btn-toolbar pull-right\" role=\"toolbar\">\n" +
     "\n" +
-    "                        <!-- Movement preview -->\n" +
-    "                        <ui-movement-preview data-aspect-ratio=\"4:3\"></ui-movement-preview>\n" +
+    "            <!-- Create new folder -->\n" +
+    "            <div class=\"btn-group\">\n" +
+    "                <button ng-show=\"rootProfile\" type=\"button\" class=\"btn btn-default\">\n" +
+    "                    <i class=\"fa fa-plus\"></i> New Folder\n" +
+    "                </button>\n" +
+    "            </div>\n" +
     "\n" +
-    "                        <div class=\"tools text-left\">\n" +
+    "            <!-- Sorting -->\n" +
+    "            <div class=\"btn-group\">\n" +
+    "                <div class=\"dropdown\">\n" +
+    "                    <button\n" +
+    "                        class=\"btn btn-default dropdown-toggle\"\n" +
+    "                        type=\"button\"\n" +
+    "                        id=\"sortMenu\"\n" +
+    "                        data-toggle=\"dropdown\"\n" +
+    "                        aria-haspopup=\"true\"\n" +
+    "                        aria-expanded=\"false\">\n" +
     "\n" +
-    "                            <!-- Movement date -->\n" +
-    "                            <span style=\"color: #aaa\">\n" +
-    "                                {{ movement.createdAt | mysqlDate : 'MMMM d, h:mma' }}\n" +
-    "                            </span>\n" +
-    "                            <br>\n" +
+    "                        Sort <span class=\"caret\"></span>\n" +
+    "                    </button>\n" +
     "\n" +
-    "                            <!-- Movement title -->\n" +
-    "                            <span style=\"color: #999\">\n" +
-    "                                {{ movement.title }}\n" +
-    "                            </span>\n" +
+    "                    <ul class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"sortMenu\">\n" +
+    "                        <li>\n" +
+    "                            <a href=\"#\">\n" +
+    "                                Alphabetically\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                        <li>\n" +
+    "                            <a href=\"#\">\n" +
+    "                                By Date\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
     "\n" +
-    "                            <!-- Movement actions -->\n" +
-    "                            <div class=\"pull-right\">\n" +
-    "                                <div class=\"btn-group hidden-tools\">\n" +
-    "                                    <button\n" +
-    "                                        type=\"button\"\n" +
-    "                                        class=\"btn btn-default dropdown-toggle\"\n" +
-    "                                        data-toggle=\"dropdown\"\n" +
-    "                                        aria-haspopup=\"true\"\n" +
-    "                                        aria-expanded=\"false\">\n" +
-    "                                        <i class=\"caret\"></i>\n" +
-    "                                    </button>\n" +
+    "            <!-- Layout selector -->\n" +
+    "            <div class=\"btn-group\" role=\"group\">\n" +
+    "                <button\n" +
+    "                    ng-repeat=\"btn in layout.list\"\n" +
+    "                    ng-click=\"layout.name = btn.name\"\n" +
+    "                    ng-class=\"{'btn-primary': btn.name == layout.name, 'btn-default': btn.name != layout.name}\"\n" +
+    "                    type=\"button\"\n" +
+    "                    class=\"btn\">\n" +
     "\n" +
-    "                                    <ul class=\"dropdown-menu\">\n" +
-    "                                        <li>\n" +
-    "                                            <a href=\"#/analyze\">Analyze</a>\n" +
-    "                                        </li>\n" +
-    "                                        <li>\n" +
-    "                                            <a href=\"#/compare\">Compare</a>\n" +
-    "                                        </li>\n" +
-    "                                        <li>\n" +
-    "                                            <a\n" +
-    "                                                ng-click=\"shareMovement(movement)\"\n" +
-    "                                                href=\"javascript:;\">\n" +
-    "                                                Share\n" +
-    "                                            </a>\n" +
-    "                                        </li>\n" +
-    "                                        <li>\n" +
-    "                                            <a\n" +
-    "                                                ng-click=\"editMovement(movement)\"\n" +
-    "                                                href=\"javascript:;\">\n" +
-    "                                                Edit\n" +
-    "                                            </a>\n" +
-    "                                        </li>\n" +
-    "                                        <li role=\"separator\" class=\"divider\"></li>\n" +
-    "                                        <li>\n" +
-    "                                            <a\n" +
-    "                                                ng-click=\"deleteMovement(movement)\"\n" +
-    "                                                href=\"javascript:;\">\n" +
-    "                                                Delete\n" +
-    "                                            </a>\n" +
-    "                                        </li>\n" +
-    "                                    </ul>\n" +
-    "                                </div>\n" +
-    "                            </div>\n" +
+    "                    <i ng-class=\"'fa-' + btn.icon\" class=\"fa\"></i>\n" +
+    "                </button>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </header>\n" +
+    "\n" +
+    "    <!-- Main container -->\n" +
+    "    <div\n" +
+    "        ng-show=\"global.state.profile.list.length > 0 || global.data.isFetchingProfiles === true\"\n" +
+    "        class=\"file-explorer-container\">\n" +
+    "\n" +
+    "        <header>\n" +
+    "        </header>\n" +
+    "\n" +
+    "        <!-- Movements and folders -->\n" +
+    "        <section\n" +
+    "            ng-show=\"global.data.isFetchingMovementData === false\"\n" +
+    "            ng-include=\"'movements/explorer/partials/' + layout.name + '-layout.html'\"\n" +
+    "            ng-class=\"layout.name + '-layout'\">\n" +
+    "        </section>\n" +
+    "\n" +
+    "        <!-- Loading notice -->\n" +
+    "        <section\n" +
+    "            ng-show=\"global.data.isFetchingMovementData === true\n" +
+    "                || global.data.isFetchingProfiles === true\">\n" +
+    "            <div class=\"text-center\" style=\"margin: 60px auto\">\n" +
+    "                <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n" +
+    "            </div>\n" +
+    "        </section>\n" +
+    "\n" +
+    "        <footer>\n" +
+    "            <i class=\"fa fa-compass fa-fw\"></i>\n" +
+    "            <span>\n" +
+    "                {{ path }}\n" +
+    "            </span>\n" +
+    "        </footer>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- No profile exists -->\n" +
+    "    <div\n" +
+    "        ng-show=\"global.data.isFetchingProfiles === false\n" +
+    "            && global.state.profile.list.length === 0\"\n" +
+    "        class=\"text-center\">\n" +
+    "\n" +
+    "        <h3 class=\"text-center\">You do not have any profiles yet.</h3>\n" +
+    "        <br>\n" +
+    "\n" +
+    "        Once you create a profile, you can start uploading and organizing your movements here.\n" +
+    "        <br>\n" +
+    "        <br>\n" +
+    "\n" +
+    "        Take this opportunity to <a href=\"#/profile/create\">create one</a>.\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("movements/explorer/partials/details-layout.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("movements/explorer/partials/details-layout.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
+    "<div class=\"\">\n" +
+    "\n" +
+    "    <!-- Header -->\n" +
+    "    <div class=\"row header\">\n" +
+    "\n" +
+    "        <!-- Checkbox -->\n" +
+    "        <div class=\"col-xs-2 col-md-1 text-right\">\n" +
+    "            <a href=\"javascript:;\">\n" +
+    "                <i class=\"fa fa-square-o\"></i>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <div class=\"col-xs-10 col-md-8\">\n" +
+    "            Title\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Created date -->\n" +
+    "        <div class=\"col-md-3 hidden-xs text-center\">\n" +
+    "            Date\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Parent folder -->\n" +
+    "    <div ng-show=\"parentFolder\" class=\"row\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <div class=\"col-xs-10 col-xs-offset-2 col-md-11 col-md-offset-1\">\n" +
+    "            <a href=\"{{ parentFolder.href }}\">\n" +
+    "                <i class=\"fa fa-level-up\"></i> Parent Folder\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Other folders -->\n" +
+    "    <div ng-repeat=\"folder in folders\" class=\"row\">\n" +
+    "\n" +
+    "        <!-- Checkbox -->\n" +
+    "        <div class=\"col-xs-2 col-md-1 text-right\">\n" +
+    "            <a href=\"javascript:;\">\n" +
+    "                <i class=\"fa fa-square-o\"></i>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <div class=\"col-xs-10 col-md-11\">\n" +
+    "            <a href=\"{{ folder.href }}\">\n" +
+    "                <i class=\"fa fa-folder-open fa-fw\"></i> {{ folder.name | characters:40 }}\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Movements -->\n" +
+    "    <div ng-repeat=\"movement in movements\" class=\"row\">\n" +
+    "\n" +
+    "        <!-- Checkbox -->\n" +
+    "        <div class=\"col-xs-2 col-md-1 text-right\">\n" +
+    "            <a href=\"javascript:;\">\n" +
+    "                <i class=\"fa fa-square-o\"></i>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <div class=\"col-xs-10 col-md-8\">\n" +
+    "            <a href=\"javascript:;\">\n" +
+    "                {{ movement.title | characters:40 }}\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Created date -->\n" +
+    "        <div class=\"col-md-3 hidden-xs text-center\">\n" +
+    "            {{ movement.createdAt | mysqlDate:'MMMM d, yyyy (h:mm a)' }}\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- No movements or folders to show -->\n" +
+    "    <div ng-show=\"folders.length === 0 && movements.length === 0\" class=\"row text-center\">\n" +
+    "\n" +
+    "        <div class=\"col-xs-12\" style=\"margin-top: 20px; margin-bottom: 20px;\">\n" +
+    "            <h3>There are no movements to display.</h3>\n" +
+    "            Once you upload or capture a new movement, it will show up here.\n" +
+    "            <br>\n" +
+    "\n" +
+    "            Start by <b><a href=\"#/movements/upload\">importing</a></b> your own movements.\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("movements/explorer/partials/large-tiles-layout.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("movements/explorer/partials/large-tiles-layout.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
+    "<div class=\"row\">\n" +
+    "\n" +
+    "    <!-- Parent folder -->\n" +
+    "    <div ng-show=\"parentFolder\" class=\"col-xs-6 col-md-4 col-lg-3\">\n" +
+    "        <a href=\"{{ parentFolder.href }}\" class=\"folder\">\n" +
+    "            <i class=\"fa fa-hand-o-left fa-3x\"></i>\n" +
+    "            <span class=\"name\">\n" +
+    "                Back\n" +
+    "            </span>\n" +
+    "        </a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Other folders -->\n" +
+    "    <div ng-repeat=\"folder in folders\" class=\"col-xs-6 col-md-4 col-lg-3\">\n" +
+    "        <a href=\"{{ folder.href }}\" class=\"folder\">\n" +
+    "            <i class=\"fa fa-folder-open fa-3x\"></i>\n" +
+    "            <span class=\"name\">\n" +
+    "                {{ folder.name | characters:25 }}\n" +
+    "            </span>\n" +
+    "        </a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Movements -->\n" +
+    "    <div ng-repeat=\"movement in movements\" class=\"col-xs-6 col-md-4 col-lg-3\">\n" +
+    "        <div class=\"aspect-ratio aspect-4-3 active-element text-center\">\n" +
+    "            <div>\n" +
+    "\n" +
+    "                <!-- Movement preview -->\n" +
+    "                <ui-movement-preview data-aspect-ratio=\"4:3\"></ui-movement-preview>\n" +
+    "\n" +
+    "                <div class=\"tools text-left\">\n" +
+    "\n" +
+    "                    <!-- Movement date -->\n" +
+    "                    <span style=\"color: #aaa\">\n" +
+    "                        {{ movement.createdAt | mysqlDate : 'MMMM d, h:mma' }}\n" +
+    "                    </span>\n" +
+    "                    <br>\n" +
+    "\n" +
+    "                    <!-- Movement title -->\n" +
+    "                    <span style=\"color: #999\">\n" +
+    "                        {{ movement.title | characters:25 }}\n" +
+    "                    </span>\n" +
+    "\n" +
+    "                    <!-- Movement actions -->\n" +
+    "                    <div class=\"pull-right\">\n" +
+    "                        <div class=\"btn-group hidden-tools\">\n" +
+    "                            <button\n" +
+    "                                type=\"button\"\n" +
+    "                                class=\"btn btn-default dropdown-toggle\"\n" +
+    "                                data-toggle=\"dropdown\"\n" +
+    "                                aria-haspopup=\"true\"\n" +
+    "                                aria-expanded=\"false\">\n" +
+    "                                <i class=\"caret\"></i>\n" +
+    "                            </button>\n" +
+    "\n" +
+    "                            <ul class=\"dropdown-menu\">\n" +
+    "                                <li>\n" +
+    "                                    <a href=\"#/analyze\">Analyze</a>\n" +
+    "                                </li>\n" +
+    "                                <li>\n" +
+    "                                    <a href=\"#/compare\">Compare</a>\n" +
+    "                                </li>\n" +
+    "                                <li>\n" +
+    "                                    <a\n" +
+    "                                        ng-click=\"shareMovement(movement)\"\n" +
+    "                                        href=\"javascript:;\">\n" +
+    "                                        Share\n" +
+    "                                    </a>\n" +
+    "                                </li>\n" +
+    "                                <li>\n" +
+    "                                    <a\n" +
+    "                                        ng-click=\"editMovement(movement)\"\n" +
+    "                                        href=\"javascript:;\">\n" +
+    "                                        Edit\n" +
+    "                                    </a>\n" +
+    "                                </li>\n" +
+    "                                <li role=\"separator\" class=\"divider\"></li>\n" +
+    "                                <li>\n" +
+    "                                    <a\n" +
+    "                                        ng-click=\"deleteMovement(movement)\"\n" +
+    "                                        href=\"javascript:;\">\n" +
+    "                                        Delete\n" +
+    "                                    </a>\n" +
+    "                                </li>\n" +
+    "                            </ul>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "            </div> <!-- Movement DIV -->\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <!-- Fetching movements -->\n" +
-    "    <div ng-show=\"global.data.isFetchingMovements\">\n" +
-    "        <h1 class=\"text-center\">Retrieving Your Movements...</h1>\n" +
-    "        <br>\n" +
-    "\n" +
-    "        <div class=\"text-center\">\n" +
-    "            <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- No movements to show -->\n" +
+    "    <!-- No movements or folders to show -->\n" +
     "    <div\n" +
-    "        ng-show=\"!global.data.isFetchingMovements && global.data.movement.list.length === 0\"\n" +
-    "        class=\"col-md-6 col-md-offset-3 text-center\">\n" +
+    "        ng-show=\"folders.length === 0 && movements.length === 0\"\n" +
+    "        class=\"col-xs-6 col-md-8 col-lg-9\"\n" +
+    "        style=\"margin-top: 35px\">\n" +
     "\n" +
     "        <h3>There are no movements to display.</h3>\n" +
     "        Once you upload or capture a new movement, it will show up here.\n" +
-    "        <br><br>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
     "\n" +
-    "        Start by\n" +
-    "        <b>\n" +
-    "            <a ng-click=\"global.browseTo.path('/import')\" href=\"javascript:;\">\n" +
-    "                importing\n" +
-    "            </a>\n" +
-    "        </b>\n" +
-    "        your own movements.\n" +
+    "        Start by <b><a href=\"#/movements/upload\">importing</a></b> your own movements.\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("movements/explorer/partials/small-tiles-layout.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("movements/explorer/partials/small-tiles-layout.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
+    "<div class=\"row\">\n" +
+    "\n" +
+    "    <!-- Parent folder -->\n" +
+    "    <div ng-show=\"parentFolder\" class=\"col-xs-4 col-md-3 col-lg-1\">\n" +
+    "        <a href=\"{{ parentFolder.href }}\" class=\"folder\">\n" +
+    "            <i class=\"fa fa-hand-o-left fa-2x\"></i>\n" +
+    "            <span class=\"name\">\n" +
+    "                Back\n" +
+    "            </span>\n" +
+    "        </a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Other folders -->\n" +
+    "    <div ng-repeat=\"folder in folders\" class=\"col-xs-4 col-md-3 col-lg-1\">\n" +
+    "        <a href=\"{{ folder.href }}\" class=\"folder\">\n" +
+    "            <i class=\"fa fa-folder-open fa-2x\"></i>\n" +
+    "            <span class=\"name\">\n" +
+    "                {{ folder.name | characters:20 }}\n" +
+    "            </span>\n" +
+    "        </a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Movements -->\n" +
+    "    <div ng-repeat=\"movement in movements\" class=\"col-xs-4 col-md-3 col-lg-1\">\n" +
+    "        <span class=\"file\">\n" +
+    "            <i class=\"fa fa-files-o fa-2x\"></i>\n" +
+    "            <span class=\"name\">\n" +
+    "                {{ movement.title | characters:20 }}\n" +
+    "            </span>\n" +
+    "        </span>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- No movements or folders to show -->\n" +
+    "    <div\n" +
+    "        ng-show=\"folders.length === 0 && movements.length === 0\"\n" +
+    "        class=\"col-xs-8 col-md-9 col-lg-11 text-center\">\n" +
+    "\n" +
+    "        <h3>There are no movements to display.</h3>\n" +
+    "        Once you upload or capture a new movement, it will show up here.\n" +
+    "        <br>\n" +
+    "\n" +
+    "        Start by <b><a href=\"#/movements/upload\">importing</a></b> your own movements.\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
@@ -2218,25 +3351,27 @@ angular.module("movements/index.html", []).run(["$templateCache", function($temp
 
 angular.module("partials/breadcrumbs.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/breadcrumbs.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<ol class=\"breadcrumb-alt\">\n" +
     "    <li>\n" +
-    "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.path('/')\">\n" +
+    "        <a class=\"active\" href=\"#/dashboard\">\n" +
     "            Dashboard\n" +
     "        </a>\n" +
     "    </li>\n" +
     "    <li ng-show=\"global.store.groupId > 0\">\n" +
-    "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.path('/group/list')\">\n" +
+    "        <a class=\"active\" href=\"#/group/list\">\n" +
     "            Teams\n" +
     "        </a>\n" +
     "    </li>\n" +
     "    <li ng-show=\"isProfilePage && global.store.groupId > 0\">\n" +
-    "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.group()\">\n" +
+    "        <a class=\"active\" href=\"javascript:;\" ng-click=\"global.browseTo.group()\">\n" +
     "            {{ global.state.group.list[global.store.groupId].name }}\n" +
     "        </a>\n" +
     "    </li>\n" +
     "    <li ng-show=\"currentPath == '/profile/view' && global.store.profileId > 0\">\n" +
-    "        <a class=\"active\" href=\"javascript:;\" ng-click=\"Rover.browseTo.profile()\">\n" +
-    "            {{ global.state.profile.list[global.store.profileId].first_name }}\n" +
+    "        <a class=\"active\" href=\"javascript:;\" ng-click=\"global.browseTo.profile()\">\n" +
+    "            {{ global.state.profile.list[global.store.profileId].firstName }}\n" +
     "        </a>\n" +
     "    </li>\n" +
     "    <li ng-show=\"currentPath == '/group/create'\">\n" +
@@ -2274,6 +3409,41 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                    <i class=\"fa fa-bars\"></i>\n" +
     "                </a>\n" +
     "			</li>\n" +
+    "\n" +
+    "            <!-- Account -->\n" +
+    "            <li ng-show=\"global.isLocal\" class=\"dropdown text-normal nav-profile\">\n" +
+    "                <a\n" +
+    "                    href=\"javascript:;\"\n" +
+    "                    class=\"dropdown-toggle\"\n" +
+    "                    id=\"menuAccountDropdown\"\n" +
+    "                    data-toggle=\"dropdown\"\n" +
+    "                    aria-haspopup=\"true\"\n" +
+    "                    aria-expanded=\"true\">\n" +
+    "\n" +
+    "                    <i class=\"fa fa-user\"></i>\n" +
+    "                </a>\n" +
+    "\n" +
+    "                <!-- Account links -->\n" +
+    "                <div\n" +
+    "                    class=\"dropdown-menu with-arrow pull-left panel panel-default\"\n" +
+    "                    aria-labelledby=\"menuAccountDropdown\">\n" +
+    "\n" +
+    "                    <ul class=\"list-group\">\n" +
+    "                        <li class=\"list-group-item\">\n" +
+    "                            <a href=\"#/account\">\n" +
+    "                                <i class=\"fa fa-user color-info\"></i>\n" +
+    "                                <span>My Account</span>\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                        <li class=\"list-group-item\">\n" +
+    "                            <a ng-click=\"global.endSession()\" href=\"javascript:;\">\n" +
+    "                                <i class=\"fa fa-sign-out fa-fw\"></i>\n" +
+    "                                <span>Log out</span>\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "            </li>\n" +
     "		</ul>\n" +
     "\n" +
     "        <ul class=\"nav-right list-unstyled\">\n" +
@@ -2289,81 +3459,125 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                    </selectize>\n" +
     "                </div>\n" +
     "            </li>\n" +
-    "            <li>\n" +
-    "                <div class=\"btn-group\">\n" +
     "\n" +
-    "                    <!-- Dev -->\n" +
-    "                    <div ng-show=\"global.isLocal\" class=\"btn-group\">\n" +
+    "            <!-- Notifications -->\n" +
+    "            <li ng-show=\"global.isLocal\" class=\"dropdown\">\n" +
+    "                <a\n" +
+    "                    href=\"javascript:;\"\n" +
+    "                    class=\"dropdown-toggle onboarding-general\"\n" +
+    "                    id=\"menuAccountDropdown\"\n" +
+    "                    data-toggle=\"dropdown\"\n" +
+    "                    aria-haspopup=\"true\"\n" +
+    "                    aria-expanded=\"true\"\n" +
+    "                    data-intro=\"Whenever you do something in the app, it will show up as a notification here\">\n" +
     "\n" +
-    "                        <!-- Face of dropdown -->\n" +
-    "                        <button\n" +
-    "                            type=\"button\"\n" +
-    "                            class=\"btn btn-default dropdown-toggle\"\n" +
-    "                            data-toggle=\"dropdown\"\n" +
-    "                            aria-haspopup=\"true\"\n" +
-    "                            aria-expanded=\"false\">\n" +
+    "                    <i class=\"fa fa-bell fa-fw\"></i>\n" +
+    "                    <span>Notifications</span>\n" +
+    "                </a>\n" +
     "\n" +
-    "                            <i class=\"fa fa-code\"></i>\n" +
-    "                        </button>\n" +
+    "                <div\n" +
+    "                    class=\"dropdown-menu with-arrow pull-right panel panel-default\"\n" +
+    "                    aria-labelledby=\"menuNotificationsDropdown\">\n" +
     "\n" +
-    "                        <!-- Contents of dropdown -->\n" +
-    "                        <ul class=\"dropdown-menu\">\n" +
-    "                            <li>\n" +
-    "                                <a href=\"javascript:;\">\n" +
-    "                                    Total groups: {{ global.state.group.list.length }} /\n" +
-    "                                    Selected: {{ global.getSelectedGroup().name || 'None' }}\n" +
-    "                                </a>\n" +
-    "                            </li>\n" +
-    "                            <li>\n" +
-    "                                <a href=\"javascript:;\">\n" +
-    "                                    Total profiles: {{ global.state.profile.list.length }} /\n" +
-    "                                    Selected (callback): {{ global.getSelectedProfile().first_name || 'None' }} /\n" +
-    "                                    Selected (local): {{ global.store.profileId }}\n" +
-    "                                </a>\n" +
-    "                            </li>\n" +
-    "                            <li>\n" +
-    "                                <a href=\"javascript:;\"data-toggle=\"modal\" data-target=\"#overlay-screen\">\n" +
-    "                                    Overlay Test\n" +
-    "                                </a>\n" +
-    "                            </li>\n" +
-    "                        </ul>\n" +
+    "                    <!-- Notifications header -->\n" +
+    "                    <div class=\"panel-heading\">\n" +
+    "                        You have 2 notifications.\n" +
     "                    </div>\n" +
     "\n" +
-    "                    <!-- Settings -->\n" +
-    "                    <button\n" +
-    "                        ng-click=\"global.browseTo.path('/config')\"\n" +
-    "                        class=\"btn btn-default onboarding-general\"\n" +
-    "                        data-step=\"4\"\n" +
-    "                        data-intro=\"Click this button to modify your app settings\">\n" +
+    "                    <!-- List of notifications -->\n" +
+    "                    <ul class=\"list-group\">\n" +
+    "                        <li class=\"list-group-item\">\n" +
+    "                            <a href=\"javascript:;\" class=\"media\">\n" +
+    "                                <span class=\"pull-left media-icon\">\n" +
+    "                                    <span class=\"circle-icon sm bg-success\">\n" +
+    "                                        <i class=\"fa fa-bell-o\"></i>\n" +
+    "                                    </span>\n" +
+    "                                </span>\n" +
     "\n" +
-    "                        <i class=\"fa fa-cogs fa-fw\"></i>\n" +
-    "                    </button>\n" +
+    "                                <div class=\"media-body\">\n" +
+    "                                    <span class=\"block\">New tasks needs to be done</span>\n" +
+    "                                    <span class=\"text-muted block\">2min ago</span>\n" +
+    "                                </div>\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                        <li class=\"list-group-item\">\n" +
+    "                            <a href=\"javascript:;\" class=\"media\">\n" +
+    "                                <span class=\"pull-left media-icon\">\n" +
+    "                                    <span class=\"circle-icon sm bg-info\">\n" +
+    "                                        <i class=\"fa fa-bell-o\"></i>\n" +
+    "                                    </span>\n" +
+    "                                </span>\n" +
     "\n" +
-    "                    <!-- Onboarding -->\n" +
-    "                    <button\n" +
-    "                        ng-click=\"global.onboarding.general()\"\n" +
-    "                        type=\"button\"\n" +
-    "                        class=\"btn btn-default onboarding-general\"\n" +
-    "                        data-step=\"6\"\n" +
-    "                        data-intro=\"Click here whenever you want to see this again\">\n" +
+    "                                <div class=\"media-body\">\n" +
+    "                                    <span class=\"block\">Change your password</span>\n" +
+    "                                    <span class=\"text-muted\">3 hours ago</span>\n" +
+    "                                </div>\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                        <li class=\"list-group-item\">\n" +
+    "                            <a href=\"javascript:;\" class=\"media\">\n" +
+    "                                <span class=\"pull-left media-icon\">\n" +
+    "                                    <span class=\"circle-icon sm bg-danger\">\n" +
+    "                                        <i class=\"fa fa-bell-o\"></i>\n" +
+    "                                    </span>\n" +
+    "                                </span>\n" +
     "\n" +
-    "                        <i class=\"fa fa-question fa-fw\"></i>\n" +
-    "                    </button>\n" +
+    "                                <div class=\"media-body\">\n" +
+    "                                    <span class=\"block\">New feature added</span>\n" +
+    "                                    <span class=\"text-muted\">9 hours ago</span>\n" +
+    "                                </div>\n" +
+    "                            </a>\n" +
+    "                        </li>\n" +
+    "                    </ul>\n" +
     "\n" +
-    "                    <!-- Sign out -->\n" +
-    "                    <button\n" +
-    "                        ng-click=\"global.endSession()\"\n" +
-    "                        type=\"button\"\n" +
-    "                        class=\"btn btn-logout onboarding-general\"\n" +
-    "                        data-toggle=\"tooltip\"\n" +
-    "                        data-placement=\"bottom\"\n" +
-    "                        data-step=\"5\"\n" +
-    "                        data-intro=\"Use this button when you're ready to log out\"\n" +
-    "                        title=\"Logout\">\n" +
-    "\n" +
-    "                        <i class=\"fa fa-sign-out fa-fw\"></i>\n" +
-    "                    </button>\n" +
+    "                    <!-- Notifications footer -->\n" +
+    "                    <div class=\"panel-footer\">\n" +
+    "                        <a href=\"javascript:;\">\n" +
+    "                            Show all notifications.\n" +
+    "                        </a>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
+    "            </li>\n" +
+    "\n" +
+    "            <!-- App settings -->\n" +
+    "            <li>\n" +
+    "                <a\n" +
+    "                    href=\"#/config\"\n" +
+    "                    class=\"onboarding-general\"\n" +
+    "                    data-step=\"4\"\n" +
+    "                    data-intro=\"Click this button to modify your app settings\">\n" +
+    "\n" +
+    "                    <i class=\"fa fa-cogs fa-fw\"></i>\n" +
+    "                    <span>Settings</span>\n" +
+    "                </a>\n" +
+    "            </li>\n" +
+    "\n" +
+    "            <!-- Onboarding -->\n" +
+    "            <li>\n" +
+    "                <a\n" +
+    "                    ng-click=\"global.onboarding.general()\"\n" +
+    "                    href=\"javascript:;\"\n" +
+    "                    class=\"onboarding-general\"\n" +
+    "                    data-step=\"6\"\n" +
+    "                    data-intro=\"Click here whenever you want to see this again\">\n" +
+    "\n" +
+    "                    <i class=\"fa fa-question fa-fw\"></i>\n" +
+    "                    <span>Help</span>\n" +
+    "                </a>\n" +
+    "            </li>\n" +
+    "\n" +
+    "            <!-- Sign out -->\n" +
+    "            <li>\n" +
+    "                <a\n" +
+    "                    ng-click=\"global.endSession()\"\n" +
+    "                    href=\"javascript:;\"\n" +
+    "                    class=\"onboarding-general\"\n" +
+    "                    data-step=\"5\"\n" +
+    "                    data-intro=\"Use this button when you're ready to log out\">\n" +
+    "\n" +
+    "                    <i class=\"fa fa-sign-out fa-fw\"></i>\n" +
+    "                    <span>Log out</span>\n" +
+    "                </a>\n" +
     "            </li>\n" +
     "        </ul>\n" +
     "\n" +
@@ -2415,6 +3629,8 @@ angular.module("partials/modal.html", []).run(["$templateCache", function($templ
 
 angular.module("partials/navigation.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/navigation.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<div class=\"logo\">\n" +
     "    <div class=\"logo-container\">\n" +
     "        <img src=\"../../images/logo/heddoko_logo_1.svg\" alt=\"Heddoko\" class=\"logo1\">\n" +
@@ -2431,27 +3647,103 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "            data-step=\"1\"\n" +
     "            data-intro=\"This is a shortcut to your dashboard.\"\n" +
     "            data-position=\"right\">\n" +
-    "            <a href=\"#/dashboard\"><span>Dashboard</span></a>\n" +
+    "\n" +
+    "            <a href=\"#/dashboard\">\n" +
+    "                <i class=\"fa fa-dashboard\"></i>\n" +
+    "                <span>Dashboard</span>\n" +
+    "            </a>\n" +
     "        </li>\n" +
     "\n" +
     "        <!-- List of groups -->\n" +
     "		<li>\n" +
-    "            <a href=\"#/group/list\"><span>Teams</span></a>\n" +
+    "            <a href=\"#/group/list\">\n" +
+    "                <i class=\"fa fa-cubes\"></i>\n" +
+    "                <span>Teams</span>\n" +
+    "                <span class=\"pull-right\">\n" +
+    "                    <i ng-show=\"global.data.isFetchingGroups === true\" class=\"fa fa-spinner fa-spin\"></i>\n" +
+    "                    <small ng-show=\"!global.data.isFetchingGroups\">\n" +
+    "                        ( {{ global.state.group.list.length }} )\n" +
+    "                    </small>\n" +
+    "                </span>\n" +
+    "            </a>\n" +
     "        </li>\n" +
     "\n" +
     "        <!-- List of athletes -->\n" +
     "		<li>\n" +
-    "            <a href=\"#/profile/list\"><span>Athletes</span></a>\n" +
+    "            <a href=\"#/profile/list\">\n" +
+    "                <i class=\"fa fa-users\"></i>\n" +
+    "                <span>Athletes</span>\n" +
+    "                <span class=\"pull-right\">\n" +
+    "                    <i ng-show=\"global.data.isFetchingProfiles === true\" class=\"fa fa-spinner fa-spin\"></i>\n" +
+    "                    <small ng-show=\"!global.data.isFetchingProfiles\">\n" +
+    "                        ( {{ global.state.profile.list.length }} )\n" +
+    "                    </small>\n" +
+    "                </span>\n" +
+    "            </a>\n" +
     "        </li>\n" +
     "\n" +
     "        <!-- List of movements -->\n" +
     "		<li>\n" +
-    "            <a href=\"#/movements\"><span>Movements</span></a>\n" +
+    "            <a href=\"#/movements\">\n" +
+    "                <i class=\"fa fa-th\"></i>\n" +
+    "                <span>Movements</span>\n" +
+    "            </a>\n" +
+    "\n" +
+    "            <ul style=\"display: block\">\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/movements\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>Organize</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/capture\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>Record</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/movements/upload\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>Upload</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/movements/analyze\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>Analyze</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/movements/compare\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>Compare</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
     "        </li>\n" +
     "\n" +
-    "        <!-- Submit movement data form -->\n" +
+    "        <!-- Screenings -->\n" +
     "		<li>\n" +
-    "            <a href=\"#/submit-movement\"><span>Submit movement data</span></a>\n" +
+    "            <a href=\"#/screening\">\n" +
+    "                <i class=\"fa fa-pencil-square-o\"></i>\n" +
+    "                <span>Movement Tests</span>\n" +
+    "            </a>\n" +
+    "\n" +
+    "            <ul style=\"display: block\">\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/screenings/current\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>Record or Upload</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"#/screenings\">\n" +
+    "                        <i class=\"fa fa-angle-right\"></i>\n" +
+    "                        <span>View Results</span>\n" +
+    "                    </a>\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
     "        </li>\n" +
     "\n" +
     "        <!-- Submit FMS test form -->\n" +
@@ -2464,47 +3756,42 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "            <a href=\"#/fmsresults\"><span>fms results</span></a>\n" +
     "		</li>\n" +
     "\n" +
-    "        <!-- Comparison -->\n" +
-    "		<li>\n" +
-    "            <a href=\"#/compare\"><span>Compare</span></a>\n" +
-    "		</li>\n" +
-    "\n" +
     "        <!-- Live FMS pages. -->\n" +
     "        <li>\n" +
     "            <!-- TODO: Call this Live FMS? -->\n" +
-    "            <a href=\"#/screening/live\">Movement Screen</a>\n" +
+    "            <a href=\"#/fms/live\"> <i class=\"fa fa-pencil-square-o\"></i> Movement Screen</a>\n" +
     "\n" +
     "            <!-- TODO: Use ng-repeat when ready -->\n" +
     "            <ul style=\"display: block\">\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/ds\"><span>Deep Squat</span></a>\n" +
+    "                    <a href=\"#/fms/live/ds\"><span>Deep Squat</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/hs\"><span>Hurdle Step</span></a>\n" +
+    "                    <a href=\"#/fms/live/hs\"><span>Hurdle Step</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/il\"><span>Inline Lunge</span></a>\n" +
+    "                    <a href=\"#/fms/live/il\"><span>Inline Lunge</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/sm\"><span>Shoulder Mobility</span></a>\n" +
+    "                    <a href=\"#/fms/live/sm\"><span>Shoulder Mobility</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/sm\"><span>Impingement (C. Test)</span></a>\n" +
+    "                    <a href=\"#/fms/live/sm\"><span>Impingement (C. Test)</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/demo/aslr\"><span>Active Straight-Leg Raise</span></a>\n" +
+    "                    <a href=\"#/fms/demo/aslr\"><span>Active Straight-Leg Raise</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/tspu\"><span>Trunk Stability Push-Up</span></a>\n" +
+    "                    <a href=\"#/fms/live/tspu\"><span>Trunk Stability Push-Up</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/pu\"><span>Press-Up (C. Test)</span></a>\n" +
+    "                    <a href=\"#/fms/live/pu\"><span>Press-Up (C. Test)</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/rs\"><span>Rotary Stability</span></a>\n" +
+    "                    <a href=\"#/fms/live/rs\"><span>Rotary Stability</span></a>\n" +
     "                </li>\n" +
     "                <li>\n" +
-    "                    <a href=\"#/screening/live/ps\"><span>Posterior Rocking (C. Test)</span></a>\n" +
+    "                    <a href=\"#/fms/live/ps\"><span>Posterior Rocking (C. Test)</span></a>\n" +
     "                </li>\n" +
     "            </ul>\n" +
     "        </li>\n" +
@@ -2514,7 +3801,7 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "            <a href=\"#/account\"><span>My Account</span></a>\n" +
     "        </li>\n" +
     "\n" +
-    "        <li style=\"margin: 10px 0 0; text-align: center; font-size: 0.8em; color: #aaa;\">\n" +
+    "        <li class=\"app-version\">\n" +
     "            {{ global.appVersion }}\n" +
     "		</li>\n" +
     "\n" +
@@ -2539,22 +3826,20 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
 
 angular.module("partials/select-profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/select-profile.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<h3 class=\"text-center\">Select a profile to get started</h3>\n" +
     "<br>\n" +
     "\n" +
     "<div class=\"col-md-4 col-md-offset-4 text-center\">\n" +
-    "    <selectize\n" +
-    "        options=\"global.state.profile.list\"\n" +
-    "        class=\"form-control\">\n" +
-    "    </selectize>\n" +
+    "    <ui-profile-lookup\n" +
+    "        profiles=\"global.state.profile.list\"\n" +
+    "        select-profile=\"global.selectProfile(profile)\">\n" +
+    "    </ui-profile-lookup>\n" +
     "    <br>\n" +
     "\n" +
     "    You can also take this opportunity to\n" +
     "    <a href=\"#profile/create\">create one</a>.\n" +
-    "\n" +
-    "    Profile: {{ $parent.global.getSelectedProfile() }}\n" +
-    "\n" +
-    "    Movements: {{ $parent.uploadedMovements }}\n" +
     "</div>\n" +
     "");
 }]);
@@ -2878,52 +4163,28 @@ angular.module("profile/edit.html", []).run(["$templateCache", function($templat
 
 angular.module("profile/list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("profile/list.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<div class=\"page page-dashboard\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Athletes <i class=\"fa fa-users\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-sm-12\">\n" +
+    "            <a\n" +
+    "                href=\"javascript:;\"\n" +
+    "                class=\"btn btn-primary btn-metro\"\n" +
+    "                ng-repeat=\"profile in global.state.profile.list\"\n" +
+    "                ng-show=\"profile.id\"\n" +
+    "                ng-click=\"global.browseTo.profile(profile)\"\n" +
+    "                style=\"background-image: url({{ profile.avatarSrc || '' }});background-size: cover;\">\n" +
     "\n" +
-    "            <!-- Breadcrumbs -->\n" +
-    "            <div class=\"col-sm-12 col-md-6\">\n" +
-    "                <div data-ng-include=\"'partials/breadcrumbs.html'\"></div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Profile list -->\n" +
-    "    <div class=\"panel panel-default\">\n" +
-    "        <div class=\"panel-heading\">\n" +
-    "            <span ng-show=\"global.state.group.selected.id > 0\">\n" +
-    "                Athletes in {{ global.state.group.selected.name }}\n" +
-    "            </span>\n" +
-    "            <span ng-show=\"global.state.group.selected.id === 0\">\n" +
-    "                List of all your athletes\n" +
-    "            </span>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <div class=\"panel-body\">\n" +
-    "            <div class=\"row\">\n" +
-    "                <div class=\"col-sm-12\">\n" +
-    "                    <div ng-show=\"global.state.profile.list.length === 0\">\n" +
-    "                        The <b>{{ global.state.group.selected.name }}</b> do not have any\n" +
-    "                        members yet. Add one above to get started!\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"row\">\n" +
-    "                <div class=\"col-sm-12\">\n" +
-    "                    <a\n" +
-    "                        href=\"javascript:;\"\n" +
-    "                        class=\"btn btn-primary btn-metro\"\n" +
-    "                        ng-repeat=\"profile in global.state.profile.list\"\n" +
-    "                        ng-click=\"Rover.browseTo.profile(profile)\"\n" +
-    "                        style=\"background-image: url({{ profile.avatar_src || '' }});background-size: cover;\">\n" +
-    "\n" +
-    "                        <div class=\"btn-title\">{{ profile.first_name }}</div>\n" +
-    "                    </a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "                <div class=\"btn-title\">{{ profile.firstName | characters:30 }}</div>\n" +
+    "            </a>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
@@ -3033,8 +4294,16 @@ angular.module("profile/partials/upload-photo.html", []).run(["$templateCache", 
 
 angular.module("profile/view.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("profile/view.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
+    "\n" +
     "<!-- Profile summary -->\n" +
     "<div ng-hide=\"profile.id === 0\" class=\"page\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            {{ profile.firstName }} {{ profile.lastName }}\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
     "    <div class=\"row\">\n" +
     "\n" +
@@ -3083,7 +4352,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "\n" +
     "                <!-- Create profile button -->\n" +
     "                <button\n" +
-    "                    ng-click=\"Rover.browseTo.path('profile/create')\"\n" +
+    "                    ng-click=\"global.browseTo.path('profile/create')\"\n" +
     "                    class=\"btn btn-default\">\n" +
     "\n" +
     "                    Add another athlete\n" +
@@ -3270,981 +4539,241 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "");
 }]);
 
-angular.module("screening/demo/analysis.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/analysis.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
+angular.module("screenings/current/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("screenings/current/index.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "<div class=\"page page-dashboard movement-pages\">\n" +
-    "	<div>\n" +
+    "<div class=\"page\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Movement Test <i class=\"fa fa-pencil-square-o\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
     "\n" +
-    "        <!-- Breadcrumbs -->\n" +
-    "        <div ng-include src=\"'screening/live/partials/breadcrumbs.html'\"></div>\n" +
-    "\n" +
-    "        <!-- Selected side -->\n" +
-    "		<div\n" +
-    "            ng-show=\"fms.current.iterations.length > 0\"\n" +
-    "            ng-include src=\"'screening/live/partials/iterations.html'\">\n" +
+    "        <!-- Append profile name to page title -->\n" +
+    "        <div ng-show=\"screeningProfile.id === 0\" class=\"h1-append\">\n" +
+    "            for\n" +
+    "            <a ng-click=\"global.store.profileId = 0\" href=\"javascript:;\">\n" +
+    "                {{ global.getSelectedProfile().firstName }}\n" +
+    "                {{ global.getSelectedProfile().lastName }}\n" +
+    "                <i class=\"fa fa-refresh\"></i>\n" +
+    "            </a>\n" +
     "        </div>\n" +
-    "\n" +
-    "        <!-- Demo videos -->\n" +
-    "        <div ng-include src=\"'screening/demo/partials/analysis-layout-emphasized.html'\"></div>\n" +
-    "\n" +
-    "	</div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/index.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<div class=\"page page-dashboard movement-pages\">\n" +
-    "	<div>\n" +
-    "		{{ params }}\n" +
-    "	</div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/analysis-coronal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/analysis-coronal.html",
-    "<div class=\"panel-heading text-right\">\n" +
-    "    Front/Coronal\n" +
-    "</div>\n" +
-    "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <video class=\"demo-analysis\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
-    "        Sorry, your browser doesn't support HTML5 video.\n" +
-    "    </video>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/analysis-layout-emphasized.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/analysis-layout-emphasized.html",
-    "<div class=\"col-sm-12 panel-group panel-layout-emphasized\">\n" +
-    "\n" +
-    "    <!-- Emphasized view -->\n" +
-    "    <div class=\"col-sm-9 no-gutter panel panel-default panel-emphasized\">\n" +
-    "            <div class=\"col-sm-3\">\n" +
-    "                <ng-include src=\"'screening/live/partials/analysis-menu.html'\"></ng-include>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"col-sm-9\">\n" +
-    "                <ng-include src=\"'screening/demo/partials/analysis-'+ fms.views[0] +'.html'\"></ng-include>\n" +
-    "            </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Secondary views -->\n" +
-    "    <div class=\"col-sm-3\">\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/demo/partials/analysis-'+ fms.views[1] +'.html'\"></ng-include>\n" +
+    "        <div ng-show=\"screeningProfile.id > 0\" class=\"h1-append\">\n" +
+    "            {{ screeningProfile.firstName + ' ' + screeningProfile.lastName }}\n" +
     "        </div>\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/demo/partials/analysis-'+ fms.views[2] +'.html'\"></ng-include>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/analysis-sagittal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/analysis-sagittal.html",
-    "<div class=\"panel-heading text-right\">\n" +
-    "    Side/Sagittal\n" +
-    "</div>\n" +
+    "    </header>\n" +
     "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <video class=\"demo-analysis\" style=\"margin: 0 20%; width: 60%;\">\n" +
-    "        <source ng-src=\"../../../../demo/aslr/analysis/sagittal.webm\" type=\"video/webm\"/>\n" +
-    "        <source src=\"../../../../demo/aslr/analysis/sagittal.mp4\" type=\"video/mp4\"/>\n" +
-    "        Sorry, your browser doesn't support HTML5 video.\n" +
-    "    </video>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/analysis-transverse.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/analysis-transverse.html",
-    "<div class=\"panel-heading text-right\">\n" +
-    "    Horizontal/Transverse\n" +
-    "</div>\n" +
+    "    <!-- Test progress -->\n" +
+    "    <div ng-show=\"screening.id > 0 && global.data.isFetchingScreeningData === false\">\n" +
     "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <video class=\"demo-analysis\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
-    "        Sorry, your browser doesn't support HTML5 video.\n" +
-    "    </video>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/summary-content.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/summary-content.html",
-    "<div class=\"panel-body\">\n" +
+    "        <h2 class=\"text-center\">\n" +
+    "            {{ screening.title }}\n" +
     "\n" +
-    "    <!-- Total score -->\n" +
-    "    <div class=\"col-sm-4\"\n" +
-    "         style=\"height: 40px; line-height: 40px; background-color: #89c443; color: #333;\">\n" +
+    "            <br>\n" +
+    "            <small>\n" +
+    "                {{ screening.createdAt | mysqlDate:'d / M / yyyy' }}\n" +
+    "            </small>\n" +
+    "        </h2>\n" +
     "\n" +
-    "        <div class=\"col-sm-9\">Total Score</div>\n" +
-    "        <div class=\"col-sm-3\">3</div>\n" +
-    "    </div>\n" +
     "\n" +
-    "    <br>\n" +
-    "    <br>\n" +
-    "    <br>\n" +
-    "    <br>\n" +
-    "\n" +
-    "    <!-- Hip results -->\n" +
-    "    <table class=\"table table-striped\" ng-show=\"summary.joints.hip\">\n" +
-    "\n" +
-    "        <!-- Dummy heading -->\n" +
-    "        <thead style=\"background-color: #d1d2d4; font-weight: bold; color: #333;\">\n" +
-    "            <tr>\n" +
-    "                <td>Hip</td>\n" +
-    "                <td class=\"text-center\">Left</td>\n" +
-    "                <td class=\"text-center\">Right</td>\n" +
-    "                <td class=\"text-center\">Difference</td>\n" +
-    "            </tr>\n" +
-    "        </thead>\n" +
-    "\n" +
-    "        <!-- Dummy results -->\n" +
-    "        <tbody style=\"font-weight: normal; color: #333;\">\n" +
-    "            <tr>\n" +
-    "                <td>Flexion/Extension</td>\n" +
-    "                <td class=\"text-center\">92</td>\n" +
-    "                <td class=\"text-center\">110</td>\n" +
-    "                <td class=\"text-center\" style=\"background-color: #ed3941;\">18</td>\n" +
-    "            </tr>\n" +
-    "            <tr>\n" +
-    "                <td>Abduction/Adduction</td>\n" +
-    "                <td class=\"text-center\">19</td>\n" +
-    "                <td class=\"text-center\">20</td>\n" +
-    "                <td class=\"text-center\" style=\"background-color: #89c443;\">1</td>\n" +
-    "            </tr>\n" +
-    "            <tr>\n" +
-    "                <td>Internal/External Rot.</td>\n" +
-    "                <td class=\"text-center\">11</td>\n" +
-    "                <td class=\"text-center\">18</td>\n" +
-    "                <td class=\"text-center\" style=\"background-color: #f48b4a;\">7</td>\n" +
-    "            </tr>\n" +
-    "        </tbody>\n" +
-    "    </table>\n" +
-    "\n" +
-    "    <div\n" +
-    "        ng-show=\"summary.joints.hip\"\n" +
-    "        class=\"col-sm-6 col-sm-offset-3\"\n" +
-    "        style=\"margin-top: 10px; margin-bottom: 60px;\">\n" +
-    "\n" +
-    "        <div class=\"row\">\n" +
-    "            <span class=\"pull-left\">\n" +
-    "                <b>Left</b>\n" +
-    "            </span>\n" +
-    "            <span class=\"pull-right\">\n" +
-    "                <b>Right</b>\n" +
-    "            </span>\n" +
-    "        </div>\n" +
-    "        <div class=\"row linear-heat-gradient\">\n" +
-    "            <div style=\"\n" +
-    "                position: absolute;\n" +
-    "                bottom: -5%;\n" +
-    "                left: 60%;\n" +
-    "                display: block;\n" +
-    "                height: 75%;\n" +
-    "                width: 2px;\n" +
-    "                background-color: #000;\">\n" +
+    "        <div ng-repeat=\"movement in screening.movements\" class=\"row\">\n" +
+    "            <div class=\"col-md-4 col-md-offset-4\">\n" +
+    "                {{ $index + 1 }} {{ movement.title }} <i class=\"fa fa-plus\"></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <!-- Knee results -->\n" +
-    "    <table class=\"table table-striped\" ng-show=\"summary.joints.knee\">\n" +
+    "    <!-- Select a test template -->\n" +
+    "    <div ng-show=\"screening.id === 0 && global.data.isFetchingScreeningData === false\">\n" +
     "\n" +
-    "        <!-- Dummy heading -->\n" +
-    "        <thead style=\"background-color: #d1d2d4; font-weight: bold; color: #333;\">\n" +
-    "            <tr>\n" +
-    "                <td>Knee</td>\n" +
-    "                <td class=\"text-center\">Left</td>\n" +
-    "                <td class=\"text-center\">Right</td>\n" +
-    "                <td class=\"text-center\">Difference</td>\n" +
-    "            </tr>\n" +
-    "        </thead>\n" +
+    "        <!-- Temporary listing -->\n" +
+    "        <div\n" +
+    "            ng-show=\"global.getSelectedProfile().id > 0\n" +
+    "                && global.data.isPreparingNewScreening === false\"\n" +
+    "            class=\"col-md-4 col-md-offset-4 text-center\">\n" +
     "\n" +
-    "        <!-- Dummy results -->\n" +
-    "        <tbody style=\"font-weight: normal; color: #333;\">\n" +
-    "            <tr>\n" +
-    "                <td>Flexion/Extension</td>\n" +
-    "                <td class=\"text-center\">120</td>\n" +
-    "                <td class=\"text-center\">109</td>\n" +
-    "                <td class=\"text-center\" style=\"background-color: #f48b4a;\">11</td>\n" +
-    "            </tr>\n" +
-    "            <tr>\n" +
-    "                <td>Internal/External Rot.</td>\n" +
-    "                <td class=\"text-center\">2</td>\n" +
-    "                <td class=\"text-center\">18</td>\n" +
-    "                <td class=\"text-center\" style=\"background-color: #ed3941;\">16</td>\n" +
-    "            </tr>\n" +
-    "        </tbody>\n" +
-    "    </table>\n" +
+    "            Start by selecting a test template\n" +
+    "            <br>\n" +
+    "            <br>\n" +
     "\n" +
-    "    <div\n" +
-    "        ng-show=\"summary.joints.knee\"\n" +
-    "        class=\"col-sm-6 col-sm-offset-3\"\n" +
-    "        style=\"margin-top: 10px; margin-bottom: 60px;\">\n" +
-    "        <div class=\"row\">\n" +
-    "            <span class=\"pull-left\">\n" +
-    "                <b>Left</b>\n" +
-    "            </span>\n" +
-    "            <span class=\"pull-right\">\n" +
-    "                <b>Right</b>\n" +
-    "            </span>\n" +
-    "        </div>\n" +
-    "        <div class=\"row linear-heat-gradient\">\n" +
-    "            <div style=\"\n" +
-    "                position: absolute;\n" +
-    "                bottom: -5%;\n" +
-    "                left: 52%;\n" +
-    "                display: block;\n" +
-    "                height: 75%;\n" +
-    "                width: 2px;\n" +
-    "                background-color: #000;\">\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "            <a ng-click=\"createFunctionalMovementScreening()\" href=\"javascript:;\">\n" +
+    "                Functional Movement Test\n" +
+    "            </a>\n" +
+    "            <br>\n" +
     "\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/summary-layout.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/summary-layout.html",
-    "<div class=\"col-sm-12 panel-group\">\n" +
-    "\n" +
-    "    <div class=\"col-sm-9 no-gutter panel panel-default\" style=\"padding-left: 0px; height: 700px;\">\n" +
-    "            <div class=\"col-sm-3\" style=\"height: 700px;\">\n" +
-    "                <ng-include src=\"'screening/demo/partials/summary-menu.html'\"></ng-include>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Demo summary content -->\n" +
-    "            <div class=\"col-sm-9\" style=\"height: 700px;\">\n" +
-    "                <ng-include src=\"'screening/demo/partials/summary-content.html'\"></ng-include>\n" +
-    "            </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"col-sm-3\">\n" +
-    "\n" +
-    "        <!-- Movement overview -->\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/demo/partials/summary-movement-overview.html'\"></ng-include>\n" +
+    "            <a href=\"javascript:;\">\n" +
+    "                <i class=\"fa fa-plus fa-fw\"></i> Create a Custom Movement Test\n" +
+    "            </a>\n" +
     "        </div>\n" +
     "\n" +
-    "        <!-- Overall score -->\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/demo/partials/summary-overall-scores.html'\"></ng-include>\n" +
+    "        <!-- Select a profile -->\n" +
+    "        <div\n" +
+    "            ng-show=\"global.getSelectedProfile().id === 0\n" +
+    "                && global.data.isPreparingNewScreening === false\">\n" +
+    "\n" +
+    "            <div ng-include=\"'partials/select-profile.html'\"></div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <!-- Legend -->\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/live/partials/summary-legend.html'\"></ng-include>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/summary-menu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/summary-menu.html",
-    "<div class=\"movement-left-column non-test-pages\" style=\"height: 100%\">\n" +
+    "        <!-- Preparing screening records -->\n" +
+    "        <div ng-show=\"global.data.isPreparingNewScreening === true\">\n" +
     "\n" +
-    "    <!-- Select trial -->\n" +
-    "    <div\n" +
-    "        ng-hide=\"analysis.playbackRatePane || analysis.planePane\"\n" +
-    "        ng-click=\"analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"padding:0;\">\n" +
-    "        <div class=\"col-sm-8\" style=\"height:56px;\">\n" +
-    "            {{ fms.current.trial.name }}\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <i ng-show=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
-    "            <i ng-hide=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-if=\"analysis.trialPane\"\n" +
-    "        ng-repeat=\"trial in fms.current.trials\"\n" +
-    "        ng-click=\"fms.current.trial = trial; analysis.trialPane = false;\"\n" +
-    "        class=\"row hierarchy-2\">\n" +
-    "\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            {{trial.name}}\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" ng-click=\"joint.selected = !joint.selected\">\n" +
-    "            <i ng-show=\"fms.current.trial == trial\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Select all joints -->\n" +
-    "    <div\n" +
-    "        ng-click=\"summary.joints.select('all');\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"padding:0;\">\n" +
-    "\n" +
-    "        <div class=\"col-sm-8\" style=\"height: 56px; color: #333;\">\n" +
-    "            Select All\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <div ng-hide=\"summary.joints.all\" class=\"checkbox\"></div>\n" +
-    "            <div ng-show=\"summary.joints.all\" class=\"checked checkbox\"></div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Select Hip -->\n" +
-    "    <div\n" +
-    "        ng-click=\"summary.joints.select('hip');\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"padding:0;\">\n" +
-    "\n" +
-    "        <div class=\"col-sm-8\" style=\"height: 56px; color: #333;\">\n" +
-    "            Hip\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <div ng-hide=\"summary.joints.hip\" class=\"checkbox\"></div>\n" +
-    "            <div ng-show=\"summary.joints.hip\" class=\"checked checkbox\"></div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Select Knee -->\n" +
-    "    <div\n" +
-    "        ng-click=\"summary.joints.select('knee');\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"padding:0;\">\n" +
-    "\n" +
-    "        <div class=\"col-sm-8\" style=\"height: 56px; color: #333;\">\n" +
-    "            Knee\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <div ng-hide=\"summary.joints.knee\" class=\"checkbox\"></div>\n" +
-    "            <div ng-show=\"summary.joints.knee\" class=\"checked checkbox\"></div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/summary-movement-overview.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/summary-movement-overview.html",
-    "<div class=\"panel-heading text-center\">\n" +
-    "    Movement Overview\n" +
-    "</div>\n" +
-    "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <div>\n" +
-    "        <div class=\"text-left col-sm-12\">\n" +
-    "            <h2 style=\"margin:0\";>\n" +
-    "                <b style=\"font-size:40%\">Left</b>\n" +
+    "            <br>\n" +
+    "            <h2 class=\"text-center\">\n" +
+    "                Preparing Your Test\n" +
     "            </h2>\n" +
+    "\n" +
+    "            <br>\n" +
+    "            <br>\n" +
+    "            <div class=\"text-center\">\n" +
+    "                <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div class=\"panel-body col-sm-12\">\n" +
-    "        <img\n" +
-    "            ng-src=\"{{ '../../../../demo/aslr/summary/heat_map_left.png' }}\"\n" +
-    "            style=\"height:100%;display:block;margin:auto;\">\n" +
-    "    </div>\n" +
-    "    <div>\n" +
-    "        <div class=\"text-left col-sm-12\">\n" +
-    "            <h2 style=\"margin:0\">\n" +
-    "                <b style=\"font-size:40%\">Right</b>\n" +
-    "            </h2>\n" +
+    "\n" +
+    "    <!-- Loading screening data -->\n" +
+    "    <div ng-show=\"global.data.isFetchingScreeningData === true\">\n" +
+    "        <div class=\"text-center\" style=\"margin: 60px auto\">\n" +
+    "            <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n" +
     "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"panel-body col-sm-12\">\n" +
-    "        <img\n" +
-    "            ng-src=\"{{ '../../../../demo/aslr/summary/heat_map_left.png' }}\"\n" +
-    "            style=\"height:100%;display:block;margin:auto;\">\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
 }]);
 
-angular.module("screening/demo/partials/summary-overall-scores.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/summary-overall-scores.html",
-    "<div class=\"panel-heading text-center\">\n" +
-    "    Overall Score\n" +
-    "</div>\n" +
+angular.module("screenings/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("screenings/index.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "<div class=\"panel-body text-left\">\n" +
+    "<div class=\"page\">\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            Movement Tests <i class=\"fa fa-pencil-square-o\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
+    "    </header>\n" +
     "\n" +
-    "    <!-- Total score -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            Total Test Score\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "    <!-- List of screenings -->\n" +
+    "    <div ng-show=\"global.data.isFetchingScreeningData === false\" class=\"row\">\n" +
     "\n" +
-    "    <br>\n" +
+    "        <div\n" +
+    "            ng-show=\"global.state.screening.list.length > 0\"\n" +
+    "            class=\"col-xs-12 col-md-10 col-md-offset-1\">\n" +
     "\n" +
-    "    <div class=\"row \">\n" +
-    "        <div class=\"col-sm-12 no-gutter\">\n" +
-    "            <div class=\"col-sm-1\" style=\"background-color: #f48b4a\">&nbsp;</div>\n" +
-    "            <div class=\"col-sm-1\" style=\"background-color: #ed3941\">&nbsp;</div>\n" +
-    "            <div class=\"col-sm-2\" style=\"background-color: #89c443\">&nbsp;</div>\n" +
-    "            <div class=\"col-sm-1\" style=\"background-color: #ed3941\">&nbsp;</div>\n" +
-    "            <div class=\"col-sm-2\" style=\"background-color: #89c443\">&nbsp;</div>\n" +
-    "            <div class=\"col-sm-4 text-center\" style=\"background-color: black; color: white\">15/21</div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "            <!-- Heading -->\n" +
+    "            <div class=\"row heading\">\n" +
+    "                <div class=\"col-md-3 text-center\">\n" +
+    "                    Date\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-3 text-center\">\n" +
+    "                    Title\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-3 text-center\">\n" +
+    "                    Athlete\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    Score\n" +
+    "                </div>\n" +
+    "            </div>\n" +
     "\n" +
-    "    <br>\n" +
+    "            <!-- Screenings -->\n" +
+    "            <div ng-repeat=\"screening in global.state.screening.list\" class=\"row\">\n" +
     "\n" +
-    "    <!-- Movement Efficiency -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12 text-left\">\n" +
-    "            Movement Efficiency\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <br>\n" +
-    "\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            <div style=\"position: relative; margin: 0 auto; height: 120px; width: 120px;\">\n" +
-    "                <div class=\"c100 p71 green\">\n" +
-    "                    <span>71%</span>\n" +
-    "                    <div class=\"slice\">\n" +
-    "                        <div class=\"bar\"></div>\n" +
-    "                        <div class=\"fill\"></div>\n" +
-    "                    </div>\n" +
+    "                <!-- Date -->\n" +
+    "                <div class=\"col-md-3 text-center\">\n" +
+    "                    {{ screening.createdAt | mysqlDate }}\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-3 text-center\">\n" +
+    "                    <a href=\"#/screenings/{{ screening.id }}\">\n" +
+    "                        {{ screening.title | characters:60 }}\n" +
+    "                    </a>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-3 text-center\">\n" +
+    "                    {{ screening.profileId }}\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    {{ screening.score | number:0 }}\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "    </div>\n" +
     "\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/test-coronal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/test-coronal.html",
-    "<div class=\"panel-heading text-right\">\n" +
-    "    Front/Coronal\n" +
-    "</div>\n" +
+    "        <!-- No screenings to show -->\n" +
+    "        <div ng-show=\"global.state.screening.list.length === 0\">\n" +
     "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <video class=\"demo-test\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/coronal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/coronal.mp4'}}\" type=\"video/mp4\"/>\n" +
-    "        Sorry, your browser doesn't support HTML5 video.\n" +
-    "    </video>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/test-layout-emphasized.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/test-layout-emphasized.html",
-    "<div class=\"col-sm-12 panel-group panel-layout-emphasized\">\n" +
+    "            <a href=\"#/screenings/current\" class=\"btn btn-primary btn-circle btn-lg\">\n" +
+    "                <i class=\"fa fa-plus\"></i>\n" +
+    "            </a>\n" +
     "\n" +
-    "    <!-- Emphasized view -->\n" +
-    "    <div class=\"col-sm-9 no-gutter panel panel-default panel-emphasized\">\n" +
-    "            <div class=\"col-sm-3\">\n" +
-    "                <ng-include src=\"'screening/live/partials/test-menu.html'\"></ng-include>\n" +
-    "            </div>\n" +
+    "            <h3>There are no tests to display.</h3>\n" +
+    "            Once you create a new test, it will show up here.\n" +
+    "            <br><br>\n" +
     "\n" +
-    "            <div class=\"col-sm-9\">\n" +
-    "                <ng-include src=\"'screening/demo/partials/test-'+ fms.views[0] +'.html'\"></ng-include>\n" +
-    "            </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Secondary views -->\n" +
-    "    <div class=\"col-sm-3\">\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/demo/partials/test-'+ fms.views[1] +'.html'\"></ng-include>\n" +
+    "            <b>Go ahead and use the <i class=\"fa fa-plus fa-lg fa-fw\"></i> button above to start.</b>\n" +
     "        </div>\n" +
-    "        <div class=\"col-sm-12 panel panel-default\">\n" +
-    "            <ng-include src=\"'screening/demo/partials/test-'+ fms.views[2] +'.html'\"></ng-include>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Loading data -->\n" +
+    "    <div ng-show=\"global.data.isFetchingScreeningData === true\">\n" +
+    "        <h3 class=\"text-center\">Retrieving Tests</h3>\n" +
+    "        <div class=\"text-center\" style=\"margin: 60px auto\">\n" +
+    "            <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
 }]);
 
-angular.module("screening/demo/partials/test-sagittal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/test-sagittal.html",
-    "<div class=\"panel-heading text-right\">\n" +
-    "    Side/Sagittal\n" +
-    "</div>\n" +
+angular.module("screenings/view/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("screenings/view/index.html",
+    "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <video class=\"demo-test\" style=\"margin: 0 20%; width: 60%;\">\n" +
-    "        <!-- <source ng-src=\"{{ '../../../../demo/aslr/analysis/sagittal.webm?1' }}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{ '../../../../demo/aslr/analysis/sagittal.mp4?1' }}\" type=\"video/mp4\"/>\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/analysis/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/analysis/sagittal.mp4'}}\" type=\"video/mp4\"/> -->\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/sagittal.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/sagittal.mp4'}}\" type=\"video/mp4\"/>\n" +
-    "        Sorry, your browser doesn't support HTML5 video.\n" +
-    "    </video>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/partials/test-transverse.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/partials/test-transverse.html",
-    "<div class=\"panel-heading text-right\">\n" +
-    "    Horizontal/Transverse\n" +
-    "</div>\n" +
-    "\n" +
-    "<div class=\"panel-body\">\n" +
-    "    <video class=\"demo-test\" style=\"width: 100%;\">\n" +
-    "        <source ng-src=\"{{'../../../../demo/aslr/left/transverse.webm'}}\" type=\"video/webm\"/>\n" +
-    "        <source src=\"{{'../../../../demo/aslr/left/transverse.mp4'}}\" type=\"video/mp4\"/>\n" +
-    "        Sorry, your browser doesn't support HTML5 video.\n" +
-    "    </video>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/summary.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/summary.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<div class=\"page page-dashboard movement-pages\">\n" +
-    "	<div>\n" +
-    "\n" +
-    "        <!-- Breadcrumbs -->\n" +
-    "        <div ng-include src=\"'screening/live/partials/breadcrumbs.html'\"></div>\n" +
-    "\n" +
-    "        <!-- Demo summary -->\n" +
-    "        <div ng-include src=\"'screening/demo/partials/summary-layout.html'\"></div>\n" +
-    "	</div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/demo/test.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/demo/test.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<div class=\"page page-dashboard movement-pages\">\n" +
-    "	<div>\n" +
-    "\n" +
-    "        <!-- Breadcrumbs -->\n" +
-    "        <ng-include src=\"'screening/live/partials/breadcrumbs.html'\"></ng-include>\n" +
-    "\n" +
-    "        <!-- Selected side -->\n" +
-    "		<ng-include\n" +
-    "            ng-show=\"fms.current.iterations.length > 0\"\n" +
-    "            src=\"'screening/live/partials/iterations.html'\">\n" +
-    "        </ng-include>\n" +
-    "\n" +
-    "        <!-- Test run summary -->\n" +
-    "        <div class=\"row\">\n" +
-    "            <div\n" +
-    "                class=\"col-sm-12 text-center\"\n" +
-    "                style=\"margin: 10px auto 20px; font-weight: normal; color: #aaa;\">\n" +
-    "                Current test run: <b>{{ fms.current.trial.name }}</b> / <b>{{ fms.current.iteration }}</b>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <!-- Demo videos -->\n" +
-    "        <ng-include src=\"'screening/demo/partials/test-layout-emphasized.html'\"></ng-include>\n" +
-    "\n" +
-    "        <!-- Trials -->\n" +
-    "        <ng-include src=\"'screening/live/partials/test-trials.html'\"></ng-include>\n" +
-    "	</div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/index.html",
     "<div class=\"page\">\n" +
-    "    <ui-page-title data-title=\"'FMS'\"></ui-page-title>\n" +
+    "    <header>\n" +
+    "        <h1>\n" +
+    "            <abbr title=\"Functional Movement Test\">FMT</abbr> Report <i class=\"fa fa-list-alt\"></i>\n" +
+    "            <span></span>\n" +
+    "        </h1>\n" +
     "\n" +
-    "    <h2 style=\"text-align: center; color: #ccc;\">\n" +
-    "        In Development\n" +
-    "    </h2>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/live/analysis.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/analysis.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<!-- Temporary placeholder -->\n" +
-    "<ng-include src=\"'placeholder.html'\"></ng-include>\n" +
-    "");
-}]);
-
-angular.module("screening/live/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/index.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<!-- Temporary placeholder -->\n" +
-    "<ng-include src=\"'placeholder.html' + assetVersion\"></ng-include>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/analysis-menu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/analysis-menu.html",
-    "<div class=\"movement-left-column non-test-pages\">\n" +
-    "\n" +
-    "    <!-- Select trial -->\n" +
-    "    <div\n" +
-    "        ng-hide=\"analysis.playbackRatePane || analysis.planePane\"\n" +
-    "        ng-click=\"analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"padding:0;\">\n" +
-    "        <div class=\"col-sm-8\" style=\"height:56px;\">\n" +
-    "            {{ fms.current.trial.name }}\n" +
+    "        <!-- Append profile name to page title -->\n" +
+    "        <div ng-show=\"screeningProfile.id > 0\" class=\"h1-append\">\n" +
+    "            {{ screeningProfile.firstName }}\n" +
+    "            {{ screeningProfile.lastName }}\n" +
     "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <i ng-show=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
-    "            <i ng-hide=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-if=\"analysis.trialPane\"\n" +
-    "        ng-repeat=\"trial in fms.current.trials\"\n" +
-    "        ng-click=\"fms.current.trial = trial; analysis.trialPane = false;\"\n" +
-    "        class=\"row hierarchy-2\">\n" +
+    "    </header>\n" +
     "\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            {{trial.name}}\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" ng-click=\"joint.selected = !joint.selected\">\n" +
-    "            <i ng-show=\"fms.current.trial == trial\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "    <!-- Screening results -->\n" +
+    "    <div ng-show=\"screening.id > 0\" class=\"text-center\">\n" +
     "\n" +
-    "    <!-- Select plane -->\n" +
-    "    <div\n" +
-    "        ng-hide=\"analysis.playbackRatePane || analysis.trialPane\"\n" +
-    "        ng-click=\"Rover.alert('Demo')\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"height:56px;margin:0;line-height:56px;\">\n" +
+    "        <button class=\"btn btn-default\">\n" +
+    "            Test Score Table\n" +
+    "        </button>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
     "\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            Plane\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <i style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\"/>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "        <button class=\"btn btn-default\">\n" +
+    "            Test Score Graph\n" +
+    "        </button>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
     "\n" +
-    "    <!-- Select playback rate -->\n" +
-    "    <div\n" +
-    "        ng-click=\"analysis.playbackRatePane = !analysis.playbackRatePane; analysis.trialPane = false\"\n" +
-    "        ng-hide=\"analysis.trialPane || analysis.planePane\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"height:56px;margin:0;line-height:56px;\">\n" +
+    "        <button class=\"btn btn-default\">\n" +
+    "            Mobility Summary\n" +
+    "        </button>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
     "\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            Speed ({{ analysis.playbackRate }}x)\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <i ng-hide=\"analysis.playbackRatePane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
-    "            <i ng-show=\"analysis.playbackRatePane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-if=\"analysis.playbackRatePane\"\n" +
-    "        ng-repeat=\"playbackRate in [0.5, 1, 5, 25]\"\n" +
-    "        ng-click=\"analysis.setPlaybackRate(playbackRate); analysis.playbackRatePane = false;\"\n" +
-    "        class=\"row hierarchy-2\">\n" +
-    "\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            {{ playbackRate }}x\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <div class=\"col-sm-4\">\n" +
-    "            <i ng-if=\"analysis.playbackRate == playbackRate\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Show angles -->\n" +
-    "    <div ng-click=\"Rover.alert('Demo')\" class=\"row\" style=\"height:56px;margin:0;line-height:56px;\">\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            Angles\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <i style=\"line-height:inherit;\" class=\"fa fa-2x fa-check-square-o\"/>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Playback controls -->\n" +
-    "    <div class=\"video-controls\">\n" +
-    "        <i ng-click=\"analysis.play()\" class=\"fa fa-2x fa-play\" style=\"margin-right:5px;\"/>\n" +
-    "        <i ng-click=\"Rover.alert('Demo')\" class=\"fa fa-2x fa-forward\" style=\"margin-right:5px;\"/>\n" +
-    "        <i ng-click=\"analysis.pause()\" class=\"fa fa-2x fa-pause\" style=\"margin-right:5px;\" />\n" +
-    "        <i ng-click=\"analysis.reset()\" class=\"fa fa-2x fa-undo fa-flip-vertical\" />\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/breadcrumbs.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/breadcrumbs.html",
-    "<ol class=\"breadcrumb-movement\">\n" +
-    "\n" +
-    "    <!-- Movement title -->\n" +
-    "    <li>\n" +
-    "        <div>\n" +
-    "            <a>{{ fms.current.name }}</a>\n" +
-    "        </div>\n" +
-    "    </li>\n" +
-    "\n" +
-    "    <!-- Movement tabs -->\n" +
-    "    <li\n" +
-    "        ng-click=\"Rover.browseTo.path('/screening/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/test')\"\n" +
-    "        ng-class=\"{'active': params.step == 'test'}\">\n" +
-    "\n" +
-    "        <a>Test</a>\n" +
-    "    </li>\n" +
-    "    <li\n" +
-    "        ng-click=\"Rover.browseTo.path('/screening/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/analysis')\"\n" +
-    "        ng-class=\"{'active': params.step == 'analysis'}\">\n" +
-    "        <a>Analysis</a>\n" +
-    "    </li>\n" +
-    "    <!-- <li ng-click=\"data.current_movement_page.latest_page = 2\" ng-class=\"{'active':data.current_movement_page.latest_page == 2}\">\n" +
-    "        <a>Data</a>\n" +
-    "    </li> -->\n" +
-    "    <li\n" +
-    "        ng-click=\"Rover.browseTo.path('/screening/'+ (isDemo ? 'demo' : 'live') +'/'+ fms.current.id +'/summary')\"\n" +
-    "        ng-class=\"{'active': params.step == 'summary'}\">\n" +
-    "\n" +
-    "        <a>Summary</a>\n" +
-    "    </li>\n" +
-    "</ol>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/header.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/header.html",
-    "<header class=\"page-main-header\">\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-6\">\n" +
-    "            <h4>Functional Movement Screening</h4>\n" +
-    "            <p>Start your tests</p>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</header>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/iterations.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/iterations.html",
-    "<ol class=\"breadcrumb-movement-sm\">\n" +
-    "    <li\n" +
-    "        ng-click=\"fms.current.iteration = iteration\"\n" +
-    "        ng-class=\"{'active': iteration == fms.current.iteration}\"\n" +
-    "        ng-repeat=\"iteration in fms.current.iterations\">\n" +
-    "        \n" +
-    "        <a>\n" +
-    "            {{ iteration }}\n" +
+    "        <a href=\"javascript:;\">\n" +
+    "            <i class=\"fa fa-angle-double-down fa-2x\"></i>\n" +
     "        </a>\n" +
-    "    </li>\n" +
-    "</ol>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/summary-legend.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/summary-legend.html",
-    "<div class=\"panel-heading text-center\">\n" +
-    "    Thresholds\n" +
-    "    <br>\n" +
-    "    <small style=\"font-size: 0.8em; color: #aaa; text-transform: none;\">\n" +
-    "        (in degrees)\n" +
-    "    </small>\n" +
-    "</div>\n" +
-    "<div class=\"panel-body\">\n" +
-    "\n" +
-    "    <div class=\"row no-gutter\" style=\"margin:0; height:32px; color:#89c443;\">\n" +
-    "        <div class=\"col-sm-3\">\n" +
-    "            <b>0-5&deg;</b>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-9\">\n" +
-    "            <b>Within reasonable movement standards</b>\n" +
-    "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"row no-gutter\" style=\"margin:0;height:32px;color:#f48b4a;\">\n" +
-    "        <div class=\"col-sm-3\">\n" +
-    "            <b>5-15&deg;</b>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-9\">\n" +
-    "            <b>Area of concern</b>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"row no-gutter\" style=\"margin:0;height:32px;color:#ed3941;\">\n" +
-    "        <div class=\"col-sm-3\">\n" +
-    "            <b>15&deg;+</b>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-9\">\n" +
-    "            <b>Area to address</b>\n" +
-    "        </div>\n" +
+    "    <div ng-show=\"screening.id === 0\">\n" +
+    "        <h2 style=\"text-align: center; color: #ccc;\">\n" +
+    "            In Development\n" +
+    "        </h2>\n" +
     "    </div>\n" +
     "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/summary-menu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/summary-menu.html",
-    "<div class=\"movement-left-column non-test-pages\" style=\"height: 100%\">\n" +
-    "\n" +
-    "    <!-- Select trial -->\n" +
-    "    <div\n" +
-    "        ng-hide=\"analysis.playbackRatePane || analysis.planePane\"\n" +
-    "        ng-click=\"analysis.trialPane = !analysis.trialPane; analysis.playbackRatePane = false;\"\n" +
-    "        class=\"row\"\n" +
-    "        style=\"padding:0;\">\n" +
-    "        <div class=\"col-sm-8\" style=\"height:56px;\">\n" +
-    "            {{ fms.current.trial.name }}\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" style=\"height:56px;\">\n" +
-    "            <i ng-show=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-up\" />\n" +
-    "            <i ng-hide=\"analysis.trialPane\" style=\"line-height:inherit;transform:scale(1, 1.5);\" class=\"fa fa-2x fa-caret-down\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-if=\"analysis.trialPane\"\n" +
-    "        ng-repeat=\"trial in fms.current.trials\"\n" +
-    "        ng-click=\"fms.current.trial = trial; analysis.trialPane = false;\"\n" +
-    "        class=\"row hierarchy-2\">\n" +
-    "\n" +
-    "        <div class=\"col-sm-8\">\n" +
-    "            {{trial.name}}\n" +
-    "        </div>\n" +
-    "        <div class=\"col-sm-4\" ng-click=\"joint.selected = !joint.selected\">\n" +
-    "            <i ng-show=\"fms.current.trial == trial\" style=\"line-height:inherit;\" class=\"fa fa-2x fa-check\" />\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/test-menu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/test-menu.html",
-    "<div class=\"movement-left-column test-page\">\n" +
-    "    <div\n" +
-    "        ng-click=\"run.start()\"\n" +
-    "        ng-show=\"isTestLive == false && !run.exists()\"\n" +
-    "        style=\"background-color: #89c443; color: #fff;\">\n" +
-    "        Start\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-click=\"run.end()\"\n" +
-    "        ng-show=\"isTestLive == true\"\n" +
-    "        style=\"background-color: #ed3941; color: #fff;\">\n" +
-    "        Stop\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-click=\"run.pain()\"\n" +
-    "        ng-show=\"isTestLive == true\"\n" +
-    "        style=\"background-color: #f48b4a; color: #fff;\">\n" +
-    "        Pain\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-click=\"run.fault()\"\n" +
-    "        ng-show=\"isTestLive == true\"\n" +
-    "        style=\"background-color: #f48b4a; color: #fff;\">\n" +
-    "        Fault\n" +
-    "    </div>\n" +
-    "    <div\n" +
-    "        ng-click=\"run.reset()\"\n" +
-    "        ng-show=\"isTestLive == false && run.exists()\"\n" +
-    "        style=\"color:#f48b4a;\">\n" +
-    "        Rerun the test\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/live/partials/test-trials.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/partials/test-trials.html",
-    "<div class=\"row\">\n" +
-    "	<div class=\"col-sm-4\">\n" +
-    "		<div class=\"panel panel-default\">\n" +
-    "			<div class=\"panel-body\" style=\"padding:0px;\">\n" +
-    "				<div class=\"col-sm-12 ng-scope movement-trial-list\" style=\"padding:0px;\">\n" +
-    "					<div\n" +
-    "                        ng-repeat=\"trial in fms.current.trials\"\n" +
-    "                        ng-click=\"fms.current.trial = trial;run.name = null\"\n" +
-    "                        ng-class=\"{'active': trial == fms.current.trial}\">\n" +
-    "\n" +
-    "						<div class=\"trial-label\">\n" +
-    "							{{ trial.name }}\n" +
-    "                            <span\n" +
-    "                                ng-show=\"run.getRunByTrial(trial) && run.getRunByTrial(trial).numFaults > 0\"\n" +
-    "                                style=\"font-size:.7em;color:#999;font-weight:normal;margin-left: 5px;position:absolute;\">\n" +
-    "\n" +
-    "                                Faults: {{ run.getRunByTrial(trial).numFaults }}\n" +
-    "                            </span>\n" +
-    "						</div>\n" +
-    "\n" +
-    "						<div class=\"trial-status\">\n" +
-    "\n" +
-    "                            <!-- Status text -->\n" +
-    "							<div class=\"col-sm-8\">\n" +
-    "								<div ng-if=\"run.getStatus(trial) == 'saved' && run.getRunByTrial(trial).numFaults == 0\">\n" +
-    "								    No Fault\n" +
-    "								</div>\n" +
-    "								<div ng-if=\"run.getStatus(trial) == 'saved' && run.getRunByTrial(trial).numFaults > 0\">\n" +
-    "								    Faults: {{ run.getRunByTrial(trial).numFaults }}\n" +
-    "								</div>\n" +
-    "								<div ng-if=\"run.getStatus(trial) == 'pain'\">\n" +
-    "                                    Pain\n" +
-    "                                </div>\n" +
-    "							</div>\n" +
-    "\n" +
-    "							<div class=\"col-sm-4\">\n" +
-    "								<img ng-if=\"run.getStatus(trial) == 'live'\" class=\"pull-right\" src=\"../../images/ui/lock_open.png\" alt=\"unsaved\" style=\"height:40px;margin-top:5px;\" />\n" +
-    "								<img ng-if=\"run.getStatus(trial) == 'saved' || run.getStatus(trial) =='pain'\" class=\"pull-right\" src=\"../../images/ui/lock_closed.png\" alt=\"saved\" style=\"height:40px;margin-top:5px;\" />\n" +
-    "							</div>\n" +
-    "						</div>\n" +
-    "					</div>\n" +
-    "					<div ng-click=\"run.submit()\" ng-hide=\"fms.current.isTestSubmitted\" class=\"movement-submit-button\">\n" +
-    "						Submit Results\n" +
-    "					</div>\n" +
-    "					<div ng-show=\"fms.current.isTestSubmitted\" class=\"movement-submit-button\">\n" +
-    "						Results Successfully Submitted\n" +
-    "					</div>\n" +
-    "				</div>\n" +
-    "			</div>\n" +
-    "		</div>\n" +
-    "	</div>\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("screening/live/summary.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/summary.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<!-- Temporary placeholder -->\n" +
-    "<ng-include src=\"'placeholder.html'\"></ng-include>\n" +
-    "");
-}]);
-
-angular.module("screening/live/test.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("screening/live/test.html",
-    "<!-- Header -->\n" +
-    "<div ng-include src=\"'screening/live/partials/header.html'\"></div>\n" +
-    "\n" +
-    "<!-- Temporary placeholder -->\n" +
-    "<ng-include src=\"'placeholder.html'\"></ng-include>\n" +
     "");
 }]);
 

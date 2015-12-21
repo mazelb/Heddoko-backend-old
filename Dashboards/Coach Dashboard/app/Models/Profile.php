@@ -10,10 +10,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasAvatarTrait as HasAvatar;
+use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
 class Profile extends Model
 {
-    use HasAvatar;
+    use HasAvatar, CamelCaseAttrs;
 
     /**
      * Gender not specified.
@@ -75,10 +76,10 @@ class Profile extends Model
     }
 
     /**
-     * Movement sets belonging to this profile.
+     * Screenings belonging to this profile.
      */
-    public function movementSets() {
-        return $this->hasMany('App\Models\MovementSet');
+    public function screenings() {
+        return $this->hasMany('App\Models\Screening');
     }
 
     /**
@@ -86,6 +87,13 @@ class Profile extends Model
      */
     public function movements() {
         return $this->hasMany('App\Models\Movement');
+    }
+
+    /**
+     * Folders belonging to this profile.
+     */
+    public function folders() {
+        return $this->hasMany('App\Models\Folder');
     }
 
     /**

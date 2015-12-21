@@ -1,7 +1,5 @@
 /**
- *
  * Copyright Heddoko(TM) 2015, all rights reserved.
- *
  *
  * @brief   This service handles profile-related HTTP requests.
  * @author  Francis Amankrah (frank@heddoko.com)
@@ -9,49 +7,78 @@
  */
 angular.module('app.services')
 
-.factory('ProfileService', ['$http', '$filter', 'Utilities', 'Rover',
-    function($http, $filter, Utilities, Rover) {
+.factory('ProfileService', ['$http', '$filter', 'Utilities', 'Rover', 'apiEndpoint',
+    function($http, $filter, Utilities, Rover, apiEndpoint) {
 
         return {
 
             /**
-             *
+             * Base endpoint.
              */
-            get: function(groupId) {
+            endpoint: apiEndpoint + '/profiles/',
+
+            /**
+             * Gets a list of profiles.
+             *
+             * @param int groupId
+             * @return object $http
+             */
+            list: function(groupId) {
 
                 // Add group ID to request parameters.
                 var config = groupId ? {params: {group: groupId}} : {};
 
-    			return $http.get('/api/profile', config);
+                return $http.get(this.endpoint, config);
+            },
+
+            /**
+             * Gets the details for a specific profile.
+             *
+             * @param int id
+             * @return object $http
+             */
+            get: function(id) {
+    			return $http.get(this.endpoint + id);
     		},
 
             /**
+             * Stores the details for a new profile.
              *
+             * @param object data
+             * @param int groupId
+             * @return object $http
              */
             create: function(data, groupId) {
 
                 // Add group ID to request parameters.
                 var config = groupId ? {params: {group: groupId}} : {};
 
-                return $http.post('/api/profile', data, config);
+                return $http.post(this.endpoint, data, config);
     		},
 
             /**
+             * Updates the details for a given profile.
              *
+             * @param int id
+             * @param object data
+             * @return object $http
              */
             update: function(id, data) {
 
                 // Add group ID to request parameters.
                 var config = (data.groups && data.groups.length) ? {params: {group: data.groups[0]}} : {};
 
-                return $http.put('/api/profile/' + id, data, config);
+                return $http.put(this.endpoint + id, data, config);
     		},
 
             /**
+             * Removes the profile details from the database.
              *
+             * @param int id
+             * @return object $http
              */
             destroy: function(id) {
-    			return $http.delete('/api/profile/' + id);
+    			return $http.delete(this.endpoint + id);
     		},
 
             /**
@@ -61,7 +88,7 @@ angular.module('app.services')
              * @return ...
              */
             destroyAvatar: function(id) {
-    			return $http.delete('/api/profile/' + id + '/avatar');
+    			return $http.delete(this.endpoint + id + '/avatar');
     		},
 
             /**
@@ -72,7 +99,7 @@ angular.module('app.services')
              * @return $http
              */
             setAvatar: function(id, fileData) {
-                return $http.post('/api/profile/'+ id +'/photo', {image: fileData});
+                return $http.post(this.endpoint + id +'/avatar', {image: fileData});
             },
 
             /**
@@ -83,10 +110,10 @@ angular.module('app.services')
              */
             formatForDisplay: function(profile) {
 
-                // Format "created_at" date.
-                profile.created_at = profile.created_at || '';
-                profile.created_at_formatted = profile.created_at.length > 0 ?
-                    $filter('date')(profile.created_at.substr(0, 10), 'MMM d, yyyy') : '';
+                // Format "createdAt" date.
+                profile.createdAt = profile.createdAt || '';
+                profile.createdAt_formatted = profile.createdAt.length > 0 ?
+                    $filter('date')(profile.createdAt.substr(0, 10), 'MMM d, yyyy') : '';
 
                 // // Calculate the amount of feet in the total height.
                 // profile.feet = profile.height > 0 ?

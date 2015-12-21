@@ -14,10 +14,14 @@ angular.module('app.filters')
             input = input || Date.now();
 
             // Update input string to a format supported by Angular's date filter.
-            if (input.match(/([0-9]{4}-[01][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9]:[0-6][0-9])/)) {
+            if (typeof input.match == 'function' &&
+                input.match(/([0-9]{4}-[01][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9]:[0-6][0-9])/)) {
 
                 // Update input with timezone.
                 input = input.replace(' ', 'T') + 'Z';
+
+                // Default format.
+                format = format || 'MMMM d, yyyy (h:mm a)';
             }
 
             return $filter('date')(input, format, timezone);

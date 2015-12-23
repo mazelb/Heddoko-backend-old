@@ -1,22 +1,34 @@
 ---
-title: Heddoko API Reference
+title: Heddoko API Reference - Draft 1
 
 language_tabs:
-  - C#
-  - Java
-  - Objective-C
+  - java: Android
+  - c: iOS
+  - csharp: C#
+  - php: PHP
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='#'>Sign-up for a developer key</a>
   - <a href='http://www.heddoko.com/'>www.heddoko.com</a>
 
 includes:
+  - intro/overview
   - intro/embeds
   - intro/collections
   - intro/spoofing
-  - intro/limiting
+  - intro/rate-limiting
+  - intro/sample-code
   - authentication
-  - profiles
+
+  - profiles/intro
+  - profiles/list
+  - profiles/get
+  - profiles/post
+  - profiles/put
+  - profiles/avatar/post
+  - profiles/delete
+  - profiles/avatar/delete
+  
   - movements
   - folders
   - screenings
@@ -28,4 +40,4 @@ search: true
 
 # Introduction
 
-The Heddoko API follows a [RESTful design](https://en.wikipedia.org/wiki/Representational_state_transfer). This means that each resource is identified by a Uniform Resource Identifier (or URI) and is manipulated through regular HTTP verbs such as `GET`, `POST`, `PUT`, `PATCH` or `DELETE`.
+The Heddoko API follows a [RESTful design](https://en.wikipedia.org/wiki/Representational_state_transfer) and provides programmatic access to profile and movement data. All resources are identified by a [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) and are accessed or modified through standard HTTP verbs such as `GET`, `POST`, `PUT`, `PATCH` or `DELETE`. Clients and users are authenticated using [OAuth 2.0](http://oauth.net/2/). Responses are available in JSON format.

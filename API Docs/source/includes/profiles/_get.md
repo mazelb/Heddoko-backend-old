@@ -26,6 +26,8 @@ HttpResponseMessage vResponse = await vClient.GetAsync("profiles/1");
 ```
 
 ```php
+<?php
+
 $response = $client->get('profiles/1?embed=groups,managers');
 ```
 
@@ -80,11 +82,11 @@ Has embeddable properties.
 
 Parameter | Description
 --------- | ------- | -----------
-movements | [Movement data](#movements) belonging to this profile.
-screenings | [Screenings](#screenings) belonging to this profile.
+avatarSrc | A [data URI](https://en.wikipedia.org/wiki/Data_URI_scheme) representing the profile's avatar.
 folders | [Folders](#folders) belonging to this profile.
-profileMeta | ...
-avatarSrc | ...
 groups | [Groups](#groups) which the profile belongs to.
 managers | Managers in charge of this profile.
+meta | [Profile meta data](#profile-meta-object).
+movements | [Movement data](#movements) belonging to this profile.
+screenings | [Screenings](#screenings) belonging to this profile.
 tags | [Tags](#tags) attached to this profile.

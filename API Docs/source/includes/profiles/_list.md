@@ -29,10 +29,6 @@ HttpResponseMessage vResponse = await vClient.GetAsync("profiles");
 $response = $client->get('api/v1/profiles');
 ```
 
-<aside class="warning">
-In Development.
-</aside>
-
 <aside class="success">
 Has embeddable properties.
 </aside>
@@ -47,8 +43,8 @@ limit | 20 | Number of profiles to retrieve (max 50).
 offset | 0 | Search offset.
 orderBy | "createdAt" |
 orderDir | "desc" |
-query | "" |
+query | " " |
 
 ### Embeds
 
-See the [Profiles &raquo; Retrieve a profile](#retrieve-a-profile) sub-section.
+See [Profiles &raquo; Retrieve a profile](#retrieve-a-profile).

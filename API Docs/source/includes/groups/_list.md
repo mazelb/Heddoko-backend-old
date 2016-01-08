@@ -1,10 +1,10 @@
-## List profiles
+## List groups
 
 > Sample request
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "profiles");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "groups");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,20 +22,20 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("profiles");
+HttpResponseMessage vResponse = await vClient.GetAsync("groups");
 ```
 
 ```php
 <?php
 
-$response = $client->get('api/v1/profiles');
+$response = $client->get('api/v1/groups');
 ```
 
 <aside class="success">
 Has embeddable properties.
 </aside>
 
-`GET /api/v1/profiles`
+`GET /api/v1/groups`
 
 ### Query Parameters
 
@@ -49,4 +49,4 @@ query | " " |
 
 ### Embeds
 
-See [Profiles &raquo; Retrieve a profile](#retrieve-a-profile).
+See [Groups &raquo; Retrieve a group](#retrieve-a-group).

@@ -20,6 +20,19 @@ includes:
   - intro/sample-code
   - authentication
 
+  - folders
+
+  - groups/intro
+  - groups/list
+  - groups/get
+  - groups/post
+  - groups/put
+  - groups/avatar/post
+  - groups/delete
+  - groups/avatar/delete
+
+  - movements
+
   - profiles/intro
   - profiles/list
   - profiles/get
@@ -28,12 +41,10 @@ includes:
   - profiles/avatar/post
   - profiles/delete
   - profiles/avatar/delete
-  
-  - movements
-  - folders
+
   - screenings
+
   - tags
-  - groups
 
 search: true
 ---

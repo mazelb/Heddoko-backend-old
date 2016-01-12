@@ -52,9 +52,9 @@ Parameter | Default | Description
 profileId | null | Narrows the screening to a those belonging to the specified profile.
 limit | 20 | Number of profiles to retrieve (max 50).
 offset | 0 | Search offset.
-orderBy | 'createdAt' |
-orderDir | 'desc' |
-query | '' |
+orderBy | "createdAt" |
+orderDir | "desc" |
+query | " " |
 
 ### Embeds
 
@@ -115,6 +115,21 @@ In Development.
 </aside>
 
 `POST /api/v1/screenings`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+profileId **required** | null | ID of profile the screening belongs to.
+
+### Body parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+title | null | Title.
+score | null | Score.
+scoreMax | null | Maximum score.
+notes | null | General notes.
 
 ## Update a screening
 

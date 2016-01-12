@@ -45,7 +45,7 @@ limit | 20 | Number of profiles to retrieve (max 50).
 offset | 0 | Search offset.
 orderBy | "createdAt" |
 orderDir | "desc" |
-query | " " |
+query | null |
 
 ### Embeds
 

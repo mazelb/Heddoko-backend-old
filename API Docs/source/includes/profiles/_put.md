@@ -56,4 +56,8 @@ Updates a profile.
 
 ### Body Parameters
 
-See the [Create a profile](#create-a-profile) sub-heading.
+See [Create a profile](#create-a-profile).
+
+### Embeds
+
+See [Profiles &raquo; Embeds](#embeds-for-profiles).

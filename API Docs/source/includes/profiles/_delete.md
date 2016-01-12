@@ -20,4 +20,6 @@ $response = $client->delete('profiles/1');
 
 `DELETE /api/v1/profiles/{id}`
 
-Deletes a profile record.
+### Embeds
+
+See [Profiles &raquo; Embeds](#embeds-for-profiles).

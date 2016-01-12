@@ -72,21 +72,8 @@ $response = $client->get('profiles/1?embed=groups,managers');
 }
 ```
 
-<aside class="success">
-Has embeddable properties.
-</aside>
-
 `GET /api/v1/profiles/{id}`
 
 ### Embeds
 
-Parameter | Description
---------- | ------- | -----------
-avatarSrc | A [data URI](https://en.wikipedia.org/wiki/Data_URI_scheme) representing the profile's avatar.
-folders | [Folders](#folders) belonging to this profile.
-groups | [Groups](#groups) which the profile belongs to.
-managers | Managers in charge of this profile.
-meta | [Profile meta data](#profile-meta-object).
-movements | [Movement data](#movements) belonging to this profile.
-screenings | [Screenings](#screenings) belonging to this profile.
-tags | [Tags](#tags) attached to this profile.
+See [Profiles &raquo; Embeds](#embeds-for-profiles).

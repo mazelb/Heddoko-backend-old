@@ -31,10 +31,6 @@ HttpResponseMessage vResponse = await vClient.GetAsync("profiles");
 $response = $client->get('api/v1/profiles');
 ```
 
-<aside class="success">
-Has embeddable properties.
-</aside>
-
 `GET /api/v1/profiles`
 
 ### Query Parameters
@@ -49,4 +45,4 @@ query | null |
 
 ### Embeds
 
-See [Profiles &raquo; Retrieve a profile](#retrieve-a-profile).
+See [Profiles &raquo; Embeds](#embeds-for-profiles).

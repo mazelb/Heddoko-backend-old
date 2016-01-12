@@ -148,3 +148,7 @@ medicalHistory | null | Summary of medical history.
 injuries | null | Summary of injuries.
 notes | null | General notes.
 params | null | Profile parameters.
+
+### Embeds
+
+See [Profiles &raquo; Embeds](#embeds-for-profiles).

@@ -21,14 +21,17 @@ module.exports = function(grunt) {
         //     }
         // },
 
-        // clean: {
-        //     temp: {
-        //         src: [ 'tmp' ]
-        //     }
-        // },
+        clean: {
+            temp: {
+                src: [ 'tmp' ]
+            },
+            dist: {
+                src: ['public/images']
+            }
+        },
 
         copy: {
-            main: {
+            dist: {
                 files: [
                     //
                     // // jQuery
@@ -57,15 +60,15 @@ module.exports = function(grunt) {
                     //     src: ['fonts/*.*'],
                     //     dest: 'public'
                     // },
-                    //
-                    // // Other images
-                    // {
-                    //     expand: true,
-                    //     dot: true,
-                    //     cwd: 'angular-app/images',
-                    //     src: ['*.*','background/*','logo/*'],
-                    //     dest: 'public/images'
-                    // }
+
+                    // Other images
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: 'resources/assets/images',
+                        src: ['*.*','**/*.*'],
+                        dest: 'public/images'
+                    }
                 ]
             }
         },
@@ -120,21 +123,17 @@ module.exports = function(grunt) {
                     // Main dependencides.
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
-                    'angular-app/scripts/gmap.js',
-                    'bower_components/slimScroll/jquery.slimscroll.min.js',
                     'bower_components/angular/angular.min.js',
-                    'bower_components/angular-animate/angular-animate.min.js',
-                    'bower_components/angular-route/angular-route.min.js',
-                    'bower_components/angular-sanitize/angular-sanitize.min.js',
                     'bower_components/underscore/underscore-min.js',
 
-                    // ngFileUpload: Angular directive to upload files.
-                    // https://github.com/danialfarid/ng-file-upload
+                    // AngularJS
+                    'bower_components/ngstorage/ngStorage.min.js',
+                    'bower_components/angular-truncate/src/truncate.js',
+                    'bower_components/angular-route/angular-route.min.js',
+                    'bower_components/angular-animate/angular-animate.min.js',
+                    'bower_components/angular-sanitize/angular-sanitize.min.js',
                     'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
                     'bower_components/ng-file-upload/ng-file-upload.min.js',
-
-                    // Truncate
-                    'bower_components/angular-truncate/src/truncate.js',
 
                     // Intro.js: for onboarding.
                     'bower_components/intro.js/minified/intro.min.js',
@@ -170,6 +169,8 @@ module.exports = function(grunt) {
                     // http://www.chartjs.org/
                     'bower_components/chartjs/Chart.min.js',
 
+                    'bower_components/slimScroll/jquery.slimscroll.min.js',
+                    'angular-app/scripts/gmap.js',
                     'bower_components/jquery.sparkline.build/dist/jquery.sparkline.min.js',
                     'bower_components/easypie/dist/angular.easypiechart.min.js',
                     'bower_components/angular-wizard/dist/angular-wizard.js',
@@ -264,6 +265,8 @@ module.exports = function(grunt) {
                     'Gruntfile.js',
                     'resources/angular-views/*.html',
                     'resources/angular-views/**/*.html',
+                    'resources/assets/images/*.*',
+                    'resources/assets/images/**/*.*',
                     'resources/assets/js/*.js',
                     'resources/assets/js/**/*.js',
                     'resources/assets/sass/*.scss',
@@ -276,7 +279,9 @@ module.exports = function(grunt) {
                     'html2js:dist',
                     'concat:dist',
                     'sass',
-                    'cssmin'
+                    'cssmin',
+                    'clean:dist',
+                    'copy:dist'
                 ],
                 options: {
                     atBegin: true
@@ -362,5 +367,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('css', ['sass', 'cssmin']);
     grunt.registerTask('js', ['jshint', 'uglify', 'html2js', 'concat']);
-    grunt.registerTask('default', ['js', 'css']);
+    grunt.registerTask('default', ['js', 'css', 'clean:dist', 'copy:dist']);
 };

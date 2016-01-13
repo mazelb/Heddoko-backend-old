@@ -17,42 +17,26 @@ class Profile extends Model
     use HasAvatar, CamelCaseAttrs;
 
     /**
-     * Gender not specified.
-     */
-    CONST GENDER_NOT_SPECIFIED = 0;
-
-    /**
-     * Gender option: female.
-     */
-    CONST GENDER_FEMALE = 1;
-
-    /**
-     * Gender option: male
-     */
-    CONST GENDER_MALE = 2;
-
-    /**
      * Attributes which are mass-assignable.
      */
-	protected $fillable = ['first_name', 'last_name', 'tag_id'];
+	protected $fillable = ['firstName', 'lastName', 'tagId'];
 
     /**
-     * Attributes which should be appended to the model's array form.
+     * Attributes that SHOULD be appended to the model's array form.
      */
-    protected $appends = ['avatar_src'];
+    protected $appends = [];
+
+    /**
+     * Attributes that CAN be appended to the model's array form.
+     */
+    public static $appendable = [
+        'avatarSrc',
+    ];
 
     /**
      * Attributes which should be hidden from the models' array form.
      */
-    protected $hidden = ['tag_id', 'meta', 'avatar'];
-
-    /**
-     * Validation rules.
-     */
-    public $validationRules  = [
-        'first_name' => 'required|min:1|max:200',
-        'last_name' => 'max:200'
-    ];
+    protected $hidden = ['tag_id', 'avatar', 'pivot'];
 
     /**
      * Profile's additional details.
@@ -108,72 +92,5 @@ class Profile extends Model
      */
     public function secondaryTags() {
         return $this->morphToMany('App\Models\Tag', 'taggable');
-    }
-
-    /**
-     * Adds meta data to model.
-     */
-    public function appendMeta()
-    {
-        if ($this->meta)
-        {
-            foreach ($this->meta->toArray() as $attr => $val)
-            {
-                $this->{$attr} = $val;
-            }
-        }
-    }
-
-    /**
-     * Accessor for $this->gender.
-     *
-     * @param int $gender
-     * @return string
-     */
-    public function getGenderAttribute($gender)
-    {
-        $string = '';
-
-        switch ($gender)
-        {
-            case static::GENDER_FEMALE:
-                $string = 'female';
-                break;
-
-            case static::GENDER_MALE:
-                $string = 'male';
-                break;
-        }
-
-        return $string;
-    }
-
-    /**
-     * Mutator for $this->gender.
-     *
-     * @param string|int $gender
-     * @return void
-     */
-    public function setGenderAttribute($gender)
-    {
-        // Set the right gender constant.
-        if (!is_integer($gender))
-        {
-            switch ($gender)
-            {
-                case 'female':
-                    $gender = static::GENDER_FEMALE;
-                    break;
-
-                case 'male':
-                    $gender = static::GENDER_MALE;
-                    break;
-
-                default:
-                    $gender = static::GENDER_NOT_SPECIFIED;
-            }
-        }
-
-        $this->attributes['gender'] = $gender;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
  * @brief   Database model for groups.
  * @author  Francis Amankrah (frank@heddoko.com)
  * @date    November 2015
@@ -8,25 +10,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasAvatarTrait as HasAvatar;
+use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
 class Group extends Model
 {
-    use HasAvatar;
+    use HasAvatar, CamelCaseAttrs;
 
     /**
      * Attributes which are mass-assignable.
      */
-    protected $fillable = [
-        'name',
-        'meta',
-        'created_at',
-        'updated_at'
-    ];
+    protected $fillable = ['name', 'meta'];
 
     /**
-     * Attributes which should be appended to the model's array form.
+     * Attributes that SHOULD be appended to the model's array form.
      */
-    protected $appends = ['avatar_src'];
+    protected $appends = [];
+
+    /**
+     * Attributes that CAN be appended to the model's array form.
+     */
+    public static $appendable = [
+        'avatarSrc',
+    ];
 
     /**
      * Attributes which should be hidden from the models' array form.

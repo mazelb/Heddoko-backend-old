@@ -8,8 +8,8 @@
  */
 angular.module('app.rover', [])
 
-.service('Rover', ['$window', '$localStorage', '$sessionStorage', '$route', '$location', '$log', '$timeout', 'Utilities',
-    function($window, $localStorage, $sessionStorage, $route, $location, $log, $timeout, Utilities) {
+.service('Rover', ['$window', '$localStorage', '$sessionStorage', '$route', '$location', '$anchorScroll', '$log', '$timeout', 'Utilities',
+    function($window, $localStorage, $sessionStorage, $route, $location, $anchorScroll, $log, $timeout, Utilities) {
 
         // Dev variables.
         this.timestamp = Date.now();
@@ -71,17 +71,13 @@ angular.module('app.rover', [])
 
             // Dashboard index page.
             dashboard: function() {
-
-                Utilities.debug('Browsing to dashboard index page.');
                 $location.path('/dashboard');
 
             }.bind(this),
 
             // Group listing page.
             groups: function() {
-
-                Utilities.debug('Browsing to group listings page.');
-                $location.path('/group/list');
+                $location.path('/group');
 
             }.bind(this),
 
@@ -94,7 +90,7 @@ angular.module('app.rover', [])
                 }
 
                 Utilities.debug('Browsing to group #' + this.store.groupId);
-                $location.path('/group/view');
+                $location.path('/group/' + this.store.groupId);
 
             }.bind(this),
 
@@ -127,7 +123,20 @@ angular.module('app.rover', [])
                 Utilities.debug('Browsing to path: ' + path);
                 $location.path(path);
 
-            }.bind(this)
+            }.bind(this),
+
+            hash: function(hash) {
+
+                // Update location hash.
+                if ($location.hash() !== hash) {
+                    $location.hash(hash);
+                }
+
+                // Or scroll to current hash.
+                else {
+                    $anchorScroll();
+                }
+            }
         };
         this.browse = this.browseTo;
 
@@ -210,6 +219,57 @@ angular.module('app.rover', [])
         //
         // General helper methods.
         //
+
+        /**
+         * Checks whether a state variable is defined.
+         *
+         * @param string namespace
+         * @param string id
+         * @return bool
+         */
+        this.hasState = function(namespace, id) {
+            return (this.state[namespace] && this.state[namespace].list['_' + id]) ? true : false;
+        };
+
+        /**
+         * Retrieves a state variable.
+         *
+         * @param string namespace
+         * @param string id
+         * @param mixed def
+         * @return bool
+         */
+        this.getState = function(namespace, id, def) {
+            return this.hasState(namespace, id) ? this.state[namespace].list['_' + id] : def;
+        };
+
+        /**
+         * Sets a state variable.
+         *
+         * @param string namespace
+         * @param string id
+         * @param mixed value
+         */
+        this.setState = function(namespace, id, value) {
+
+            // Setup namespace.
+            if (!this.state[namespace]) {
+                this.state[namespace] = {
+                    list: {
+                        length: 0
+                    }
+                };
+            }
+
+            // Update namespace counter.
+            if (!this.hasState(namespace, id)) {
+                this.state[namespace].list.length++;
+            }
+
+            // Add an underscore to the state key, so that we may store objects by ID
+            // without any problems.
+            this.state[namespace].list['_' + id] = value;
+        };
 
         // Logs a message to the console.
         // @deprecated

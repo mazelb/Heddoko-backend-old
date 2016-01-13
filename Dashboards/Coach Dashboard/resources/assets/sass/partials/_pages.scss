@@ -7,26 +7,30 @@
 /**
  * Angular - Page headers.
  */
+@mixin section-title($color: $text-color) {
+    margin: none;
+    display: inline-block;
+    text-transform: uppercase;
+    color: $color;
+
+    .fa {
+        font-size: 0.9em;
+        margin: auto 10px;
+    }
+
+    span {
+        margin: 10px 0 0;
+        display: block;
+        width: 90%;
+        height: 4px;
+        background-color: $color;
+    }
+}
 .page > header {
-    margin: 0 20px 20px;
+    margin: 0 20px 20px 0;
 
     h1 {
-        margin: none;
-        display: inline-block;
-        text-transform: uppercase;
-
-        .fa {
-            font-size: 0.9em;
-            margin: auto 10px;
-        }
-
-        span {
-            margin: 10px 0 0;
-            display: block;
-            width: 90%;
-            height: 4px;
-            background-color: $text-color;
-        }
+        @include section-title();
     }
 
     .h1-append {
@@ -34,11 +38,27 @@
         margin: 0 0 0 20px;
         font-size: 1.2em;
         letter-spacing: 1.2px;
+
+        small {
+            font-size: .7em;
+        }
     }
 
     .btn-toolbar.pull-right {
         margin: 20px auto;
     }
+
+    .sub-header {
+        margin: 10px 0;
+
+        .sub-header-btn {
+            margin: 0 10px 0 0;
+        }
+    }
+}
+
+h1.title, h2.title, h3.title {
+    @include section-title();
 }
 
 /*
@@ -68,6 +88,39 @@
  */
 .movements-page .active-element {
     margin: 20px auto;
+}
+
+/*
+ * Angular - Profile pages.
+ */
+.profile-page {
+    .profile-avatar {
+        display: inline-block;
+        height: 345px;
+        width: 345px;
+    }
+
+    .profile-shortcuts {
+        margin: 10px;
+
+        a {
+            display: inline-block;
+            margin: 5px;
+        }
+    }
+}
+
+/*
+ * Angular - Dashboard page.
+ */
+.page.dashboard {
+    height: 100%;
+
+    .dashboard-menu {
+        position: relative;
+        top: 35%;
+        @include transform(translateY(-50%));
+    }
 }
 
 /*
@@ -261,7 +314,7 @@
  * Angular pages.
  */
 .page {
-    padding: 15px;
+    padding: 25px;
 }
 
 .page-form-ele h3 {

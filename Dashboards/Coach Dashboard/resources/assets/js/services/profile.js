@@ -15,18 +15,28 @@ angular.module('app.services')
             /**
              * Base endpoint.
              */
-            endpoint: apiEndpoint + '/profiles/',
+            endpoint: apiEndpoint + '/profiles',
 
             /**
              * Gets a list of profiles.
              *
              * @param int groupId
+             * @param array|string embed
              * @return object $http
              */
-            list: function(groupId) {
+            list: function(groupId, embed) {
+
+                // Build request parameters.
+                var config = {
+                    params: {
+                        embed: Utilities.getEmbedParameter(embed)
+                    }
+                };
 
                 // Add group ID to request parameters.
-                var config = groupId ? {params: {group: groupId}} : {};
+                if (groupId) {
+                    config.params.groupId = groupId;
+                }
 
                 return $http.get(this.endpoint, config);
             },
@@ -35,25 +45,32 @@ angular.module('app.services')
              * Gets the details for a specific profile.
              *
              * @param int id
+             * @param array|string embed
              * @return object $http
              */
-            get: function(id) {
-    			return $http.get(this.endpoint + id);
+            get: function(id, embed)
+            {
+    			return $http.get(this.endpoint + '/' + id, {
+                    params: {
+                        embed: Utilities.getEmbedParameter(embed)
+                    }
+                });
     		},
 
             /**
              * Stores the details for a new profile.
              *
              * @param object data
-             * @param int groupId
+             * @param array|string embed
              * @return object $http
              */
-            create: function(data, groupId) {
-
-                // Add group ID to request parameters.
-                var config = groupId ? {params: {group: groupId}} : {};
-
-                return $http.post(this.endpoint, data, config);
+            create: function(data, embed)
+            {
+                return $http.post(this.endpoint, data, {
+                    params: {
+                        embed: Utilities.getEmbedParameter(embed)
+                    }
+                });
     		},
 
             /**
@@ -61,14 +78,16 @@ angular.module('app.services')
              *
              * @param int id
              * @param object data
+             * @param array|string embed
              * @return object $http
              */
-            update: function(id, data) {
-
-                // Add group ID to request parameters.
-                var config = (data.groups && data.groups.length) ? {params: {group: data.groups[0]}} : {};
-
-                return $http.put(this.endpoint + id, data, config);
+            update: function(id, data, embed)
+            {
+                return $http.put(this.endpoint + '/' + id, data, {
+                    params: {
+                        embed: Utilities.getEmbedParameter(embed)
+                    }
+                });
     		},
 
             /**
@@ -78,7 +97,7 @@ angular.module('app.services')
              * @return object $http
              */
             destroy: function(id) {
-    			return $http.delete(this.endpoint + id);
+    			return $http.delete(this.endpoint + '/' + id);
     		},
 
             /**
@@ -88,7 +107,7 @@ angular.module('app.services')
              * @return ...
              */
             destroyAvatar: function(id) {
-    			return $http.delete(this.endpoint + id + '/avatar');
+    			return $http.delete(this.endpoint + '/' + id + '/avatar');
     		},
 
             /**
@@ -99,7 +118,7 @@ angular.module('app.services')
              * @return $http
              */
             setAvatar: function(id, fileData) {
-                return $http.post(this.endpoint + id +'/avatar', {image: fileData});
+                return $http.post(this.endpoint + '/' + id +'/avatar', {image: fileData});
             },
 
             /**
@@ -108,7 +127,7 @@ angular.module('app.services')
              * @param object profile
              * @return object
              */
-            formatForDisplay: function(profile) {
+            format: function(profile) {
 
                 // Format "createdAt" date.
                 profile.createdAt = profile.createdAt || '';
@@ -126,6 +145,11 @@ angular.module('app.services')
                 // // Calculate the weight in pounds.
                 // profile.weight_lbs = profile.mass > 0 ? Math.round(profile.mass / 0.453592) : '';
 
+                // Append meta data to profile object.
+                angular.forEach(profile.meta, function(data, key) {
+                    profile[key] = data;
+                });
+
                 return profile;
             },
 
@@ -141,28 +165,30 @@ angular.module('app.services')
                 var formatted =
                 {
                     id: profile.id,
-                    first_name: profile.firstName || '',
-                    last_name: profile.lastName || '',
-                    height: profile.height || 0.0,
-                    mass: profile.mass || 0.0,
-                    dob: profile.dob || '',
-                    gender: profile.gender || '',
-                    phone: profile.phone || '',
-                    email: profile.email || '',
-                    medical_history: profile.medicalHistory || '',
-                    injuries: profile.injuries || '',
-                    notes: profile.notes || '',
-                    params: profile.params || ''
+                    firstName: profile.firstName || '',
+                    lastName: profile.lastName || '',
+                    meta: {
+                        height: profile.height || 0.0,
+                        mass: profile.mass || 0.0,
+                        dob: profile.dob || '',
+                        gender: profile.gender || '',
+                        phone: profile.phone || '',
+                        email: profile.email || '',
+                        medicalHistory: profile.medicalHistory || '',
+                        injuries: profile.injuries || '',
+                        notes: profile.notes || '',
+                        params: profile.params || ''
+                    }
                 };
 
                 // Format height into meters.
                 if (profile.feet > 0 && profile.inches) {
-                    formatted.height = (profile.feet + profile.inches / 12) * 0.3048;
+                    formatted.meta.height = (profile.feet + profile.inches / 12) * 0.3048;
                 }
 
                 // Format mass in kg.
                 if (profile.weightInPounds > 0) {
-                    formatted.mass = profile.weight_lbs * 0.453592;
+                    formatted.meta.mass = profile.weightInPounds * 0.453592;
                 }
 
                 // Format groups into an array of IDs.
@@ -175,36 +201,33 @@ angular.module('app.services')
                 if (profile.primaryTag && profile.primaryTag.length)
                 {
                     if (Utilities.getId(profile.primaryTag) > 0) {
-                        formatted.tag_id = Utilities.getId(profile.primaryTag);
+                        formatted.tagId = Utilities.getId(profile.primaryTag);
                     }
 
                     else {
-                        formatted.primary_tag_title = profile.primaryTag;
+                        formatted.primaryTagTitle = profile.primaryTag;
                     }
                 }
 
                 // Format secondary tags into an array of IDs.
                 if (profile.secondaryTags && profile.secondaryTags.length > 0)
                 {
-                    formatted.secondary_tags = [];
-                    formatted.secondary_tag_titles = [];
+                    formatted.secondaryTags = [];
+                    formatted.secondaryTagTitles = [];
                     angular.forEach(profile.secondaryTags, function(tag) {
 
                         // If tag exists, retrieve its ID.
                         if (Utilities.getId(tag) > 0) {
-                            formatted.secondary_tags.push(Utilities.getId(tag));
+                            formatted.secondaryTags.push(Utilities.getId(tag));
                         }
 
                         // Else, let API know we want to create new tags.
                         else {
-                            formatted.secondary_tag_titles.push(tag);
+                            formatted.secondaryTagTitles.push(tag);
                         }
                     });
                     // formatted.secondary_tags = profile.secondary_tags.map(Utilities.getId);
                 }
-
-                Rover.debug('Formatted profile details:');
-                Rover.debug(formatted);
 
                 return formatted;
             }

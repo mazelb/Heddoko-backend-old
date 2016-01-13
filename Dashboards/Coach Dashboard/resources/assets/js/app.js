@@ -38,11 +38,9 @@ var _appIsLocal =
     (window.location.hostname == 'localhost' ||
         window.location.hostname.match(/.*\.local$/i) ||
         window.location.hostname.match(/.*\.vagrant$/i)) ? true : false;
-var _appAssetVersion = _appIsLocal ? Date.now() : _appVersion;
 var _apiEndpoint = '/api/v1';
 
 app.constant('isLocalEnvironment', _appIsLocal)
-    .constant('assetVersion', _appAssetVersion)
     .constant('apiEndpoint', _apiEndpoint);
 
 // Initializes the 'app.services' module so we can add factories from separate files.
@@ -76,33 +74,35 @@ app.config(['$routeProvider', 'isLocalEnvironment',
         //
         // Group routes.
         //
-        .when('/group/list', {
+        .when('/group', {
             templateUrl: 'group/list.html',
             controller: 'GroupController'
 		})
-        .when('/group/view', {
-            templateUrl: 'group/view.html',
-            controller: 'GroupController'
+        .when('/group/list', {
+            redirectTo: '/group'
 		})
-        .when('/group/create', {
-			templateUrl: 'group/create.html',
-            controller: 'GroupController'
-		})
+        // .when('/group/create', {
+		// 	templateUrl: 'group/create.html',
+        //     controller: 'GroupController'
+		// })
         .when('/group/edit', {
 			templateUrl: 'group/edit.html',
+            controller: 'GroupController'
+		})
+        .when('/group/:groupId', {
+            templateUrl: 'group/view.html',
             controller: 'GroupController'
 		})
 
         //
         // Profile routes.
         //
-        .when('/profile/list', {
+        .when('/profile', {
             templateUrl: 'profile/list.html',
             controller: 'ProfileController'
 		})
-        .when('/profile/view', {
-			templateUrl: 'profile/view.html',
-            controller: 'ProfileController'
+        .when('/profile/list', {
+            redirectTo: '/profile'
 		})
         .when('/profile/create', {
 			templateUrl: 'profile/create.html',
@@ -112,13 +112,21 @@ app.config(['$routeProvider', 'isLocalEnvironment',
 			templateUrl: 'profile/edit.html',
             controller: 'ProfileController'
 		})
+        .when('/profile/:profileId', {
+			templateUrl: 'profile/view.html',
+            controller: 'ProfileController'
+		})
 
         //
         // Data routes.
         //
         .when('/movements/analyze', {
 			templateUrl: 'movements/analysis/index.html',
-            controller: 'TestController'
+            controller: 'AnalysisController'
+		})
+        .when('/movements/analyze/demo', {
+			templateUrl: 'movements/analysis-demo/index.html',
+            controller: 'DemoAnalysisController'
 		})
         .when('/movements/compare', {
 			templateUrl: 'movements/comparison/index.html',
@@ -139,6 +147,10 @@ app.config(['$routeProvider', 'isLocalEnvironment',
         .when('/capture', {
 			templateUrl: 'capture/index.html',
             controller: 'TestController'
+		})
+        .when('/capture/demo', {
+			templateUrl: 'capture-demo/index.html',
+            controller: 'DemoCaptureController'
 		})
 
         //
@@ -201,6 +213,10 @@ app.config(['$routeProvider', 'isLocalEnvironment',
                 return 'fms-bak/live/'+ tmpl +'.html';
             },
             controller: 'FMSController'
+        })
+        .when('/demo/trends', {
+			templateUrl: 'demo/trends/index.html',
+            controller: 'DemoTrendsController'
         })
         .when("/fmstest", {
 			templateUrl: "fmstest.html"

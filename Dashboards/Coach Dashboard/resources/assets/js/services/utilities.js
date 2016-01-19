@@ -19,6 +19,21 @@ angular.module('app.utilities', [])
                 $window.location.hostname.match(/.*\.local$/i) ||
                 $window.location.hostname.match(/.*\.vagrant$/i)) ? true : false;
 
+        // Colours.
+        this.colour =
+        {
+            blue: '#2c3a46',
+            blueDark: '#1c242c',
+            danger: '#db5031',
+            heddokoGreen: '#3bd6b2',
+            info: '#8170ca',
+            orange: '#fabd39',
+            silver: '#cbd4e3',
+            textColour: '#ddd',
+            textColourBlue: '#5b707d',
+            warning: '#eec95a'
+        };
+
         /**
          * Formats an embed parameter for an API query.
          *

@@ -24,38 +24,44 @@
                 </div>
 
                 <!-- Profile shortcuts -->
-                <div class="text-center profile-shortcuts">
+                <div class="profile-shortcuts">
 
-                    <!-- Delete group button -->
-                    <a
-                        ng-show="profile.id > 0"
-                        data-toggle="modal"
-                        data-target="#deleteProfileConfirmation"
-                        href="javascript:;"
-                        class="sub-header-btn">
+                    <span style="line-height: 60px; font-size: 1.2em;">
+                        Position: Quarterback
+                    </span>
 
-                        <button class="btn btn-danger btn-circle btn-lg">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </a>
+                    <div class="pull-right">
+                        <!-- Delete group button -->
+                        <a
+                            ng-show="profile.id > 0"
+                            data-toggle="modal"
+                            data-target="#deleteProfileConfirmation"
+                            href="javascript:;"
+                            class="sub-header-btn">
 
-                    <!-- Delete confirmation -->
-                    <div class="modal fade" id="deleteProfileConfirmation">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <p>
-                                        Are you sure you want to delete <b>{{ profile.firstName }}
-                                        {{ profile.lastName }}</b>'s profile?
-                                    </p>
-                                </div>
-                                <div class="modal-footer text-center">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                    <button ng-click="deleteProfile()" type="button" class="btn btn-primary" data-dismiss="modal">
-                                        Yes, delete {{ profile.firstName }}
-                                    </button>
+                            <button class="btn btn-danger btn-circle btn-lg">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </a>
+
+                        <!-- Delete confirmation -->
+                        <div class="modal fade" id="deleteProfileConfirmation">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <p>
+                                            Are you sure you want to delete <b>{{ profile.firstName }}
+                                            {{ profile.lastName }}</b>'s profile?
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button ng-click="deleteProfile()" type="button" class="btn btn-primary" data-dismiss="modal">
+                                            Yes, delete {{ profile.firstName }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +119,45 @@
                         </div>
                     </div>
 
+                    <!-- DEMO -->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+
+                            <!-- Hand size -->
+                            <div class="row ui-editable-field ui-editable-field-vertical">
+                                <div class="col-xs-12">
+                                    <div class="ui-editable-field-value">
+                                        <a href="javascript:;" class="edit-text">
+                                            9.6"
+                                        </a>
+                                        <a href="javascript:;" class="edit-icon fa fa-pencil"></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 ui-editable-field-label">
+                                    Hand Size
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6">
+
+                            <!-- Arm length -->
+                            <div class="row ui-editable-field ui-editable-field-vertical">
+                                <div class="col-xs-12">
+                                    <div class="ui-editable-field-value">
+                                        <a href="javascript:;" class="edit-text">
+                                            33"
+                                        </a>
+                                        <a href="javascript:;" class="edit-icon fa fa-pencil"></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 ui-editable-field-label">
+                                    Arm Length
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
 
                         <!-- Date of Birth -->
@@ -134,7 +179,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!-- REMOVED FOR DEMO -->
+                    <div ng-show="false" class="row">
 
                         <!-- Phone -->
                         <div class="col-xs-12 col-sm-6">
@@ -153,7 +199,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="display: none;">
 
                         <!-- Primary Tag -->
                         <div class="col-xs-12 col-sm-6">
@@ -176,7 +222,8 @@
                     </div>
 
                     <!-- Profile creation date -->
-                    <div class="row">
+                    <!-- REMOVED FOR DEMO -->
+                    <div ng-show="false" class="row">
                         <div class="col-xs-12">
                             <ui-editable-field
                                 data-label="Profile Created"
@@ -184,6 +231,44 @@
                                 data-type="datetime"
                                 data-disabled="true">
                             </ui-editable-field>
+                        </div>
+                    </div>
+
+                    <!-- DEMO -->
+                    <div class="row">
+
+                        <!-- Experience -->
+                        <div class="col-xs-12 col-md-6">
+                            <div class="row ui-editable-field ui-editable-field-vertical">
+                                <div class="col-xs-12">
+                                    <div class="ui-editable-field-value">
+                                        <a href="javascript:;" class="edit-text">
+                                            16th Season
+                                        </a>
+                                        <a href="javascript:;" class="edit-icon fa fa-pencil"></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 ui-editable-field-label">
+                                    Experience
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Snap count -->
+                        <div class="col-xs-12 col-md-6">
+                            <div class="row ui-editable-field ui-editable-field-vertical">
+                                <div class="col-xs-12">
+                                    <div class="ui-editable-field-value">
+                                        <a href="javascript:;" class="edit-text">
+                                            992
+                                        </a>
+                                        <a href="javascript:;" class="edit-icon fa fa-pencil"></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 ui-editable-field-label">
+                                    Snap Count
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </ui-editable-fields>
@@ -203,14 +288,30 @@
                 </div>
 
                 <div class="col-xs-12">
-                    <ui-editable-standalone-field
+                    <!-- <ui-editable-standalone-field
                         data-heading="Previous Injuries"
                         data-model="profile"
                         data-key="injuries"
                         data-empty="No previous injuries."
                         data-save="saveProfileDetails"
                         data-save-callback="saveProfileDetailsCallback">
-                    </ui-editable-standalone-field>
+                    </ui-editable-standalone-field> -->
+
+                    <!-- Demo -->
+                    <div class="ui-editable-list-container">
+                        <h3 class="title">
+                            Previous Injuries
+                            <span></span>
+                        </h3>
+                        <br>
+
+                        Rotator cuff tear (Dec 14, 2015)
+                        <br>
+
+                        <a href="#/demo/trends" style="display: inline-block; margin: 10px 0 0 5px;">
+                            <i class="fa fa-angle-double-right fa-fw"></i> Track Rehabilitation
+                        </a>
+                    </div>
                 </div>
 
                 <div class="col-xs-12">
@@ -226,15 +327,9 @@
         	</div>
         </div>
 
-        <div class="row text-center">
-            <a href="javascript:;">
-                <i class="fa fa-angle-double-down fa-5x"></i>
-            </a>
-        </div>
-
-        <!-- Trends demo -->
-        <div ng-controller="DemoTrendsController" id="trendsDemo">
-            <ng-include src="'profile/partials/demo.trends.html'"></ng-include>
+        <!-- Demo: training sesion -->
+        <div ng-controller="DemoTrainingSessionController" id="trendsDemo">
+            <ng-include src="'profile/partials/demo-session.html'"></ng-include>
         </div>
     </section>
 </div>

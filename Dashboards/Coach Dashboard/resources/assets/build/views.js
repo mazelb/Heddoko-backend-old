@@ -1,4 +1,4 @@
-angular.module('app.views', ['account.html', 'configuration.html', 'dashboard.html', 'fmsresults.html', 'fmstest.html', 'placeholder.html', 'capture-demo/index.html', 'capture/index.html', 'demo/trends/index.html', 'directive-partials/ui-avatar.html', 'directive-partials/ui-editable-fields/field-horizontal.html', 'directive-partials/ui-editable-fields/field-value-generic.html', 'directive-partials/ui-editable-fields/field-value-timestamp.html', 'directive-partials/ui-editable-fields/field-value-with-units.html', 'directive-partials/ui-editable-fields/field-vertical.html', 'directive-partials/ui-editable-fields/fields.html', 'directive-partials/ui-editable-fields/standalone-field.html', 'directive-partials/ui-movement-placeholder.html', 'directive-partials/ui-movement-preview.html', 'directive-partials/ui-page-title.html', 'directive-partials/ui-taggable-input.html', 'fms-bak/demo/analysis.html', 'fms-bak/demo/index.html', 'fms-bak/demo/partials/analysis-coronal.html', 'fms-bak/demo/partials/analysis-layout-emphasized.html', 'fms-bak/demo/partials/analysis-sagittal.html', 'fms-bak/demo/partials/analysis-transverse.html', 'fms-bak/demo/partials/summary-content.html', 'fms-bak/demo/partials/summary-layout.html', 'fms-bak/demo/partials/summary-menu.html', 'fms-bak/demo/partials/summary-movement-overview.html', 'fms-bak/demo/partials/summary-overall-scores.html', 'fms-bak/demo/partials/test-coronal.html', 'fms-bak/demo/partials/test-layout-emphasized.html', 'fms-bak/demo/partials/test-sagittal.html', 'fms-bak/demo/partials/test-transverse.html', 'fms-bak/demo/summary.html', 'fms-bak/demo/test.html', 'fms-bak/live/analysis.html', 'fms-bak/live/index.html', 'fms-bak/live/partials/analysis-menu.html', 'fms-bak/live/partials/breadcrumbs.html', 'fms-bak/live/partials/header.html', 'fms-bak/live/partials/iterations.html', 'fms-bak/live/partials/summary-legend.html', 'fms-bak/live/partials/summary-menu.html', 'fms-bak/live/partials/test-menu.html', 'fms-bak/live/partials/test-trials.html', 'fms-bak/live/summary.html', 'fms-bak/live/test.html', 'group/edit.html', 'group/list.html', 'group/partials/form.html', 'group/partials/upload-photo.html', 'group/view.html', 'import/index.html', 'movement-editor/footer.html', 'movement-editor/index.html', 'movements/analysis-demo/index.html', 'movements/analysis/index.html', 'movements/comparison/index.html', 'movements/explorer/index.html', 'movements/explorer/partials/details-layout.html', 'movements/explorer/partials/large-tiles-layout.html', 'movements/explorer/partials/small-tiles-layout.html', 'partials/breadcrumbs.html', 'partials/header.html', 'partials/modal.html', 'partials/navigation.html', 'partials/select-profile.html', 'profile/create.html', 'profile/list.html', 'profile/partials/current-fms-plot.html', 'profile/partials/demo.trends.html', 'profile/partials/final-fms-plot.html', 'profile/partials/upload-photo.html', 'profile/view.html', 'screenings/current/index.html', 'screenings/index.html', 'screenings/view/index.html', 'thumbnail-selector/footer.html', 'thumbnail-selector/index.html']);
+angular.module('app.views', ['account.html', 'configuration.html', 'dashboard.html', 'fmsresults.html', 'fmstest.html', 'placeholder.html', 'capture-demo/index.html', 'capture/index.html', 'demo/trends/index.html', 'directive-partials/ui-avatar.html', 'directive-partials/ui-editable-fields/field-horizontal.html', 'directive-partials/ui-editable-fields/field-value-generic.html', 'directive-partials/ui-editable-fields/field-value-timestamp.html', 'directive-partials/ui-editable-fields/field-value-with-units.html', 'directive-partials/ui-editable-fields/field-vertical.html', 'directive-partials/ui-editable-fields/fields.html', 'directive-partials/ui-editable-fields/standalone-field.html', 'directive-partials/ui-movement-placeholder.html', 'directive-partials/ui-movement-preview.html', 'directive-partials/ui-page-title.html', 'directive-partials/ui-taggable-input.html', 'fms-bak/demo/analysis.html', 'fms-bak/demo/index.html', 'fms-bak/demo/partials/analysis-coronal.html', 'fms-bak/demo/partials/analysis-layout-emphasized.html', 'fms-bak/demo/partials/analysis-sagittal.html', 'fms-bak/demo/partials/analysis-transverse.html', 'fms-bak/demo/partials/summary-content.html', 'fms-bak/demo/partials/summary-layout.html', 'fms-bak/demo/partials/summary-menu.html', 'fms-bak/demo/partials/summary-movement-overview.html', 'fms-bak/demo/partials/summary-overall-scores.html', 'fms-bak/demo/partials/test-coronal.html', 'fms-bak/demo/partials/test-layout-emphasized.html', 'fms-bak/demo/partials/test-sagittal.html', 'fms-bak/demo/partials/test-transverse.html', 'fms-bak/demo/summary.html', 'fms-bak/demo/test.html', 'fms-bak/live/analysis.html', 'fms-bak/live/index.html', 'fms-bak/live/partials/analysis-menu.html', 'fms-bak/live/partials/breadcrumbs.html', 'fms-bak/live/partials/header.html', 'fms-bak/live/partials/iterations.html', 'fms-bak/live/partials/summary-legend.html', 'fms-bak/live/partials/summary-menu.html', 'fms-bak/live/partials/test-menu.html', 'fms-bak/live/partials/test-trials.html', 'fms-bak/live/summary.html', 'fms-bak/live/test.html', 'group/edit.html', 'group/list.html', 'group/partials/form.html', 'group/partials/upload-photo.html', 'group/view.html', 'import/index.html', 'movement-editor/footer.html', 'movement-editor/index.html', 'movements/analysis-demo/index.html', 'movements/analysis/index.html', 'movements/comparison/index.html', 'movements/explorer/index.html', 'movements/explorer/partials/details-layout.html', 'movements/explorer/partials/large-tiles-layout.html', 'movements/explorer/partials/small-tiles-layout.html', 'partials/breadcrumbs.html', 'partials/header.html', 'partials/modal.html', 'partials/navigation.html', 'partials/select-profile.html', 'profile/create.html', 'profile/list.html', 'profile/partials/current-fms-plot.html', 'profile/partials/demo-session.html', 'profile/partials/final-fms-plot.html', 'profile/partials/upload-photo.html', 'profile/view.html', 'screenings/current/index.html', 'screenings/index.html', 'screenings/view/index.html', 'thumbnail-selector/footer.html', 'thumbnail-selector/index.html']);
 
 angular.module("account.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account.html",
@@ -1031,41 +1031,144 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "<div class=\"page\">\n" +
     "    <header>\n" +
     "        <h1>\n" +
-    "            Trends <i class=\"fa fa-line-chart\"></i>\n" +
+    "            Rehabilitation <i class=\"fa fa-medkit\"></i>\n" +
     "            <span></span>\n" +
     "        </h1>\n" +
     "    </header>\n" +
     "\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-xs-12\">\n" +
-    "            <chart class=\"chartjs\" data-data=\"chartjsLine\" data-type=\"Line\" value=\"myChart\"></chart>\n" +
+    "    <!-- Bar chart -->\n" +
+    "    <div class=\"row demo-trends-section\">\n" +
+    "        <div class=\"col-xs-12 col-md-7 col-md-offset-5 col-lg-9 col-lg-offset-3\">\n" +
+    "            <h3 ng-show=\"metric\" class=\"text-center\">\n" +
+    "                {{ metric.title }} / Dec 19 - Feb 6 2016\n" +
+    "            </h3>\n" +
     "        </div>\n" +
-    "    </div>\n" +
     "\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            <div\n" +
-    "                data-flot-chart\n" +
-    "                data-data=\"trend.data\"\n" +
-    "                data-options=\"trend.options\"\n" +
-    "                class=\"demo-trendline\"\n" +
-    "                style=\"width: 100%; height: 300px;\">\n" +
+    "        <div class=\"col-xs-12 col-md-5 col-lg-3  demo-trends-info-2\">\n" +
+    "\n" +
+    "            <!-- Athlete details -->\n" +
+    "            <div class=\"row\">\n" +
+    "                <div class=\"col-md-5\">\n" +
+    "                    <div\n" +
+    "                        ng-style=\"{background: 'transparent center center no-repeat url('+ profile.avatarSrc +')', 'background-size': 'contain'}\"\n" +
+    "                        class=\"aspect-ratio aspect-square\">\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div class=\"col-md-7\">\n" +
+    "                    <small>Date:</small>\n" +
+    "                    <b>Feb 6, 2016</b>\n" +
+    "                    <br>\n" +
+    "\n" +
+    "                    <small>Rehab Start:</small>\n" +
+    "                    <b>Dec 19, 2016</b>\n" +
+    "                    <br>\n" +
+    "\n" +
+    "                    <small>Athlete: </small>\n" +
+    "                    <b>\n" +
+    "                        <a href=\"#/profile/{{ profile.id }}\">\n" +
+    "                            {{ profile.firstName + ' ' + profile.lastName }}\n" +
+    "                        </a>\n" +
+    "                    </b>\n" +
+    "                    <br>\n" +
+    "\n" +
+    "                    <small>Team: </small>\n" +
+    "                    <b>\n" +
+    "                        {{ global.getSelectedGroup().name }}\n" +
+    "                    </b>\n" +
+    "                    <br>\n" +
+    "\n" +
+    "                    <!-- Metric -->\n" +
+    "                    <div ng-show=\"metric\">\n" +
+    "                        <selectize\n" +
+    "                            ng-model=\"selectizeMetricModel\"\n" +
+    "                            class=\"form-control text-center\"\n" +
+    "                            config=\"selectizeMetricConfig\"\n" +
+    "                            options=\"selectizeMetricOptions\"\n" +
+    "                            placeholder=\"Select a metric.\">\n" +
+    "                        </selectize>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <br>\n" +
+    "            <br>\n" +
+    "\n" +
+    "            <!-- Recovery percent -->\n" +
+    "            <div ng-show=\"metric && !isFetchingData\" class=\"row text-center\">\n" +
+    "                <h3>\n" +
+    "                    Percent Recovery\n" +
+    "                </h3>\n" +
+    "\n" +
+    "                <div easypiechart options=\"easypie.options\" percent=\"easypie.percent\" class=\"easypiechart\">\n" +
+    "                    <span class=\"pie-percent\" ng-bind=\"easypie.percent\"></span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <br>\n" +
+    "            <br>\n" +
+    "\n" +
+    "            <!-- Threshold input -->\n" +
+    "            <div ng-show=\"metric && !isFetchingData\" class=\"row\">\n" +
+    "                <h3 class=\"text-center\">\n" +
+    "                    Threshold for Return To Play\n" +
+    "                </h3>\n" +
+    "\n" +
+    "                <div class=\"col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3\">\n" +
+    "                    <div class=\"input-group\">\n" +
+    "\n" +
+    "                        <!-- Decrease -->\n" +
+    "                        <span class=\"input-group-btn\">\n" +
+    "                            <button ng-click=\"decreaseThreshold()\" class=\"btn btn-default\" type=\"button\">\n" +
+    "                                <i class=\"fa fa-minus\"></i>\n" +
+    "                            </button>\n" +
+    "                        </span>\n" +
+    "\n" +
+    "                        <!-- Edit -->\n" +
+    "                        <input ng-model=\"thresholdValue\" type=\"text\" class=\"form-control text-center\">\n" +
+    "\n" +
+    "                        <!-- Increase -->\n" +
+    "                        <span class=\"input-group-btn\">\n" +
+    "                            <button ng-click=\"increaseThreshold()\" class=\"btn btn-default\" type=\"button\">\n" +
+    "                                <i class=\"fa fa-plus\"></i>\n" +
+    "                            </button>\n" +
+    "                        </span>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "    </div>\n" +
     "\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12 col-md-6\">\n" +
-    "            <canvas\n" +
-    "                data-gauge-chart\n" +
-    "                data-gauge-data=\"gauge.data\"\n" +
-    "                data-gauge-options=\"gauge.options\"\n" +
-    "                style=\"width: 340px; height: 170px;\">\n" +
-    "            </canvas>\n" +
+    "        <!-- Peak Elbow Angular Velocity -->\n" +
+    "        <div ng-show=\"metric && !isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9\">\n" +
+    "            <div\n" +
+    "                data-theme-flot-chart\n" +
+    "                data-data=\"flotData\"\n" +
+    "                data-options=\"flotOptions\"\n" +
+    "                data-plot-hover=\"flotPlotHover\"\n" +
+    "                data-threshold=\"thresholdValue\"\n" +
+    "                data-threshold-label=\"'Return To Play'\"\n" +
+    "                style=\"width: 100%; height: 600px;\">\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"col-sm-12 col-md-6\">\n" +
+    "        <!-- Select metric -->\n" +
+    "        <div ng-show=\"!metric && !isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9 text-center\">\n" +
+    "            Select a metric to get started.\n" +
+    "            <br>\n" +
+    "            <br>\n" +
     "\n" +
+    "            <div class=\"col-md-4 col-md-offset-4\">\n" +
+    "                <selectize\n" +
+    "                    ng-model=\"selectizeMetricModel\"\n" +
+    "                    class=\"form-control text-center\"\n" +
+    "                    config=\"selectizeMetricConfig\"\n" +
+    "                    options=\"selectizeMetricOptions\"\n" +
+    "                    placeholder=\"Select a metric.\">\n" +
+    "                </selectize>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Loading data -->\n" +
+    "        <div ng-show=\"isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9 text-center\">\n" +
+    "            <i class=\"fa fa-spinner fa-spin fa-3x\" style=\"display: block; margin: 100px 0 0\"></i>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
@@ -3015,7 +3118,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "            <!-- New profile button -->\n" +
     "            <a\n" +
     "                href=\"#/profile/create\"\n" +
-    "                class=\"btn btn-primary btn-metro\">\n" +
+    "                class=\"btn btn-info btn-metro\">\n" +
     "\n" +
     "                <i class=\"fa fa-plus\"></i>\n" +
     "            </a>\n" +
@@ -3026,7 +3129,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                class=\"btn btn-default btn-metro\"\n" +
     "                style=\"background-image: url({{ profile.avatarSrc || '' }});\">\n" +
     "\n" +
-    "                <span>{{ profile.firstName }}</span>\n" +
+    "                <span>{{ profile.lastName.toUpperCase() }}</span>\n" +
     "            </a>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -4586,64 +4689,181 @@ angular.module("profile/partials/current-fms-plot.html", []).run(["$templateCach
     "");
 }]);
 
-angular.module("profile/partials/demo.trends.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("profile/partials/demo.trends.html",
+angular.module("profile/partials/demo-session.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("profile/partials/demo-session.html",
     "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "<section>\n" +
+    "<section class=\"demo-trends-section\" style=\"margin: 50px auto 300px;\">\n" +
     "    <h2 class=\"title\">\n" +
-    "        Historical Data\n" +
+    "        Training Session Review\n" +
     "        <span></span>\n" +
     "    </h2>\n" +
     "    <br>\n" +
-    "\n" +
-    "    <!-- Trendline -->\n" +
-    "    <div id=\"chartRow\" class=\"row\">\n" +
-    "        <div class=\"col-xs-12\">\n" +
-    "            <theme-chart\n" +
-    "                data-type=\"Line\"\n" +
-    "                data-data=\"chartjsData\"\n" +
-    "                data-options=\"chartjsOptions\"\n" +
-    "                data-width=\"{{ chartjsWidth() }}\"\n" +
-    "                class=\"demo-chartjs\">\n" +
-    "            </theme-chart>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <h2 class=\"title\">\n" +
-    "        Historical Data\n" +
-    "        <span></span>\n" +
-    "    </h2>\n" +
     "    <br>\n" +
     "\n" +
-    "    <!-- Bar chart -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-xs-12\">\n" +
-    "            <theme-chart\n" +
-    "                data-type=\"Bar\"\n" +
-    "                data-data=\"chartjsData\"\n" +
-    "                data-options=\"chartjsOptions\"\n" +
-    "                data-width=\"{{ chartjsWidth() }}\"\n" +
-    "                class=\"demo-chartjs\">\n" +
-    "            </theme-chart>\n" +
+    "    <!-- Demo data -->\n" +
+    "    <div ng-show=\"session && metric && isFetchingSessionData === false\" class=\"animate-fade-up\">\n" +
+    "\n" +
+    "        <div class=\"row\">\n" +
+    "            <div class=\"col-md-9 col-md-offset-3\">\n" +
+    "                <h3 class=\"text-center\">\n" +
+    "                    {{ metric.title }}\n" +
+    "                </h3>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"col-md-3 demo-trends-info-2\">\n" +
+    "                <div class=\"row\">\n" +
+    "\n" +
+    "                    <div class=\"col-sm-4 text-right\" style=\"line-height: 35px\">\n" +
+    "                        Session:\n" +
+    "                    </div>\n" +
+    "                    <div class=\"col-sm-8\">\n" +
+    "                        <selectize\n" +
+    "                            ng-model=\"selectizeSessionModel\"\n" +
+    "                            class=\"form-control text-center\"\n" +
+    "                            config=\"selectizeSessionConfig\"\n" +
+    "                            options=\"selectizeSessionOptions\">\n" +
+    "                        </selectize>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"col-sm-4 text-right\" style=\"line-height: 35px\">\n" +
+    "                        Conditions:\n" +
+    "                    </div>\n" +
+    "                    <div class=\"col-sm-8\" style=\"line-height: 35px\">\n" +
+    "                        <b>Sunny, Light Drizzle</b>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"col-sm-4 text-right\" style=\"line-height: 35px\">\n" +
+    "                        Wind:\n" +
+    "                    </div>\n" +
+    "                    <div class=\"col-sm-8\" style=\"line-height: 35px\">\n" +
+    "                        <b>8 km/h</b>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"col-sm-4 text-right\" style=\"line-height: 35px\">\n" +
+    "                        Metric:\n" +
+    "                    </div>\n" +
+    "                    <div class=\"col-sm-8\">\n" +
+    "                        <selectize\n" +
+    "                            ng-model=\"selectizeMetricModel\"\n" +
+    "                            class=\"form-control text-center\"\n" +
+    "                            config=\"selectizeMetricConfig\"\n" +
+    "                            options=\"selectizeMetricOptions\">\n" +
+    "                        </selectize>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div class=\"demo-trends-session-legend\" style=\"height: 80px\"></div>\n" +
+    "\n" +
+    "                <div class=\"row\">\n" +
+    "                    <div class=\"col-xs-4 demo-warning\" style=\"height: 70px\">\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"col-xs-8\">\n" +
+    "                        Throw Count: 157\n" +
+    "                        <br>\n" +
+    "\n" +
+    "                        Recommendation:\n" +
+    "                        <br>\n" +
+    "\n" +
+    "                        <b style=\"color: #3bd6b2\">Stop Athlete's Training</b>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Metric plots -->\n" +
+    "            <div ng-show=\"isFetchingSelectedMetricData === false\">\n" +
+    "\n" +
+    "                <!-- Peak Elbow Angular Velocity -->\n" +
+    "                <div ng-show=\"metric.title == 'Peak Elbow Angular Velocity'\" id=\"chartRow\" class=\"col-md-9\">\n" +
+    "                    <theme-chart\n" +
+    "                        data-type=\"Line\"\n" +
+    "                        data-data=\"chartjsData\"\n" +
+    "                        data-options=\"chartjsOptions\"\n" +
+    "                        data-height=\"400\"\n" +
+    "                        data-width=\"{{ chartjsWidth() }}\"\n" +
+    "                        data-value=\"chartjsObject\"\n" +
+    "                        class=\"demo-chartjs\">\n" +
+    "                    </theme-chart>\n" +
+    "                </div>\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Loading metric plots -->\n" +
+    "            <div ng-show=\"isFetchingSelectedMetricData === true\" class=\"col-md-9 text-center\">\n" +
+    "                <i class=\"fa fa-spinner fa-spin fa-3x\" style=\"margin: 75px auto 0;\"></i>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
+    "\n" +
+    "        <!-- Filler plots -->\n" +
+    "        <div class=\"row\">\n" +
+    "            <div class=\"col-md-9\">\n" +
+    "                <h3 class=\"text-center\">\n" +
+    "                    Energy Expended\n" +
+    "                </h3>\n" +
+    "\n" +
+    "                <div morris-chart\n" +
+    "                             data-data=\"fakeData.morris\"\n" +
+    "                             data-type=\"area\"\n" +
+    "                             data-xkey=\"year\"\n" +
+    "                             data-ykeys='[\"a\", \"b\", \"c\"]'\n" +
+    "                             data-labels='[\"Value A\", \"Value B\", \"Value C\"]'\n" +
+    "                             data-line-colors='{{ fakeData.morrisColours }}'\n" +
+    "                             data-line-width=\"2\"\n" +
+    "                             ></div>\n" +
+    "            </div>\n" +
+    "            <div class=\"col-md-3\">\n" +
+    "                <h3 class=\"text-center\">\n" +
+    "                    Energy Expended\n" +
+    "                </h3>\n" +
+    "\n" +
+    "                <canvas\n" +
+    "                    data-gauge-chart\n" +
+    "                    data-gauge-data=\"fakeData.gauge.data\"\n" +
+    "                    data-gauge-options=\"fakeData.gauge.options\"\n" +
+    "                    style=\"width: 340px; height: 170px;\">\n" +
+    "                </canvas>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <!-- TBD -->\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12 col-md-6\">\n" +
-    "            <canvas\n" +
-    "                data-gauge-chart\n" +
-    "                data-gauge-data=\"gauge.data\"\n" +
-    "                data-gauge-options=\"gauge.options\"\n" +
-    "                style=\"width: 340px; height: 170px;\">\n" +
-    "            </canvas>\n" +
+    "    <!-- Loading data -->\n" +
+    "    <div ng-show=\"isFetchingSessionData === true\" class=\"row text-center animate-fade-up\">\n" +
+    "        <i class=\"fa fa-spinner fa-spin fa-5x\" style=\"display: block; margin: 200px 0\"></i>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- No data selected -->\n" +
+    "    <div ng-show=\"(!session || !metric) && isFetchingSessionData === false\" class=\"row\">\n" +
+    "\n" +
+    "        <div class=\"col-md-12\">\n" +
+    "            Select a training session and metric to get started.\n" +
+    "        </div>\n" +
+    "        <br>\n" +
+    "        <br>\n" +
+    "\n" +
+    "        <div class=\"col-md-4 col-md-offset-2\">\n" +
+    "            <selectize\n" +
+    "                ng-model=\"selectizeSessionModel\"\n" +
+    "                class=\"form-control text-center\"\n" +
+    "                config=\"selectizeSessionConfig\"\n" +
+    "                options=\"selectizeSessionOptions\"\n" +
+    "                placeholder=\"Select a training session.\">\n" +
+    "            </selectize>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"col-sm-12 col-md-6\">\n" +
-    "\n" +
+    "        <div class=\"col-md-4\">\n" +
+    "            <selectize\n" +
+    "                ng-model=\"selectizeMetricModel\"\n" +
+    "                class=\"form-control text-center\"\n" +
+    "                config=\"selectizeMetricConfig\"\n" +
+    "                options=\"selectizeMetricOptions\"\n" +
+    "                placeholder=\"Select a metric.\">\n" +
+    "            </selectize>\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "\n" +
     "</section>\n" +
     "");
 }]);
@@ -4753,38 +4973,44 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                </div>\n" +
     "\n" +
     "                <!-- Profile shortcuts -->\n" +
-    "                <div class=\"text-center profile-shortcuts\">\n" +
+    "                <div class=\"profile-shortcuts\">\n" +
     "\n" +
-    "                    <!-- Delete group button -->\n" +
-    "                    <a\n" +
-    "                        ng-show=\"profile.id > 0\"\n" +
-    "                        data-toggle=\"modal\"\n" +
-    "                        data-target=\"#deleteProfileConfirmation\"\n" +
-    "                        href=\"javascript:;\"\n" +
-    "                        class=\"sub-header-btn\">\n" +
+    "                    <span style=\"line-height: 60px; font-size: 1.2em;\">\n" +
+    "                        Position: Quarterback\n" +
+    "                    </span>\n" +
     "\n" +
-    "                        <button class=\"btn btn-danger btn-circle btn-lg\">\n" +
-    "                            <i class=\"fa fa-trash\"></i>\n" +
-    "                        </button>\n" +
-    "                    </a>\n" +
+    "                    <div class=\"pull-right\">\n" +
+    "                        <!-- Delete group button -->\n" +
+    "                        <a\n" +
+    "                            ng-show=\"profile.id > 0\"\n" +
+    "                            data-toggle=\"modal\"\n" +
+    "                            data-target=\"#deleteProfileConfirmation\"\n" +
+    "                            href=\"javascript:;\"\n" +
+    "                            class=\"sub-header-btn\">\n" +
     "\n" +
-    "                    <!-- Delete confirmation -->\n" +
-    "                    <div class=\"modal fade\" id=\"deleteProfileConfirmation\">\n" +
-    "                        <div class=\"modal-dialog\">\n" +
-    "                            <div class=\"modal-content\">\n" +
-    "                                <div class=\"modal-body\">\n" +
-    "                                    <p>\n" +
-    "                                        Are you sure you want to delete <b>{{ profile.firstName }}\n" +
-    "                                        {{ profile.lastName }}</b>'s profile?\n" +
-    "                                    </p>\n" +
-    "                                </div>\n" +
-    "                                <div class=\"modal-footer text-center\">\n" +
-    "                                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">\n" +
-    "                                        Cancel\n" +
-    "                                    </button>\n" +
-    "                                    <button ng-click=\"deleteProfile()\" type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\n" +
-    "                                        Yes, delete {{ profile.firstName }}\n" +
-    "                                    </button>\n" +
+    "                            <button class=\"btn btn-danger btn-circle btn-lg\">\n" +
+    "                                <i class=\"fa fa-trash\"></i>\n" +
+    "                            </button>\n" +
+    "                        </a>\n" +
+    "\n" +
+    "                        <!-- Delete confirmation -->\n" +
+    "                        <div class=\"modal fade\" id=\"deleteProfileConfirmation\">\n" +
+    "                            <div class=\"modal-dialog\">\n" +
+    "                                <div class=\"modal-content\">\n" +
+    "                                    <div class=\"modal-body\">\n" +
+    "                                        <p>\n" +
+    "                                            Are you sure you want to delete <b>{{ profile.firstName }}\n" +
+    "                                            {{ profile.lastName }}</b>'s profile?\n" +
+    "                                        </p>\n" +
+    "                                    </div>\n" +
+    "                                    <div class=\"modal-footer text-center\">\n" +
+    "                                        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">\n" +
+    "                                            Cancel\n" +
+    "                                        </button>\n" +
+    "                                        <button ng-click=\"deleteProfile()\" type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\n" +
+    "                                            Yes, delete {{ profile.firstName }}\n" +
+    "                                        </button>\n" +
+    "                                    </div>\n" +
     "                                </div>\n" +
     "                            </div>\n" +
     "                        </div>\n" +
@@ -4842,6 +5068,45 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
+    "                    <!-- DEMO -->\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-xs-12 col-sm-6\">\n" +
+    "\n" +
+    "                            <!-- Hand size -->\n" +
+    "                            <div class=\"row ui-editable-field ui-editable-field-vertical\">\n" +
+    "                                <div class=\"col-xs-12\">\n" +
+    "                                    <div class=\"ui-editable-field-value\">\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-text\">\n" +
+    "                                            9.6\"\n" +
+    "                                        </a>\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "                                    </div>\n" +
+    "                                </div>\n" +
+    "                                <div class=\"col-xs-12 ui-editable-field-label\">\n" +
+    "                                    Hand Size\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"col-xs-12 col-sm-6\">\n" +
+    "\n" +
+    "                            <!-- Arm length -->\n" +
+    "                            <div class=\"row ui-editable-field ui-editable-field-vertical\">\n" +
+    "                                <div class=\"col-xs-12\">\n" +
+    "                                    <div class=\"ui-editable-field-value\">\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-text\">\n" +
+    "                                            33\"\n" +
+    "                                        </a>\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "                                    </div>\n" +
+    "                                </div>\n" +
+    "                                <div class=\"col-xs-12 ui-editable-field-label\">\n" +
+    "                                    Arm Length\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "\n" +
     "                    <div class=\"row\">\n" +
     "\n" +
     "                        <!-- Date of Birth -->\n" +
@@ -4863,7 +5128,8 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
-    "                    <div class=\"row\">\n" +
+    "                    <!-- REMOVED FOR DEMO -->\n" +
+    "                    <div ng-show=\"false\" class=\"row\">\n" +
     "\n" +
     "                        <!-- Phone -->\n" +
     "                        <div class=\"col-xs-12 col-sm-6\">\n" +
@@ -4882,7 +5148,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
-    "                    <div class=\"row\">\n" +
+    "                    <div class=\"row\" style=\"display: none;\">\n" +
     "\n" +
     "                        <!-- Primary Tag -->\n" +
     "                        <div class=\"col-xs-12 col-sm-6\">\n" +
@@ -4905,7 +5171,8 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                    </div>\n" +
     "\n" +
     "                    <!-- Profile creation date -->\n" +
-    "                    <div class=\"row\">\n" +
+    "                    <!-- REMOVED FOR DEMO -->\n" +
+    "                    <div ng-show=\"false\" class=\"row\">\n" +
     "                        <div class=\"col-xs-12\">\n" +
     "                            <ui-editable-field\n" +
     "                                data-label=\"Profile Created\"\n" +
@@ -4913,6 +5180,44 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                                data-type=\"datetime\"\n" +
     "                                data-disabled=\"true\">\n" +
     "                            </ui-editable-field>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <!-- DEMO -->\n" +
+    "                    <div class=\"row\">\n" +
+    "\n" +
+    "                        <!-- Experience -->\n" +
+    "                        <div class=\"col-xs-12 col-md-6\">\n" +
+    "                            <div class=\"row ui-editable-field ui-editable-field-vertical\">\n" +
+    "                                <div class=\"col-xs-12\">\n" +
+    "                                    <div class=\"ui-editable-field-value\">\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-text\">\n" +
+    "                                            16th Season\n" +
+    "                                        </a>\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "                                    </div>\n" +
+    "                                </div>\n" +
+    "                                <div class=\"col-xs-12 ui-editable-field-label\">\n" +
+    "                                    Experience\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <!-- Snap count -->\n" +
+    "                        <div class=\"col-xs-12 col-md-6\">\n" +
+    "                            <div class=\"row ui-editable-field ui-editable-field-vertical\">\n" +
+    "                                <div class=\"col-xs-12\">\n" +
+    "                                    <div class=\"ui-editable-field-value\">\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-text\">\n" +
+    "                                            992\n" +
+    "                                        </a>\n" +
+    "                                        <a href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
+    "                                    </div>\n" +
+    "                                </div>\n" +
+    "                                <div class=\"col-xs-12 ui-editable-field-label\">\n" +
+    "                                    Snap Count\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </ui-editable-fields>\n" +
@@ -4932,14 +5237,30 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                </div>\n" +
     "\n" +
     "                <div class=\"col-xs-12\">\n" +
-    "                    <ui-editable-standalone-field\n" +
+    "                    <!-- <ui-editable-standalone-field\n" +
     "                        data-heading=\"Previous Injuries\"\n" +
     "                        data-model=\"profile\"\n" +
     "                        data-key=\"injuries\"\n" +
     "                        data-empty=\"No previous injuries.\"\n" +
     "                        data-save=\"saveProfileDetails\"\n" +
     "                        data-save-callback=\"saveProfileDetailsCallback\">\n" +
-    "                    </ui-editable-standalone-field>\n" +
+    "                    </ui-editable-standalone-field> -->\n" +
+    "\n" +
+    "                    <!-- Demo -->\n" +
+    "                    <div class=\"ui-editable-list-container\">\n" +
+    "                        <h3 class=\"title\">\n" +
+    "                            Previous Injuries\n" +
+    "                            <span></span>\n" +
+    "                        </h3>\n" +
+    "                        <br>\n" +
+    "\n" +
+    "                        Rotator cuff tear (Dec 14, 2015)\n" +
+    "                        <br>\n" +
+    "\n" +
+    "                        <a href=\"#/demo/trends\" style=\"display: inline-block; margin: 10px 0 0 5px;\">\n" +
+    "                            <i class=\"fa fa-angle-double-right fa-fw\"></i> Track Rehabilitation\n" +
+    "                        </a>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "\n" +
     "                <div class=\"col-xs-12\">\n" +
@@ -4955,15 +5276,9 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "        	</div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"row text-center\">\n" +
-    "            <a href=\"javascript:;\">\n" +
-    "                <i class=\"fa fa-angle-double-down fa-5x\"></i>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <!-- Trends demo -->\n" +
-    "        <div ng-controller=\"DemoTrendsController\" id=\"trendsDemo\">\n" +
-    "            <ng-include src=\"'profile/partials/demo.trends.html'\"></ng-include>\n" +
+    "        <!-- Demo: training sesion -->\n" +
+    "        <div ng-controller=\"DemoTrainingSessionController\" id=\"trendsDemo\">\n" +
+    "            <ng-include src=\"'profile/partials/demo-session.html'\"></ng-include>\n" +
     "        </div>\n" +
     "    </section>\n" +
     "</div>\n" +

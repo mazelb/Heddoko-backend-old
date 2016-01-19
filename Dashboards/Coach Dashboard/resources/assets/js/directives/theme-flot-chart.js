@@ -9,71 +9,133 @@
  */
 angular.module('app.directives')
 
-.directive('themeFlotChart', [
-    function() {
+.directive('themeFlotChart', ['Utilities',
+    function(Utilities) {
         return {
-            restrict: "A",
+            restrict: 'AE',
             scope: {
-                data: "=",
-                options: "="
+                data: '=',
+                options: '=',
+                plotClick: '=?',
+                plotHover: '=?',
+                threshold: '=?',
+                thresholdLabel: '=?'
             },
-            link: function(scope, ele) {
-                var data, options, plot;
+            link: function(scope, element) {
 
-                // hard-code color indices to prevent them from shifting as
-                // countries are turned on/off
+                // Add hook for creating threshold label.
+                if (scope.thresholdLabel)
+                {
+                    /**
+                     * Adds a label to the threshold line.
+                     *
+                     * @param plot
+                     * @param canvascontext
+                     */
+                    var writeThresholdLabel = function(plot, canvascontext) {
 
-                var datasets;
+                        // Label colour and position.
+                        var color = '#ddd',
+                            top = 0,
+                            left = plot.getPlotOffset().left,
+                            plotData = plot.getData();
 
-                datasets = scope.data;
+                        // Find threshold series.
+                        angular.forEach(plot.getData(), function(series) {
+                            if (series.isThresholdSeries)
+                            {
+                                // Check that threshold value is valid.
+                                if (series.data[0][1] < plotData[0].yaxis.min || series.data[0][1] > plotData[0].yaxis.max) {
+                                    top = 0;
+                                    return;
+                                }
 
-                var i = 0;
-                $.each(datasets, function(key, val) {
-                    val.color = i;
-                    ++i;
-                });
+                                // Set text colour for label.
+                                color = series.color;
 
-                // insert checkboxes
-
-                if($(ele[0]).parent().find(".choices").length > 0){
-
-                    // insert checkboxes
-                    var choiceContainer = $(ele[0]).parent().find(".choices");
-
-                    choiceContainer.html("");
-
-                    $.each(datasets, function(key, val) {
-
-                        choiceContainer.append("<br/><div class='choice-item'><label for='id" + key + "' class='ui-checkbox'>" +
-                        "<input name='" + key +
-                        "' type='checkbox' id='id" + key + "' checked='checked' value='option1'>" +
-                        "<span>" + val.label + "</span>" +
-                        "</label></div>");
-
-                    });
-
-                    var plotAccordingToChoices = function() {
-
-                        var data_to_push = [];
-
-                        choiceContainer.find("input:checked").each(function () {
-                            var key = $(this).attr("name");
-                            if (key && datasets[key]) {
-                                data_to_push.push(datasets[key]);
+                                // Calculate pixels from top for where label should appear.
+                                top = (1 -
+                                        (series.data[0][1] - plotData[0].yaxis.min) /
+                                        (plotData[0].yaxis.max - plotData[0].yaxis.min)
+                                    ) * (
+                                        plot.getPlaceholder().height() -
+                                        plot.getPlotOffset().top -
+                                        plot.getPlotOffset().bottom
+                                    ) - 20;
                             }
                         });
 
-                        if (data_to_push.length > 0) {
-                            $.plot(ele[0], data_to_push, scope.options);
+                        // Create label
+                        if (!scope.thresholdLabelElement)
+                        {
+                            scope.thresholdLabelElement =
+                            $('<div id="theme-flot-chart-threshold-label"></div>')
+                                .html(scope.thresholdLabel)
+                                .css({
+                                    position: 'absolute',
+                                    display: 'inline-block',
+                                    padding: '5px 10px',
+                                    color: color,
+                                    'background-color': 'transparent',
+                                    opacity: 0.9
+                                })
+                                .appendTo(plot.getPlaceholder());
+                        }
+
+                        // Set position.
+                        scope.thresholdLabelElement.css({
+                            top: top,
+                            left: left
+                        });
+
+                        if (top === 0) {
+                            scope.thresholdLabelElement.fadeOut(200);
+                        } else {
+                            scope.thresholdLabelElement.fadeIn(200);
                         }
                     };
 
-                    choiceContainer.find("input").click(plotAccordingToChoices);
+                    // Add hook.
+                    scope.options.hooks = scope.options.hooks || {};
+                    scope.options.hooks.draw = scope.options.hooks.draw || [];
+                    scope.options.hooks.draw.push(writeThresholdLabel);
                 }
 
-                //plotAccordingToChoices();
+                // Draw plot.
+                var plot = $.plot(element[0], scope.data, scope.options);
 
-                return data = scope.data, options = scope.options, plot = $.plot(ele[0], data, options);
+                // Bind plot hover function.
+                if (scope.plotHover) {
+                    $(element[0]).bind('plothover', scope.plotHover);
+                }
+
+                // Bind plot click function.
+                if (scope.plotClick) {
+                    $(element[0]).bind('plotclick', scope.plotClick);
+                }
+
+                // If plot has a moveable threshold, redraw on update.
+                if (scope.threshold)
+                {
+                    scope.$watch('threshold', function(newThreshold) {
+
+                        // Update plot.
+                        angular.forEach(scope.data, function(series) {
+
+                            // Performance check.
+                            if (series.isThresholdSeries)
+                            {
+                                series.data[0] = [0, newThreshold];
+                                series.data[1] = [series.data[1][0], newThreshold];
+                            }
+                        });
+
+                        // Redraw plot.
+                        plot.setData(scope.data, scope.options);
+                        // plot.setupGrid();
+                        plot.draw();
+                    });
+                }
             }
         };
     }

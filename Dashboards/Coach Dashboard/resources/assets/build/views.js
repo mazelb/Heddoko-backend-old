@@ -1040,22 +1040,29 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "    <div class=\"row demo-trends-section\">\n" +
     "        <div class=\"col-xs-12 col-md-7 col-md-offset-5 col-lg-9 col-lg-offset-3\">\n" +
     "            <h3 ng-show=\"metric\" class=\"text-center\">\n" +
+    "                <span ng-show=\"metric.title == 'Shoulder Range of Motion'\">\n" +
+    "                    {{ selectizeRomModel == 1 ? 'Passive ' : 'Active ' }}\n" +
+    "                </span>\n" +
     "                {{ metric.title }} / Dec 19 - Feb 6 2016\n" +
     "            </h3>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"col-xs-12 col-md-5 col-lg-3  demo-trends-info-2\">\n" +
+    "\n" +
+    "        <!-- DEMO: Left Panel -->\n" +
+    "        <div class=\"col-xs-12 col-md-5 col-lg-3 demo-trends-info-2\">\n" +
     "\n" +
     "            <!-- Athlete details -->\n" +
     "            <div class=\"row\">\n" +
-    "                <div class=\"col-md-5\">\n" +
-    "                    <div\n" +
-    "                        ng-style=\"{background: 'transparent center center no-repeat url('+ profile.avatarSrc +')', 'background-size': 'contain'}\"\n" +
+    "                <div class=\"col-md-4\">\n" +
+    "                    <a\n" +
+    "                        ng-style=\"{'background-image': 'url('+ profile.avatarSrc +')'}\"\n" +
+    "                        style=\"display: block; background: transparent center center no-repeat; background-size: contain;\"\n" +
+    "                        href=\"#/profile/{{ profile.id }}\"\n" +
     "                        class=\"aspect-ratio aspect-square\">\n" +
-    "                    </div>\n" +
+    "                    </a>\n" +
     "                </div>\n" +
     "\n" +
-    "                <div class=\"col-md-7\">\n" +
+    "                <div class=\"col-md-8\">\n" +
     "                    <small>Date:</small>\n" +
     "                    <b>Feb 6, 2016</b>\n" +
     "                    <br>\n" +
@@ -1088,13 +1095,27 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "                            placeholder=\"Select a metric.\">\n" +
     "                        </selectize>\n" +
     "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <br>\n" +
-    "            <br>\n" +
     "\n" +
-    "            <!-- Recovery percent -->\n" +
-    "            <div ng-show=\"metric && !isFetchingData\" class=\"row text-center\">\n" +
+    "                    <!-- Active/Passive selector -->\n" +
+    "                    <div ng-show=\"metric.title == 'Shoulder Range of Motion'\">\n" +
+    "                        <selectize\n" +
+    "                            ng-model=\"selectizeRomModel\"\n" +
+    "                            class=\"form-control text-center\"\n" +
+    "                            data-config=\"selectizeRomConfig\"\n" +
+    "                            data-options=\"selectizeRomOptions\">\n" +
+    "                        </selectize>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <br>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Recovery percent for Peak Elbow Angular Velocity -->\n" +
+    "            <div\n" +
+    "                ng-show=\"metric.title == 'Peak Elbow Angular Velocity' && !isFetchingData\"\n" +
+    "                class=\"row text-center\"\n" +
+    "                style=\"color: #ddd;\">\n" +
+    "\n" +
+    "                <br>\n" +
     "                <h3>\n" +
     "                    Percent Recovery\n" +
     "                </h3>\n" +
@@ -1102,17 +1123,21 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "                <div easypiechart options=\"easypie.options\" percent=\"easypie.percent\" class=\"easypiechart\">\n" +
     "                    <span class=\"pie-percent\" ng-bind=\"easypie.percent\"></span>\n" +
     "                </div>\n" +
+    "                <br>\n" +
     "            </div>\n" +
-    "            <br>\n" +
-    "            <br>\n" +
     "\n" +
-    "            <!-- Threshold input -->\n" +
-    "            <div ng-show=\"metric && !isFetchingData\" class=\"row\">\n" +
-    "                <h3 class=\"text-center\">\n" +
+    "            <!-- Threshold input for Peak Elbow Angular Velocity -->\n" +
+    "            <div\n" +
+    "                ng-show=\"metric.title == 'Peak Elbow Angular Velocity' && !isFetchingData\"\n" +
+    "                class=\"row\">\n" +
+    "\n" +
+    "                <br>\n" +
+    "                <h3 class=\"text-center\" style=\"color: #ddd;\">\n" +
     "                    Threshold for Return To Play\n" +
     "                </h3>\n" +
+    "                <br>\n" +
     "\n" +
-    "                <div class=\"col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3\">\n" +
+    "                <div class=\"col-md-12 col-lg-8 col-lg-offset-2\">\n" +
     "                    <div class=\"input-group\">\n" +
     "\n" +
     "                        <!-- Decrease -->\n" +
@@ -1123,7 +1148,7 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "                        </span>\n" +
     "\n" +
     "                        <!-- Edit -->\n" +
-    "                        <input ng-model=\"thresholdValue\" type=\"text\" class=\"form-control text-center\">\n" +
+    "                        <input ng-model=\"thresholdValue\" type=\"text\" class=\"form-control text-center\" style=\"font-size: 1.2em\">\n" +
     "\n" +
     "                        <!-- Increase -->\n" +
     "                        <span class=\"input-group-btn\">\n" +
@@ -1134,10 +1159,45 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
+    "\n" +
+    "            <!-- ROM percent -->\n" +
+    "            <div\n" +
+    "                ng-show=\"false && metric.title == 'Shoulder Range of Motion' && !isFetchingData\"\n" +
+    "                class=\"row\">\n" +
+    "\n" +
+    "                <div class=\"col-md-12 text-center\">\n" +
+    "                    <span id=\"romPercent\"></span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- ROM gauge -->\n" +
+    "            <div\n" +
+    "                ng-show=\"metric.title == 'Shoulder Range of Motion' && !isFetchingData\"\n" +
+    "                class=\"row\">\n" +
+    "\n" +
+    "                <br>\n" +
+    "                <div class=\"col-md-8 col-md-offset-2 text-center\">\n" +
+    "                    <canvas\n" +
+    "                        data-theme-gauge-chart\n" +
+    "                        data-gauge-data=\"romGauge.data\"\n" +
+    "                        data-live-gauge-value=\"romGaugeValue\"\n" +
+    "                        data-gauge-options=\"romGauge.options\"\n" +
+    "                        style=\"width: 100%;\">\n" +
+    "                    </canvas>\n" +
+    "\n" +
+    "                    <div style=\"position: absolute; left: 42%; bottom: 15px; font-size: 1.2em\">\n" +
+    "                        {{ romGaugeValuePercent }}\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
+    "\n" +
     "        <!-- Peak Elbow Angular Velocity -->\n" +
-    "        <div ng-show=\"metric && !isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9\">\n" +
+    "        <div\n" +
+    "            ng-show=\"metric.title == 'Peak Elbow Angular Velocity' && !isFetchingData\"\n" +
+    "            class=\"col-xs-12 col-md-7 col-lg-9\">\n" +
+    "\n" +
     "            <div\n" +
     "                data-theme-flot-chart\n" +
     "                data-data=\"flotData\"\n" +
@@ -1149,7 +1209,112 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <!-- Select metric -->\n" +
+    "\n" +
+    "        <!-- Passive Shoulder Range of Motion -->\n" +
+    "        <div\n" +
+    "            ng-show=\"metric.title == 'Shoulder Range of Motion' && selectizeRomModel == 1 && !isFetchingData\"\n" +
+    "            class=\"col-xs-12 col-md-7 col-lg-9\">\n" +
+    "\n" +
+    "            <div class=\"row\" style=\"margin-top: 15px;\">\n" +
+    "                <div class=\"col-md-2 col-md-offset-3 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.extRot}\"></div>\n" +
+    "                    External Rot. <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = 90&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.flexion}\"></div>\n" +
+    "                    Flexion <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = 175&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.abduction}\"></div>\n" +
+    "                    Abduction <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = 180&deg;</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div\n" +
+    "                data-theme-flot-chart\n" +
+    "                data-data=\"flotRomData\"\n" +
+    "                data-options=\"flotRomOptions\"\n" +
+    "                data-plot-hover=\"flotRomHover\"\n" +
+    "                data-plot-labels=\"flotRomLabels\"\n" +
+    "                style=\"width: 100%; height: 450px;\">\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"row\" style=\"margin-top: 15px;\">\n" +
+    "                <div class=\"col-md-2 col-md-offset-3 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.intRot}\"></div>\n" +
+    "                    Internal Rot. <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = -80&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.extension}\"></div>\n" +
+    "                    Extension <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = -60&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.adduction}\"></div>\n" +
+    "                    Adduction <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = -40&deg;</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "\n" +
+    "        <!-- Active Shoulder Range of Motion -->\n" +
+    "        <div\n" +
+    "            ng-show=\"metric.title == 'Shoulder Range of Motion' && selectizeRomModel == 2 && !isFetchingData\"\n" +
+    "            class=\"col-xs-12 col-md-7 col-lg-9\">\n" +
+    "\n" +
+    "            <div class=\"row\" style=\"margin-top: 15px;\">\n" +
+    "                <div class=\"col-md-2 col-md-offset-3 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.extRot}\"></div>\n" +
+    "                    External Rot. <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = 90&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.flexion}\"></div>\n" +
+    "                    Flexion <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = 175&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.abduction}\"></div>\n" +
+    "                    Abduction <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = 180&deg;</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div\n" +
+    "                data-theme-flot-chart\n" +
+    "                data-data=\"flotActiveRomData\"\n" +
+    "                data-options=\"flotActiveRomOptions\"\n" +
+    "                data-plot-hover=\"flotRomHover\"\n" +
+    "                data-plot-labels=\"flotActiveRomLabels\"\n" +
+    "                style=\"width: 100%; height: 450px;\">\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"row\" style=\"margin-top: 15px;\">\n" +
+    "                <div class=\"col-md-2 col-md-offset-3 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.intRot}\"></div>\n" +
+    "                    Internal Rot. <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = -80&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.extension}\"></div>\n" +
+    "                    Extension <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = -60&deg;</span>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-2 text-center\">\n" +
+    "                    <div class=\"demo-legend-color\" ng-style=\"{'background-color': colors.adduction}\"></div>\n" +
+    "                    Adduction <br>\n" +
+    "                    <span class=\"text-muted\" style=\"display: inline-block; margin-top: 5px\">100% = -40&deg;</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "\n" +
+    "        <!-- No metric selected -->\n" +
     "        <div ng-show=\"!metric && !isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9 text-center\">\n" +
     "            Select a metric to get started.\n" +
     "            <br>\n" +
@@ -1166,8 +1331,9 @@ angular.module("demo/trends/index.html", []).run(["$templateCache", function($te
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
+    "\n" +
     "        <!-- Loading data -->\n" +
-    "        <div ng-show=\"isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9 text-center\">\n" +
+    "        <div ng-show=\"isFetchingData\" class=\"col-xs-12 col-md-7 col-lg-9 text-center text-muted\">\n" +
     "            <i class=\"fa fa-spinner fa-spin fa-3x\" style=\"display: block; margin: 100px 0 0\"></i>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -1695,11 +1861,11 @@ angular.module("directive-partials/ui-editable-fields/standalone-field.html", []
     "\n" +
     "        <!-- Working animation -->\n" +
     "        <div ng-switch-when=\"saving\" class=\"text-center\" style=\"padding: 20px 0;\">\n" +
-    "            <i class=\"fa fa-spin fa-4x fa-spinner\"></i>\n" +
+    "            <i class=\"fa fa-spin fa-2x fa-spinner\"></i>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Displayed field -->\n" +
-    "        <div ng-switch-default class=\"col-sm-12 ui-editable-fields-muted\">\n" +
+    "        <div ng-switch-default class=\"col-sm-12\">\n" +
     "            {{ model[key] || empty }}\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -2793,7 +2959,7 @@ angular.module("group/list.html", []).run(["$templateCache", function($templateC
     "                data-toggle=\"modal\"\n" +
     "                data-target=\"#newGroupForm\"\n" +
     "                href=\"javascript:;\"\n" +
-    "                class=\"btn btn-primary btn-metro\">\n" +
+    "                class=\"btn btn-info btn-metro\">\n" +
     "\n" +
     "                <i class=\"fa fa-plus\"></i>\n" +
     "            </a>\n" +
@@ -2845,10 +3011,10 @@ angular.module("group/list.html", []).run(["$templateCache", function($templateC
     "                ng-repeat=\"group in global.state.group.list\"\n" +
     "                ng-show=\"group.id\"\n" +
     "                href=\"#/group/{{ group.id }}\"\n" +
-    "                class=\"btn btn-default btn-metro\"\n" +
-    "                style=\"background-image: url({{ group.avatarSrc || '' }});\">\n" +
+    "                class=\"btn btn-info btn-metro\"\n" +
+    "                style=\"background-image: url({{ group.avatarSrc || '' }})\">\n" +
     "\n" +
-    "                <span>{{ group.name | characters:15 }}</span>\n" +
+    "                <span style=\"background-color: rgba(0, 0, 0, 0.4)\">{{ group.name | characters:15 }}</span>\n" +
     "            </a>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -2973,7 +3139,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                    </ui-avatar>\n" +
     "                </div>\n" +
     "\n" +
-    "                <div class=\"text-center profile-shortcuts\">\n" +
+    "                <div class=\"text-right profile-shortcuts\">\n" +
     "\n" +
     "                    <!-- Delete group button -->\n" +
     "                    <a\n" +
@@ -3036,11 +3202,19 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        </div>\n" +
     "\n" +
     "                        <!-- Tags -->\n" +
-    "                        <div class=\"col-xs-6\">\n" +
+    "                        <!-- Replaced with placeholder for demo -->\n" +
+    "                        <!-- <div ng-show=\"false\" class=\"col-xs-6\">\n" +
     "                            <ui-editable-field\n" +
     "                                data-label=\"Sport\"\n" +
     "                                data-key=\"tags\"\n" +
     "                                data-type=\"tag\">\n" +
+    "                            </ui-editable-field>\n" +
+    "                        </div> -->\n" +
+    "                        <div class=\"col-xs-6\">\n" +
+    "                            <ui-editable-field\n" +
+    "                                data-label=\"Sport\"\n" +
+    "                                data-type=\"placeholder\"\n" +
+    "                                data-display=\"Football\">\n" +
     "                            </ui-editable-field>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
@@ -3050,7 +3224,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        <!-- Managers -->\n" +
     "                        <div class=\"col-xs-6\">\n" +
     "                            <ui-editable-field\n" +
-    "                                data-label=\"Coach\"\n" +
+    "                                data-label=\"Head Coach\"\n" +
     "                                data-type=\"placeholder\"\n" +
     "                                data-display=\"Rick Springfield\">\n" +
     "                            </ui-editable-field>\n" +
@@ -3061,7 +3235,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                            <ui-editable-field\n" +
     "                                data-label=\"Number of athletes\"\n" +
     "                                data-type=\"placeholder\"\n" +
-    "                                data-display=\"10\">\n" +
+    "                                data-display=\"53\">\n" +
     "                            </ui-editable-field>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
@@ -3071,7 +3245,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        <!-- Date created -->\n" +
     "                        <div class=\"col-xs-6\">\n" +
     "                            <ui-editable-field\n" +
-    "                                data-label=\"Date created\"\n" +
+    "                                data-label=\"Date Created\"\n" +
     "                                data-key=\"createdAt\"\n" +
     "                                data-type=\"date\"\n" +
     "                                data-required=\"true\">\n" +
@@ -3081,7 +3255,7 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                        <!-- Date modified -->\n" +
     "                        <div class=\"col-xs-6\">\n" +
     "                            <ui-editable-field\n" +
-    "                                data-label=\"Date created\"\n" +
+    "                                data-label=\"Date Modified\"\n" +
     "                                data-key=\"updatedAt\"\n" +
     "                                data-type=\"date\"\n" +
     "                                data-required=\"true\">\n" +
@@ -3092,7 +3266,8 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "            </div>\n" +
     "\n" +
     "            <!-- Notes -->\n" +
-    "            <div class=\"col-xs-12 col-lg-4\">\n" +
+    "            <!-- Placeholder data for demo -->\n" +
+    "            <div ng-show=\"false\" class=\"col-xs-12 col-lg-4\">\n" +
     "                <ui-editable-standalone-field\n" +
     "                    data-heading=\"Notes\"\n" +
     "                    data-model=\"group\"\n" +
@@ -3102,6 +3277,19 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "                    data-save=\"saveGroupDetails\"\n" +
     "                    data-save-callback=\"saveGroupDetailsCallback\">\n" +
     "                </ui-editable-standalone-field>\n" +
+    "            </div>\n" +
+    "            <div class=\"col-xs-12 col-lg-4\">\n" +
+    "\n" +
+    "                <!-- DEMO -->\n" +
+    "                <div class=\"ui-editable-list-container\">\n" +
+    "                    <h3 class=\"title\">\n" +
+    "                        Notes\n" +
+    "                        <span></span>\n" +
+    "                    </h3>\n" +
+    "                    <br>\n" +
+    "\n" +
+    "                    Wins: 12 / Losses: 4 / Ties: 0\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </section>\n" +
@@ -3116,20 +3304,22 @@ angular.module("group/view.html", []).run(["$templateCache", function($templateC
     "            <br>\n" +
     "\n" +
     "            <!-- New profile button -->\n" +
+    "            <!-- TODO: figure out why the right margin is needed -->\n" +
     "            <a\n" +
     "                href=\"#/profile/create\"\n" +
-    "                class=\"btn btn-info btn-metro\">\n" +
+    "                class=\"btn btn-info btn-metro\"\n" +
+    "                style=\"margin-right: 0\">\n" +
     "\n" +
     "                <i class=\"fa fa-plus\"></i>\n" +
     "            </a>\n" +
     "\n" +
     "            <a\n" +
-    "                ng-repeat=\"profile in global.state.profile.filtered\"\n" +
+    "                ng-repeat=\"profile in global.data.filteredProfiles\"\n" +
     "                href=\"#/profile/{{ profile.id }}\"\n" +
-    "                class=\"btn btn-default btn-metro\"\n" +
+    "                class=\"btn btn-info btn-metro\"\n" +
     "                style=\"background-image: url({{ profile.avatarSrc || '' }});\">\n" +
     "\n" +
-    "                <span>{{ profile.lastName.toUpperCase() }}</span>\n" +
+    "                <span style=\"background-color: rgba(0, 0, 0, 0.4)\">{{ profile.lastName.toUpperCase() }}</span>\n" +
     "            </a>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -3569,7 +3759,7 @@ angular.module("movements/explorer/index.html", []).run(["$templateCache", funct
     "\n" +
     "    <!-- Main container -->\n" +
     "    <div\n" +
-    "        ng-show=\"global.state.profile.list.length > 0 || global.data.isFetchingProfiles === true\"\n" +
+    "        ng-show=\"global.getNamespaceLength('profile') > 0 || global.data.isFetchingProfiles === true\"\n" +
     "        class=\"file-explorer-container\">\n" +
     "\n" +
     "        <header>\n" +
@@ -3602,7 +3792,7 @@ angular.module("movements/explorer/index.html", []).run(["$templateCache", funct
     "    <!-- No profile exists -->\n" +
     "    <div\n" +
     "        ng-show=\"global.data.isFetchingProfiles === false\n" +
-    "            && global.state.profile.list.length === 0\"\n" +
+    "            && global.getNamespaceLength('profile') === 0\"\n" +
     "        class=\"text-center\">\n" +
     "\n" +
     "        <h3 class=\"text-center\">You do not have any profiles yet.</h3>\n" +
@@ -4203,7 +4393,9 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "                        <span>View All Teams</span>\n" +
     "                    </a>\n" +
     "                </li>\n" +
-    "                <li>\n" +
+    "\n" +
+    "                <!-- Disabled until we're sure we only need the \"modal\" form on the group listing page -->\n" +
+    "                <li ng-show=\"false\">\n" +
     "                    <a href=\"#/group/create\">\n" +
     "                        <i class=\"fa fa-angle-right\"></i>\n" +
     "                        <span>Create a Team</span>\n" +
@@ -4230,12 +4422,12 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "\n" +
     "		<li>\n" +
     "            <!-- List of athletes -->\n" +
-    "            <a ng-show=\"global.state.profile.list.length > 0\" href=\"#/profile/list\">\n" +
+    "            <a ng-show=\"global.getNamespaceLength('profile') > 0\" href=\"#/profile/list\">\n" +
     "                <i class=\"fa fa-user\"></i>\n" +
     "                <span>Athletes</span>\n" +
     "                <span class=\"pull-right\">\n" +
     "                    <small>\n" +
-    "                        ( {{ global.state.profile.list.length }} )\n" +
+    "                        ( {{ global.getNamespaceLength('profile') }} )\n" +
     "                    </small>\n" +
     "                </span>\n" +
     "            </a>\n" +
@@ -4249,7 +4441,7 @@ angular.module("partials/navigation.html", []).run(["$templateCache", function($
     "            <!-- No profiles available -->\n" +
     "            <a\n" +
     "                ng-show=\"global.data.isFetchingProfiles === false &&\n" +
-    "                    global.state.profile.list.length === 0\"\n" +
+    "                    global.getNamespaceLength('profile') === 0\"\n" +
     "                href=\"#/profile/create\">\n" +
     "\n" +
     "                <i class=\"fa fa-user\"></i>\n" +
@@ -4644,21 +4836,23 @@ angular.module("profile/list.html", []).run(["$templateCache", function($templat
     "        <div class=\"col-sm-12\">\n" +
     "\n" +
     "            <!-- New profile button -->\n" +
+    "            <!-- TODO: figure out why the right margin is needed -->\n" +
     "            <a\n" +
     "                href=\"#/profile/create\"\n" +
-    "                class=\"btn btn-primary btn-metro\">\n" +
+    "                class=\"btn btn-info btn-metro\"\n" +
+    "                style=\"margin-right: 0\">\n" +
     "\n" +
     "                <i class=\"fa fa-plus\"></i>\n" +
     "            </a>\n" +
     "\n" +
     "            <a\n" +
-    "                ng-repeat=\"profile in global.state.profile.list\"\n" +
+    "                ng-repeat=\"profile in profiles\"\n" +
     "                ng-show=\"profile.id\"\n" +
     "                href=\"#/profile/{{ profile.id }}\"\n" +
-    "                class=\"btn btn-primary btn-metro\"\n" +
+    "                class=\"btn btn-info btn-metro\"\n" +
     "                style=\"background-image: url({{ profile.avatarSrc || '' }});\">\n" +
     "\n" +
-    "                <div class=\"btn-title\">{{ profile.firstName | characters:30 }}</div>\n" +
+    "                <div class=\"btn-title\">{{ profile.lastName.toUpperCase() | characters:30 }}</div>\n" +
     "            </a>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -4693,7 +4887,7 @@ angular.module("profile/partials/demo-session.html", []).run(["$templateCache", 
   $templateCache.put("profile/partials/demo-session.html",
     "<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->\n" +
     "\n" +
-    "<section class=\"demo-trends-section\" style=\"margin: 50px auto 300px;\">\n" +
+    "<section class=\"demo-trends-section\" style=\"margin: 50px auto\">\n" +
     "    <h2 class=\"title\">\n" +
     "        Training Session Review\n" +
     "        <span></span>\n" +
@@ -4706,11 +4900,18 @@ angular.module("profile/partials/demo-session.html", []).run(["$templateCache", 
     "\n" +
     "        <div class=\"row\">\n" +
     "            <div class=\"col-md-9 col-md-offset-3\">\n" +
-    "                <h3 class=\"text-center\">\n" +
+    "                <h3 class=\"text-center\" style=\"margin-bottom: 35px\">\n" +
     "                    {{ metric.title }}\n" +
+    "\n" +
+    "                    <small ng-show=\"metric.title == 'Shoulder External Rotation'\" style=\"display: block; margin-top: 5px\">\n" +
+    "                        100% = 90&deg;\n" +
+    "                    </small>\n" +
     "                </h3>\n" +
     "            </div>\n" +
     "\n" +
+    "\n" +
+    "\n" +
+    "            <!-- Left Panel -->\n" +
     "            <div class=\"col-md-3 demo-trends-info-2\">\n" +
     "                <div class=\"row\">\n" +
     "\n" +
@@ -4753,89 +4954,316 @@ angular.module("profile/partials/demo-session.html", []).run(["$templateCache", 
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
-    "                <div class=\"demo-trends-session-legend\" style=\"height: 80px\"></div>\n" +
+    "                <!-- Extra Info -->\n" +
+    "                <div ng-hide=\"isFetchingSelectedMetricData || isFetchingSessionData\">\n" +
     "\n" +
-    "                <div class=\"row\">\n" +
-    "                    <div class=\"col-xs-4 demo-warning\" style=\"height: 70px\">\n" +
+    "                    <div\n" +
+    "                        ng-show=\"metric.title == 'Peak Elbow Angular Velocity'\"\n" +
+    "                        class=\"row text-center\"\n" +
+    "                        style=\"color: #ddd; margin-top: 10px\">\n" +
+    "\n" +
+    "                        <div class=\"col-xs-12\">\n" +
+    "                            <div style=\"margin: 25px 0 0\">\n" +
+    "                                <img src=\"/images/demo/qb throw.png\" style=\"height: 65px; margin-right: 15px; vertical-align: top\">\n" +
+    "                                <span style=\"font-size: 3.5em; vertical-align: bottom;\">\n" +
+    "                                    {{ flotElbowDrops[session.id - 1].num }}\n" +
+    "                                </span>\n" +
+    "                            </div>\n" +
+    "\n" +
+    "                            <span style=\"font-size: 1.3em\">\n" +
+    "                                Throw Count <br>\n" +
+    "                                Before Degradation\n" +
+    "                            </span>\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
-    "                    <div class=\"col-xs-8\">\n" +
-    "                        Throw Count: 157\n" +
-    "                        <br>\n" +
+    "                    <div ng-show=\"metric.title == 'Peak Forearm Snap Velocity'\" class=\"row text-center\">\n" +
+    "                        <div class=\"col-xs-12\">\n" +
+    "                            The snapping of the wrist from supinated to pronated is what gives the ball its\n" +
+    "                            spin. The faster this happens, the tighter the spin will be, and the higher the\n" +
+    "                            chances the ball will travel faster and further.\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "                        Recommendation:\n" +
-    "                        <br>\n" +
+    "                    <!-- <div ng-show=\"false && metric.title == 'Stride Length'\" class=\"row text-center\">\n" +
+    "                        <div class=\"col-xs-12\">\n" +
+    "                            The proper stride length is approximately the athlete’s tibial\n" +
+    "                            tuberosity X 1.5, or about 26-30 inches in most quarterbacks.\n" +
+    "                        </div>\n" +
+    "                    </div> -->\n" +
     "\n" +
-    "                        <b style=\"color: #3bd6b2\">Stop Athlete's Training</b>\n" +
+    "                    <div ng-show=\"metric.title == 'Shoulder External Rotation'\" class=\"col-xs-12\">\n" +
+    "\n" +
+    "                        <br>\n" +
+    "                        <br>\n" +
+    "                        <canvas\n" +
+    "                            data-theme-gauge-chart\n" +
+    "                            data-gauge-data=\"demoGaugeOne.data\"\n" +
+    "                            data-live-gauge-value=\"demoGaugeOneValue\"\n" +
+    "                            data-gauge-options=\"demoGaugeOne.options\"\n" +
+    "                            style=\"width: 100%;\">\n" +
+    "                        </canvas>\n" +
+    "\n" +
+    "                        <div style=\"position: absolute; left: 45%; bottom: 15px; font-size: 1.2em\">\n" +
+    "                            {{ demoGaugeOneValuePercent }}\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div ng-show=\"metric.title == 'Stride Length'\" class=\"col-xs-12\">\n" +
+    "\n" +
+    "                        <br>\n" +
+    "                        <br>\n" +
+    "                        <canvas\n" +
+    "                            data-theme-gauge-chart\n" +
+    "                            data-gauge-data=\"demoGaugeTwo.data\"\n" +
+    "                            data-live-gauge-value=\"demoGaugeTwoValue\"\n" +
+    "                            data-gauge-options=\"demoGaugeTwo.options\"\n" +
+    "                            style=\"width: 100%;\">\n" +
+    "                        </canvas>\n" +
+    "\n" +
+    "                        <div style=\"position: absolute; left: 46%; bottom: 15px; font-size: 1.2em\">\n" +
+    "                            {{ demoGaugeTwoValuePercent }}\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
+    "\n" +
+    "\n" +
     "            <!-- Metric plots -->\n" +
     "            <div ng-show=\"isFetchingSelectedMetricData === false\">\n" +
     "\n" +
+    "\n" +
     "                <!-- Peak Elbow Angular Velocity -->\n" +
-    "                <div ng-show=\"metric.title == 'Peak Elbow Angular Velocity'\" id=\"chartRow\" class=\"col-md-9\">\n" +
-    "                    <theme-chart\n" +
-    "                        data-type=\"Line\"\n" +
-    "                        data-data=\"chartjsData\"\n" +
-    "                        data-options=\"chartjsOptions\"\n" +
-    "                        data-height=\"400\"\n" +
-    "                        data-width=\"{{ chartjsWidth() }}\"\n" +
-    "                        data-value=\"chartjsObject\"\n" +
-    "                        class=\"demo-chartjs\">\n" +
-    "                    </theme-chart>\n" +
+    "                <div ng-show=\"metric.title == 'Peak Elbow Angular Velocity'\" class=\"col-md-9\">\n" +
+    "                    <div ng-show=\"session.id === 5\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotElbowData[4]\"\n" +
+    "                            data-options=\"flotElbowOptions[4]\"\n" +
+    "                            data-plot-hover=\"flotElbowHover\"\n" +
+    "                            data-plot-labels=\"flotElbowLabels[4]\"\n" +
+    "                            data-threshold-label=\"'Pause Training'\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 4\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotElbowData[3]\"\n" +
+    "                            data-options=\"flotElbowOptions[3]\"\n" +
+    "                            data-plot-hover=\"flotElbowHover\"\n" +
+    "                            data-plot-labels=\"flotElbowLabels[3]\"\n" +
+    "                            data-threshold-label=\"'Pause Training'\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 3\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotElbowData[2]\"\n" +
+    "                            data-options=\"flotElbowOptions[2]\"\n" +
+    "                            data-plot-hover=\"flotElbowHover\"\n" +
+    "                            data-plot-labels=\"flotElbowLabels[2]\"\n" +
+    "                            data-threshold-label=\"'Pause Training'\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 2\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotElbowData[1]\"\n" +
+    "                            data-options=\"flotElbowOptions[1]\"\n" +
+    "                            data-plot-hover=\"flotElbowHover\"\n" +
+    "                            data-plot-labels=\"flotElbowLabels[1]\"\n" +
+    "                            data-threshold-label=\"'Pause Training'\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 1\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotElbowData[0]\"\n" +
+    "                            data-options=\"flotElbowOptions[0]\"\n" +
+    "                            data-plot-hover=\"flotElbowHover\"\n" +
+    "                            data-plot-labels=\"flotElbowLabels[0]\"\n" +
+    "                            data-threshold-label=\"'Pause Training'\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "\n" +
+    "                    <div class=\"row text-center\">\n" +
+    "                        <div class=\"col-md-4\" style=\"margin-top: 30px\">\n" +
+    "                            <div class=\"col-md-10 col-md-offset-2\">\n" +
+    "                                <h4 style=\"display: inline-block\">\n" +
+    "                                    Fastest Throw\n" +
+    "                                </h4>\n" +
+    "                                <canvas\n" +
+    "                                    data-gauge-chart\n" +
+    "                                    data-gauge-data=\"elbowMaxGauge.data\"\n" +
+    "                                    data-gauge-options=\"elbowMaxGauge.options\"\n" +
+    "                                    style=\"width: 100%; vertical-align: bottom\">\n" +
+    "                                </canvas>\n" +
+    "\n" +
+    "                                <div style=\"position: absolute; left: 39%; bottom: 15px;\">\n" +
+    "                                    {{ elbowMaxVel | number:0 }} &deg;/s\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"col-md-4\" style=\"margin-top: 30px\">\n" +
+    "                            <div class=\"col-md-10 col-md-offset-1\">\n" +
+    "                                <h4 style=\"display: inline-block\">\n" +
+    "                                    Average\n" +
+    "                                </h4>\n" +
+    "                                <canvas\n" +
+    "                                    data-gauge-chart\n" +
+    "                                    data-gauge-data=\"elbowAvgGauge.data\"\n" +
+    "                                    data-gauge-options=\"elbowAvgGauge.options\"\n" +
+    "                                    style=\"width: 100%; vertical-align: bottom\">\n" +
+    "                                </canvas>\n" +
+    "\n" +
+    "                                <div style=\"position: absolute; left: 39%; bottom: 15px;\">\n" +
+    "                                    {{ elbowAvgVel | number:0 }} &deg;/s\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"col-md-4\" style=\"margin-top: 30px\">\n" +
+    "                            <div class=\"col-md-10\">\n" +
+    "                                <h4 style=\"display: inline-block\">\n" +
+    "                                    Slowest Throw\n" +
+    "                                </h4>\n" +
+    "                                <canvas\n" +
+    "                                    data-gauge-chart\n" +
+    "                                    data-gauge-data=\"elbowMinGauge.data\"\n" +
+    "                                    data-gauge-options=\"elbowMinGauge.options\"\n" +
+    "                                    style=\"width: 100%; vertical-align: bottom\">\n" +
+    "                                </canvas>\n" +
+    "\n" +
+    "                                <div style=\"position: absolute; left: 39%; bottom: 15px;\">\n" +
+    "                                    {{ elbowMinVel | number:0 }} &deg;/s\n" +
+    "                                </div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Shoulder External Rotation -->\n" +
+    "                <div ng-show=\"metric.title == 'Shoulder External Rotation'\" class=\"col-md-9\">\n" +
+    "                    <div ng-show=\"session.id === 5\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotShoulderData[4]\"\n" +
+    "                            data-options=\"flotShoulderOptions[4]\"\n" +
+    "                            data-plot-hover=\"flotShoulderRotHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 4\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotShoulderData[3]\"\n" +
+    "                            data-options=\"flotShoulderOptions[3]\"\n" +
+    "                            data-plot-hover=\"flotShoulderRotHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 3\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotShoulderData[2]\"\n" +
+    "                            data-options=\"flotShoulderOptions[2]\"\n" +
+    "                            data-plot-hover=\"flotShoulderRotHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 2\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotShoulderData[1]\"\n" +
+    "                            data-options=\"flotShoulderOptions[1]\"\n" +
+    "                            data-plot-hover=\"flotShoulderRotHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 1\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotShoulderData[0]\"\n" +
+    "                            data-options=\"flotShoulderOptions[0]\"\n" +
+    "                            data-plot-hover=\"flotShoulderRotHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Stride Length -->\n" +
+    "                <div ng-show=\"metric.title == 'Stride Length'\" class=\"col-md-9\">\n" +
+    "                    <div ng-show=\"session.id === 5\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotStrideData[4]\"\n" +
+    "                            data-options=\"flotStrideOptions[4]\"\n" +
+    "                            data-plot-hover=\"flotStrideHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 4\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotStrideData[3]\"\n" +
+    "                            data-options=\"flotStrideOptions[3]\"\n" +
+    "                            data-plot-hover=\"flotStrideHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 3\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotStrideData[2]\"\n" +
+    "                            data-options=\"flotStrideOptions[2]\"\n" +
+    "                            data-plot-hover=\"flotStrideHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 2\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotStrideData[1]\"\n" +
+    "                            data-options=\"flotStrideOptions[1]\"\n" +
+    "                            data-plot-hover=\"flotStrideHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div ng-show=\"session.id === 1\">\n" +
+    "                        <div\n" +
+    "                            data-theme-flot-chart\n" +
+    "                            data-data=\"flotStrideData[0]\"\n" +
+    "                            data-options=\"flotStrideOptions[0]\"\n" +
+    "                            data-plot-hover=\"flotStrideHover\"\n" +
+    "                            style=\"width: 100%; height: 400px;\">\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Loading metric plots -->\n" +
-    "            <div ng-show=\"isFetchingSelectedMetricData === true\" class=\"col-md-9 text-center\">\n" +
-    "                <i class=\"fa fa-spinner fa-spin fa-3x\" style=\"margin: 75px auto 0;\"></i>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <br>\n" +
-    "        <br>\n" +
-    "\n" +
-    "        <!-- Filler plots -->\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-9\">\n" +
-    "                <h3 class=\"text-center\">\n" +
-    "                    Energy Expended\n" +
-    "                </h3>\n" +
-    "\n" +
-    "                <div morris-chart\n" +
-    "                             data-data=\"fakeData.morris\"\n" +
-    "                             data-type=\"area\"\n" +
-    "                             data-xkey=\"year\"\n" +
-    "                             data-ykeys='[\"a\", \"b\", \"c\"]'\n" +
-    "                             data-labels='[\"Value A\", \"Value B\", \"Value C\"]'\n" +
-    "                             data-line-colors='{{ fakeData.morrisColours }}'\n" +
-    "                             data-line-width=\"2\"\n" +
-    "                             ></div>\n" +
-    "            </div>\n" +
-    "            <div class=\"col-md-3\">\n" +
-    "                <h3 class=\"text-center\">\n" +
-    "                    Energy Expended\n" +
-    "                </h3>\n" +
-    "\n" +
-    "                <canvas\n" +
-    "                    data-gauge-chart\n" +
-    "                    data-gauge-data=\"fakeData.gauge.data\"\n" +
-    "                    data-gauge-options=\"fakeData.gauge.options\"\n" +
-    "                    style=\"width: 340px; height: 170px;\">\n" +
-    "                </canvas>\n" +
+    "            <div ng-show=\"isFetchingSelectedMetricData === true\" class=\"col-md-9 text-center text-muted\">\n" +
+    "                <i class=\"fa fa-spinner fa-spin fa-3x\" style=\"margin: 200px auto\"></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Loading data -->\n" +
-    "    <div ng-show=\"isFetchingSessionData === true\" class=\"row text-center animate-fade-up\">\n" +
-    "        <i class=\"fa fa-spinner fa-spin fa-5x\" style=\"display: block; margin: 200px 0\"></i>\n" +
+    "    <div ng-show=\"isFetchingSessionData === true\" class=\"row text-center text-muted\">\n" +
+    "        <i class=\"fa fa-spinner fa-spin fa-3x\" style=\"display: block; margin: 200px 0 300px\"></i>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- No data selected -->\n" +
-    "    <div ng-show=\"(!session || !metric) && isFetchingSessionData === false\" class=\"row\">\n" +
+    "    <div ng-show=\"(!session || !metric) && isFetchingSessionData === false\" class=\"row\" style=\"margin: 0 auto 250px;\">\n" +
     "\n" +
     "        <div class=\"col-md-12\">\n" +
     "            Select a training session and metric to get started.\n" +
@@ -4953,9 +5381,24 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "<div ng-hide=\"profile.id === 0\" class=\"page profile-page\">\n" +
     "    <header>\n" +
     "        <h1>\n" +
-    "            {{ profile.firstName }} {{ profile.lastName }}\n" +
+    "            {{ profile.firstName }} {{ profile.lastName }} <i class=\"fa fa-user\"></i>\n" +
     "            <span></span>\n" +
     "        </h1>\n" +
+    "\n" +
+    "        <!-- Append main group to profile name -->\n" +
+    "        <div ng-show=\"profile.groups.length > 0\" class=\"h1-append\">\n" +
+    "            Team:\n" +
+    "\n" +
+    "            <a href=\"#/group/{{ profile.groups[0].id }}\">\n" +
+    "                {{ profile.groups[0].name }}\n" +
+    "            </a>\n" +
+    "\n" +
+    "            <small>\n" +
+    "                <a href=\"javascript:;\">\n" +
+    "                    (update)\n" +
+    "                </a>\n" +
+    "            </small>\n" +
+    "        </div>\n" +
     "    </header>\n" +
     "\n" +
     "    <section ng-show=\"profile.id > 0\">\n" +
@@ -4975,18 +5418,19 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                <!-- Profile shortcuts -->\n" +
     "                <div class=\"profile-shortcuts\">\n" +
     "\n" +
+    "                    <!-- DEMO -->\n" +
     "                    <span style=\"line-height: 60px; font-size: 1.2em;\">\n" +
     "                        Position: Quarterback\n" +
     "                    </span>\n" +
     "\n" +
     "                    <div class=\"pull-right\">\n" +
+    "\n" +
     "                        <!-- Delete group button -->\n" +
     "                        <a\n" +
     "                            ng-show=\"profile.id > 0\"\n" +
     "                            data-toggle=\"modal\"\n" +
     "                            data-target=\"#deleteProfileConfirmation\"\n" +
-    "                            href=\"javascript:;\"\n" +
-    "                            class=\"sub-header-btn\">\n" +
+    "                            href=\"javascript:;\">\n" +
     "\n" +
     "                            <button class=\"btn btn-danger btn-circle btn-lg\">\n" +
     "                                <i class=\"fa fa-trash\"></i>\n" +
@@ -5148,7 +5592,8 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
-    "                    <div class=\"row\" style=\"display: none;\">\n" +
+    "                    <!-- REMOVED FOR DEMO -->\n" +
+    "                    <div ng-show=\"false\" class=\"row\">\n" +
     "\n" +
     "                        <!-- Primary Tag -->\n" +
     "                        <div class=\"col-xs-12 col-sm-6\">\n" +
@@ -5192,7 +5637,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                                <div class=\"col-xs-12\">\n" +
     "                                    <div class=\"ui-editable-field-value\">\n" +
     "                                        <a href=\"javascript:;\" class=\"edit-text\">\n" +
-    "                                            16th Season\n" +
+    "                                            {{ profile.id }} Seasons\n" +
     "                                        </a>\n" +
     "                                        <a href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
     "                                    </div>\n" +
@@ -5209,7 +5654,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                                <div class=\"col-xs-12\">\n" +
     "                                    <div class=\"ui-editable-field-value\">\n" +
     "                                        <a href=\"javascript:;\" class=\"edit-text\">\n" +
-    "                                            992\n" +
+    "                                            {{ profile.id * 59 | number:0 }}\n" +
     "                                        </a>\n" +
     "                                        <a href=\"javascript:;\" class=\"edit-icon fa fa-pencil\"></a>\n" +
     "                                    </div>\n" +
@@ -5246,7 +5691,7 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        data-save-callback=\"saveProfileDetailsCallback\">\n" +
     "                    </ui-editable-standalone-field> -->\n" +
     "\n" +
-    "                    <!-- Demo -->\n" +
+    "                    <!-- DEMO -->\n" +
     "                    <div class=\"ui-editable-list-container\">\n" +
     "                        <h3 class=\"title\">\n" +
     "                            Previous Injuries\n" +
@@ -5254,12 +5699,20 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "                        </h3>\n" +
     "                        <br>\n" +
     "\n" +
-    "                        Rotator cuff tear (Dec 14, 2015)\n" +
-    "                        <br>\n" +
+    "                        <div ng-show=\"profile.lastName == 'Todd'\">\n" +
+    "                            Rotator cuff tear on Nov 17, 2015\n" +
+    "                            <br>\n" +
+    "                            (surgery Nov 21, 2015).\n" +
+    "                            <br>\n" +
     "\n" +
-    "                        <a href=\"#/demo/trends\" style=\"display: inline-block; margin: 10px 0 0 5px;\">\n" +
-    "                            <i class=\"fa fa-angle-double-right fa-fw\"></i> Track Rehabilitation\n" +
-    "                        </a>\n" +
+    "                            <a href=\"#/demo/trends\" style=\"display: inline-block; margin: 10px 0 0 5px;\">\n" +
+    "                                <i class=\"fa fa-angle-double-right fa-fw\"></i> Track Rehabilitation\n" +
+    "                            </a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div ng-show=\"profile.lastName != 'Todd'\">\n" +
+    "                            No previous injuries.\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -5284,7 +5737,20 @@ angular.module("profile/view.html", []).run(["$templateCache", function($templat
     "</div>\n" +
     "\n" +
     "<!-- No profile selected -->\n" +
-    "<div ng-show=\"profile.id === 0\" ng-include=\"'partials/select-profile.html'\" class=\"page\"></div>\n" +
+    "<div ng-show=\"profile.id === 0 && !global.data.isFetchingProfiles\" ng-include=\"'partials/select-profile.html'\" class=\"page\"></div>\n" +
+    "\n" +
+    "<!-- Loading profiles -->\n" +
+    "<div ng-show=\"global.data.isFetchingProfiles\" class=\"page\">\n" +
+    "    <h2 class=\"text-center\">Retrieving profile data...</h2>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "\n" +
+    "    <div class=\"text-center\">\n" +
+    "        <i class=\"fa fa-spinner fa-spin fa-3x text-muted\"></i>\n" +
+    "    </div>\n" +
+    "</div>\n" +
     "");
 }]);
 
@@ -5504,7 +5970,7 @@ angular.module("screenings/index.html", []).run(["$templateCache", function($tem
     "        </table>\n" +
     "\n" +
     "        <!-- No screenings to show -->\n" +
-    "        <div ng-show=\"global.state.screening.list.length === 0\">\n" +
+    "        <div ng-show=\"global.state.screening.list.length === 0\" class=\"text-center\">\n" +
     "\n" +
     "            <a href=\"#/screenings/current\" class=\"btn btn-primary btn-circle btn-lg\">\n" +
     "                <i class=\"fa fa-plus\"></i>\n" +

@@ -15,10 +15,10 @@ angular.module('app.controllers')
 
         // Currently displayed group.
         $scope.profile = {id: 0};
-        if ($routeParams.profileId > 0 && Rover.hasState('profile', $routeParams.profileId))
+        if ($routeParams.profileId > 0 && Utilities.hasVar('profile', $routeParams.profileId))
         {
-            Rover.store.profileId = $routeParams.profileId;
-            $scope.profile = Rover.getState('profile', $routeParams.profileId);
+            Utilities.store.profileId = $routeParams.profileId;
+            $scope.profile = Utilities.getVar('profile', $routeParams.profileId);
         }
 
         // Current URL path.
@@ -44,7 +44,8 @@ angular.module('app.controllers')
         $scope.group = $scope.global.getSelectedGroup();
 
         // Alias for the list of profiles.
-        $scope.profiles = $scope.global.state.profile.list;
+        // $scope.profiles = $scope.global.state.profile.list;
+        $scope.profiles = Utilities.listVars('profile');
 
         // Computes the width of the avatar depending on the height of the details panel.
         $scope.calculateAvatarHeight = function() {
@@ -53,9 +54,9 @@ angular.module('app.controllers')
 
         // Creates a new profile in the database.
         $scope.createProfile = function() {
+            Utilities.debug('Creating profile...');
 
             Rover.addBackgroundProcess();
-            Utilities.debug('Creating profile...');
 
             var profile = ProfileService.formatForStorage($scope.newProfile);
 
@@ -67,7 +68,9 @@ angular.module('app.controllers')
                 function(response) {
 
                     // Update profile list and browse to newly created profile.
-                    Rover.setState('profile', response.data.id, response.data);
+                    // Rover.setState('profile', response.data.id, response.data);
+                    Utilities.setVar('profile', response.data.id, response.data);
+                    $scope.global.updateFilteredProfiles();
                     Rover.browseTo.path('/profile/' + response.data.id);
                     Rover.doneBackgroundProcess();
                 },
@@ -94,7 +97,8 @@ angular.module('app.controllers')
             if (profileSaved) {
 
                 // Update profile data.
-                Rover.setState('profile', this.id, ProfileService.format(this));
+                // Rover.setState('profile', this.id, ProfileService.format(this));
+                Utilities.setVar('profile', this.id, ProfileService.format(this));
                 $scope.global.updateFilteredProfiles();
 
                 // Update the selected profile.
@@ -123,7 +127,8 @@ angular.module('app.controllers')
                 function(response) {
 
                     // Update profile list.
-                    Rover.setState('profile', $scope.profile.id, null);
+                    // Rover.setState('profile', $scope.profile.id, null);
+                    Utilities.setVar('profile', $scope.profile.id, null);
                     $scope.global.state.profile.list.length--;
                     $scope.global.updateFilteredProfiles();
 
@@ -150,10 +155,12 @@ angular.module('app.controllers')
         $scope.uploadAvatarCallback = function() {
 
             // Update the avatar on the currently selected profile.
-            Rover.getState('profile', $scope.profile.id).avatarSrc = this.avatarSrc;
+            // Rover.getState('profile', $scope.profile.id).avatarSrc = this.avatarSrc;
+            Utilities.getVar('profile', $scope.profile.id).avatarSrc = this.avatarSrc;
 
             // Update the filtered list.
-            angular.forEach($scope.global.state.profile.filtered, function(profile) {
+            // angular.forEach($scope.global.state.profile.filtered, function(profile) {
+            angular.forEach(Utilities.temp.filteredProfiles, function(profile) {
                 if (profile.id === $scope.profile.id) {
                     profile.avatarSrc = this.avatarSrc;
                 }

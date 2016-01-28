@@ -31,7 +31,12 @@ includes:
   - groups/delete
   - groups/avatar/delete
 
-  - movements
+  - movements/intro
+  - movements/list
+  - movements/get
+  - movements/post
+  - movements/put
+  - movements/delete
 
   - profiles/intro
   - profiles/list

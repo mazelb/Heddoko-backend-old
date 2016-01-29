@@ -20,7 +20,12 @@ includes:
   - intro/sample-code
   - authentication
 
-  - folders
+  - folders/intro
+  - folders/list
+  - folders/get
+  - folders/post
+  - folders/put
+  - folders/delete
 
   - groups/intro
   - groups/list

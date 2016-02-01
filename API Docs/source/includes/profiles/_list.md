@@ -31,7 +31,7 @@ HttpResponseMessage vResponse = await vClient.GetAsync("profiles");
 $response = $client->get('api/v1/profiles');
 ```
 
-`GET /api/v1/profiles`
+`GET /v1/profiles`
 
 ### Query Parameters
 

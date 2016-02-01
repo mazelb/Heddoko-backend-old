@@ -50,7 +50,7 @@ $response = $client->put('profiles/1', [
 }
 ```
 
-`PUT /api/v1/profiles/{id}`
+`PUT /v1/profiles/{id}`
 
 Updates a profile.
 

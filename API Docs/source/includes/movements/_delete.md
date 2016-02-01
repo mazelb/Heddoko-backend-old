@@ -18,8 +18,8 @@
 
 ```
 
-`DELETE /api/v1/movements/{id}`
+`DELETE /v1/movements/{id}`
 
 or
 
-`DELETE /api/v1/movements/{id1},{id2},{id3}...`
+`DELETE /v1/movements/{id1},{id2},{id3}...`

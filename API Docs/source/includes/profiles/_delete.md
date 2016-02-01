@@ -18,7 +18,7 @@ HttpResponseMessage vResponse = await vClient.DeleteAsync("profiles/1");
 $response = $client->delete('profiles/1');
 ```
 
-`DELETE /api/v1/profiles/{id}`
+`DELETE /v1/profiles/{id}`
 
 ### Embeds
 

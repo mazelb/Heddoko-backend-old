@@ -54,7 +54,7 @@ $response = $client->get('api/v1/movements');
 }
 ```
 
-`GET /api/v1/movements`
+`GET /v1/movements`
 
 ### Query Parameters
 

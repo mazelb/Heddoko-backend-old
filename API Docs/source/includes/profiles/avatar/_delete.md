@@ -18,6 +18,6 @@ HttpResponseMessage vResponse = await vClient.DeleteAsync("profiles/1/avatar");
 $response = $client->delete('profiles/1/avatar');
 ```
 
-`DELETE /api/v1/profiles/{id}/avatar`
+`DELETE /v1/profiles/{id}/avatar`
 
 Deletes a profile's avatar.

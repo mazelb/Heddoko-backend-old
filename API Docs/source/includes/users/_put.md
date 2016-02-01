@@ -1,4 +1,4 @@
-## Upload a group avatar
+## Update a user
 
 > Sample request
 
@@ -11,13 +11,11 @@
 ```
 
 ```csharp
-// ...
+
 ```
 
 ```php
-<?php
 
-// ...
 ```
 
 > Sample response
@@ -26,4 +24,8 @@
 
 ```
 
-`POST /v1/groups/{id}/avatar`
+<aside class="warning">
+In Development.
+</aside>
+
+`PUT /v1/users/{id}`

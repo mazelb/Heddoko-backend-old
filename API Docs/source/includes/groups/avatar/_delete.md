@@ -20,4 +20,4 @@ HttpResponseMessage vResponse = await vClient.DeleteAsync("groups/1/avatar");
 $response = $client->delete('groups/1/avatar');
 ```
 
-`DELETE /api/v1/groups/{id}/avatar`
+`DELETE /v1/groups/{id}/avatar`

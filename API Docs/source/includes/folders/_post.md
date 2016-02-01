@@ -28,7 +28,7 @@
 In Development.
 </aside>
 
-`POST /api/v1/profiles/{profileId}/folders`
+`POST /v1/profiles/{profileId}/folders`
 
 ### Embeds
 

@@ -1,3 +1,3 @@
 ## Update a group
 
-`PUT /api/v1/groups/{id}`
+`PUT /v1/groups/{id}`

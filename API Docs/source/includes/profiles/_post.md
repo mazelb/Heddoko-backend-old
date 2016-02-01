@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpPost vMethod = new HttpPost(mApiEndpoint + "profiles");
+HttpPost vMethod = new HttpPost(mApiEndpoint + "v1/profiles");
 
 // Build request body.
 List <NameValuePair> vProfileMeta = new ArrayList <NameValuePair>();
@@ -83,7 +83,7 @@ HttpResponseMessage vResponse = await vClient.PostAsJsonAsync("profiles", vProfi
 <?php
 
 // Send HTTP request.
-$response = $client->post('profiles', [
+$response = $client->post('v1/profiles', [
     'json' => [
         'firstName' => 'Jane',
         'lastName' => 'Doe',
@@ -123,7 +123,7 @@ $response = $client->post('profiles', [
 }
 ```
 
-`POST /profiles`
+`POST /v1/profiles`
 
 ### Body parameters
 

@@ -18,7 +18,13 @@ includes:
   - intro/spoofing
   - intro/rate-limiting
   - intro/sample-code
-  - authentication
+  - authentication/intro
+  - authentication/grants
+  - authentication/auth-grant
+  - authentication/implicit-grant
+  - authentication/resource-grant
+  - authentication/client-grant
+  - authentication/refresh-token
 
   - folders/intro
   - folders/list
@@ -55,6 +61,12 @@ includes:
   - screenings
 
   - tags
+
+  - users/intro
+  - users/get
+  - users/post
+  - users/put
+  - users/delete
 
 search: true
 ---

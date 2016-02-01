@@ -37,7 +37,7 @@ $response = $client->get('profiles/1/folders/1');
 
 ```
 
-`GET /api/v1/profiles/{profileId}/folders/{id}`
+`GET /v1/profiles/{profileId}/folders/{id}`
 
 ### Embeds
 

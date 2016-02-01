@@ -28,7 +28,7 @@
 In Development.
 </aside>
 
-`PUT /api/v1/movements/{id}`
+`PUT /v1/movements/{id}`
 
 Updates a movement.
 

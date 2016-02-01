@@ -2,7 +2,7 @@
 
 ## List screenings
 
-> `GET /api/v1/screenings?embed=movements`
+> `GET screenings?embed=movements`
 
 ```json
 {
@@ -41,7 +41,7 @@
 Has embeddable properties.
 </aside>
 
-`GET /api/v1/screenings`
+`GET /v1/screenings`
 
 Queries the API for screenings against the specified search parameters.
 
@@ -64,7 +64,7 @@ movements |
 
 ## Retrieve a screening
 
-> `GET /api/v1/screenings/{id}?embed=movements`
+> `GET screenings/{id}?embed=movements`
 
 ```json
 {
@@ -106,7 +106,7 @@ movements |
 Has embeddable properties.
 </aside>
 
-`GET /api/v1/screenings/{id}`
+`GET /v1/screenings/{id}`
 
 ## Create a screening
 
@@ -114,7 +114,7 @@ Has embeddable properties.
 In Development.
 </aside>
 
-`POST /api/v1/screenings`
+`POST /v1/screenings`
 
 ### Query Parameters
 
@@ -137,7 +137,7 @@ notes | null | General notes.
 In Development.
 </aside>
 
-`PUT /api/v1/screenings/{id}`
+`PUT /v1/screenings/{id}`
 
 ## Delete a screening
 
@@ -145,4 +145,4 @@ In Development.
 In Development.
 </aside>
 
-`DELETE /api/v1/screenings/{id}`
+`DELETE /v1/screenings/{id}`

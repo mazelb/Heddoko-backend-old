@@ -57,7 +57,7 @@ $response = $client->get('movements/1?embed=meta,tags');
 }
 ```
 
-`GET /api/v1/movements/{id}`
+`GET /v1/movements/{id}`
 
 ### Embeds
 

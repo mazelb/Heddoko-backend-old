@@ -24,6 +24,6 @@
 
 ```
 
-`POST /api/v1/profiles/{id}/avatar`
+`POST /v1/profiles/{id}/avatar`
 
 Creates or updates a profile's avatar.

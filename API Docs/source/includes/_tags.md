@@ -2,7 +2,7 @@
 
 ## List tags
 
-`GET /api/v1/tags`
+`GET /v1/tags`
 
 ## Retrieve a tag
 
@@ -10,11 +10,11 @@
 Not Implemented.
 </aside>
 
-`GET /api/v1/tags/{id}`
+`GET /v1/tags/{id}`
 
 ## Store tag data
 
-`POST /api/v1/tags`
+`POST /v1/tags`
 
 ## Update a tag
 
@@ -22,7 +22,7 @@ Not Implemented.
 Not Implemented.
 </aside>
 
-`PUT /api/v1/tags/{id}`
+`PUT /v1/tags/{id}`
 
 ## Delete a tag
 
@@ -30,4 +30,4 @@ Not Implemented.
 Not Implemented.
 </aside>
 
-`DELETE /api/v1/tags/{id}`
+`DELETE /v1/tags/{id}`

@@ -1,4 +1,4 @@
-## Delete a folder
+## Delete a user
 
 > Sample request
 
@@ -22,8 +22,4 @@
 In Development.
 </aside>
 
-`DELETE /v1/profiles/{profileId}/folders/{id}`
-
-or
-
-`DELETE /v1/movements/{id1},{id2},{id3}...`
+`DELETE /v1/users/{id}`

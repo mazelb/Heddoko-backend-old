@@ -1,3 +1,3 @@
 ## Create a group
 
-`POST /api/v1/groups`
+`POST /v1/groups`

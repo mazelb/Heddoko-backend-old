@@ -25,7 +25,7 @@ import org.apache.http.util.EntityUtils;
 
 public class SampleClient {
 
-    public String mApiEndpoint = "https://dashboard.heddoko.com/api/v1/";
+    public String mApiEndpoint = "https://dashboard.heddoko.com";
 
     public static void main(String[] args) throws Exception {
 
@@ -67,7 +67,7 @@ namespace SampleClient
 {
     class Program
     {
-        public string mApiEndpoint = "https://dashboard.heddoko.com/api/v1/";
+        public string mApiEndpoint = "https://dashboard.heddoko.com";
 
         static void Main()
         {
@@ -103,7 +103,7 @@ namespace SampleClient
 use GuzzleHttp\Client;
 
 // Setup our client.
-$apiEndpoint = 'https://dashboard.heddoko.com/api/v1/';
+$apiEndpoint = 'https://dashboard.heddoko.com';
 $client = new Client([
     'base_uri' => $apiEndpoint
 ]);
@@ -112,7 +112,7 @@ $client = new Client([
 // ...
 ```
 
-Throughout the documentation, sample code is provided in the right sidebar in order to demonstrate some aspects of the API. All endpoints are relative to the API root: `https://dashboard.heddoko.com/api/v1/`.
+Throughout the documentation, sample code is provided in the right sidebar in order to demonstrate some aspects of the API. All endpoints are relative to the API root `https://dashboard.heddoko.com/api/` unless otherwise specified.
 
 <aside class="warning">
 Sample code is only provided as a guideline. You'll most likely have to adapt it to your own application.

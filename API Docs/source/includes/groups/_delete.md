@@ -1,3 +1,3 @@
 ## Delete a group
 
-`DELETE /api/v1/groups/{id}`
+`DELETE /v1/groups/{id}`

@@ -72,7 +72,7 @@ $response = $client->get('profiles/1?embed=groups,managers');
 }
 ```
 
-`GET /api/v1/profiles/{id}`
+`GET /v1/profiles/{id}`
 
 ### Embeds
 

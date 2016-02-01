@@ -28,7 +28,7 @@
 In Development.
 </aside>
 
-`PUT /api/v1/profiles/{profileId}/folders/{id}`
+`PUT /v1/profiles/{profileId}/folders/{id}`
 
 ### Embeds
 

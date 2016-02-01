@@ -59,7 +59,7 @@ $response = $client->get('api/v1/movements');
 }
 ```
 
-`GET /api/v1/profiles/{profileId}/folders`
+`GET /v1/profiles/{profileId}/folders`
 
 ### Embeds
 

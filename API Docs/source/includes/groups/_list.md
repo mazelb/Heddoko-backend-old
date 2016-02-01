@@ -35,7 +35,7 @@ $response = $client->get('api/v1/groups');
 Has embeddable properties.
 </aside>
 
-`GET /api/v1/groups`
+`GET /v1/groups`
 
 ### Query Parameters
 

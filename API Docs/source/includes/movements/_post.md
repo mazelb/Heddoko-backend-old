@@ -24,7 +24,7 @@
 
 ```
 
-`POST /movements`
+`POST /v1/movements`
 
 ### Body parameters
 

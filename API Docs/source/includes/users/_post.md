@@ -1,9 +1,9 @@
-## Upload a group avatar
+## Create a user
 
 > Sample request
 
 ```java
-// ...
+
 ```
 
 ```c
@@ -11,13 +11,11 @@
 ```
 
 ```csharp
-// ...
+
 ```
 
 ```php
-<?php
 
-// ...
 ```
 
 > Sample response
@@ -26,4 +24,8 @@
 
 ```
 
-`POST /v1/groups/{id}/avatar`
+<aside class="warning">
+In Development.
+</aside>
+
+`POST /v1/users/`

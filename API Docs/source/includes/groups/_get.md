@@ -37,7 +37,7 @@ $response = $client->get('groups/1?embed=avatarSrc,managers');
 
 ```
 
-`GET /api/v1/groups/{id}`
+`GET /v1/groups/{id}`
 
 ### Embeds
 

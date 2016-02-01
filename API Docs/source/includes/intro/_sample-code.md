@@ -103,7 +103,7 @@ namespace SampleClient
 use GuzzleHttp\Client;
 
 // Setup our client.
-$apiEndpoint = 'https://dashboard.heddoko.com';
+$apiEndpoint = 'https://dashboard.heddoko.com/api';
 $client = new Client([
     'base_uri' => $apiEndpoint
 ]);

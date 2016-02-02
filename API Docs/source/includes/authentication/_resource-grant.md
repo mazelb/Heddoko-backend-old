@@ -24,7 +24,7 @@ $password = $_POST['password'];
 // Send HTTP request.
 $response = $client->post('oauth2/token', [
     'json' => [
-        'grant_type' => 'client_credentials',
+        'grant_type' => 'password',
         'username' => $username,
         'password' => $password,
         'client_id' => 'abc',
@@ -33,7 +33,7 @@ $response = $client->post('oauth2/token', [
 ]);
 ```
 
-> Sample response
+> Sample JSON response
 
 ```json
 {
@@ -44,8 +44,16 @@ $response = $client->post('oauth2/token', [
 }
 ```
 
-The resource owner password credentials grant is best suited for Android & iOS apps, or any app that cannot redirect the user to Heddoko's sign-in page and receive an authorization code through a pre-determined URI. The process can be summarized as:
+The resource owner password credentials grant is best suited for Android & iOS apps, or any app that cannot redirect the user to Heddoko's sign-in page and receive an authorization code through a pre-determined URI.
 
-Collect username & password from user » Send user credentials to the API, along with app's own ID & secret » App receives access token
+**Step 1: Collect username & password from user**
 
-`GET /oauth2/token`
+Collect the user's username and password.
+
+**Step 2: Authenticate user**
+
+`POST /oauth2/token`
+
+Send the user's credentials to the API, along with app's own ID & secret.
+
+**Step 3: Receive an access token**

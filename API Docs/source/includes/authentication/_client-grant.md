@@ -27,7 +27,7 @@ $response = $client->post('oauth2/token', [
 ]);
 ```
 
-> Sample response
+> Sample JSON response
 
 ```json
 {
@@ -39,6 +39,12 @@ $response = $client->post('oauth2/token', [
 
 `POST /oauth2/token`
 
-The client credentials grant is best suited for apps which only need limited, non-user specific access to the API. Instead of having the user authenticate themselves in order to receive an access token, the app uses its own ID & secret. The process can be summarized as:
+The client credentials grant is best suited for apps which only need limited, non-user specific access to the API. Instead of having the user authenticate themselves in order to receive an access token, the app uses its own ID & secret.
 
-App sends its own credentials to the API » App receives an access token
+**Step 1: Authenticate using app credentials**
+
+...
+
+**Step 2: Receive an access token**
+
+...

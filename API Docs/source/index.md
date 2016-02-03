@@ -18,6 +18,7 @@ includes:
   - intro/spoofing
   - intro/rate-limiting
   - intro/sample-code
+
   - authentication/intro
   - authentication/grants
   - authentication/auth-grant
@@ -25,6 +26,7 @@ includes:
   - authentication/resource-grant
   - authentication/client-grant
   - authentication/refresh-token
+  - authentication/scopes
 
   - folders/intro
   - folders/list
@@ -48,6 +50,11 @@ includes:
   - movements/post
   - movements/put
   - movements/delete
+  - movements/frames/list
+  - movements/frames/get
+  - movements/frames/post
+  - movements/frames/put
+  - movements/frames/delete
 
   - profiles/intro
   - profiles/list

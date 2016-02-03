@@ -1,8 +1,16 @@
+
+//
 var app = angular.module('suit-editor', ['backend', 'selectize', 'angularUtils.directives.dirPagination']);
 
+//
+app.constant('apiEndpoint', 'http://heddokocoachingapp.azurewebsites.net/api/v1')
+    .constant('apiClientID', 'oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs')
+    .constant('apiClientSecret', 'r9hEaW2ZAfNndWoDB7uZchd83dygt0K0TbBu283d');
+
+//
 app.controller('MainController', [
-    '$scope', 'AnatomicalPositions', 'Equipment', 'Materials', 'MaterialTypes', 'Statuses', 'Suits',
-    function($scope, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, Suits) {
+    '$scope', 'AnatomicalPositions', 'Equipment', 'Materials', 'MaterialTypes', 'Statuses', 'ComplexEquipment',
+    function($scope, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, ComplexEquipment) {
 
 
     // We use a template object that we will clone for each data model, and store
@@ -263,6 +271,8 @@ app.controller('MainController', [
     });
     $scope.data.equipment.new_item = $.extend(true, {}, dataTemplate.new_item, {
         material_id: 0,
+        anatomical_position_id: 0,
+        mac_address: '',
         serial_no: '',
         physical_location: '',
         status_id: 0
@@ -303,12 +313,12 @@ app.controller('MainController', [
     });
 
     //
-    // Suitsequipment model.
+    // ComplexEquipment model.
     //
     $scope.data.suits = $.extend(true, {}, dataTemplate, {
         name: 'Suit',
         per_page: 5,
-        service: Suits,
+        service: ComplexEquipment,
         removeEquipment: function(suit, equipment) {
 
             // Update the equipment list.
@@ -329,7 +339,7 @@ app.controller('MainController', [
                 hideSelected: true,
                 valueField: 'id',
                 labelField: 'serial_no',
-                searchField: ['serial_no', 'physical_location'],
+                searchField: ['mac_address', 'serial_no', 'physical_location'],
                 placeholder: 'Search for equipment to add',
                 onInitialize: function(selectize) {},
                 render: {
@@ -409,6 +419,7 @@ app.controller('MainController', [
     });
     $scope.data.suits.new_item = $.extend(true, {}, dataTemplate.new_item, {
         mac_address: '',
+        serial_no: '',
         physical_location: '',
         equipment: [],
         current_equipment: null
@@ -431,20 +442,20 @@ app.controller('MainController', [
 //CRUD methods for communicating with the back end
 
 angular.module('backend', [])
-    .factory('Suits', function($http) {
+    .factory('ComplexEquipment', function($http, apiEndpoint) {
 
         return {
 
             get : function()
             {
-                return $http.get('/suitsequipment');
+                return $http.get(apiEndpoint + '/complexequipment');
             },
 
             create : function(data)
             {
                 return $http({
                     method: 'POST',
-                    url: '/suitsequipment',
+                    url: apiEndpoint + '/complexequipment',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_suit_equipment: data})
                 });
@@ -454,7 +465,7 @@ angular.module('backend', [])
             {
                 return $http({
                     method: 'PUT',
-                    url: '/suitsequipment/' + suit.id,
+                    url: apiEndpoint + '/complexequipment/' + suit.id,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_suit: suit})
                 });
@@ -462,30 +473,29 @@ angular.module('backend', [])
 
             destroy : function(suit_id)
             {
-                return $http.delete('/suitsequipment/' + suit_id);
+                return $http.delete(apiEndpoint + '/complexequipment/' + suit_id);
             },
 
             search : function(query, page, per_page)
             {
-                return $http.get('/suitsequipment?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get(apiEndpoint + '/complexequipment?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
-
         };
 
-    }).factory('MaterialTypes', function($http) {
+    }).factory('MaterialTypes', function($http, apiEndpoint) {
 
         return {
 
             get : function()
             {
-                return $http.get('/materialtypes');
+                return $http.get(apiEndpoint + '/materialtypes');
             },
 
             create : function(new_material_type_form_data)
             {
                 return $http({
                     method: 'POST',
-                    url: '/materialtypes',
+                    url: apiEndpoint + '/materialtypes',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_material_type_data: new_material_type_form_data})
                 });
@@ -495,7 +505,7 @@ angular.module('backend', [])
             {
                 return $http({
                     method: 'PUT',
-                    url: '/materialtypes/' + material_type.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
+                    url: apiEndpoint + '/materialtypes/' + material_type.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_material_type: material_type})
                 });
@@ -503,29 +513,29 @@ angular.module('backend', [])
 
             destroy : function(id)
             {
-                return $http.delete('/materialtypes/'+ id);
+                return $http.delete(apiEndpoint + '/materialtypes/'+ id);
             },
 
             search : function(query, page, per_page)
             {
-                return $http.get('/materialtypes?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get(apiEndpoint + '/materialtypes?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-    }).factory('AnatomicalPositions', function($http) {
+    }).factory('AnatomicalPositions', function($http, apiEndpoint) {
 
         return {
 
             get : function()
             {
-                return $http.get('/anatomicalpositions');
+                return $http.get(apiEndpoint + '/anatomicalpositions');
             },
 
             create : function(new_anatomical_position_form_data)
             {
                 return $http({
                     method: 'POST',
-                    url: '/anatomicalpositions',
+                    url: apiEndpoint + '/anatomicalpositions',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_anatomical_position_data: new_anatomical_position_form_data})
                 });
@@ -535,7 +545,7 @@ angular.module('backend', [])
             {
                 return $http({
                     method: 'PUT',
-                    url: '/anatomicalpositions/' + anatomical_position.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
+                    url: apiEndpoint + '/anatomicalpositions/' + anatomical_position.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_anatomical_position: anatomical_position})
                 });
@@ -543,43 +553,43 @@ angular.module('backend', [])
 
             destroy : function(id)
             {
-                return $http.delete('/anatomicalpositions/'+ id);
+                return $http.delete(apiEndpoint + '/anatomicalpositions/'+ id);
             },
 
             search : function(query, page, per_page) {
-                return $http.get('/anatomicalpositions?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get(apiEndpoint + '/anatomicalpositions?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-    }).factory('Statuses', function($http)
+    }).factory('Statuses', function($http, apiEndpoint)
     {
         return {
 
             get : function()
             {
-                return $http.get('/statuses');
+                return $http.get(apiEndpoint + '/statuses');
             },
 
             search : function(query, page, per_page)
             {
-                return $http.get('/statuses?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get(apiEndpoint + '/statuses?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-    }).factory('Equipment', function($http)
+    }).factory('Equipment', function($http, apiEndpoint)
     {
         return {
 
             get : function()
             {
-                return $http.get('/equipment');
+                return $http.get(apiEndpoint + '/equipment');
             },
 
             create : function(new_equipment_form_data) {
 
                 return $http({
                     method: 'POST',
-                    url: '/equipment?status_id=0',
+                    url: apiEndpoint + '/equipment?status_id=0',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_equipment_data: new_equipment_form_data})
                 });
@@ -589,7 +599,7 @@ angular.module('backend', [])
             {
                 return $http({
                     method: 'PUT',
-                    url: '/equipment/' + equipment.id +'?status_id=0&search_term='+ query +'&page='+ page +'&per_page='+ per_page,
+                    url: apiEndpoint + '/equipment/' + equipment.id +'?status_id=0&search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_equipment: equipment})
                 });
@@ -597,28 +607,28 @@ angular.module('backend', [])
 
             destroy : function(id)
             {
-                return $http.delete('/equipment/'+ id +'?status_id=0');
+                return $http.delete(apiEndpoint + '/equipment/'+ id +'?status_id=0');
             },
 
             search : function(query, page, per_page) {
-                return $http.get('/equipment?status_id=0&search_term='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get(apiEndpoint + '/equipment?status_id=0&search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };
-    }).factory('Materials', function($http) {
+    }).factory('Materials', function($http, apiEndpoint) {
 
         return {
 
             get : function()
             {
-                return $http.get('/materials');
+                return $http.get(apiEndpoint + '/materials');
             },
 
             create : function(new_material_form_data)
             {
                 return $http({
                     method: 'POST',
-                    url: '/materials',
+                    url: apiEndpoint + '/materials',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({new_material_data: new_material_form_data})
                 });
@@ -628,7 +638,7 @@ angular.module('backend', [])
             {
                 return $http({
                     method: 'PUT',
-                    url: '/materials/' + material.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
+                    url: apiEndpoint + '/materials/' + material.id +'?search_term='+ query +'&page='+ page +'&per_page='+ per_page,
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({updated_material: material})
                 });
@@ -636,12 +646,12 @@ angular.module('backend', [])
 
             destroy : function(id)
             {
-                return $http.delete('/materials/'+ id);
+                return $http.delete(apiEndpoint + '/materials/'+ id);
             },
 
             search : function(query, page, per_page)
             {
-                return $http.get('/materials?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
+                return $http.get(apiEndpoint + '/materials?search_term='+ query +'&page='+ page +'&per_page='+ per_page);
             }
 
         };

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('suits-editor')->withVersion('1.0.11');
+    return view('suits-editor')->withVersion('1.1.0');
 });
 
 Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);

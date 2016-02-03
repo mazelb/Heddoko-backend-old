@@ -15,6 +15,15 @@ Route::get('/', function () {
     return view('suits-editor')->withVersion('1.1.0');
 });
 
+Route::get('auth', function () {
+    return redirect(
+        'http://dashboard.heddoko.vagrant/api/oauth2/authorize'.
+            '?client_id=oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs'.
+            '&redirect_uri='. htmlentities('http://suits.heddoko.vagrant') .
+            '&response_type=code'
+        );
+});
+
 Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('statuses', 'StatusController', ['only' => ['index']]);

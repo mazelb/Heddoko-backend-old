@@ -8,10 +8,10 @@ var app = angular.module('suit-editor', ['auth', 'backend', 'selectize', 'angula
 });
 
 //
-app.constant('apiEndpoint', 'http://heddokocoachingapp.azurewebsites.net/api')
-    .constant('apiClientID', 'oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs')
-    .constant('apiAccessToken', $('meta[name="access-token"]').attr('content'))
-    .constant('apiRefreshToken', $('meta[name="refresh-token"]').attr('content'));
+app.constant('apiEndpoint', $('meta[name="api-endpoint"]').attr('content'))
+    .constant('apiClientID', $('meta[name="api-id"]').attr('content'))
+    .constant('apiAccessToken', $('meta[name="api-access-token"]').attr('content'))
+    .constant('apiRefreshToken', $('meta[name="api-refresh-token"]').attr('content'));
 
 //
 app.controller('MainController',
@@ -475,7 +475,7 @@ angular.module('auth', []).factory('AuthenticationInterceptor', function (apiAcc
                     config.data.access_token = apiAccessToken;
                     break;
             }
-            
+
             return config;
         }
     };

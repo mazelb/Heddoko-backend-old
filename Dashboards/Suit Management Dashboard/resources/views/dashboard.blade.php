@@ -2,8 +2,10 @@
 <html>
 	<head>
 		<title>Suits Editor v{{ $version }}</title>
-        <meta name="access-token" content="{{ Session::get('access-token') }}">
-        <meta name="refresh-token" content="{{ Session::get('refresh-token') }}">
+        <meta name="api-endpoint" content="{{ config('services.heddoko.endpoint') }}">
+        <meta name="api-id" content="{{ config('services.heddoko.id') }}">
+        <meta name="api-access-token" content="{{ Session::get('access-token') }}">
+        <meta name="api-refresh-token" content="{{ Session::get('refresh-token') }}">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>

@@ -11,18 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('suits-editor')->withVersion('1.1.0');
-});
+// Main landing page.
+Route::get('/', ['as' => 'dashboard', 'uses' => 'GeneralController@getDashboard']);
 
-Route::get('auth', function () {
-    return redirect(
-        'http://dashboard.heddoko.vagrant/api/oauth2/authorize'.
-            '?client_id=oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs'.
-            '&redirect_uri='. htmlentities('http://suits.heddoko.vagrant') .
-            '&response_type=code'
-        );
-});
+// Authentication.
+Route::get('auth', 'GeneralController@authenticate');
+Route::get('oauth-token', ['as' => 'oauth.token', 'uses' => 'GeneralController@getAccessToken']);
 
 Route::resource('suitsequipment', 'SuitEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);

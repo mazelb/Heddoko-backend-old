@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'heddoko' => [
+        'id' => env('HEDDOKO_API_CLIENT_ID'),
+        'secret' => env('HEDDOKO_API_CLIENT_SECRET'),
+        'endpoint' => env('HEDDOKO_API_ENDPOINT')
+    ],
+
     'mailgun' => [
         'domain' => '',
         'secret' => '',

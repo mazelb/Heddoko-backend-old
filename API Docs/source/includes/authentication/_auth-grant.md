@@ -17,7 +17,8 @@
 ```php
 <?php
 
-header('Location: https://dashboard.heddoko.com/api/oauth2/authorize?client_id=abc&response_type=code&return_uri=...');
+$clientId = 'abc';
+header("Location: {$apiEndpoint}/oauth2/authorize?client_id={$clientId}&response_type=code&return_uri=...");
 exit();
 ```
 
@@ -27,17 +28,13 @@ exit();
 
 ```
 
-<aside class="warning">
-In Development.
-</aside>
-
 The authorization code grant is best suited for hosted web apps, or any app that can redirect the user to Heddoko's sign-in page and receive an authorization code through a pre-determined URI.
 
 **Step 1: Redirect user to Heddoko's sign in page**
 
 `GET /oauth2/authorize`
 
-### Query parameters
+Send the user to Heddoko's sign in page, and include the following query parameters:
 
 Parameter | Description
 --------- | ------- | -----------
@@ -61,12 +58,12 @@ If the user approves, they will be redirected to a URI specified by your app. Th
 
 `POST /oauth2/token`
 
-### Body parameters
+Once your app has received an authorization code, it may exchange it for an access token usign the following parameters:
 
 Parameter | Description
 --------- | ------- | -----------
 client_id | API client ID
 client_secret | API client secret
-grant_type | Grant type, i.e. `authorization_code`
+grant_type | Grant type
 code | Authorization code
 redirect_uri | URI to redirect to

@@ -50,11 +50,13 @@ includes:
   - movements/post
   - movements/put
   - movements/delete
-  - movements/frames/list
-  - movements/frames/get
-  - movements/frames/post
-  - movements/frames/put
-  - movements/frames/delete
+
+  - frames/intro
+  - frames/list
+  - frames/get
+  - frames/post
+  - frames/put
+  - frames/delete
 
   - profiles/intro
   - profiles/list

@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "movements");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "movements?embed=meta,markers");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("movements");
+HttpResponseMessage vResponse = await vClient.GetAsync("movements?embed=meta,markers");
 ```
 
 ```php
 <?php
 
-$response = $client->get('api/v1/movements');
+$response = $client->get('api/v1/movements?embed=meta,markers');
 ```
 
 > Sample Response
@@ -47,7 +47,9 @@ $response = $client->get('api/v1/movements');
             "folderId": null,
             "title": "Sample Movement",
             "createdAt": "2015-06-01 12:00:00",
-            "updatedAt": "2015-06-01 12:00:00"
+            "updatedAt": "2015-06-01 12:00:00",
+            "meta": {...},
+            "markers": [...]
         },
         {...}
     ]

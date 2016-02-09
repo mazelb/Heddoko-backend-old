@@ -67,7 +67,12 @@ includes:
   - profiles/delete
   - profiles/avatar/delete
 
-  - screenings
+  - screenings/intro
+  - screenings/list
+  - screenings/get
+  - screenings/post
+  - screenings/put
+  - screenings/delete
 
   - tags
 

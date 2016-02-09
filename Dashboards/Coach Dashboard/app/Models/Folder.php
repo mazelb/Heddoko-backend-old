@@ -21,13 +21,23 @@ class Folder extends Model
     public $timestamps = false;
 
     /**
+     * Attributes that CAN be appended to the model's array form.
+     */
+    public static $appendable = [];
+
+    /**
+     * Attributes that SHOULD be appended to the model's array form.
+     */
+    protected $appends = [];
+
+    /**
      * Attributes which are mass-assignable.
      */
 	protected $fillable = [
-        'profile_id',
-        'folder_id',
+        'profileId',
+        'parentId',
         'name',
-        'system_name',
+        'systemName',
         'path',
     ];
 
@@ -36,7 +46,7 @@ class Folder extends Model
      */
 	public function parent()
     {
-		return $this->belongsTo('App\Models\Folder', 'folder_id');
+		return $this->belongsTo('App\Models\Folder', 'parent_id');
 	}
 
     /**
@@ -44,7 +54,7 @@ class Folder extends Model
      */
 	public function children()
     {
-		return $this->hasMany('App\Models\Folder');
+		return $this->hasMany('App\Models\Folder', 'parent_id');
 	}
 
     /**

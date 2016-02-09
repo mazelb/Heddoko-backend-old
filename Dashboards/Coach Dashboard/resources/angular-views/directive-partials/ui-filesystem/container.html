@@ -1,0 +1,43 @@
+
+<!-- Copyright Heddoko(TM) 2016, all rights reserved. -->
+
+<div class="ui-filesystem-container" ng-attr-id="{{ ::id }}">
+
+    <!-- Toolbar -->
+    <div ng-if="!hideToolbar" class="row ui-filesystem-toolbar" role="toolbar">
+        <div class="col-xs-12">
+
+            <!-- Layout selector -->
+            <div ng-if="layout.list.length > 1" class="ui-filesystem-toolbar-group">
+                <a
+                    ng-repeat="btn in layout.list"
+                    ng-click="setLayout(btn.name)"
+                    ng-class="{'ui-filesystem-active': btn.name == layout.name}"
+                    class="ui-filesystem-toolbar-btn">
+
+                    <i class="fa fa-fw fa-lg fa-{{ btn.icon }}"></i>
+                </a>
+            </div>
+
+            <!-- Create button -->
+            <div ng-if="config.toolbar.createModal" class="ui-filesystem-toolbar-group">
+                <a
+                    data-toggle="modal"
+                    data-target="#{{ config.toolbar.createModal }}"
+                    href="javascript:;"
+                    class="ui-filesystem-toolbar-btn">
+
+                    <i class="fa fa-fw fa-lg fa-{{ config.toolbar.createModalIcon }}"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contents -->
+    <ng-include
+        src="'directive-partials/ui-filesystem/layouts/' + layout.name + '.html'">
+    </ng-include>
+
+    <!-- Location -->
+
+</div>

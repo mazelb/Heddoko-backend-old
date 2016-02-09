@@ -8,8 +8,8 @@
 
         <!-- Checkbox -->
         <div class="col-xs-2 col-md-1 text-right">
-            <a href="javascript:;">
-                <i class="fa fa-square-o"></i>
+            <a ng-if="rootProfile" ng-click="toggleSelect()" href="javascript:;">
+                <i class="fa fa-square-o fa-fw"></i>
             </a>
         </div>
 
@@ -25,41 +25,46 @@
     </div>
 
     <!-- Parent folder -->
-    <div ng-show="parentFolder" class="row">
+    <div ng-if="parentFolder" class="row">
 
         <!-- Title -->
         <div class="col-xs-10 col-xs-offset-2 col-md-11 col-md-offset-1">
             <a href="{{ parentFolder.href }}">
                 <i class="fa fa-level-up"></i> Parent Folder
             </a>
+            <br>
         </div>
     </div>
 
     <!-- Other folders -->
-    <div ng-repeat="folder in folders" class="row">
+    <div ng-repeat="folder in folders track by $index" ng-hide="folder === null" class="row">
 
         <!-- Checkbox -->
         <div class="col-xs-2 col-md-1 text-right">
-            <a href="javascript:;">
-                <i class="fa fa-square-o"></i>
+            <a ng-if="rootProfile" ng-click="toggleSelect('folder', folder)" href="javascript:;">
+                <i
+                    ng-class="{'fa-square-o': !folder.selected, 'fa-check-square-o': folder.selected}"
+                    class="fa fa-fw"></i>
             </a>
         </div>
 
         <!-- Title -->
         <div class="col-xs-10 col-md-11">
             <a href="{{ folder.href }}">
-                <i class="fa fa-folder-open fa-fw"></i> {{ folder.name | characters:40 }}
+                <i class="fa fa-folder-open fa-fw"></i> {{ folder.name | characters:80 }}
             </a>
         </div>
     </div>
 
     <!-- Movements -->
-    <div ng-repeat="movement in movements" class="row">
+    <div ng-repeat="movement in movements track by movement.id" class="row">
 
         <!-- Checkbox -->
         <div class="col-xs-2 col-md-1 text-right">
-            <a href="javascript:;">
-                <i class="fa fa-square-o"></i>
+            <a ng-click="toggleSelect('movement', movement)" href="javascript:;">
+                <i
+                    ng-class="{'fa-square-o': !movement.selected, 'fa-check-square-o': movement.selected}"
+                    class="fa fa-fw"></i>
             </a>
         </div>
 
@@ -77,7 +82,7 @@
     </div>
 
     <!-- No movements or folders to show -->
-    <div ng-show="folders.length === 0 && movements.length === 0" class="row text-center">
+    <div ng-if="folders.length + movements.length === 0" class="row text-center">
 
         <div class="col-xs-12" style="margin-top: 20px; margin-bottom: 20px;">
             <h3>There are no movements to display.</h3>

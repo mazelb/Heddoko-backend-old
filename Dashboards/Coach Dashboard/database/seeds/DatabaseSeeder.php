@@ -18,10 +18,14 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run()
 	{
+        $this->call('TagSeeder');
 		$this->call('AccountSeeder');
 		$this->call('GroupSeeder');
 		$this->call('ProfileSeeder');
-		$this->call('TagSeeder');
+
+		$this->call('SuitManagementSeeder');
+
+		$this->call('OAuthSeeder');
 	}
 
 }

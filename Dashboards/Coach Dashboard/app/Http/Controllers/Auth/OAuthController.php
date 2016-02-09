@@ -8,6 +8,7 @@
  */
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use Authorizer;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class OAuthController extends Controller
     }
 
     /**
-     *
+     * Issues an access token.
      */
     public function accessToken()
     {
@@ -38,9 +39,6 @@ class OAuthController extends Controller
      */
     public function showAuthorizationForm()
     {
-        abort(501, 'Not Implemented.');
-
-
         $authParams = Authorizer::getAuthCodeRequestParams();
 
         $formParams = array_except($authParams,'client');

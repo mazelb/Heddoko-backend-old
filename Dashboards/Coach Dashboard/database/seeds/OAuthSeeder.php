@@ -6,9 +6,11 @@
  * @author  Francis Amankrah (frank@heddoko.com)
  * @date    December 2015
  */
-// use DB;
-use App\Models\OAuthClient;
+
 use Illuminate\Database\Seeder;
+
+use App\Models\OAuthClient;
+use App\Models\OAuthClientEndpoint;
 
 class OAuthSeeder extends Seeder
 {
@@ -22,6 +24,7 @@ class OAuthSeeder extends Seeder
         $this->command->info('Running OAuthSeeder...');
 
         // TODO: Create scopes.
+        // ...
 
         // Create sample client.
         if (!OAuthClient::where('name', 'Sample Client')->first())
@@ -34,6 +37,35 @@ class OAuthSeeder extends Seeder
                 'name' => 'Sample Client',
                 'id' => 'C7wQaoQ1Zk8Yg6h4ICrZniVwOqpWxkwhsA4mMJkJ',
                 'secret' => 'wXkCVjBEOuw1mDUF8lJk5LPjZLek9bKk1V2UnRDh'
+            ]);
+        }
+
+        // Suits Management Dashboard app
+        if (!OAuthClient::where('name', 'Suits Management Dashbaord')->first())
+        {
+            $this->command->info('Creating "Suits Management Dashbaord Client"');
+            $this->command->info("--> ID: oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs");
+            $this->command->info("--> Secret: r9hEaW2ZAfNndWoDB7uZchd83dygt0K0TbBu283d");
+
+            OAuthClient::create([
+                'name' => 'Suits Management Dashboard',
+                'id' => 'oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs',
+                'secret' => 'r9hEaW2ZAfNndWoDB7uZchd83dygt0K0TbBu283d'
+            ]);
+
+            OAuthClientEndpoint::create([
+                'client_id' => 'oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs',
+                'redirect_uri' => 'http://suits.heddoko.vagrant/token'
+            ]);
+
+            OAuthClientEndpoint::create([
+                'client_id' => 'oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs',
+                'redirect_uri' => 'http://localhost/token'
+            ]);
+
+            OAuthClientEndpoint::create([
+                'client_id' => 'oQUuD535CgQ1OwewridIjmokBRpU0g7mAbaJBlrs',
+                'redirect_uri' => 'http://localhost:8000/token'
             ]);
         }
     }

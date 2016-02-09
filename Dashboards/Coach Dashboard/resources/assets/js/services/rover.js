@@ -7,7 +7,7 @@
  * @date    November 2015
  *
  *  TODO: Move helper methods to Utilities service (e.g. getState, etc.)
- *  TODO: Keep only UI-changing methods (e.g. openOverlay, etc.)
+ *  TODO: Keep only UI-changing methods (e.g. openOverlay, etc.) and programmatic methods.
  */
 angular.module('app.rover', [])
 
@@ -37,7 +37,7 @@ angular.module('app.rover', [])
         this.addBackgroundProcess = function() {
 
             this.backgroundProcessCount++;
-            Utilities.debug('Background processes: ' + this.backgroundProcessCount);
+            Utilities.info('Background processes: ' + this.backgroundProcessCount);
 
             // Show loading animation.
             if (this.backgroundProcessCount === 1) {
@@ -50,7 +50,7 @@ angular.module('app.rover', [])
                 this.backgroundProcessCount--;
             }
 
-            Utilities.debug('Background processes: ' + this.backgroundProcessCount);
+            Utilities.info('Background processes: ' + this.backgroundProcessCount);
 
             // Remove loading animation. We delay this by half a second to let the app's
             // bindings to update
@@ -64,63 +64,94 @@ angular.module('app.rover', [])
             }
         }.bind(this);
 
+        /**
+         * Calls a method once a global flag becomes true or false.
+         *
+         * @param string flag
+         * @param object $scope
+         * @param mixed expectedStatus
+         * @param function callback
+         */
+        this.waitForFlag = function(flag, expectedStatus, $scope, callback) {
+
+            // Performance check.
+            if (typeof Utilities.data[flag] === undefined) {
+                return;
+            }
+
+            // If flag is already set to expected status, call callback function.
+            if (Utilities.data[flag] == expectedStatus) {
+                callback();
+                return;
+            }
+
+            // If not, we setup a temporary watcher.
+            var stopWatching = $scope.$watch('global.data.' + flag, function(status) {
+                if (status == expectedStatus)
+                {
+                    // Run method.
+                    callback();
+
+                    // Remove binding.
+                    stopWatching();
+                }
+            });
+        };
+
         // Shortcut to browse through app.
         this.browseTo = {
 
-            // Dashboard index page.
+            /**
+             * Dashboard index page.
+             */
             dashboard: function() {
                 $location.path('/dashboard');
-
             }.bind(this),
 
-            // Group listing page.
+            /**
+             * Group listing page.
+             */
             groups: function() {
                 $location.path('/group');
-
             }.bind(this),
 
-            // Group page.
+            /**
+             * Group page.
+             *
+             * @param object|int group
+             */
             group: function(group) {
 
                 // Update the selected group.
                 if (group !== undefined) {
-                    this.store.groupId = Utilities.getId(group);
+                    Utilities.store.groupId = Utilities.getId(group);
                 }
 
-                Utilities.debug('Browsing to group #' + this.store.groupId);
-                $location.path('/group/' + this.store.groupId);
-
+                $location.path('/groups/' + Utilities.store.groupId);
             }.bind(this),
 
-            // Profile page.
+            /**
+             * Profile page.
+             *
+             * @param object|int profile
+             */
             profile: function(profile) {
 
                 // Update the selected profile.
                 if (profile !== undefined) {
-                    this.store.profileId = Utilities.getId(profile);
-                    profile = this.store.profileId > 0 ?
-                        this.state.profile.list[this.store.profileId] : null;
+                    Utilities.store.profileId = Utilities.getId(profile);
                 }
 
-                // If the profile somehow belongs to a different group, reload the profile
-                // list and related data before browsing to the profile page.
-                if (profile && profile.groups && profile.groups.length &&
-                    profile.groups[0].id != this.store.groupId) {
-
-                    this.store.groupId = profile.groups[0].id;
-                }
-
-                Utilities.debug('Browsing to profile #' + this.store.profileId);
-                $location.path('/profile/view');
-
+                $location.path('/profiles/' + Utilities.store.profileId);
             }.bind(this),
 
-            // General page.
+            /**
+             * General page.
+             *
+             * @param string path
+             */
             path: function(path) {
-
-                Utilities.debug('Browsing to path: ' + path);
                 $location.path(path);
-
             }.bind(this),
 
             hash: function(hash) {
@@ -136,7 +167,6 @@ angular.module('app.rover', [])
                 }
             }
         };
-        this.browse = this.browseTo;
 
         //
         // Overlays.
@@ -155,8 +185,8 @@ angular.module('app.rover', [])
         this.openThumbnailSelector = function() {
             this.openOverlay(
                 'Choose Thumbnail Cover',
-                'thumbnail-selector/index.html',
-                'thumbnail-selector/footer.html'
+                'overlay/thumbnail-selector/index.html',
+                'overlay/thumbnail-selector/footer.html'
             );
         };
 
@@ -166,19 +196,22 @@ angular.module('app.rover', [])
         this.openMovementEditor = function() {
             this.openOverlay(
                 'Movement Editor',
-                'movement-editor/index.html',
-                'movement-editor/footer.html'
+                'overlay/movement-editor/index.html',
+                'overlay/movement-editor/footer.html'
             );
         };
 
         /**
-         * Opens the overlay screen.
+         * Opens the overlay screen (modal).
+         *
+         * @param string title
+         * @param string bodyTemplate
+         * @param stirng footerTemplate
          */
         this.openOverlay = function(title, bodyTemplate, footerTemplate) {
-            this.debug('Opening overlay "' + title + '"');
 
             // Update overlay data.
-            this.overlayData = {
+            Utilities.data.overlay = {
                 title: title,
                 bodyTemplate: bodyTemplate,
                 footerTemplate: footerTemplate
@@ -195,6 +228,13 @@ angular.module('app.rover', [])
         // Stores all event callbacks.
         this._events = {
             onEndSession: []
+        };
+
+        /**
+         * @param string name
+         */
+        this.fireEvent = function(name) {
+            Utilities.info('Firing event: ' + name);
         };
 
         // Performs final tasks before logging out.
@@ -221,14 +261,14 @@ angular.module('app.rover', [])
             Utilities.debug('Rover.hasState is deprecated...');
 
             return namespace == 'profile' ?
-                    Utilities.hasVar(namespace, id) :
-                    Utilities.hasState(namespace, id);
+                    Utilities.hasDataKey(namespace, id) :
+                    Utilities.hasStateKey(namespace, id);
         };
         this.getState = function(namespace, id, def) {
             Utilities.debug('Rover.getState is deprecated...');
 
             return namespace == 'profile' ?
-                    Utilities.getVar(namespace, id, def) :
+                    Utilities.getData(namespace, id, def) :
                     Utilities.getState(namespace, id, def);
         };
         this.setState = function(namespace, id, value) {

@@ -9,28 +9,45 @@
         </h1>
     </header>
 
-    <div class="row">
-        <div class="col-sm-12">
+    <div ng-if="global.data.isFetchingProfiles === false" class="row">
+        <ui-filesystem
+            data-id="profiles-explorer"
+            data-files="profileList"
+            data-hide-location="true"
+            data-config="uiFilesystemConfig"
+            class="col-sm-12">
+        </ui-filesystem>
 
-            <!-- New profile button -->
-            <!-- TODO: figure out why the right margin is needed -->
-            <a
-                href="#/profile/create"
-                class="btn btn-info btn-metro"
-                style="margin-right: 0">
+        <!-- New profile modal form -->
+        <div class="modal fade" id="createProfileForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Profile Details
+                    </div>
 
-                <i class="fa fa-plus"></i>
-            </a>
+                    <div class="modal-body">
 
-            <a
-                ng-repeat="profile in profiles"
-                ng-show="profile.id"
-                href="#/profile/{{ profile.id }}"
-                class="btn btn-info btn-metro"
-                style="background-image: url({{ profile.avatarSrc || '' }});">
+                        <h1 class="text-center text-muted">
+                            In Development.
+                        </h1>
+                    </div>
 
-                <div class="btn-title">{{ profile.lastName.toUpperCase() | characters:30 }}</div>
-            </a>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div ng-if="global.data.isFetchingProfiles === true" class="loading-notice">
+        <h3>Retrieving Athletes</h3>
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
     </div>
 </div>

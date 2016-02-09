@@ -4,7 +4,7 @@
 <div class="row">
 
     <!-- Parent folder -->
-    <div ng-show="parentFolder" class="col-xs-6 col-md-4 col-lg-3">
+    <div ng-if="parentFolder" class="col-xs-6 col-md-4 col-lg-3">
         <a href="{{ parentFolder.href }}" class="folder">
             <i class="fa fa-hand-o-left fa-3x"></i>
             <span class="name">
@@ -14,7 +14,7 @@
     </div>
 
     <!-- Other folders -->
-    <div ng-repeat="folder in folders" class="col-xs-6 col-md-4 col-lg-3">
+    <div ng-repeat="folder in folders track by $index" class="col-xs-6 col-md-4 col-lg-3">
         <a href="{{ folder.href }}" class="folder">
             <i class="fa fa-folder-open fa-3x"></i>
             <span class="name">
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Movements -->
-    <div ng-repeat="movement in movements" class="col-xs-6 col-md-4 col-lg-3">
+    <div ng-repeat="movement in movements track by movement.id" class="col-xs-6 col-md-4 col-lg-3">
         <div class="aspect-ratio aspect-4-3 active-element text-center">
             <div>
 
@@ -34,13 +34,13 @@
                 <div class="tools text-left">
 
                     <!-- Movement date -->
-                    <span style="color: #aaa">
+                    <span>
                         {{ movement.createdAt | mysqlDate : 'MMMM d, h:mma' }}
                     </span>
                     <br>
 
                     <!-- Movement title -->
-                    <span style="color: #999">
+                    <span title="{{ movement.title }}">
                         {{ movement.title | characters:25 }}
                     </span>
 
@@ -65,9 +65,9 @@
                                 </li>
                                 <li>
                                     <a
-                                        ng-click="shareMovement(movement)"
+                                        ng-click="selectThumbnail(movement)"
                                         href="javascript:;">
-                                        Share
+                                        Choose Thumbnail
                                     </a>
                                 </li>
                                 <li>
@@ -77,10 +77,17 @@
                                         Edit
                                     </a>
                                 </li>
+                                <li>
+                                    <a
+                                        ng-click="shareMovement(movement)"
+                                        href="javascript:;">
+                                        Share
+                                    </a>
+                                </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
                                     <a
-                                        ng-click="deleteMovement(movement)"
+                                        ng-click="deleteResource('movement', movement)"
                                         href="javascript:;">
                                         Delete
                                     </a>
@@ -95,7 +102,7 @@
 
     <!-- No movements or folders to show -->
     <div
-        ng-show="folders.length === 0 && movements.length === 0"
+        ng-if="folders.length + movements.length === 0"
         class="col-xs-6 col-md-8 col-lg-9"
         style="margin-top: 35px">
 

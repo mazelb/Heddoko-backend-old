@@ -805,34 +805,61 @@ pre {
   right: 0; }
 
 /*
- * Active elements
+ * Cards
  */
-.active-element {
+.card {
   position: relative;
   display: inline-block;
-  background-color: #fff;
+  background: #2c3a46 center center no-repeat;
+  background-size: cover;
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+  .card .data {
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    height: 35%;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(44, 58, 70, 0.8); }
+    .card .data .title {
+      display: block;
+      padding: 4px 0 1px 10px;
+      text-transform: uppercase;
+      font-size: 1.2em; }
+    .card .data .sub-title {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.8em; }
 
-.active-element .tools {
-  position: absolute;
-  bottom: 0;
-  height: 60px;
-  width: 100%;
-  background-color: #f5f5f5; }
-
-.active-element .tools span {
+.active-element {
+  position: relative;
   display: inline-block;
-  padding: 4px 0 1px 10px; }
-
-.active-element .tools .hidden-tools {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 10px; }
+  background: #2c3a46 center center no-repeat;
+  background-size: cover;
+  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+  .active-element .tools {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(44, 58, 70, 0.7); }
+    .active-element .tools span {
+      display: inline-block;
+      padding: 4px 0 1px 10px; }
+    .active-element .tools .hidden-tools {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 10px; }
 
 /**
  * File explorers
@@ -3987,6 +4014,8 @@ fieldset[disabled] .btn-danger.active {
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
   border-radius: 15px; }
+  .btn-circle .fa {
+    vertical-align: bottom; }
 
 .btn-circle.btn-lg {
   width: 50px;
@@ -4011,34 +4040,34 @@ fieldset[disabled] .btn-danger.active {
 /**
  * Angular - Page headers.
  */
-.page > header {
+.page > header, section > header {
   margin: 0 20px 20px 0; }
-  .page > header h1 {
+  .page > header h1, .page > header h2, .page > header h3, section > header h1, section > header h2, section > header h3 {
     margin: none;
     display: inline-block;
     text-transform: uppercase;
     color: #ddd; }
-    .page > header h1 .fa {
+    .page > header h1 .fa, .page > header h2 .fa, .page > header h3 .fa, section > header h1 .fa, section > header h2 .fa, section > header h3 .fa {
       font-size: 0.9em;
       margin: auto 10px; }
-    .page > header h1 span {
+    .page > header h1 span, .page > header h2 span, .page > header h3 span, section > header h1 span, section > header h2 span, section > header h3 span {
       margin: 10px 0 0;
       display: block;
       width: 90%;
       height: 4px;
       background-color: #ddd; }
-  .page > header .h1-append {
+  .page > header .h1-append, section > header .h1-append {
     display: inline-block;
     margin: 0 0 0 20px;
     font-size: 1.2em;
     letter-spacing: 1.2px; }
-    .page > header .h1-append small {
+    .page > header .h1-append small, section > header .h1-append small {
       font-size: .7em; }
-  .page > header .btn-toolbar.pull-right {
+  .page > header .btn-toolbar.pull-right, section > header .btn-toolbar.pull-right {
     margin: 20px auto; }
-  .page > header .sub-header {
+  .page > header .sub-header, section > header .sub-header {
     margin: 10px 0; }
-    .page > header .sub-header .sub-header-btn {
+    .page > header .sub-header .sub-header-btn, section > header .sub-header .sub-header-btn {
       margin: 0 10px 0 0; }
 
 h1.title, h2.title, h3.title, h4.title {
@@ -4071,7 +4100,7 @@ h1.title, h2.title, h3.title, h4.title {
   transition: background-color 0.7s; }
 
 .import-page .row.movement-import.ng-enter-active {
-  background-color: rgba(59, 214, 178, 0.6); }
+  background-color: rgba(59, 214, 178, 0.4); }
 
 .import-page .row .movement-title {
   margin: 0 auto 20px;
@@ -4811,30 +4840,6 @@ label {
 @keyframes spin {
   100% {
     transform: rotateZ(360deg); } }
-.card-container {
-  max-width: 1210px;
-  margin-left: auto;
-  margin-right: auto; }
-
-.card {
-  height: 400px;
-  width: 220px;
-  background-color: black;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 36px;
-  position: relative;
-  text-shadow: 1px 1px 0 black;
-  font-weight: normal;
-  font-variant: small-caps;
-  color: #FFFFFF;
-  background-color: black;
-  letter-spacing: 1pt;
-  font-size: 16px;
-  text-align: left;
-  font-family: arial black, sans-serif;
-  line-height: 1; }
-
 .picture {
   height: 280px;
   overflow: hidden;
@@ -4851,20 +4856,6 @@ label {
 
 .stat1, .stat2 {
   height: 60px; }
-
-.cardtitle, .playername {
-  margin-left: 10px; }
-
-.cardpercentage {
-  margin-right: 16px;
-  z-index: 1; }
-
-.card .stat1 span, .card .stat2 span {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%); }
 
 .bodyoverlay {
   position: absolute;
@@ -5084,6 +5075,15 @@ button.toast-close-button {
   .callout-elem-danger h4 {
     color: #db5031; }
 
+/*
+ * AJAX loading messages.
+ */
+.loading-notice {
+  text-align: center;
+  color: #5b707d; }
+  .loading-notice h1, .loading-notice h2, .loading-notice h3 {
+    margin: 100px auto 75px; }
+
 /* Specific */
 /**
  * Copyright Heddoko(TM) 2015, all rights reserved.
@@ -5249,6 +5249,9 @@ button.toast-close-button {
   -ms-border-radius: 0px;
   -o-border-radius: 0px;
   border-radius: 0px; }
+  .dropdown-menu .form-control {
+    background-color: transparent;
+    color: #333; }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
   text-decoration: none;
@@ -8702,11 +8705,28 @@ svg {
 /**
  * Copyright Heddoko(TM) 2015, all rights reserved.
  *
+ * @brief       Styles for uiFilesystem
+ * @author      Francis Amankrah (frank@heddoko.com)
+ * @data        February 2016
+ */
+.ui-filesystem-container .ui-filesystem-toolbar {
+  margin: 5px 0 15px; }
+  .ui-filesystem-container .ui-filesystem-toolbar .ui-filesystem-toolbar-group {
+    display: inline-block;
+    margin: 0 10px; }
+  .ui-filesystem-container .ui-filesystem-toolbar .ui-filesystem-toolbar-btn {
+    color: #5b707d; }
+    .ui-filesystem-container .ui-filesystem-toolbar .ui-filesystem-toolbar-btn:hover, .ui-filesystem-container .ui-filesystem-toolbar .ui-filesystem-toolbar-btn:active, .ui-filesystem-container .ui-filesystem-toolbar .ui-filesystem-toolbar-btn.ui-filesystem-active {
+      color: #3bd6b2; }
+
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
  * @brief       Styles for uiMovement
  * @author      Francis Amankrah (frank@heddoko.com)
  */
 .ui-movement-container {
-  background-color: #fff;
+  background-color: #2c3a46;
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);

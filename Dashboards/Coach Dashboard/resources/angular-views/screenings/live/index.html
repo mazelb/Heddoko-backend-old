@@ -1,0 +1,136 @@
+
+<!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
+
+<div class="page">
+    <header>
+        <h1>
+            Movement Test <i class="fa fa-pencil-square-o"></i>
+            <span></span>
+        </h1>
+
+        <!-- Append profile name to page title -->
+        <div ng-if="screening.id > 0" class="h1-append">
+            <a ng-click="resetScreening()" href="javascript:;">
+                (save and close)
+            </a>
+        </div>
+    </header>
+
+    <!-- Test progress -->
+    <div ng-if="!global.data.isFetchingLiveScreening && screening.id > 0">
+
+        <h2 class="text-center">
+            {{ screening.title }}
+
+            <br>
+            <small>
+                {{ screening.createdAt | mysqlDate:'d / M / yyyy' }} -
+                <a href="#/profiles/{{ profile.id }}">
+                    {{ profile.firstName }} {{ profile.lastName }}
+                </a>
+            </small>
+        </h2>
+
+        <!-- Headings -->
+        <div class="row">
+            <div class="col-md-1 col-md-offset-7">
+                <span class="text-muted">
+                    Score
+                </span>
+            </div>
+        </div>
+
+        <div ng-repeat="movement in screening.movements" class="row" style="margin-bottom: 15px;">
+
+            <div class="col-md-4 col-md-offset-3" style="line-height: 30px">
+                <span class="text-muted">{{ $index + 1 }}</span>
+                {{ movement.title }}
+            </div>
+
+            <div class="col-md-1">
+                {{ movement.score | number:0 }} / {{ movement.scoreMax | number:0 }}
+            </div>
+
+            <!-- Movement actions -->
+            <div class="col-md-1">
+                <div class="btn-group">
+                    <button
+                        class="btn btn-primary btn-circle dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ng-click="global.alert('In Development')" href="javascript:;">
+                                <i class="fa fa-fw fa-circle"></i> Capture movement live
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="global.alert('In Development')" href="javascript:;">
+                                <i class="fa fa-fw fa-cloud-upload"></i> Upload movement file
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="global.alert('In Development')" href="javascript:;">
+                                <i class="fa fa-fw fa-th"></i> Select existing movement
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a ng-click="global.alert('In Development')" href="javascript:;">
+                                <i class="fa fa-fw fa-trash"></i> Remove
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Select a screening template -->
+    <div ng-if="!global.data.isFetchingLiveScreening && screening.id === 0">
+
+        <!-- Create a screening -->
+        <div
+            ng-show="global.getSelectedProfile().id > 0 && !global.data.isPreparingNewScreening"
+            class="text-center">
+
+            <a
+                ng-click="createFunctionalMovementScreening()"
+                href="javascript:;"
+                class="btn btn-primary btn-circle btn-lg">
+
+                <i class="fa fa-plus"></i>
+            </a>
+
+            <h3>
+                Start a movement test for
+                <em>
+                    {{ global.getSelectedProfile().firstName }}
+                    {{ global.getSelectedProfile().lastName }}
+                </em>.
+            </h3>
+            Go ahead and use the <i class="fa fa-plus fa-lg fa-fw"></i> button above to start.
+        </div>
+
+        <!-- Select a profile -->
+        <div ng-show="global.getSelectedProfile().id === 0 && !global.data.isPreparingNewScreening">
+            <div ng-include="'partials/select-profile.html'"></div>
+        </div>
+
+        <!-- Preparing screening records -->
+        <div ng-show="global.data.isPreparingNewScreening" class="loading-notice">
+            <h2>Preparing your test.</h2>
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </div>
+    </div>
+
+    <!-- Loading screening data -->
+    <div ng-if="global.data.isFetchingLiveScreening">
+        <ng-include src="'partials/loading.html'"></ng-include>
+    </div>
+</div>

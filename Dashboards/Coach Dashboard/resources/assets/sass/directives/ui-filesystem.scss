@@ -1,0 +1,27 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * @brief       Styles for uiFilesystem
+ * @author      Francis Amankrah (frank@heddoko.com)
+ * @data        February 2016
+ */
+
+.ui-filesystem-container {
+
+    .ui-filesystem-toolbar {
+        margin: 5px 0 15px;
+
+        .ui-filesystem-toolbar-group {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .ui-filesystem-toolbar-btn {
+            color: $text-color-blue;
+
+            &:hover, &:active, &.ui-filesystem-active {
+                color: $heddokogreen;
+            }
+        }
+    }
+}

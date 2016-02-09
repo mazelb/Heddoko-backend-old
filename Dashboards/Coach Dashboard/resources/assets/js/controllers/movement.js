@@ -7,14 +7,22 @@
  */
 angular.module('app.controllers')
 
-.controller('MovementController', ['$scope', '$routeParams', 'FolderService', 'Rover', 'Utilities',
-    function($scope, $routeParams, FolderService, Rover, Utilities) {
-        Utilities.debug('MovementController');
+.controller('MovementController', ['$scope', '$routeParams', 'FolderService', 'MovementService', 'Rover', 'Utilities',
+    function($scope, $routeParams, FolderService, MovementService, Rover, Utilities) {
+        Utilities.info('MovementController');
 
-        // Initial setup.
-        $scope.global.data.isFetchingMovementData = true;
+        // Fetching movement data flag.
+        Utilities.data.isFetchingMovementData = false;
+
+        // Setup namespaces.
+        Utilities.createDataNamespace('movementFiles');
+        Utilities.createDataNamespace('movementFolders');
+        Utilities.createDataNamespace('selectedMovementFiles');
+        Utilities.createDataNamespace('selectedMovementFolders');
+
+        // Setup layout data.
         $scope.layout = {
-            name: Rover.getConfig('movements.layout', 'large-tiles'),
+            name: Utilities.getConfig('movements.layout', 'large-tiles'),
             list: [
                 {
                     name: 'large-tiles',
@@ -33,10 +41,49 @@ angular.module('app.controllers')
 
         // Setup path data.
         $scope.path = '/';
+        $scope.files = [];
         $scope.folders = [];
-        $scope.movements = [];
         $scope.parentFolder = false;
         $scope.rootProfile = false;
+
+        // Other scope variables.
+        $scope.newFolderName = '';
+
+        /**
+         * Saves the layout
+         *
+         * @param string layout
+         */
+        $scope.setLayout = function(layout) {
+            $scope.layout.name = layout;
+            Utilities.setConfig('movements.layout', layout);
+        };
+
+        /**
+         * Generates the location hash for a folder.
+         *
+         * @param object folder
+         * @param object parent
+         */
+        $scope.getHash = function(folder, parent) {
+
+            var hash = '#/movements/' + folder.profileId + '/';
+
+            // Add the folder ID.
+            hash += parent ? parent.id : folder.id;
+
+            // Add the pathname.
+            if (folder.path != '/') {
+                hash += '/' + folder.path.substr(1).replace('/', '_').replace(/\s+/g, '-');
+            }
+
+            // If no parent was passed, include the current folder name.
+            if (!parent) {
+                hash += (folder.path == '/' ? '/' : '_') + folder.name.replace(/\s+/g, '-');
+            }
+
+            return hash;
+        };
 
         /**
          * Updates the view with the root folders (one for each profile).
@@ -46,16 +93,20 @@ angular.module('app.controllers')
         $scope.updateRootFolders = function(profiles) {
 
             // List of profiles.
-            // profiles = profiles || $scope.global.state.profile.list;
-            profiles = profiles || Utilities.listVars('profile');
+            profiles = profiles || Utilities.getDataList('profile');
 
-            $scope.folders = [];
+            // Reset data.
+            Utilities.resetDataNamespace('movementFiles');
+            Utilities.resetDataNamespace('movementFolders');
+            Utilities.resetDataNamespace('selectedMovementFiles');
+            Utilities.resetDataNamespace('selectedMovementFolders');
+
             if (profiles.length)
             {
                 angular.forEach(profiles, function(profile) {
                     if (profile.id && profile.id > 0)
                     {
-                        $scope.folders.push({
+                        Utilities.setData('movementFolders', profile.id, {
                             name: profile.firstName + ' ' + profile.lastName,
                             href: '#/movements/' + profile.id
                         });
@@ -63,7 +114,10 @@ angular.module('app.controllers')
                 });
             }
 
-            $scope.global.data.isFetchingMovementData = false;
+            $scope.movements = Utilities.getDataArray('movementFiles');
+            $scope.folders = Utilities.getDataArray('movementFolders');
+
+            Utilities.data.isFetchingMovementData = false;
         };
 
         /**
@@ -73,20 +127,21 @@ angular.module('app.controllers')
          */
         $scope.updateFolders = function(folders) {
 
-            $scope.folders = [];
+            // Reset data.
+            Utilities.resetDataNamespace('movementFolders');
+            Utilities.resetDataNamespace('selectedMovementFolders');
+
             if (folders && folders.length)
             {
                 angular.forEach(folders, function(folder) {
-                    $scope.folders.push({
-                        name: folder.name,
-                        href: '#/movements/' +
-                                folder.profileId + '/' +
-                                folder.id + '/' +
-                                folder.path.replace('/', '_').replace(/\s+/g, '-') + '_' +
-                                folder.name.replace(/\s+/g, '-')
-                    });
+
+                    // Set hash.
+                    folder.href = $scope.getHash(folder);
+
+                    Utilities.setData('movementFolders', folder.id, folder);
                 });
             }
+            $scope.folders = Utilities.getDataArray('movementFolders');
         };
 
         /**
@@ -95,30 +150,27 @@ angular.module('app.controllers')
          * @param int folderId
          */
         $scope.fetchMovementData = function(folderId) {
-            Utilities.debug('Fetching movement data...');
+            Utilities.time('Fetching Movement Data');
 
-            $scope.global.data.isFetchingMovementData = true;
-
+            Utilities.data.isFetchingMovementData = true;
             folderId = folderId || 0;
 
-            FolderService.get($scope.rootProfile.id, folderId).then(
+            FolderService.get($scope.rootProfile.id, folderId, ['parent', 'children', 'movements']).then(
                 function(response) {
+                    Utilities.timeEnd('Fetching Movement Data');
 
                     // Update folders.
                     $scope.updateFolders(response.data.children);
 
                     // Set parent folder
                     $scope.parentFolder = {
-                        href: '#/movements'
+                        href: '#/movements/' + $scope.rootProfile.id
                     };
 
                     if (response.data.parent)
                     {
                         $scope.parentFolder.name = response.data.parent.name;
-                        $scope.parentFolder.href +=
-                            '/' + response.data.profileId +
-                            '/' + response.data.parent.id +
-                            '/' + response.data.path.replace('/', '_').replace(/\s+/g, '-');
+                        $scope.parentFolder.href = $scope.getHash(response.data, response.data.parent);
                     }
 
                     // Update virtual path.
@@ -136,16 +188,79 @@ angular.module('app.controllers')
                     }
 
                     // Update movment data.
-                    $scope.movements = response.data.movements;
+                    angular.forEach(response.data.movements, function(movement) {
+                        Utilities.setData('movementFiles', movement.id, movement);
+                    });
+                    $scope.movements = Utilities.getDataArray('movementFiles');
 
-                    $scope.global.data.isFetchingMovementData = false;
+                    Utilities.data.isFetchingMovementData = false;
                 },
                 function(response) {
+                    Utilities.timeEnd('Fetching Movement Data');
                     Utilities.alert('Could not retrieve movement data. Please try again later.');
-
-                    $scope.global.data.isFetchingMovementData = false;
+                    Utilities.data.isFetchingMovementData = false;
                 }
             );
+        };
+
+        /**
+         * Selects a movement file or folder.
+         *
+         * @param string type
+         * @param object resource
+         */
+        $scope.toggleSelect = function(type, resource) {
+
+            // Toggle all resources.
+            if (!type && !resource)
+            {
+                angular.forEach(Utilities.getDataList('movementFiles'), function(movement) {
+                    if (movement && movement.id)
+                    {
+                        movement.selected = !movement.selected;
+                        Utilities.setData('selectedMovementFiles', movement.id, {id: movement.id});
+                    }
+                });
+
+                angular.forEach(Utilities.getDataList('movementFolders'), function(folder) {
+                    if (folder && folder.id)
+                    {
+                        folder.selected = !folder.selected;
+                        Utilities.setData('selectedMovementFolders', folder.id, {id: folder.id});
+                    }
+                });
+
+                return;
+            }
+
+            var namespace, data;
+            switch (type)
+            {
+                case 'movement':
+                    namespace = 'selectedMovementFiles';
+                    break;
+
+                case 'folder':
+                    namespace = 'selectedMovementFolders';
+                    break;
+
+                default:
+                    Utilities.log('Invalid resource type: ' + type);
+                    return;
+            }
+
+            // Toggle selected
+            resource.selected = !resource.selected;
+
+            // Update selected list.
+            Utilities.setData(namespace, resource.id, (resource.selected ? {id: resource.id} : null));
+        };
+
+        /**
+         * Opens the thumbnail overlay.
+         */
+        $scope.selectThumbnail = function() {
+            Rover.openThumbnailSelector();
         };
 
         /**
@@ -161,7 +276,7 @@ angular.module('app.controllers')
          * @param int id
          */
         $scope.shareMovement = function(id) {
-            Utilities.debug('Sharing movement #' + id);
+            Utilities.log('Sharing movement #' + id);
 
             // TODO
 
@@ -169,59 +284,232 @@ angular.module('app.controllers')
         };
 
         /**
-         * Deletes a movement.
+         * Creates a new folder.
          *
-         * @param int id
+         * @param string name
          */
-        $scope.deleteMovement = function(id) {
-            Utilities.debug('Deleting movement #' + id);
+        $scope.createFolder = function(name) {
 
-            // TODO
+            // Performance check.
+            if (name.length < 1) {
+                return;
+            }
 
-            Utilities.alert('In Development.');
+            Utilities.time('Creating Folder');
+            Utilities.data.isFetchingMovementData = true;
+
+            Utilities.log('Creating folder "'+ name +'"');
+            Utilities.log('Under the parent "'+ $routeParams.folderId +'"');
+            Utilities.log('For the profile "'+ $scope.rootProfile.id +'"');
+
+            FolderService.create($scope.rootProfile.id, {
+                name: name,
+                folderId: $routeParams.folderId
+            }).then(
+
+                // On success
+                function(response) {
+                    Utilities.timeEnd('Creating Folder');
+
+                    // Add new folder to folder list.
+                    Utilities.setData('movementFolders', response.data.id, response.data);
+                    Utilities.log(response.data);
+                    Utilities.log(Utilities.getDataArray('movementFolders'));
+                    $scope.updateFolders(Utilities.getDataArray('movementFolders'));
+
+                    Utilities.data.isFetchingMovementData = false;
+                },
+
+                // On failure.
+                function(response) {
+                    Utilities.timeEnd('Creating Folder');
+                    Utilities.error('Could not create folder: ' + response.responseText);
+                    Utilities.alert('Could not create folder. Please try again later.');
+                    Utilities.data.isFetchingMovementData = false;
+                }
+            );
+        };
+
+        /**
+         * Deletes one or more resources.
+         *
+         * @param string type
+         * @param object resource
+         */
+        $scope.deleteResource = function(type, resource) {
+
+            // Delete a specified resource.
+            if (type && resource)
+            {
+                switch (type)
+                {
+                    case 'folder':
+                    case 'folders':
+                        $scope.deleteFolders([resource.id]);
+                        break;
+
+                    case 'movement':
+                    case 'movements':
+                        $scope.deleteMovements([resource.id]);
+                        break;
+                }
+            }
+
+            // Delete selected resources.
+            else
+            {
+                // Delete folders.
+                if (Utilities.getDataLength('selectedMovementFolders')) {
+                    $scope.deleteFolders(Utilities.getDataArray('selectedMovementFolders').map(
+                        function(folder) {
+                            return folder.id;
+                        }
+                    ));
+                }
+
+                // Delete movements.
+                if (Utilities.getDataLength('selectedMovementFiles')) {
+                    $scope.deleteMovements(Utilities.getDataArray('selectedMovementFiles').map(
+                        function(movement) {
+                            return movement.id;
+                        }
+                    ));
+                }
+            }
+        };
+
+        /**
+         * Deletes the specified folders.
+         *
+         * @param array IDs
+         */
+        $scope.deleteFolders = function(IDs) {
+            Utilities.time('Deleting Folders');
+
+            // Turn on flag
+            Utilities.data.isFetchingMovementData = true;
+
+            Utilities.log('Deleting folders "'+ IDs.join() +'"');
+            Utilities.log('For the profile "'+ $scope.rootProfile.id +'"');
+
+            FolderService.destroy($scope.rootProfile.id, IDs.join()).then(
+
+                // On success, update profile list and browse to selected group.
+                function(response) {
+                    Utilities.timeEnd('Deleting Folders');
+
+                    // Remove deleted folders.
+                    for (var i = 0; i < IDs.length; i++) {
+                        Utilities.setData('movementFolders', IDs[i], null);
+                        Utilities.setData('selectedMovementFolders', IDs[i], null);
+                    }
+                    $scope.folders = Utilities.getDataArray('movementFolders');
+
+                    Utilities.data.isFetchingMovementData = false;
+                },
+
+                // On failure.
+                function(response) {
+                    Utilities.timeEnd('Deleting Folders');
+                    Utilities.error('Could not delete folders: ' + response.responseText);
+                    Utilities.alert('Could not delete folders. Please try again later.');
+                    Utilities.data.isFetchingMovementData = false;
+                }
+            );
+        };
+
+        /**
+         * Deletes the specified movements.
+         *
+         * @param array IDs
+         */
+        $scope.deleteMovements = function(IDs) {
+            Utilities.time('Deleting Movements');
+
+            // Turn on flag
+            Utilities.data.isFetchingMovementData = true;
+
+            MovementService.destroy(IDs.join()).then(
+
+                // On success, update profile list and browse to selected group.
+                function(response) {
+                    Utilities.timeEnd('Deleting Movements');
+
+                    // Remove deleted movements.
+                    for (var i = 0; i < IDs.length; i++) {
+                        Utilities.setData('movementFiles', IDs[i], null);
+                        Utilities.setData('selectedMovementFiles', IDs[i], null);
+                    }
+                    $scope.movements = Utilities.getDataArray('movementFiles');
+
+                    Utilities.data.isFetchingMovementData = false;
+                },
+
+                // On failure.
+                function(response) {
+                    Utilities.timeEnd('Deleting Movements');
+                    Utilities.error('Could not delete movements: ' + response.responseText);
+                    Utilities.alert('Could not delete movements. Please try again later.');
+                    Utilities.data.isFetchingMovementData = false;
+                }
+            );
         };
 
         // If a root folder was selected, try to display its contents or sub-contents.
-        // TODO: update
-        if ($routeParams.rootId && Rover.state.profile.list[$routeParams.rootId])
+        var unbindWatcher;
+        if ($routeParams.rootId)
         {
-            $scope.rootProfile = Rover.state.profile.list[$routeParams.rootId];
+            if (Utilities.hasData('profile', $routeParams.rootId))
+            {
+                // Update path name and retrive movement data.
+                $scope.rootProfile = Utilities.getData('profile', $routeParams.rootId);
+                $scope.fetchMovementData($routeParams.folderId);
+                $scope.path += ' ' + $scope.rootProfile.firstName + ' ' + $scope.rootProfile.lastName;
+            }
 
-            // Update path name.
-            $scope.path += ' ' + $scope.rootProfile.firstName + ' ' + $scope.rootProfile.lastName;
+            // If we're still loading profiles, wait for the results.
+            else if (Utilities.data.isFetchingProfiles)
+            {
+                unbindWatcher = $scope.$watch('global.data.isFetchingProfiles',
+                    function(status) {
+                        if (status === false)
+                        {
+                            unbindWatcher();
 
-            // Retrieve movement data.
-            $scope.fetchMovementData($routeParams.folderId);
+                            // Update path name and retrive movement data.
+                            $scope.rootProfile = Utilities.getData('profile', $routeParams.rootId);
+                            $scope.fetchMovementData($routeParams.folderId);
+                            $scope.path += ' ' + $scope.rootProfile.firstName + ' ' + $scope.rootProfile.lastName;
+                        }
+                    }
+                );
+            }
+
+            // If a folder was selected, but the profile doesn't exit,
+            // redirect the user to the root folders.
+            else {
+                Rover.browseTo.path('/movements');
+            }
         }
 
-        // If no root folder was selected, display the root folders.
-        else if (!$routeParams.rootId)
+        // If no root folder was selected, show the root folders.
+        else
         {
-            // Wait for the profile list to be loaded. We will setup a watcher later in case
-            // the list gets updated or modified.
-            if ($scope.global.data.isFetchingProfiles === false) {
+            if (Utilities.data.isFetchingProfiles === true)
+            {
+                unbindWatcher = $scope.$watch('global.data.isFetchingProfiles',
+                    function(status) {
+                        if (status === false) {
+                            unbindWatcher();
+                            $scope.updateRootFolders();
+                        }
+                    }
+                );
+            }
+
+            else {
                 $scope.updateRootFolders();
             }
         }
-
-        // If a folder was selected, but the profile doesn't exit, redirect the user to the root
-        // folders.
-        else {
-            Rover.browseTo.path('/movements');
-        }
-
-        // Watches the global profile list.
-        $scope.$watch('global.profile.list', function(newList, oldList) {
-
-            // If we're displaying root folders, update the view with the new list.
-            if (!$routeParams.rootId) {
-                $scope.updateRootFolders(newList);
-            }
-        });
-
-        // Saves the layout as it changes.
-        $scope.$watch('layout.name', function(name) {
-            Rover.setConfig('movements.layout', name);
-        });
     }
 ]);

@@ -713,11 +713,11 @@ updated_at<y:LabelModel>
               <y:ColumnNodeLabelModelParameter id="column_0" inside="true" verticalPosition="0.0"/>
             </y:ModelParameter>
           </y:NodeLabel>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="106.908203125" modelName="custom" textColor="#000000" visible="true" width="59.34765625" x="143.00488281250006" y="33.0">uint
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="106.908203125" modelName="custom" textColor="#000000" visible="true" width="66.021484375" x="139.66796875000006" y="33.0">uint
 uint
 varchar
 varchar
-text
+mediumtext
 timestamp
 timestamp<y:LabelModel>
               <y:ColumnNodeLabelModel offset="3.0"/>
@@ -2605,7 +2605,7 @@ json<y:LabelModel>
           <y:Geometry height="117.29739230591076" width="180.58854682454262" x="1725.1016633809222" y="612.2919034970985"/>
           <y:Fill color2="#D4D4D4CC" hasColor="false" transparent="false"/>
           <y:BorderStyle color="#C0C0C0" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="45.66748046875" x="67.46053317789642" y="4.0">NOTE</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="45.66748046875" x="67.4605331778962" y="4.0">NOTE</y:NodeLabel>
           <y:NodeLabel alignment="left" autoSizePolicy="node_width" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="77.505859375" modelName="custom" textColor="#000000" visible="true" width="180.58854682454262" x="8.5" y="33.0">Instantaneous Data refers 
 to information extracted 
 from raw data, but not yet 

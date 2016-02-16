@@ -13,9 +13,9 @@ toc_footers:
 
 includes:
   - intro/overview
-  - intro/embeds
   - intro/collections
   - intro/spoofing
+  - intro/embeds
   - intro/rate-limiting
   - intro/sample-code
 

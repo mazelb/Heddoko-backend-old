@@ -67,8 +67,8 @@ $response = $client->get('profiles/1?embed=groups,managers');
         }
     ],
     "screenings": [...],
-    "primaryTag": null,
-    "secondaryTags": [...]
+    "mainTag": null,
+    "tags": [...]
 }
 ```
 

@@ -134,21 +134,6 @@ lastName | null | Family name.
 tagId | null | ID of the profile's main tag.
 meta | null | [Profile meta data](#profile-meta-object).
 
-### Profile meta object
-
-Parameter | Default | Description
---------- | ------- | -----------
-height | null | Height in meters.
-mass | null | Mass (weight) in kilograms.
-dob | null | Date of birth, in the format `2015-01-01 00:00:00`.
-gender | null | Either `female`, `male`, or an empty string.
-phone | null | Telephone number.
-email | null | Email address.
-medicalHistory | null | Summary of medical history.
-injuries | null | Summary of injuries.
-notes | null | General notes.
-params | null | Profile parameters.
-
 ### Embeds
 
 See [Profiles &raquo; Embeds](#embeds-for-profiles).

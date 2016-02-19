@@ -28,7 +28,38 @@ HttpResponseMessage vResponse = await vClient.GetAsync("profiles");
 ```php
 <?php
 
-$response = $client->get('api/v1/profiles');
+$response = $client->get('api/v1/profiles?embed=tags');
+```
+
+> Sample response.
+
+```json
+[
+    {
+        "id": 1,
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "createdAt": "2015-06-01 12:00:00",
+        "updatedAt": "2015-06-01 12:00:00",
+        "tags": [...]
+    },
+    {
+        "id": 2,
+        "firstName": "Mike",
+        "lastName": "Watts",
+        "createdAt": "2015-06-01 12:00:00",
+        "updatedAt": "2015-06-01 12:00:00",
+        "tags": [...]
+    },
+    {
+        "id": 21,
+        "firstName": "Kara",
+        "lastName": "Romanu",
+        "createdAt": "2015-06-01 12:00:00",
+        "updatedAt": "2015-06-01 12:00:00",
+        "tags": [...]
+    }
+]
 ```
 
 `GET /v1/profiles`

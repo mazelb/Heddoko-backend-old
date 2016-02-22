@@ -1758,7 +1758,7 @@ varchar<y:LabelModel>
           <y:Fill color="#FFCC99" color2="#D4D4D4CC" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="74.048828125" x="97.9755859375" y="4.0">equipment</y:NodeLabel>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="151.01171875" modelName="custom" textColor="#000000" visible="true" width="152.74609375" x="30.9482421875" y="33.0">[PK] id
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="165.712890625" modelName="custom" textColor="#000000" visible="true" width="152.74609375" x="30.9482421875" y="33.0">[PK] id
 [FK] status_id
 [FK] material_id
 [FK] anatomical_position_id
@@ -1766,6 +1766,7 @@ varchar<y:LabelModel>
 mac_address
 serial_no
 physical_location
+notes
 updated_at
 created_at<y:LabelModel>
               <y:ColumnNodeLabelModel offset="3.0"/>
@@ -1774,7 +1775,7 @@ created_at<y:LabelModel>
               <y:ColumnNodeLabelModelParameter id="column_0" inside="true" verticalPosition="0.0"/>
             </y:ModelParameter>
           </y:NodeLabel>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="151.01171875" modelName="custom" textColor="#000000" visible="true" width="59.34765625" x="201.1474609375" y="33.0">uint
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="165.712890625" modelName="custom" textColor="#000000" visible="true" width="59.34765625" x="201.1474609375" y="33.0">uint
 uint
 uint
 uint
@@ -1782,6 +1783,7 @@ uint
 varchar
 varchar
 varchar
+text
 timestamp
 timestamp<y:LabelModel>
               <y:ColumnNodeLabelModel offset="3.0"/>
@@ -1843,11 +1845,12 @@ timestamp<y:LabelModel>
           <y:Fill color="#FFCC99" color2="#D4D4D4CC" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="138.24560546875" x="80.67719726562495" y="4.0">complex_equipment</y:NodeLabel>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="106.908203125" modelName="custom" textColor="#000000" visible="true" width="95.388671875" x="73.626953125" y="33.0">[PK] id
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="121.609375" modelName="custom" textColor="#000000" visible="true" width="95.388671875" x="73.626953125" y="33.0">[PK] id
 [FK] status_id
 mac_address
 serial_no
 physical_location
+notes
 updated_at
 created_at<y:LabelModel>
               <y:ColumnNodeLabelModel offset="3.0"/>
@@ -1856,11 +1859,12 @@ created_at<y:LabelModel>
               <y:ColumnNodeLabelModelParameter id="column_0" inside="true" verticalPosition="0.0"/>
             </y:ModelParameter>
           </y:NodeLabel>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="106.908203125" modelName="custom" textColor="#000000" visible="true" width="59.34765625" x="229.94746093749995" y="33.0">uint
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="121.609375" modelName="custom" textColor="#000000" visible="true" width="59.34765625" x="229.94746093749995" y="33.0">uint
 uint
 varchar
 varchar
 varchar
+text
 timestamp
 timestamp<y:LabelModel>
               <y:ColumnNodeLabelModel offset="3.0"/>

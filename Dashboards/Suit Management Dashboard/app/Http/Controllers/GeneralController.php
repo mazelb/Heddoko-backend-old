@@ -31,7 +31,7 @@ class GeneralController extends Controller
         }
 
         return view('dashboard', [
-            'version' => '1.1.0',
+            'version' => '0.3',
             'accessToken' => Session::get('access-token'),
             'refreshToken' => Session::get('refresh-token'),
         ]);

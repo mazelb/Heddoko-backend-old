@@ -1,3 +1,10 @@
+/**
+ * Copyright Heddoko(TM) 2015, all rights reserved.
+ *
+ * TODO: Create separate controllers for each tab.
+ * TODO: Load tab contents only when required.
+ * TODO: Show loading dialog as long as we are fetching data.
+ */
 
 //
 var app = angular.module('suit-editor', ['auth', 'backend', 'selectize', 'angularUtils.directives.dirPagination'])
@@ -5,6 +12,10 @@ var app = angular.module('suit-editor', ['auth', 'backend', 'selectize', 'angula
 //
 .config(function ($httpProvider) {
     $httpProvider.interceptors.push('AuthenticationInterceptor');
+
+    // Testing cross-domain requests... delete if not required.
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
 //
@@ -15,11 +26,11 @@ app.constant('apiEndpoint', $('meta[name="api-endpoint"]').attr('content'))
 
 //
 app.controller('MainController',
-    function($scope, $location, Authenticator, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, ComplexEquipment) {
+    function($scope, $location, $timeout, Authenticator, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, ComplexEquipment) {
 
         // Check that we're authenticated with the API.
         if (!Authenticator.isAuthenticated()) {
-            return Authenticator.authenticate;
+            return Authenticator.authenticate();
         }
 
 
@@ -143,7 +154,7 @@ app.controller('MainController',
                     if (['string', 'number'].indexOf(typeof this.new_item[attribute]) != -1)
                     {
                         // Consider any empty string or default values to be invalid.
-                        if (this.new_item[attribute] == 0 || this.new_item[attribute] == '0' || this.new_item[attribute] == '')
+                        if (attribute != 'notes' && (this.new_item[attribute] == 0 || this.new_item[attribute] == '0' || this.new_item[attribute] == ''))
                         {
                             console.log(attribute);
                             bootbox.alert('Please fill out all details before adding a new '+ this.name);
@@ -285,6 +296,7 @@ app.controller('MainController',
             mac_address: '',
             serial_no: '',
             physical_location: '',
+            notes: '',
             status_id: 0
         });
 
@@ -431,7 +443,9 @@ app.controller('MainController',
             mac_address: '',
             serial_no: '',
             physical_location: '',
+            notes: '',
             equipment: [],
+            status_id: 0,
             current_equipment: null
         });
 
@@ -444,9 +458,20 @@ app.controller('MainController',
         };
 
         // Load the data for each tab.
-        for (type in $scope.data) {
-            $scope.data[type].updatePage(1, true);
-        }
+        // for (type in $scope.data) {
+        //     $scope.data[type].updatePage(1, true);
+        // }
+
+        // On Azure, we have a maximum # of simulaneous db connections (4). Thus, we load resources
+        // in batches...
+        $scope.data.suits.updatePage(1, true);
+        $scope.data.equipment.updatePage(1, true);
+        $scope.data.materials.updatePage(1, true);
+        $timeout(function() {
+            $scope.data.anatomical_positions.updatePage(1, true);
+            $scope.data.statuses.updatePage(1, true);
+            $scope.data.material_types.updatePage(1, true);
+        }, 4000);
     }
 );
 

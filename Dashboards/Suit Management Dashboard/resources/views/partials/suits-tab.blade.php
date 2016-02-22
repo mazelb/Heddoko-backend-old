@@ -32,6 +32,23 @@
                         </selectize>
                         <hr />
 
+                        {{-- Status --}}
+                        <select ng-model="data.suits.new_item.status_id" class="form-control">
+                            <option value="0">-- select a status --</option>
+                            <option ng-repeat="status in data.statuses.list" value="@{{status.id}}">
+                                @{{status.name}}
+                            </option>
+                        </select>
+                        <br>
+
+                        {{-- Serial Number --}}
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="data.suits.new_item.serial_no"
+                            placeholder="Serial #" />
+                        <br />
+
                         {{-- MAC Address --}}
                         <input
                             type="text"
@@ -46,6 +63,10 @@
                             class="form-control"
                             ng-model="data.suits.new_item.physical_location"
                             placeholder="Physical location" />
+                        <br>
+
+                        {{-- Notes --}}
+                        <textarea ng-model="data.suits.new_item.notes" class="form-control" placeholder="Notes"></textarea>
                     </div>
                 </div>
             </div>

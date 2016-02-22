@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Suits Editor v{{ $version }}</title>
+		<title>Heddoko Inventory v{{ $version }}</title>
         <meta name="api-endpoint" content="{{ config('services.heddoko.endpoint') }}">
         <meta name="api-id" content="{{ config('services.heddoko.id') }}">
         <meta name="api-access-token" content="{{ Session::get('access-token') }}">
@@ -22,7 +22,7 @@
     <body data-ng-app="suit-editor" data-ng-controller="MainController">
         <div class="container">
 			<div class="page-header">
-				<h1>Heddoko Suit Editor <small>V{{ $version }}</small></h1>
+				<h1>Heddoko Inventory <small>v{{ $version }}</small></h1>
 			</div>
 
 			{{-- Navigation tabs --}}
@@ -65,7 +65,7 @@
 
 		{{-- Loading dialog --}}
 		<div class="modal" id="loading-dialog" data-backdrop="static" data-keyboard="false">
-            <h1 style="position: relative; width: 200px; height: auto; margin: 0 auto; top: 50%; transform: translateY(-50%); color: white;">
+            <h1 style="position: absolute; width: 200px; height: auto; margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%); color: white;">
                 Working...
             </h1>
         </div>

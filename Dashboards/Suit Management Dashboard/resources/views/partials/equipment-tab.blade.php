@@ -16,7 +16,7 @@
 
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <select ng-model="data.equipment.new_item.material_id" class="form-control">
                     <option value="0">-- select a material --</option>
                     <option ng-repeat="material in data.materials.list" value="@{{material.id}}">
@@ -24,17 +24,45 @@
                     </option>
                 </select>
             </div>
+
+            <div class="col-sm-4">
+                <select ng-model="data.equipment.new_item.anatomical_position_id" class="form-control">
+                    <option value="0">-- select an anatomical position --</option>
+                    <option ng-repeat="position in data.anatomical_positions.list" value="@{{position.id}}">
+                        @{{position.name}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-sm-4">
+                <select ng-model="data.equipment.new_item.status_id" class="form-control">
+                    <option value="0">-- select a status --</option>
+                    <option ng-repeat="status in data.statuses.list" value="@{{status.id}}">
+                        @{{status.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
             <div class="col-sm-3">
                 <input type="text" ng-model="data.equipment.new_item.serial_no" class="form-control" placeholder="Serial #" />
             </div>
+
             <div class="col-sm-3">
+                <input type="text" ng-model="data.equipment.new_item.mac_address" class="form-control" placeholder="MAC Address" />
+            </div>
+
+            <div class="col-sm-6">
                 <input type="text" ng-model="data.equipment.new_item.physical_location" class="form-control" placeholder="Physical location" />
             </div>
-            <div class="col-sm-3">
-                <select ng-model="data.equipment.new_item.status_id" class="form-control">
-                    <option value="0">-- select a status --</option>
-                    <option ng-repeat="status in data.statuses.list" value="@{{status.id}}">@{{status.name}}</option>
-                </select>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <textarea ng-model="data.equipment.new_item.notes" class="form-control" placeholder="Notes"></textarea>
             </div>
         </div>
     </div>

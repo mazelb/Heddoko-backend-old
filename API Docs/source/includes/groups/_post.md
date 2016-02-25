@@ -47,14 +47,14 @@ $response = $client->post('/v1/groups', [
 
 `POST /v1/groups`
 
-### Embeds
-
-See [Groups &raquo; Embeds](#embeds-for-groups).
-
 ### Body parameters for new groups
 
 Parameter | Default | Description
 --------- | ------- | -----------
 name **required** | null | Name of group.
 mainTagId | null | ID of main tag.
-meta | null | Object representing extra metadata.
+meta | null | Object representing metadata.
+
+### Embeds
+
+See [Groups &raquo; Embeds](#embeds-for-groups).

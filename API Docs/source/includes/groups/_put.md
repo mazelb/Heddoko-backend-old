@@ -43,10 +43,10 @@ $response = $client->put('/v1/group/1', [
 
 `PUT /v1/groups/{id}`
 
-### Embeds
-
-See [Groups &raquo; Embeds](#embeds-for-groups).
-
 ### Body parameters for existing groups
 
 See [Folders &raquo; Body parameters for new groups](#body-parameters-for-new-groups).
+
+### Embeds
+
+See [Groups &raquo; Embeds](#embeds-for-groups).

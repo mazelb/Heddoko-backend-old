@@ -3,7 +3,6 @@
 ### Embeds for movement frames
 
 Parameter | Description
---------- | ------- | -----------
-rawData | Raw data
-jointData | Joint data
-bodyData | Body data
+--------- | -------
+rawData | Unformatted, raw data.
+instantaneousData | Angular position, velocity and acceleration data.

@@ -66,7 +66,7 @@ limit | 20 | Number of movements to retrieve (max 50).
 offset | 0 | Search offset.
 orderBy | "createdAt" | Ordering of results (one of `title`, `createdAt` or `updatedAt`).
 orderDir | "desc" | Direction of ordering (either `asc` or `desc`).
-query | null |
+query | null | Search query.
 
 ### Embeds
 

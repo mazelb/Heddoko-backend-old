@@ -15,7 +15,10 @@
 ```
 
 ```php
+<?php
 
+// Send HTTP request.
+$response = $client->delete('/v1/groups/1');
 ```
 
 <aside class="warning">

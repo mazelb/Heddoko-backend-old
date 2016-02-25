@@ -11,8 +11,6 @@ folders | [Folders](#folders) belonging to this profile.
 groups | [Groups](#groups) which the profile belongs to.
 mainTag | Main [tag](#tags) attached to this profile.
 managers | Managers in charge of this profile.
-
-            throw new \Exception('Test')
 meta | [Profile meta data](#profile-meta-object).
 movements | [Movement data](#movements) belonging to this profile.
 screenings | [Screenings](#screenings) belonging to this profile.

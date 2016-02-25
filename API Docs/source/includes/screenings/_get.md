@@ -1,10 +1,10 @@
-## Retrieve a movement
+## Retrieve a screening
 
 > Sample request
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "screenings/1?embed=movements");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/screenings/1?embed=movements");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("screenings/1?embed=movements");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/screenings/1?embed=movements");
 ```
 
 ```php
 <?php
 
-$response = $client->get('screenings/1?embed=movements');
+$response = $client->get('/v1/screenings/1?embed=movements');
 ```
 
 > Sample response
@@ -39,8 +39,10 @@ $response = $client->get('screenings/1?embed=movements');
     "profileId": 1,
     "title": "Sample Test",
     "score": 19,
+    "scoreMin": 0,
     "scoreMax": 21,
     "notes": null,
+    "meta": null,
     "createdAt": "2015-06-01 12:00:00",
     "updatedAt": "2015-06-01 12:00:00",
     "movements": [

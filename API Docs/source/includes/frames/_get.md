@@ -17,7 +17,7 @@
 ```php
 <?php
 
-$response = $client->get('movements/1/frames/1?embed=jointData');
+$response = $client->get('/v1/movements/1/frames/1?embed=jointData');
 ```
 
 > Sample response
@@ -26,8 +26,12 @@ $response = $client->get('movements/1/frames/1?embed=jointData');
 
 ```
 
+<aside class="warning">
+In Development.
+</aside>
+
 `GET /v1/movements/{movementId}/frames/{frameId}`
 
 ### Embeds
 
-See [Movement framess &raquo; Embeds](#embeds-for-movement-frames).
+See [Movement frames &raquo; Embeds](#embeds-for-movement-frames).

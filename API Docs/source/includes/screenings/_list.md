@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "screenings");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/screenings");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("screenings");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/screenings");
 ```
 
 ```php
 <?php
 
-$response = $client->get('api/v1/screenings');
+$response = $client->get('/v1/screenings');
 ```
 
 > Sample Response
@@ -44,9 +44,10 @@ $response = $client->get('api/v1/screenings');
             "profileId": 1,
             "title": "Sample Test",
             "score": 19,
-            "scoreMax": 21,
             "scoreMin": 0,
+            "scoreMax": 21,
             "notes": null,
+            "meta": null,
             "createdAt": "2015-06-01 12:00:00",
             "updatedAt": "2015-06-01 12:00:00"
         },
@@ -55,9 +56,10 @@ $response = $client->get('api/v1/screenings');
             "profileId": 1,
             "title": "Sample Test",
             "score": 14,
-            "scoreMax": 21,
             "scoreMin": 0,
+            "scoreMax": 21,
             "notes": null,
+            "meta": null,
             "createdAt": "2015-06-01 12:00:00",
             "updatedAt": "2015-06-01 12:00:00"
         },
@@ -68,10 +70,6 @@ $response = $client->get('api/v1/screenings');
 }
 ```
 
-<aside class="warning">
-In Development.
-</aside>
-
 `GET /v1/screenings`
 
 Queries the API for screenings against the specified search parameters.
@@ -81,11 +79,11 @@ Queries the API for screenings against the specified search parameters.
 Parameter | Default | Description
 --------- | ------- | -----------
 profileId | null | Narrows the screening to a those belonging to the specified profile.
-limit | 20 | Number of profiles to retrieve (max 50).
+limit | 20 | Number of movements to retrieve (max 20).
 offset | 0 | Search offset.
-orderBy | "createdAt" |
-orderDir | "desc" |
-query | " " |
+orderBy | "createdAt" | Ordering of results (one of `title`, `createdAt` or `updatedAt`).
+orderDir | "desc" | Direction of ordering (either `asc` or `desc`).
+query | null | Search query.
 
 ### Embeds
 

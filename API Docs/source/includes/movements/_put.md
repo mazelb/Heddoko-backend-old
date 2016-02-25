@@ -21,20 +21,18 @@
 > Sample response
 
 ```json
+{
 
+}
 ```
-
-<aside class="warning">
-In Development.
-</aside>
 
 `PUT /v1/movements/{id}`
 
 Updates a movement.
 
-### Body Parameters
+### Body parameters for existing movements
 
-See [Create a movement](#create-a-movement).
+See [Folders &raquo; Body parameters for new movements](#body-parameters-for-new-movements).
 
 ### Embeds
 

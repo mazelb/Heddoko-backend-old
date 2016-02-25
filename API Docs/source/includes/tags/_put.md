@@ -35,3 +35,9 @@ $response = $client->put('/v1/tags/1', [
 ```
 
 `PUT /v1/tags/{id}`
+
+Updates a tag.
+
+### Body parameters for existing tags
+
+See [Tags &raquo; Body parameters for new tags](#body-parameters-for-new-tags).

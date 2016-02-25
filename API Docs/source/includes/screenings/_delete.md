@@ -18,12 +18,8 @@
 <?php
 
 // Send HTTP request.
-$response = $client->delete('/v1/groups/1');
+$response = $client->delete('/v1/screenings/1');
 ```
-
-<aside class="warning">
-In Development.
-</aside>
 
 `DELETE /v1/screening/{id}`
 

@@ -35,3 +35,9 @@ $response = $client->post('/v1/tags', [
 ```
 
 `POST /v1/tags`
+
+### Body parameters for new tags
+
+Parameter | Default | Description
+--------- | ------- | -----------
+title **(required)** | null | Title for tag.

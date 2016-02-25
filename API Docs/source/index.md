@@ -74,7 +74,12 @@ includes:
   - screenings/put
   - screenings/delete
 
-  - tags
+  - tags/intro
+  - tags/list
+  - tags/get
+  - tags/post
+  - tags/put
+  - tags/delete
 
   - users/intro
   - users/get

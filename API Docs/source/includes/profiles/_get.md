@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "profiles/1?embed=groups,managers");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/profiles/1?embed=groups,managers");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("profiles/1");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/profiles/1");
 ```
 
 ```php
 <?php
 
-$response = $client->get('profiles/1?embed=groups,managers');
+$response = $client->get('/v1/profiles/1?embed=groups,managers');
 ```
 
 > Sample response

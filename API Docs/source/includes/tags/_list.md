@@ -34,9 +34,26 @@ $response = $client->get('/v1/tags');
 > Sample Response
 
 ```json
-{
-
-}
+[
+    {
+        "id": 1,
+        "title": "Sample Tag"
+    },
+    {
+        "id": 2,
+        "title": "Another Tag"
+    },
+    {...},
+]
 ```
 
 `GET /v1/tags`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+limit | 20 | Number of tags to retrieve (max 100).
+offset | 0 | Search offset.
+orderDir | "asc" | Direction of ordering (either `asc` or `desc`).
+query | null | Search query.

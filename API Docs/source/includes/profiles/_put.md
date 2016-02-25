@@ -17,12 +17,12 @@ var vProfile = new Profile()
     notes = "Not available on Mondays."
 };
 
-HttpResponseMessage vResponse = await vClient.PutAsJsonAsync("profiles/1", vProfile);
+HttpResponseMessage vResponse = await vClient.PutAsJsonAsync("/v1/profiles/1", vProfile);
 ```
 
 ```php
 // Send HTTP request.
-$response = $client->put('profiles/1', [
+$response = $client->put('/v1/profiles/1', [
     'json' => [
         'mass' => 52,
         'notes' => 'Not available on Mondays.',

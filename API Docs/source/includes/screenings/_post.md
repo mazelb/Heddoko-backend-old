@@ -42,7 +42,7 @@ $response = $client->post('/v1/screenings', [
 
 `POST /v1/screenings`
 
-### Body parameters for new screening
+### Body parameters for new screenings
 
 Parameter | Default | Description
 --------- | ------- | -----------

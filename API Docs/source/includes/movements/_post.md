@@ -24,18 +24,15 @@
 
 ```
 
-<aside class="warning">
-In Development.
-</aside>
-
 `POST /v1/movements`
 
-### Body parameters
+### Body parameters for new movements
 
 Parameter | Default | Description
 --------- | ------- | -----------
 file **(required)** | null | Data file.
 title | null | Title for movement.
+submittedBy | null | ID of user submitting the movement.
 
 ### Embeds
 

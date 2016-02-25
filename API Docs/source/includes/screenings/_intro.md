@@ -4,5 +4,5 @@
 
 Parameter | Description
 --------- | ------- | -----------
-movements | Movements making up this screening test
-profile | Profile this screening belongs to
+movements | [Movements](#movements) making up this screening test
+profile | [Profile](#profiles) this screening belongs to

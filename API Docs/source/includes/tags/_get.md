@@ -35,7 +35,8 @@ $response = $client->get('/v1/tags/1');
 
 ```json
 {
-
+    "id": 1,
+    "title": "Sample Tag"
 }
 ```
 

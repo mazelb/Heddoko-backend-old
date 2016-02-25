@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpPost vMethod = new HttpPost(mApiEndpoint + "v1/profiles");
+HttpPost vMethod = new HttpPost(mApiEndpoint + "/v1/profiles");
 
 // Build request body.
 List <NameValuePair> vProfileMeta = new ArrayList <NameValuePair>();
@@ -76,14 +76,14 @@ var vProfile = new Profile()
 };
 
 // Send HTTP request.
-HttpResponseMessage vResponse = await vClient.PostAsJsonAsync("profiles", vProfile);
+HttpResponseMessage vResponse = await vClient.PostAsJsonAsync("/v1/profiles", vProfile);
 ```
 
 ```php
 <?php
 
 // Send HTTP request.
-$response = $client->post('v1/profiles', [
+$response = $client->post('/v1/profiles', [
     'json' => [
         'firstName' => 'Jane',
         'lastName' => 'Doe',

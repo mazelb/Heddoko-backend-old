@@ -15,7 +15,10 @@
 ```
 
 ```php
+<?php
 
+// Send HTTP request.
+$response = $client->delete('/v1/movements/1');
 ```
 
 `DELETE /v1/movements/{id}`

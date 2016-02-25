@@ -1,4 +1,4 @@
-## List folders
+## List tags
 
 > Sample request
 

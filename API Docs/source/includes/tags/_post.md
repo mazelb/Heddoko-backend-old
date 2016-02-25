@@ -1,4 +1,4 @@
-## Create a folder
+## Create a tag
 
 > Sample request
 
@@ -18,9 +18,9 @@
 <?php
 
 // Send HTTP request.
-$response = $client->post('/v1/profiles/1/folders', [
+$response = $client->post('/v1/tags', [
     'json' => [
-        'name' => 'New Folder',
+        'title' => 'New Tag',
     ]
 ]);
 ```
@@ -29,24 +29,9 @@ $response = $client->post('/v1/profiles/1/folders', [
 
 ```json
 {
-    "id": 2,
-    "profileId": 1,
-    "name": "New Folder",
-    "systemName": "",
-    "path": "/",
-    "parentId": null
+    "id": 1,
+    "title": "New Tag"
 }
 ```
 
-`POST /v1/profiles/{profileId}/folders`
-
-### Embeds
-
-See [Folders &raquo; Embeds](#embeds-for-folders).
-
-### Body parameters for new folders
-
-Parameter | Default | Description
---------- | ------- | -----------
-name **required** | null | Name of folder.
-folderId | null | ID of parent folder.
+`POST /v1/tags`

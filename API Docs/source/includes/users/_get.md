@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "v1/users/1");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/users/1");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("v1/users/1");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/users/1");
 ```
 
 ```php
 <?php
 
-$response = $client->get('v1/users/1');
+$response = $client->get('/v1/users/1');
 ```
 
 > Sample response

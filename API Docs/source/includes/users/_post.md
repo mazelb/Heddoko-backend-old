@@ -18,7 +18,7 @@
 <?php
 
 // Send HTTP request.
-$response = $client->post('v1/users', [
+$response = $client->post('/v1/users', [
     'headers' => [
         'Authorization' => 'Bearer ACCESS_TOKEN'
     ],

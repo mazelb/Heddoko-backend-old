@@ -1,4 +1,4 @@
-## Delete a folder
+## Delete a tag
 
 > Sample request
 
@@ -18,15 +18,11 @@
 <?php
 
 // Send HTTP request.
-$response = $client->delete('/v1/profiles/1/folders/1,2');
+$response = $client->delete('/v1/tags/1');
 ```
 
-<aside class="info">
-There are no embeds for this request.
-</aside>
-
-`DELETE /v1/profiles/{profileId}/folders/{id}`
+`DELETE /v1/tags/{id}`
 
 or
 
-`DELETE /v1/profiles/{profileId}/folders/{id1},{id2},{id3}...`
+`DELETE /v1/tags/{id1},{id2},{id3}...`

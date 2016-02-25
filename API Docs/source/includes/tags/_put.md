@@ -1,4 +1,4 @@
-## Update a folder
+## Update a tag
 
 > Sample request
 
@@ -18,10 +18,9 @@
 <?php
 
 // Send HTTP request.
-$response = $client->put('/v1/profiles/1/folders/2', [
+$response = $client->put('/v1/tags/1', [
     'json' => [
-        'name' => 'Folder with new name',
-        'parentId' => 1
+        'title' => 'New Tag Title'
     ]
 ]);
 ```
@@ -30,21 +29,9 @@ $response = $client->put('/v1/profiles/1/folders/2', [
 
 ```json
 {
-    "id": 2,
-    "profileId": 1,
-    "name": "Folder with new name",
-    "systemName": "",
-    "path": "/",
-    "parentId": 1
+    "id": 1,
+    "title": "New Tag Title"
 }
 ```
 
-`PUT /v1/profiles/{profileId}/folders/{id}`
-
-### Embeds
-
-See [Folders &raquo; Embeds](#embeds-for-folders).
-
-### Body parameters for existing folders
-
-See [Folders &raquo; Body parameters for new folders](#body-parameters-for-new-folders).
+`PUT /v1/tags/{id}`

@@ -15,8 +15,6 @@
 ```
 
 ```php
-<?php
-
 // ...
 ```
 
@@ -27,3 +25,5 @@
 ```
 
 `POST /v1/groups/{id}/avatar`
+
+Creates or updates a group's avatar.

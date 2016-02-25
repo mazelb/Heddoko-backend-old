@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "movements/1?embed=meta,tags");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/movements/1?embed=meta,tags");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("movements/1?embed=meta,tags");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/movements/1?embed=meta,tags");
 ```
 
 ```php
 <?php
 
-$response = $client->get('movements/1?embed=meta,tags');
+$response = $client->get('/v1/movements/1?embed=meta,tags');
 ```
 
 > Sample response

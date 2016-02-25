@@ -11,11 +11,13 @@
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.DeleteAsync("profiles/1/avatar");
+HttpResponseMessage vResponse = await vClient.DeleteAsync("/v1/profiles/1/avatar");
 ```
 
 ```php
-$response = $client->delete('profiles/1/avatar');
+<?php
+
+$response = $client->delete('/v1/profiles/1/avatar');
 ```
 
 `DELETE /v1/profiles/{id}/avatar`

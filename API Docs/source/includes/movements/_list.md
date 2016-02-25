@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "movements?embed=meta,markers");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/movements?embed=meta,markers");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,13 +22,13 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("movements?embed=meta,markers");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/movements?embed=meta,markers");
 ```
 
 ```php
 <?php
 
-$response = $client->get('api/v1/movements?embed=meta,markers');
+$response = $client->get('/v1/movements?embed=meta,markers');
 ```
 
 > Sample Response
@@ -64,8 +64,8 @@ Parameter | Default | Description
 --------- | ------- | -----------
 limit | 20 | Number of movements to retrieve (max 50).
 offset | 0 | Search offset.
-orderBy | "createdAt" |
-orderDir | "desc" |
+orderBy | "createdAt" | Ordering of results (one of `title`, `createdAt` or `updatedAt`).
+orderDir | "desc" | Direction of ordering (either `asc` or `desc`).
 query | null |
 
 ### Embeds

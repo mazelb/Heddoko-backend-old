@@ -1,10 +1,10 @@
-## List movements
+## List folders
 
 > Sample request
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "movements");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/profiles/1/folders?embed=parent,children");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,37 +22,28 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("movements");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/profiles/1/folders?embed=parent,children");
 ```
 
 ```php
 <?php
 
-$response = $client->get('api/v1/movements');
+$response = $client->get('/v1/profiles/1/folders?embed=parent,children');
 ```
 
 > Sample Response
 
 ```json
 {
-    "parent": {
-
-    },
+    "parent": {...},
     "folders": [
-
-    ],
-    "movements": [
         {
-            "id": ​1,
-            "profileId": ​1,
-            "submittedBy": ​1,
-            "screeningId": null,
-            "folderId": null,
-            "title": "Sample Movement",
-            "score": null,
-            "scoreMax": null,
-            "createdAt": "2016-01-01 11:30:00",
-            "updatedAt": "2016-01-01 11:30:00"
+            "id": 1,
+            "profileId": 1,
+            "name": "Sample Folder",
+            "systemName": "",
+            "path": "/",
+            "parentId": null
         },
         {...}
     ]

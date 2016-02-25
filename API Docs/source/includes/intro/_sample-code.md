@@ -25,7 +25,7 @@ import org.apache.http.util.EntityUtils;
 
 public class SampleClient {
 
-    public String mApiEndpoint = "https://dashboard.heddoko.com";
+    public String mApiEndpoint = "https://dashboard.heddoko.com/api";
 
     public static void main(String[] args) throws Exception {
 
@@ -67,7 +67,7 @@ namespace SampleClient
 {
     class Program
     {
-        public string mApiEndpoint = "https://dashboard.heddoko.com";
+        public string mApiEndpoint = "https://dashboard.heddoko.com/api";
 
         static void Main()
         {

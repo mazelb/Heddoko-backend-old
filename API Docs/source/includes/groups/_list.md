@@ -4,7 +4,7 @@
 
 ```java
 // Create GET method handler.
-HttpGet vMethod = new HttpGet(mApiEndpoint + "groups");
+HttpGet vMethod = new HttpGet(mApiEndpoint + "/v1/groups");
 
 // Send HTTP request.
 CloseableHttpResponse vResponse = vClient.execute(vMethod);
@@ -22,18 +22,31 @@ finally {
 ```
 
 ```csharp
-HttpResponseMessage vResponse = await vClient.GetAsync("groups");
+HttpResponseMessage vResponse = await vClient.GetAsync("/v1/groups");
 ```
 
 ```php
 <?php
 
-$response = $client->get('api/v1/groups');
+$response = $client->get('/v1/groups');
 ```
 
-<aside class="success">
-Has embeddable properties.
-</aside>
+> Sample response
+
+```json
+[
+    {
+        "id": 1,
+        "mainTagId": null,
+        "name": "Sample Group",
+        "meta": null,
+        "createdAt": "2015-06-01 12:00:00",
+        "updatedAt": "2015-06-01 12:00:00"
+    },
+    {...},
+    {...}
+]
+```
 
 `GET /v1/groups`
 
@@ -49,4 +62,4 @@ query | " " |
 
 ### Embeds
 
-See [Groups &raquo; Retrieve a group](#retrieve-a-group).
+See [Groups &raquo; Embeds for groups](#embeds-for-groups).

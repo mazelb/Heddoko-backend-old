@@ -17,18 +17,31 @@
 ```php
 <?php
 
-$response = $client->get('/v1/movements/1/frames');
+$response = $client->get('/v1/movements/1/frames?embed=instantaneousData');
 ```
 
 > Sample Response
 
 ```json
-
+{
+    "total": 986,
+    "offset": 0,
+    "limit": null,
+    "frames": [
+        {
+            "formatRevision": 1,
+            "timestamp": "1456502855",
+            "instantaneousData": {
+                "euler": {...},
+                "angularVelocity": {...},
+                "...": {...},
+                "...": {...},
+            }
+        },
+        {...}
+    ]
+}
 ```
-
-<aside class="warning">
-In Development.
-</aside>
 
 `GET /v1/movements/{movementId}/frames`
 
@@ -36,10 +49,9 @@ In Development.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-limit | 20 | Number of movement frames to retrieve.
+limit | null | Number of movement frames to retrieve.
 offset | 0 | Search offset.
-orderDir | "desc" | Direction of ordering (either `asc` or `desc`).
-query | null | Search query.
+orderDir | "asc" | Direction of ordering (either `asc` or `desc`).
 
 ### Embeds
 

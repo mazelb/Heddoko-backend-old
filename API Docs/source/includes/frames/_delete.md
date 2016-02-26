@@ -17,18 +17,9 @@
 ```php
 <?php
 
-// ...
+// Send HTTP request.
+$response = $client->delete('/v1/movements/1/frames/1,2,3');
 ```
-
-> Sample response
-
-```json
-
-```
-
-<aside class="warning">
-In Development.
-</aside>
 
 <aside class="info">
 There are no embeds for this request.

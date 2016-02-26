@@ -32,6 +32,10 @@ In Development.
 
 `PUT /v1/movements/{movementId}/frames/{frameId}`
 
+### Body parameters for existing movement frames
+
+See [Movement frames &raquo; Body parameters for new movement frames](#body-parameters-for-new-movement-frames).
+
 ### Embeds
 
 See [Movement frames &raquo; Embeds](#embeds-for-movement-frames).

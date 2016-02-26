@@ -32,7 +32,7 @@ Updates a movement.
 
 ### Body parameters for existing movements
 
-See [Folders &raquo; Body parameters for new movements](#body-parameters-for-new-movements).
+See [Movements &raquo; Body parameters for new movements](#body-parameters-for-new-movements).
 
 ### Embeds
 

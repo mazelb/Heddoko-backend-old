@@ -28,22 +28,6 @@ includes:
   - authentication/refresh-token
   - authentication/scopes
 
-  - folders/intro
-  - folders/list
-  - folders/get
-  - folders/post
-  - folders/put
-  - folders/delete
-
-  - groups/intro
-  - groups/list
-  - groups/get
-  - groups/post
-  - groups/put
-  - groups/avatar/post
-  - groups/delete
-  - groups/avatar/delete
-
   - movements/intro
   - movements/list
   - movements/get
@@ -58,6 +42,13 @@ includes:
   - frames/put
   - frames/delete
 
+  - screenings/intro
+  - screenings/list
+  - screenings/get
+  - screenings/post
+  - screenings/put
+  - screenings/delete
+
   - profiles/intro
   - profiles/list
   - profiles/get
@@ -67,12 +58,21 @@ includes:
   - profiles/delete
   - profiles/avatar/delete
 
-  - screenings/intro
-  - screenings/list
-  - screenings/get
-  - screenings/post
-  - screenings/put
-  - screenings/delete
+  - groups/intro
+  - groups/list
+  - groups/get
+  - groups/post
+  - groups/put
+  - groups/avatar/post
+  - groups/delete
+  - groups/avatar/delete
+
+  - folders/intro
+  - folders/list
+  - folders/get
+  - folders/post
+  - folders/put
+  - folders/delete
 
   - tags/intro
   - tags/list

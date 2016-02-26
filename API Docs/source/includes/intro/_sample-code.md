@@ -114,6 +114,6 @@ $client = new Client([
 
 Throughout the documentation, sample code is provided in the right sidebar in order to demonstrate some aspects of the API. All endpoints are relative to the API root `https://dashboard.heddoko.com/api/` unless otherwise specified.
 
-<aside class="warning">
+<aside class="info">
 Sample code is only provided as a guideline. You'll most likely have to adapt it to your own application.
 </aside>

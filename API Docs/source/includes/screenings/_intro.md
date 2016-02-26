@@ -1,5 +1,7 @@
 # Screenings
 
+Screenings are typically a series of tests (or movements) that, taken together, can give some information about the condition of a user.
+
 ### Embeds for screenings
 
 Parameter | Description

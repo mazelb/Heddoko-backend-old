@@ -55,7 +55,7 @@ class FolderController extends Controller
         // Validate incoming data.
         $this->validate($this->request, [
             'name' => 'required|string|min:1|max:255',
-            'folderId' => 'int|exists:folders,id',
+            'parentId' => 'int|exists:folders,id',
         ]);
 
         // Create new folder.
@@ -87,17 +87,17 @@ class FolderController extends Controller
         {
             $folder = [];
 
-            if (array_search('parent', $embed['relations']))
+            if (in_array('parent', $embed['relations']))
             {
                 $folder['parent'] = null;
             }
 
-            if (array_search('children', $embed['relations']))
+            if (in_array('children', $embed['relations']))
             {
                 $folder['children'] = $profile->folders()->whereNull('parent_id')->get();
             }
 
-            if (array_search('movements', $embed['relations']))
+            if (in_array('movements', $embed['relations']))
             {
                 $folder['movements'] = $profile->movements()
                                         ->whereNull('folder_id')
@@ -139,7 +139,7 @@ class FolderController extends Controller
         // Validate incoming data.
         $this->validate($this->request, [
             'name' => 'string|min:1|max:255',
-            'folderId' => 'int|exists:folders,id',
+            'parentId' => 'int|exists:folders,id',
         ]);
 
         // Save folder data.
@@ -160,9 +160,9 @@ class FolderController extends Controller
         }
 
         // Set parent folder.
-        if ($this->request->has('folderId'))
+        if ($this->request->has('parentId'))
         {
-            $folder->folderId = $this->request->input('folderId');
+            $folder->parentId = $this->request->input('parentId');
         }
 
         // Set profile.
@@ -211,7 +211,7 @@ class FolderController extends Controller
         $deleted = false;
         if (strpos($folderId, ',') !== false)
         {
-            $folders = $builder->whereIn('id', explode(',', $folderId))->lists('id')->toArray();
+            $folders = $builder->whereIn('id', explode(',', $folderId))->pluck('id')->toArray();
 
             if (count($folders)) {
                 $deleted = Folder::destroy($folders);
@@ -224,6 +224,11 @@ class FolderController extends Controller
             $deleted = Folder::destroy($folderId);
         }
 
-        return $deleted ? response('', 200) : response('', 500);
+        // Folder doesn't exist.
+        else {
+            return response('', 204);
+        }
+
+        return $deleted ? response('', 204) : response('', 500);
     }
 }

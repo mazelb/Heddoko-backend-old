@@ -96,6 +96,30 @@ app.config(['$routeProvider', 'isLocalEnvironment',
 		})
 
         //
+        // Movement routes.
+        //
+        .when('/movements/analyze/:movementId', {
+			templateUrl: 'movements/analysis/index.html',
+            controller: 'AnalysisController'
+		})
+        .when('/movements/analyze/demo', {
+			templateUrl: 'movements/analysis-demo/index.html',
+            controller: 'DemoAnalysisController'
+		})
+        .when('/movements/compare', {
+			templateUrl: 'movements/comparison/index.html',
+            controller: 'TestController'
+		})
+        .when('/movements/upload', {
+			templateUrl: 'import/index.html',
+            controller: 'ImportController'
+		})
+        .when('/movements/:rootId?/:folderId?/:path?', {
+			templateUrl: 'movements/explorer/index.html',
+            controller: 'MovementController'
+		})
+
+        //
         // Profile routes.
         //
         .when('/profiles', {
@@ -116,30 +140,6 @@ app.config(['$routeProvider', 'isLocalEnvironment',
         .when('/profiles/:profileId', {
 			templateUrl: 'profile/view.html',
             controller: 'ProfileController'
-		})
-
-        //
-        // Data routes.
-        //
-        .when('/movements/analyze', {
-			templateUrl: 'movements/analysis/index.html',
-            controller: 'AnalysisController'
-		})
-        .when('/movements/analyze/demo', {
-			templateUrl: 'movements/analysis-demo/index.html',
-            controller: 'DemoAnalysisController'
-		})
-        .when('/movements/compare', {
-			templateUrl: 'movements/comparison/index.html',
-            controller: 'TestController'
-		})
-        .when('/movements/upload', {
-			templateUrl: 'import/index.html',
-            controller: 'ImportController'
-		})
-        .when('/movements/:rootId?/:folderId?/:path?', {
-			templateUrl: 'movements/explorer/index.html',
-            controller: 'MovementController'
 		})
 
         //

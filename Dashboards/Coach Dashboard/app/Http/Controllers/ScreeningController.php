@@ -61,10 +61,12 @@ class ScreeningController extends Controller
 
         // Retrieve other search parameters. We\ll also make sure we have positive values
         // for "limit" and "offset".
-        $limit = max(0, min(50, $this->request->input('limit', static::SEARCH_LIMIT)));
+        $limit = max(0, min(static::SEARCH_LIMIT, $this->request->input('limit', 20)));
         $offset = max(0, $this->request->input('offset', 0));
-        $orderBy = snake_case($this->request->input('orderBy', 'createdAt'));
-        $orderDir = $this->request->input('orderDir', 'desc');
+        $orderBy = snake_case($this->request->get('orderBy', 'createdAt'));
+        $orderBy = in_array($orderBy, ['title', 'created_at', 'updated_at']) ? $orderBy : 'created_at';
+        $orderDir = $this->request->get('orderDir', 'desc');
+        $orderDir = in_array($orderDir, ['asc', 'desc']) ? $orderDir : 'desc';
 
         // Add search query.
         // TODO...
@@ -95,6 +97,16 @@ class ScreeningController extends Controller
             return response('Profile Not Found.', 400);
         }
 
+        // Validate incoming data.
+        $this->validate($this->request, [
+            'title' => 'string|min:1|max:255',
+            'score'  => 'int|between:-100,100',
+            'scoreMin'  => 'int|between:-100,100',
+            'scoreMax'  => 'int|between:-100,100',
+            'notes'  => 'string',
+            'meta'  => '',
+        ]);
+
         // Retrieve screening details.
         $details = $this->request->only([
             'title',
@@ -104,7 +116,7 @@ class ScreeningController extends Controller
             'notes'
         ]);
         if (strlen(trim($details['title'])) < 1) {
-            $details['title'] = 'Functional Movement Screening - '. date('M j, Y');
+            $details['title'] = 'Functional Movement Test - '. date('M j, Y');
         }
 
         // Add some defaults.
@@ -208,9 +220,44 @@ class ScreeningController extends Controller
      */
     public function update($id)
     {
-        //
+        // Performance check.
+        if (!$screening = Screening::whereIn('profile_id', Auth::user()->getProfileIDs())->find($id)) {
+            return response('Screening Not Found.', 400);
+        }
 
-        return response('Not Implemented.', 501);
+        // Validate incoming data.
+        $this->validate($this->request, [
+            'title' => 'string|min:1|max:255',
+            'score'  => 'int|between:-100,100',
+            'scoreMin'  => 'int|between:-100,100',
+            'scoreMax'  => 'int|between:-100,100',
+            'notes'  => 'string|max:65,535',
+            'meta'  => 'json',
+            'movement.title' => '',
+        ]);
+
+        // Update primary screening details.
+        foreach (['title', 'score', 'scoreMin', 'scoreMax', 'notes'] as $attribute) {
+            if ($this->request->has($attribute)) {
+                $screening->$attribute = $this->request->input($attribute);
+            }
+        }
+
+        // Save screening.
+        if (!$screening->save()) {
+            return response('Could not save screening data.', 500);
+        }
+
+        // Retrieve list of relations and attributes to append to results.
+        $embed = $this->getEmbedArrays(
+            $this->request->get('embed'),
+            Screening::$appendable
+        );
+
+        // Return updated model.
+        $updated = Screening::with($embed['relations'])->find($screening->id);
+
+        return $updated;
     }
 
     /**
@@ -221,8 +268,31 @@ class ScreeningController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Make sure that only screenings accessible by the authenticated user can be deleted.
+        $builder = Screening::whereIn('profile_id', Auth::user()->getProfileIDs());
 
-        return response('Not Implemented.', 501);
+        // Delete an array of screenings.
+        $deleted = false;
+        if (strpos($id, ',') !== false)
+        {
+            $screenings = $builder->whereIn('id', explode(',', $id))->pluck('id')->toArray();
+
+            if (count($screenings)) {
+                $deleted = Screening::destroy($screenings);
+            }
+        }
+
+        // Delete a single screening.
+        elseif ($builder->exists($id))
+        {
+            $deleted = Screening::destroy($id);
+        }
+
+        // Screening doesn't exist.
+        else {
+            return response('', 204);
+        }
+
+        return $deleted ? response('', 204) : response('', 500);
     }
 }

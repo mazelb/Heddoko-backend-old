@@ -97,17 +97,13 @@ class ProfileController extends Controller
         $this->validate($this->request, [
             'firstName' => 'required|string|min:1|max:255',
             'lastName'  => 'string|max:255',
-            'tagId'     => 'int|exists:tags,id',
+            'mainTagId' => 'int|exists:tags,id',
             'meta.height' => '',
             'meta.mass' => '',
             'meta.dob' => 'date_format:Y-m-d H:i:s',
             'meta.gender' => 'string|in:female,male,',
             'meta.phone' => 'string',
             'meta.email' => 'string',
-            'meta.medicalHistory' => 'string|max:65,535',
-            'meta.injuries' => 'string|max:65,535',
-            'meta.notes' => 'string|max:65,535',
-            'meta.params' => 'json',
         ]);
 
         // Create new profile.
@@ -155,17 +151,13 @@ class ProfileController extends Controller
         $this->validate($this->request, [
             'firstName' => 'string|min:1|max:255',  // Not required when updating.
             'lastName'  => 'string|max:255',
-            'tagId'     => 'int|exists:tags,id',
+            'mainTagId' => 'int|exists:tags,id',
             'meta.height' => '',
             'meta.mass' => '',
             'meta.dob' => 'date_format:Y-m-d H:i:s',
             'meta.gender' => 'string|in:female,male,',
             'meta.phone' => 'string',
             'meta.email' => 'string',
-            'meta.medicalHistory' => 'string|max:65,535',
-            'meta.injuries' => 'string|max:65,535',
-            'meta.notes' => 'string|max:65,535',
-            'meta.params' => 'json',
         ]);
 
         // Save profile.
@@ -180,7 +172,7 @@ class ProfileController extends Controller
     private function saveProfileData(Profile $profile)
     {
         // Update primary profile details.
-        foreach (['firstName', 'lastName', 'tagId'] as $attribute) {
+        foreach (['firstName', 'lastName', 'mainTagId'] as $attribute) {
             if ($this->request->has($attribute)) {
                 $profile->$attribute = $this->request->input($attribute);
             }
@@ -210,10 +202,7 @@ class ProfileController extends Controller
                 'gender',
                 'phone',
                 'email',
-                'medicalHistory',
-                'injuries',
-                'notes',
-                'meta'
+                'data',
             ];
 
             // Create meta data.
@@ -255,24 +244,13 @@ class ProfileController extends Controller
             $profile->managers()->attach(Auth::id());
         }
 
-        // Attach secondary tags.
-        if ($this->request->has('secondaryTags'))
+        // Attach or create secondary tags.
+        if ($this->request->has('tags') || $this->request->has('tagIds'))
         {
-            $profile->secondaryTags()->sync((array) $this->request->input('secondaryTags'));
-        }
-
-        // Create new secondary tags.
-        if ($this->request->has('secondaryTagTitles'))
-        {
-            $secondaryTags = [];
-            $titles = (array) $this->request->input('secondaryTagTitles');
-            foreach ($titles as $title)
-            {
-                $tag = Tag::firstOrCreate(['title' => $title]);
-                $secondaryTags[] = $tag->id;
-            }
-
-            $profile->secondaryTags()->attach($secondaryTags);
+            $profile->saveTags(
+                $this->request->input('tags', []),
+                $this->request->input('tagIds', [])
+            );
         }
 
         // Retrieve list of relations and attributes to append to results.
@@ -320,7 +298,7 @@ class ProfileController extends Controller
         }
 
         // Delete profile and associated groups/movements/screenings/tags.
-        return $profile->delete() ? response('', 200) : response('', 500);
+        return $profile->delete() ? response('', 204) : response('', 500);
     }
 
     /**

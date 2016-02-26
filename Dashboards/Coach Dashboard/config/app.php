@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'version' => '0.8.0',
+    'version' => '0.8.11',
 
     /*
     |--------------------------------------------------------------------------
@@ -163,7 +163,6 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppAuthenticationProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,

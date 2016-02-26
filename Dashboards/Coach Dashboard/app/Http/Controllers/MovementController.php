@@ -11,14 +11,19 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 
+use Illuminate\Http\Request;
+
 use App\Http\Requests;
 use App\Models\Profile;
 use App\Models\Movement;
-use Illuminate\Http\Request;
+use App\Models\Screening;
+use App\Models\MovementMeta;
 use App\Http\Controllers\Controller;
 
 class MovementController extends Controller
 {
+    CONST SEARCH_LIMIT = 50;
+
     /**
      * @param \Illuminate\Http\Request $request
      */
@@ -52,12 +57,13 @@ class MovementController extends Controller
             $builder = Movement::whereIn('profile_id', Auth::user()->getProfileIDs());
         }
 
-        // ...
-
-        $offset = 0;
-        $limit = 20;
-        $orderBy = 'created_at';
-        $orderDir = 'desc';
+        // Search parameters.
+        $limit = max(0, min(static::SEARCH_LIMIT, $this->request->input('limit', 20)));
+        $offset = max(0, $this->request->input('offset', 0));
+        $orderBy = snake_case($this->request->get('orderBy', 'createdAt'));
+        $orderBy = in_array($orderBy, ['title', 'created_at', 'updated_at']) ? $orderBy : 'created_at';
+        $orderDir = $this->request->get('orderDir', 'desc');
+        $orderDir = in_array($orderDir, ['asc', 'desc']) ? $orderDir : 'desc';
 
         $builder->orderBy($orderBy, $orderDir)->skip($offset)->take($limit);
 
@@ -132,7 +138,14 @@ class MovementController extends Controller
             return response('Movement Not Found.', 404);
         }
 
-        // There are no movement attributes to append. Keep going...
+        // Append attributes.
+        if (count($embed['attributes']))
+        {
+            foreach ($embed['attributes'] as $accessor)
+            {
+                $movement->setAttribute($accessor, $movement->$accessor);
+            }
+        }
 
         return $movement;
     }
@@ -145,7 +158,111 @@ class MovementController extends Controller
      */
     public function update($id)
     {
-        abort(501);
+        // Performance check.
+        if (!$movement = Movement::whereIn('profile_id', Auth::user()->getProfileIDs())->find($id)) {
+            return response('Movement Not Found.', 404);
+        }
+
+        // Main details.
+        if ($this->request->has('title')) {
+            $movement->title = $this->request->input('title');
+        }
+
+        $movement->save();
+
+        // Save movement meta.
+        if ($this->request->has('meta'))
+        {
+            // Retrieve meta object.
+            $newMetaData = (array) $this->request->input('meta');
+            $metaAttributes = [
+                'startFrame',
+                'endFrame',
+                'score',
+                'scoreMin',
+                'scoreMax',
+                'notes',
+                'data',
+            ];
+
+            // Create meta data.
+            if (!$movement->meta)
+            {
+                $movement->meta()->create(array_only($newMetaData, $metaAttributes));
+            }
+
+            // Update meta data.
+            else
+            {
+                $metaData = MovementMeta::find($movement->meta->id);
+
+                foreach ($metaAttributes as $attribute) {
+                    if (array_has($newMetaData, $attribute)) {
+                        $metaData->$attribute = $newMetaData[$attribute];
+                    }
+                }
+
+                $metaData->save();
+            }
+
+            // If a score was updated, and the movement belongs to a screening, we'll update the
+            // screening score as well.
+            if (array_has($newMetaData, 'score') && $movement->screeningId > 0
+                && $screening = Screening::with('movements.meta')->find($movement->screeningId))
+            {
+                $score = 0;
+                foreach($screening->movements as $test) {
+                    $score += $test->meta->score;
+                }
+
+                $screening->score = $score;
+                $screening->save();
+            }
+        }
+
+        // TODO: save movement markers.
+        // ...
+
+        // TODO: save movement events.
+        // ...
+
+        // Attach or create tags.
+        if ($this->request->has('tags') || $this->request->has('tagIds'))
+        {
+            $movement->saveTags(
+                $this->request->input('tags', []),
+                $this->request->input('tagIds', [])
+            );
+        }
+
+        // TODO: save folder changes.
+        // ...
+
+        // TODO: save aggregate data.
+        // ...
+
+        // TODO: save movement frames.
+        // ...
+
+        // Retrieve list of relations and attributes to append to results.
+        $embed = $this->getEmbedArrays(
+            $this->request->get('embed'),
+            Movement::$appendable
+        );
+
+        // Return updated model.
+        $updated = Movement::with($embed['relations'])->find($movement->id);
+
+        // Append attributes.
+        if (count($embed['attributes']))
+        {
+            foreach ($embed['attributes'] as $accessor)
+            {
+                $updated->setAttribute($accessor, $updated->$accessor);
+            }
+        }
+
+        return $updated;
     }
 
     /**
@@ -176,6 +293,11 @@ class MovementController extends Controller
             $deleted = Movement::destroy($id);
         }
 
-        return $deleted ? response('', 200) : response('', 500);
+        // Movement doesn't exist.
+        else {
+            return response('', 204);
+        }
+
+        return $deleted ? response('', 204) : response('', 500);
     }
 }

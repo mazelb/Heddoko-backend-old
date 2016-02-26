@@ -8,10 +8,16 @@
 angular.module('app.controllers')
 
 .controller('ProfileController',
-    ['$scope', '$routeParams', '$filter', 'Rover', 'ProfileService', 'GroupService',
+    ['$scope', '$routeParams', '$filter', '$window', 'Rover', 'ProfileService', 'GroupService',
     'Utilities', '$http',
-    function($scope, $routeParams, $filter, Rover, ProfileService, GroupService, Utilities, $http) {
+    function($scope, $routeParams, $filter, $window, Rover, ProfileService, GroupService, Utilities, $http) {
         Utilities.info('ProfileController');
+
+        // Controller setup.
+        $scope.isLoading = false;
+
+        // Data for profile list.
+        $scope.profileList = [];
 
         // Profile list config for uiFilesystem.
         $scope.uiFilesystemConfig = {
@@ -19,16 +25,95 @@ angular.module('app.controllers')
                 createModal: 'createProfileForm',
                 createModalIcon: 'plus'
             },
-            detailsLayoutTitles: {
-                firstName: 'First Name',
-                lastName: 'Last Name',
-                group: 'Team',
-                createdAt: 'Created On'
+            detailsLayoutTitles: [
+                {
+                    key: 'firstName',
+                    title: 'First Name'
+                },
+                {
+                    key: 'lastName',
+                    title: 'Last Name'
+                },
+                {
+                    key: 'group',
+                    title: 'Team'
+                },
+                {
+                    key: 'createdAt',
+                    title: 'Created On'
+                },
+            ],
+
+            /**
+             * Opens the latest screening for the profile.
+             *
+             * @param object profile
+             */
+            onAnalyzeFile: function(profile) {
+                // TODO
+            },
+
+            /**
+             * Shares a profile.
+             *
+             * @param object profile
+             */
+            onShareFile: function(profile) {
+                Utilities.log('Sharing profile: ' + profile.title);
+
+                Utilities.alert('In Development.');
+            },
+
+            /**
+             * Deletes the specified profiles.
+             *
+             * @param int|array IDs
+             */
+            onDeleteFile: function(IDs) {
+
+                // Confirm.
+                if ($window.confirm('Delete profile(s)?'))
+                {
+                    Utilities.time('Deleting Profile');
+
+                    // Turn on "loading" flag
+                    $scope.isLoading = true;
+
+                    // Make sure we have an array.
+                    Utilities.log('uiFilesystem::delete profile');
+                    Utilities.log(IDs);
+                    IDs = typeof IDs == 'object' ? IDs : [IDs];
+
+                    ProfileService.destroy(IDs.join()).then(
+
+                        // On success, update profile list and browse to selected group.
+                        function(response) {
+                            Utilities.timeEnd('Deleting Profile');
+
+                            // Update profile list.
+                            for (var i = 0; i < IDs.length; i++) {
+                                Utilities.setData('profile', IDs[i], null);
+                            }
+                            $scope.updateProfileList();
+                            $scope.global.updateFilteredProfiles();
+
+                            // Unselect profile by default.
+                            Utilities.store.profileId = 0;
+
+                            $scope.isLoading = false;
+                        },
+
+                        // On failure.
+                        function(response) {
+                            Utilities.timeEnd('Deleting Profile');
+                            Utilities.error('Could not delete profile: ' + response.responseText);
+                            Utilities.alert('Could not delete profile. Please try again later.');
+                            $scope.isLoading = false;
+                        }
+                    );
+                }
             }
         };
-
-        // Data for profile list.
-        $scope.profileList = [];
 
         // Currently displayed profile.
         $scope.profile = {id: 0};
@@ -36,7 +121,7 @@ angular.module('app.controllers')
         {
             Rover.waitForFlag('isFetchingProfiles', false, $scope, function() {
                 $scope.global.selectProfile($routeParams.profileId);
-                $scope.profile = Utilities.getData('profile', $routeParams.profileId);
+                $scope.profile = ProfileService.format(Utilities.getData('profile', $routeParams.profileId));
             });
         }
 
@@ -69,9 +154,10 @@ angular.module('app.controllers')
             for (i = 0; i < list.length; i++)
             {
                 $scope.profileList.push({
+                    id: list[i].id,
                     title: list[i].lastName,
                     subTitle: list[i].groups[0].name || '',
-                    image: list[i].avatarSrc,
+                    image: list[i].avatarSrc.length ? list[i].avatarSrc : null,
                     href: '#/profiles/' + list[i].id,
                     firstName: list[i].firstName,
                     lastName: list[i].lastName,
@@ -81,7 +167,9 @@ angular.module('app.controllers')
             }
         };
 
-        // Creates a new profile in the database.
+        /**
+         * Creates a new profile in the database.
+         */
         $scope.createProfile = function() {
             Utilities.time('Creating Profile');
 
@@ -113,7 +201,9 @@ angular.module('app.controllers')
             );
         };
 
-        // Saves a profile through the uiEditableListContainer directive.
+        /**
+         * Saves a profile through the uiEditableListContainer directive.
+         */
         $scope.saveProfileDetails = function() {
 
             var profile = ProfileService.formatForStorage($scope.profile);
@@ -121,22 +211,18 @@ angular.module('app.controllers')
             return ProfileService.update(profile.id, profile, ['avatarSrc', 'groups', 'meta']);
         };
 
-        // Callback for uiEditableListContainer directive.
+        /**
+         * Callback for uiEditableListContainer directive.
+         *
+         * @param bool profileSaved
+         */
         $scope.saveProfileDetailsCallback = function(profileSaved) {
 
-            // Update profile list.
+            // Update profile data.
             if (profileSaved) {
-
-                // Update profile data.
-                // Rover.setState('profile', this.id, ProfileService.format(this));
-                Utilities.setData('profile', this.id, ProfileService.format(this));
+                Utilities.setData('profile', this.id, this);
                 $scope.global.updateFilteredProfiles();
-
-                // Update the selected profile.
-                // Rover.store.profileId = this.id;
-
-                // Navigate to profile page.
-                // Rover.browseTo.path('/profiles/' + this.id);
+                $scope.profile = ProfileService.format(this);
             }
 
             //

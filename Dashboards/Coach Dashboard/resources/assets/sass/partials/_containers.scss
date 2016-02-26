@@ -55,25 +55,69 @@
     @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
 
     .data {
-        padding: 5px;
         position: absolute;
         bottom: 0;
-        height: 35%;
+        height: 65px;
         width: 100%;
         color: #fff;
         background-color: rgba(44, 58, 70, 0.8);
+        overflow: hidden;
+        @include transition(height .2s);
+
+        section {
+            padding: 15px;
+            height: auto;
+
+            &:first-child {
+                height: 65px;
+            }
+
+            &:nth-child(2) {
+                height: 90px;
+                text-align: left;
+                background-color: $light-blue;
+            }
+        }
+
+        span {
+            line-height: 1em;
+        }
 
         .title {
             display: block;
-            padding: 4px 0 1px 10px;
             text-transform: uppercase;
-            font-size: 1.2em;
         }
 
         .sub-title {
             display: block;
             text-transform: uppercase;
-            font-size: 0.8em;
+            font-size: 0.7em;
+        }
+
+        .data-btn {
+            display: inline-block;
+            width: 45px;
+            text-align: center;
+            border: none;
+            background-color: transparent;
+            -webkit-appearance: none;
+            @include transition(color .2s);
+
+            span {
+                display: block;
+                margin: 5px 0 0;
+                font-size: .6em;
+            }
+
+            &:hover {
+                color: $heddoko-green;
+            }
+        }
+    }
+
+    &:hover {
+        .data {
+            height: 155px;
         }
     }
 }
@@ -103,61 +147,6 @@
             right: 0;
             margin: 10px;
         }
-    }
-}
-
-/**
- * File explorers
- */
-.file-explorer-container {
-
-    header {
-        margin: 25px auto;
-    }
-
-    section {
-        .folder, .file {
-            display: block;
-            text-align: center;
-
-            .name {
-                display: block;
-            }
-        }
-    }
-
-    .details-layout {
-        .header {
-            margin-bottom: 15px;
-            padding: 10px;
-            color: #999;
-            border-bottom: 1px solid #444;
-        }
-    }
-
-    .small-tiles-layout {
-        .folder, .file {
-            margin: 25px auto;
-            text-align: center;
-        }
-    }
-
-    .large-tiles-layout {
-        .folder, .file {
-            margin: 25% auto;
-            text-align: center;
-        }
-
-        .name {
-            margin: 15px auto 0;
-        }
-    }
-
-    footer {
-        margin: 15px auto 0;
-        padding: 10px;
-        color: #999;
-        border-top: 1px solid #444;
     }
 }
 
@@ -196,7 +185,7 @@
   border-bottom: 1px solid #E5E5E5;
   border-bottom-color: $blue;
   background: #f4f4f4;
-  background: $blue-dark;
+  background: $dark-blue;
 
   h4{
     margin-bottom:0;
@@ -619,7 +608,7 @@ ul.team{
 
 .breadcrumb-movement>li:first-child>div {
 	background-color: #f4f4f4;
-	background-color: $blue-dark;
+	background-color: $dark-blue;
 	height: 35px;
 	top: 0;
 	left: -5px;

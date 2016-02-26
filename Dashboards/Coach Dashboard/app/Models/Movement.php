@@ -8,11 +8,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
+use App\Traits\TaggableTrait as Taggable;
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
 class Movement extends Model
 {
-    use CamelCaseAttrs;
+    use CamelCaseAttrs, Taggable;
 
     /**
      * Attributes which are mass-assignable.
@@ -26,21 +28,26 @@ class Movement extends Model
     ];
 
     /**
+     * Attributes which should be hidden from the models' array form.
+     */
+    protected $hidden = ['taggables'];
+
+    /**
+     * Attributes that CAN be appended to the model's array form.
+     */
+    public static $appendable = ['tags'];
+
+    /**
      * Attributes that SHOULD be appended to the model's array form.
      */
     protected $appends = [];
 
     /**
-     * Attributes that CAN be appended to the model's array form.
+     * Events belonging to this movement.
      */
-    public static $appendable = [];
-
-    /**
-     * Extra details about this movement.
-     */
-	public function meta()
-	{
-		return $this->hasOne('App\Models\MovementMeta');
+	public function events()
+    {
+		return $this->hasMany('App\Models\MovementEvent');
 	}
 
     /**
@@ -48,7 +55,7 @@ class Movement extends Model
      */
 	public function frames()
     {
-		return $this->hasMany('App\Models\Frame');
+		return $this->hasMany('App\Models\MovementFrame');
 	}
 
     /**
@@ -60,12 +67,12 @@ class Movement extends Model
 	}
 
     /**
-     * Tags belonging to this movement.
+     * Extra details about this movement.
      */
-    public function tags()
-    {
-        return $this->morphToMany('App\Models\Tag', 'taggable');
-    }
+	public function meta()
+	{
+		return $this->hasOne('App\Models\MovementMeta');
+	}
 
     /**
      * Profile this movement belongs to.
@@ -73,5 +80,13 @@ class Movement extends Model
 	public function profile()
 	{
 		return $this->belongsTo('App\Model\Profile');
+	}
+
+    /**
+     * Screening this movement belongs to.
+     */
+	public function screening()
+	{
+		return $this->belongsTo('App\Model\Screening');
 	}
 }

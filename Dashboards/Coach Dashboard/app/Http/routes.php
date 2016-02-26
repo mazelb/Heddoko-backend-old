@@ -15,9 +15,10 @@ Route::group(['prefix' => 'api'], function()
     /**
      * API Draft 1.
      *
-     * Middleware for these routes are defined in App\Providers\AppAuthenticationProvider
+     * Authentication middleware for these routes are implemented through the listener:
+     * App\Listeners\ApiAuthentication
      */
-    Route::group(['prefix' => 'v1'], function()
+    Route::group(['prefix' => 'v1', 'middleware' => 'api.headers'], function()
     {
         // Profile endpoints.
         Route::post('profiles/{id}/avatar', 'ProfileController@saveAvatar');
@@ -37,7 +38,7 @@ Route::group(['prefix' => 'api'], function()
         ]);
 
         // Movement frame endpoints.
-        Route::resource('movements.frames', 'FrameController', [
+        Route::resource('movements.frames', 'MovementFrameController', [
             'only' => ['index', 'store', 'show', 'update', 'destroy']
         ]);
 
@@ -62,7 +63,7 @@ Route::group(['prefix' => 'api'], function()
 
         // Tag endpoints.
         Route::resource('tags', 'TagController', [
-            'only' => ['index', 'store']
+            'only' => ['index', 'store', 'show', 'update', 'destroy']
         ]);
 
         //
@@ -90,7 +91,7 @@ Route::group(['prefix' => 'api'], function()
         ]);
         Route::post('authorize', [
             'as' => 'oauth.authorize.post',
-            'uses' => 'Auth\OAuthController@authorize',
+            'uses' => 'Auth\OAuthController@postAuthorize',
             'middleware' => ['csrf', 'oauth.authorization', 'auth']
         ]);
     });

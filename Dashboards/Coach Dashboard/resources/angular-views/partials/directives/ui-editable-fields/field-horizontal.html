@@ -1,13 +1,18 @@
 
 <!-- Copyright Heddoko(TM) 2015, all rights reserved. -->
 
-<div class="row ui-editable-field ui-editable-field-vertical">
+<div class="row ui-editable-field">
 
-    <div ng-switch="inputType" class="col-xs-12">
+    <!-- Field label -->
+    <div class="col-sm-4 col-lg-3 text-right">
+        {{ label }} <span ng-show="isRequired && state == 'editing'">*</span>
+    </div>
+
+    <div class="col-sm-8 col-lg-9" ng-switch="inputType">
 
         <!-- Date -->
         <div ng-switch-when="date">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-timestamp.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-timestamp.html'"></ng-include>
 
             <input
                 ng-show="state == 'editing'"
@@ -19,7 +24,7 @@
 
         <!-- Date & time -->
         <div ng-switch-when="datetime">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-timestamp.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-timestamp.html'"></ng-include>
 
             <input
                 ng-show="state == 'editing'"
@@ -31,7 +36,7 @@
 
         <!-- Length -->
         <div ng-switch-when="length">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-with-units.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-with-units.html'"></ng-include>
 
             <!-- Feet & inches -->
             <div class="row" ng-show="state == 'editing' && config.unitForLength == 'ft/in'">
@@ -79,7 +84,7 @@
 
         <!-- Gender -->
         <div ng-switch-when="gender">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-generic.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
 
             <select
                 ng-show="state == 'editing'"
@@ -96,7 +101,7 @@
 
         <!-- Mass -->
         <div ng-switch-when="mass">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-with-units.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-with-units.html'"></ng-include>
 
             <!-- Edit field -->
             <div class="input-group" ng-show="state == 'editing'">
@@ -113,7 +118,7 @@
 
         <!-- Tag -->
         <div ng-switch-when="tag">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-generic.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
 
             <div ng-show="state == 'editing'">
                 <selectize
@@ -127,7 +132,7 @@
 
         <!-- Placeholder -->
         <div ng-switch-when="placeholder">
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-generic.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
 
             <input
                 ng-show="state == 'editing'"
@@ -140,7 +145,7 @@
 
         <!-- Default -->
         <div ng-switch-default>
-            <ng-include src="'directive-partials/ui-editable-fields/field-value-generic.html'"></ng-include>
+            <ng-include src="'partials/directives/ui-editable-fields/field-value-generic.html'"></ng-include>
 
             <input
                 ng-show="state == 'editing'"
@@ -150,10 +155,5 @@
                 type="text"
                 class="form-control">
         </div>
-    </div>
-
-    <!-- Field label -->
-    <div class="col-xs-12 ui-editable-field-label">
-        {{ label }} <span ng-show="isRequired && state == 'editing'">*</span>
     </div>
 </div>

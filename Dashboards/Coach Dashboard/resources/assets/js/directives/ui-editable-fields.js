@@ -9,6 +9,16 @@
  *                  <div ui-editable-list-item label="Some Label" value="data.some.value">
  *                  </div>
  *              </ui-editable-fields>
+ *
+ *          Or:
+ *              <ui-editable-standalone-field
+ *                  data-heading="Some Heading"
+ *                  data-model="model"
+ *                  data-key="key"
+ *                  data-empty="Enter a value"
+ *                  data-save="someFunction"
+ *                  data-save-callback="someCallbackFunction">
+ *              </ui-editable-standalone-field>
  */
 angular.module('app.directives')
 
@@ -47,6 +57,8 @@ angular.module('app.directives')
                 item.state = $scope.state;
                 item.model = $scope.resource;
                 item.config = $scope.config;
+                item.saveResource = $scope.saveResource;
+                item.saveResourceCallback = $scope.saveResourceCallback;
                 items[item.key] = item;
 
                 return true;
@@ -75,7 +87,7 @@ angular.module('app.directives')
                 });
 
                 // Save resource.
-                $scope.saveResource.call().then(
+                $scope.saveResource.call($scope.model).then(
                     function(response) {
                         $scope.state = 'idle';
                         $scope.saveResourceCallback.call(response.data, true);
@@ -109,14 +121,14 @@ angular.module('app.directives')
              */
             $scope.$watch('resource', function(model) {
                 $scope.state = 'idle';
-                
+
                 angular.forEach(items, function(item) {
                     item.state = $scope.state;
                     item.model = model;
                 });
             });
         }],
-        templateUrl: 'directive-partials/ui-editable-fields/fields.html'
+        templateUrl: 'partials/directives/ui-editable-fields/fields.html'
     };
 })
 
@@ -132,6 +144,7 @@ angular.module('app.directives')
                 label: '@',
                 display: '@',
                 key: '@',
+                empty: '@',
                 inputType: '@type',
                 maxTags: '@',
                 isRequired: '=required',
@@ -144,13 +157,52 @@ angular.module('app.directives')
                     return;
                 }
 
+                /**
+                 * Switches directive state to "editing".
+                 */
+                scope.edit = function() {
+                    scope.state = 'editing';
+                };
+
+                /**
+                 * Switch state to "idle".
+                 */
+                scope.cancel = function() {
+                    scope.state = 'idle';
+                };
+
+                /**
+                 * Saves changes.
+                 */
+                scope.save = function() {
+
+                    // Switch state to "saving".
+                    scope.state = 'saving';
+
+                    // Save resource.
+                    scope.saveResource.call(scope.model).then(
+                        function(response) {
+                            scope.state = 'idle';
+                            scope.saveResourceCallback.call(response.data, true);
+                        },
+                        function(response) {
+                            scope.state = 'idle';
+                            scope.saveResourceCallback.call(response.data, false);
+                        }
+                    );
+                };
+
                 // Data object.
                 scope.data = {};
+
+                // Empty state.
+                scope.empty = scope.empty || '...';
 
                 // Initialize fields.
                 switch (attrs.type)
                 {
                     // Date, Datetime
+                    // TODO: set timezone elsewhere
                     case 'date':
                     case 'datetime':
 
@@ -279,7 +331,7 @@ angular.module('app.directives')
 
                         // Updates length value on model.
                         scope.updateModel = function() {
-                            Utilities.debug('Updating length value for "' + scope.key + '" ...');
+                            Utilities.log('Updating length value for "' + scope.key + '" ...');
 
                             switch (scope.config.unitForLength)
                             {
@@ -304,7 +356,7 @@ angular.module('app.directives')
                                     scope.model[scope.key] = scope.data.lengthVal;
                             }
 
-                            Utilities.debug('From ' + scope.data.displayStr + ' to ' + scope.model[scope.key] + ' m');
+                            Utilities.log('From ' + scope.data.displayStr + ' to ' + scope.model[scope.key] + ' m');
                         };
 
                         // Calculate length in desired units on first load.
@@ -361,7 +413,7 @@ angular.module('app.directives')
 
                         // Updates mass value on model.
                         scope.updateModel = function() {
-                            Utilities.debug('Updating mass value for "' + scope.key + '" ...');
+                            Utilities.log('Updating mass value for "' + scope.key + '" ...');
 
                             switch (scope.config.unitForMass)
                             {
@@ -381,7 +433,7 @@ angular.module('app.directives')
                                     scope.model[scope.key] = scope.data.massVal;
                             }
 
-                            Utilities.debug('From ' + scope.data.displayStr + ' to ' + scope.model[scope.key] + ' kg');
+                            Utilities.log('From ' + scope.data.displayStr + ' to ' + scope.model[scope.key] + ' kg');
                         };
 
                         // Calculate mass in desired units on first load.
@@ -400,7 +452,7 @@ angular.module('app.directives')
                             // Array of tags.
                             if (angular.isArray(scope.model[scope.key]))
                             {
-                                Utilities.debug('Looping through tags array...');
+                                Utilities.log('Looping through tags array...');
 
                                 // Setup data model, available options and displayed value.
                                 scope.data = [];
@@ -424,7 +476,7 @@ angular.module('app.directives')
                                 // Generate display value.
                                 scope.display =
                                     scope.model[scope.key].length ? scope.display.join(', ') :
-                                    '(none selected)';
+                                    (scope.empty || '');
                             }
 
                             // Single tag
@@ -440,14 +492,14 @@ angular.module('app.directives')
                                     }];
                                 }
                                 else {
-                                    scope.display = '(none selected)';
+                                    scope.display = (scope.empty || '');
                                 }
                             }
 
                             // Default value.
                             else {
                                 scope.model[scope.key] = scope.maxTags > 1 ? [] : {};
-                                scope.display = '(none selected)';
+                                scope.display = (scope.empty || '');
                             }
                         };
                         scope.updateData();
@@ -470,8 +522,8 @@ angular.module('app.directives')
                             load: function(query, callback) {
 
                                 // Performance check.
-                                Utilities.debug('Fetching tags...');
-                                Utilities.debug(query);
+                                Utilities.log('Fetching tags...');
+                                Utilities.log(query);
                                 if (!query || !query.length) {
                                     return callback();
                                 }
@@ -506,7 +558,7 @@ angular.module('app.directives')
                                 }
 
                                 // Create the new tag.
-                                Utilities.debug('Creating tag: ' + value);
+                                Utilities.log('Creating tag: ' + value);
                                 $http.post('/api/v1/tags', {
                                     title: value.trim()
                                 });
@@ -518,8 +570,8 @@ angular.module('app.directives')
                              * @param array data
                              */
                             onChange: function(data) {
-                                Utilities.debug('updating data');
-                                Utilities.debug(data);
+                                Utilities.log('updating data');
+                                Utilities.log(data);
                                 // scope.model[scope.key] = scope.maxTags > 1 ? data : data[0];
                                 scope.model[scope.key] = data;
                             }
@@ -548,7 +600,7 @@ angular.module('app.directives')
                         });
                 }
             },
-            templateUrl: 'directive-partials/ui-editable-fields/field-vertical.html'
+            templateUrl: 'partials/directives/ui-editable-fields/field-vertical.html'
         };
     }
 ])
@@ -560,33 +612,119 @@ angular.module('app.directives')
     return {
         restrict: 'AE',
         scope: {
-            heading: '@',
+            heading: '@?',
             model: '=',
             key: '@',
             empty: '@',
+            inputType: '@?',
+            maxTags: '@?',
             saveResource: '=save',
             saveResourceCallback: '=saveCallback',
             deleteResource: '=delete'
         },
-        controller: ['$scope', 'Utilities', function($scope, Utilities) {
+        controller: ['$scope', '$http', 'Utilities', function($scope, $http, Utilities) {
 
             // Represents current state of directive.
             $scope.state = 'idle';
 
-            // Switch state to "editing".
+            // Controller setup.
+            switch ($scope.inputType)
+            {
+                case 'tag':
+                case 'tag-title':
+
+                    // Data & display strings
+                    $scope.display = $scope.model[$scope.key].join(', ');
+                    $scope.options = [];
+                    angular.forEach($scope.model[$scope.key], function(tag) {
+                        $scope.options.push({
+                            title: tag
+                        });
+                    });
+
+                    // Config object for Selectize.
+                    $scope.selectizeConfig = {
+                        create: true,
+                        valueField: 'title',
+                        labelField: 'title',
+                        searchField: ['title'],
+                        options: $scope.options,
+                        items: $scope.options,
+                        maxItems: $scope.maxTags || 1,
+
+                        /**
+                         * Called anytime the user types into the input box.
+                         *
+                         * @param string query
+                         * @param function callback
+                         */
+                        load: function(query, callback) {
+
+                            // Performance check.
+                            if (!query || !query.length) {
+                                return callback();
+                            }
+
+                            // Queries the API for tags.
+                            $http.get('/api/v1/tags', {
+                                params: {
+                                    query: query,
+                                    limit: 15
+                                }
+                            }).then(
+                                function(response) {
+                                    callback(response.data);
+                                },
+                                function(response) {
+                                    callback();
+                                }
+                            );
+                        },
+
+                        /**
+                         * Called anytime the value of the input changes.
+                         *
+                         * @param array data
+                         */
+                        onChange: function(data) {
+                            $scope.model[$scope.key] = data;
+                            $scope.display = data.join(', ');
+                        }
+                    };
+                    break;
+
+                case 'textarea':
+                case 'text':
+                    break;
+
+                default:
+                    $scope.inputType = 'textarea';
+            }
+
+            /**
+             * Switch state to "editing".
+             */
             $scope.edit = function() {
                 $scope.state = 'editing';
             };
 
-            // Saves changes.
+            /**
+             * Switch state to "idle".
+             */
+            $scope.cancel = function() {
+                $scope.state = 'idle';
+            };
+
+            /**
+             * Saves changes.
+             */
             $scope.save = function() {
-                Utilities.debug('Saving model...');
 
                 // Switch state to "saving".
                 $scope.state = 'saving';
 
                 // Save resource.
-                $scope.saveResource.call().then(
+                $scope.saveResource.call($scope.model).then(
                     function(response) {
                         $scope.state = 'idle';
                         $scope.saveResourceCallback.call(response.data, true);
@@ -598,7 +736,9 @@ angular.module('app.directives')
                 );
             };
 
-            // Deletes a model.
+            /**
+             * Deletes a model.
+             */
             $scope.delete = function() {
                 $scope.deleteResource.apply();
             };
@@ -608,6 +748,6 @@ angular.module('app.directives')
                 $scope.state = 'idle';
             });
         }],
-        templateUrl: 'directive-partials/ui-editable-fields/standalone-field.html'
+        templateUrl: 'partials/directives/ui-editable-fields/standalone-field.html'
     };
 });

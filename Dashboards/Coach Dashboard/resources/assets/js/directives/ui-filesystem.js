@@ -24,16 +24,16 @@ angular.module('app.directives')
             files: '=',
             folders: '=',
             parentFolder: '=?',
+            path: '=?',
 
             config: '=?',
-
-            largeTileTemplate: '@?',
 
             defaultLayout: '@?',
             hideLocation: '=?',
             hideToolbar: '=?',
             hideLargeTilesLayout: '=?',
-            hideSmallTilesLayout: '=?'
+            hideSmallTilesLayout: '=?',
+            isLoading: '=?'
         },
         controller: ['$scope', '$timeout', 'Utilities', function($scope, $timeout, Utilities) {
 
@@ -41,13 +41,25 @@ angular.module('app.directives')
             var namespace = $scope.namespace = $scope.id || 'ui-filesystem';
 
             // Configuration.
-            var layoutKey = namespace + '-layout';
+            var layoutKey = namespace + '-layout',
+                selectedFilesKey = namespace + '-selected-files',
+                selectedFoldersKey = namespace + '-selected-folders';
             $scope.config = $scope.config || {};
             $scope.config.toolbar = $scope.config.toolbar || {};
-            $scope.config.detailsLayoutTitles = $scope.config.detailsLayoutTitles || {
-                title: 'Title',
-                updatedAt: 'Modified'
-            };
+            $scope.config.onDeleteFile = $scope.config.onDeleteFile || false;
+            $scope.config.onDeleteFolder = $scope.config.onDeleteFolder || false;
+            $scope.config.onDeleteSelected = $scope.config.onDeleteSelected || false;
+            $scope.config.onSelect = $scope.config.onSelect || false;
+            $scope.config.detailsLayoutTitles = $scope.config.detailsLayoutTitles || [
+                {
+                    key: 'title',
+                    title: 'Title'
+                },
+                {
+                    key: 'updatedAt',
+                    title: 'Modified'
+                },
+            ];
 
             // Defaults.
             $scope.defaultLayout = $scope.defaultLayout || 'details';
@@ -55,6 +67,7 @@ angular.module('app.directives')
             $scope.hideToolbar = ($scope.hideToolbar);
             $scope.hideLargeTilesLayout = ($scope.hideLargeTilesLayout);
             $scope.hideSmallTilesLayout = ($scope.hideSmallTilesLayout);
+            $scope.isLoading = $scope.isLoading || false;
 
             // Setup layout data.
             $scope.layout = {
@@ -93,12 +106,78 @@ angular.module('app.directives')
              * @param string layout
              */
             $scope.setLayout = function(layout) {
-                $timeout(function() {
-                    $scope.layout.name = layout;
-                });
+                $scope.layout.name = layout;
                 Utilities.setConfig(layoutKey, layout);
             };
+
+            /**
+             * Selects a file.
+             *
+             * @param object file
+             */
+            $scope.toggleFile = function(file) {
+                file.selected = !file.selected;
+
+                if ($scope.config.onSelect) {
+                    $scope.config.onSelect('file', file);
+                }
+            };
+
+            /**
+             * Selects a folder.
+             *
+             * @param object folder
+             */
+            $scope.toggleFolder = function(folder) {
+                folder.selected = !folder.selected;
+
+                if ($scope.config.onSelect) {
+                    $scope.config.onSelect('folder', folder);
+                }
+            };
+
+            /**
+             * Selects all files and folders.
+             */
+            $scope.toggleAll = function() {
+
+                // Select all files.
+                for (var i = 0; i < $scope.files.length; i++)
+                {
+                    $scope.files[i].selected = !$scope.files[i].selected;
+
+                    if ($scope.config.onSelect) {
+                        $scope.config.onSelect('file', $scope.files[i]);
+                    }
+                }
+
+                // Select all folders.
+                for (i = 0; i < $scope.folders.length; i++)
+                {
+                    $scope.folders[i].selected = !$scope.folders[i].selected;
+
+                    if ($scope.config.onSelect) {
+                        $scope.config.onSelect('folder', $scope.folders[i]);
+                    }
+                }
+            };
+
+            /**
+             * Calls a method while preventing bubbling.
+             *
+             * @param object $event
+             * @param function callback
+             * @param array args
+             */
+            $scope.call = function($event, callback, args) {
+
+                // Stop propagation.
+                $event.preventDefault();
+
+                // Call intended method.
+                callback.apply(callback, args);
+            };
         }],
-        templateUrl: 'directive-partials/ui-filesystem/container.html'
+        templateUrl: 'partials/directives/ui-filesystem/container.html'
     };
 });

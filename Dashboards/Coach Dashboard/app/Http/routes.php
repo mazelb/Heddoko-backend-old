@@ -122,6 +122,13 @@ Route::get('/', ['middleware' => 'auth', function() {
     return view('layouts.angular');
 }])->name('home');
 
+Route::get('/admin', [
+        'as' => 'admin.dashboard',
+    'uses' => 'AdminController@getDashboard',
+    'middleware' => 'auth'
+]);
+
+
 /**
  * Other static pages.
  */

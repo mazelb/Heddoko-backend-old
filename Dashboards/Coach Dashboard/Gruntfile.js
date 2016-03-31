@@ -192,13 +192,24 @@ module.exports = function(grunt) {
                 ],
 
                 dest: 'public/js/scripts.js'
+            },
+            admin: {
+                src: [
+                    'resources/assets/js-admin/bootbox.min.js',
+                    'resources/assets/js-admin/dirPagination.js',
+                    'resources/assets/js-admin/selectize.js',
+                    'resources/assets/js-admin/ng-selectize.js',
+                    'resources/assets/js-admin/app.js'
+                ],
+                dest: 'public/js/admin.js'
             }
         },
 
 		sass: {
             dist: {
                 files: {
-                    'resources/assets/build/styles.css': 'resources/assets/sass/main.scss'
+                    'resources/assets/build/styles.css': 'resources/assets/sass/main.scss',
+                    'resources/assets/build/admin.css': 'resources/assets/sass/admin.scss'
                 }
             }
         },
@@ -232,6 +243,13 @@ module.exports = function(grunt) {
 
                         // Application styles
                         'resources/assets/build/styles.css'
+                    ],
+                    'public/css/admin.css': [
+
+                        'resources/assets/css/admin/selectize.css',
+                        'resources/assets/css/admin/suits-editor.css',
+
+                        'resources/assets/build/admin.css'
                     ]
                 }
             },
@@ -240,7 +258,8 @@ module.exports = function(grunt) {
                     banner: '/* Copyright Heddoko(TM) 2015, all rights reserved */'
                 },
                 files: {
-                    'public/css/styles.css': ['public/css/styles.css']
+                    'public/css/styles.css': ['public/css/styles.css'],
+                    'public/css/admin.css': ['public/css/admin.css']
                 }
             }
         },

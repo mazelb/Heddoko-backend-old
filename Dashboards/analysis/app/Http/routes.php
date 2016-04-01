@@ -70,7 +70,7 @@ Route::group(['prefix' => 'api'], function()
         // Suit Management Dashboard endpoints.
         //
 
-        Route::resource('complexequipment', 'complexEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
+        Route::resource('complexequipment', 'ComplexEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
         Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
         Route::resource('statuses', 'StatusController', ['only' => ['index']]);
         Route::resource('materials', 'MaterialController', ['only' => ['index', 'store', 'update', 'destroy']]);

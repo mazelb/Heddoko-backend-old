@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -35,7 +36,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect('/home');
+            if($this->auth->user()->hasRole(User::ROLE_ADMIN)) {
+                return redirect('/admin');
+            } else {
+                return redirect('/home');
+            }
         }
 
         return $next($request);

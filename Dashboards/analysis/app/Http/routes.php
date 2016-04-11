@@ -18,7 +18,7 @@ Route::group(['prefix' => 'api'], function()
      * Authentication middleware for these routes are implemented through the listener:
      * App\Listeners\ApiAuthentication
      */
-    Route::group(['prefix' => 'v1', 'middleware' => 'auth'], function()
+    Route::group(['prefix' => 'v1', 'middleware' => ['auth', 'role:user']], function()
     {
         // Profile endpoints.
         Route::post('profiles/{id}/avatar', 'ProfileController@saveAvatar');
@@ -65,11 +65,13 @@ Route::group(['prefix' => 'api'], function()
         Route::resource('tags', 'TagController', [
             'only' => ['index', 'store', 'show', 'update', 'destroy']
         ]);
+    });
 
+    Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function()
+    {
         //
-        // Suit Management Dashboard endpoints.
+        // Admin Management Dashboard endpoints.
         //
-
         Route::resource('complexequipment', 'ComplexEquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
         Route::resource('equipment', 'EquipmentController', ['only' => ['index', 'store', 'update', 'destroy']]);
         Route::resource('statuses', 'StatusController', ['only' => ['index']]);
@@ -125,7 +127,7 @@ Route::get('/', ['middleware' => 'auth', function() {
 Route::get('/admin', [
         'as' => 'admin.dashboard',
     'uses' => 'AdminController@getDashboard',
-    'middleware' => 'auth'
+    'middleware' => ['auth', 'role:admin']
 ]);
 
 

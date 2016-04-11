@@ -31,7 +31,7 @@ class AuthController extends Controller
     /**
      * Creates a new authentication controller instance.
      *
-     * @return void
+     * @param UserRepository $users
      */
     public function __construct(UserRepository $users)
     {
@@ -69,6 +69,18 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $role = User::ROLE_USER;
+        switch ($data['role'])
+        {
+            case 'admin':
+                $role = User::ROLE_ADMIN;
+                break;
+
+            case 'manager':
+                $role = User::ROLE_ANALYST;
+                break;
+        }
+
         // Create new user.
 		$user = $this->users->create([
 			'email' => $data['email'],
@@ -78,23 +90,8 @@ class AuthController extends Controller
 			'last_name' => @$data['lastName'],
 			'phone' => @$data['phone'],
 			'country' => isset($data['country']) ? $data['country'] : 'US',
+            'role' => $role
 		]);
-
-        // Attach role to user.
-        switch ($data['role'])
-        {
-            case 'admin':
-                if ($role = Role::where('name', 'admin')->first()) {
-                    $user->attachRole($role->id);
-                }
-                break;
-
-            case 'manager':
-                if ($role = Role::where('name', 'manager')->first()) {
-                    $user->attachRole($role->id);
-                }
-                break;
-        }
 
 		return $user;
     }

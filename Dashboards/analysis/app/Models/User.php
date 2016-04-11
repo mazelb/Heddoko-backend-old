@@ -30,12 +30,12 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string $phone
  * @property string $country
  * @property string $config
+ * @property int $role
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Profile[] $profiles
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read \App\Models\Image $avatar
  * @property-read mixed $avatar_src
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -54,6 +54,14 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  */
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
+    const ROLE_ADMIN = 0;
+    const ROLE_ANALYST = 1;
+    const ROLE_USER = 2;
+
+    const ROLE_NAME_ADMIN = "admin";
+    const ROLE_NAME_ANALYST = "analyst";
+    const ROLE_NAME_USER = "user";
+
     use Authenticatable, CanResetPassword, HasAvatar, CamelCaseAttrs;
 
     /**
@@ -69,6 +77,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'last_name',
         'phone',
         'config',
+        'role'
     ];
 
     /**
@@ -101,12 +110,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\Models\Group', 'group_manager', 'manager_id', 'group_id');
     }
 
-    /**
-     * Roles taken on by this user.
-     */
-    public function roles() {
-        return $this->belongsToMany('App\Models\Role');
-    }
 
     /**
      * Gets the IDs of profiles managed by this user. This is necessary for retrieving secondary
@@ -129,5 +132,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         };
 
         return array_map($mapper, $profiles);
+    }
+
+    public function hasRole($role) {
+        switch ($role) {
+            case self::ROLE_NAME_ADMIN:
+                return $this->role == self::ROLE_ADMIN;
+            case self::ROLE_NAME_ANALYST:
+                return $this->role == self::ROLE_ANALYST
+                    || $this->role == self::ROLE_ADMIN;
+            case self::ROLE_NAME_USER:
+                return $this->role == self::ROLE_USER
+                    || $this->role == self::ROLE_ADMIN
+                    || $this->role == self::ROLE_ANALYST;
+        }
     }
 }

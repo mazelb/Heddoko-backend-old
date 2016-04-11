@@ -75,26 +75,8 @@ class UserController extends Controller
 			'lastName' => $data['lastName'],
 			'phone' => @$data['phone'],
 			'country' => isset($data['country']) ? $data['country'] : 'US',
+            'role' => User::ROLE_ANALYST
 		]);
-
-        // Attach role to user.
-        // TODO: abstract this process.
-        $role = null;
-        switch (@$data['role'])
-        {
-            case 'admin':
-                $role = Role::where('name', 'Admin')->first();
-                break;
-
-            case 'manager':
-                $role = Role::where('name', 'Manager')->first();
-                break;
-        }
-
-        if ($role)
-        {
-            $role->users()->attach([$user->id]);
-        }
 
 		return $user;
     }
@@ -168,6 +150,7 @@ class UserController extends Controller
      * Saves the avatar for a user.
      *
      * @param mixed $id
+     * @return array
      */
     public function saveAvatar($id)
     {

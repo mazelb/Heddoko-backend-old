@@ -11,11 +11,50 @@ use App\Http\Controllers\Controller;
 use App\Models\Equipment;
 use App\Models\ComplexEquipment;
 use App\Models\Status;
+use App\Repositories\ComplexEquipmentRepository;
+use App\Repositories\EquipmentRepository;
+
 
 use DB;
-use Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class ComplexEquipmentController extends Controller {
+
+	/**
+	 * The complex equipment repository instance.
+	 *
+	 * @var ComplexEquipmentRepository
+	 */
+	protected $complexEquipment;
+
+	/**
+	 * The equipment repository instance.
+	 *
+	 * @var EquipmentRepository
+	 */
+	protected $equipment;
+    /**
+     * @var Request
+     */
+    protected  $request;
+
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param Request $request
+     * @param  ComplexEquipmentRepository $complexEquipment
+     * @param  EquipmentRepository $equipment
+     */
+	public function __construct(Request $request,
+                                ComplexEquipmentRepository $complexEquipment,
+                                EquipmentRepository $equipment)
+	{
+        $this->request = $request;
+        $this->complexEquipment = $complexEquipment;
+		$this->equipment = $equipment;
+	}
 
 	/**
 	 * Display a listing of the suit-equipments.
@@ -25,31 +64,15 @@ class ComplexEquipmentController extends Controller {
 	public function index()
 	{
         // Retrieve search parameters.
-        $page = (int) Request::input('page', 1);
-        $perPage = (int) Request::input('per_page', 5);
+		$searchTerm = strip_tags(trim($this->request->input('search_term')));
+		$page = (int) $this->request->input('page', 1);
+        $perPage = (int) $this->request->input('per_page', 5);
         $perPage = max(1, min(100, $perPage));
+		$offset = ($page - 1) * $perPage;
 
-        // Build the database query.
-        $query = DB::table('complex_equipment')
-            ->select('complex_equipment.id')
-            ->leftJoin('equipment', 'complex_equipment.id', '=', 'equipment.complex_equipment_id')
-            ->orderBy('complex_equipment.id', 'desc')
-            ->distinct();
 
-        // Filter by search term.
-        $search_term = strip_tags(trim(Request::input('search_term')));
-        if (strlen($search_term))
-        {
-            $query->where('equipment.serial_no', 'LIKE', '%'. $search_term .'%')
-                ->orWhere('equipment.physical_location', 'LIKE', '%'. $search_term .'%');
-        }
-
-        // Retrieve suits by page.
-        $total = $query->count('complex_equipment.id');
-        $offset = ($page - 1) * $perPage;
-        $ids = $query->skip($offset)->take($perPage)->lists('id');
-        $results = ComplexEquipment::with('equipment.material')->whereIn('id', $ids)->orderBy('id', 'desc')->get();
-
+        $total = $this->complexEquipment->searchCount($searchTerm);
+        $results = $this->complexEquipment->search($searchTerm, $perPage, $offset);
         return [
             'total' => $total,
             'page' => $page,
@@ -65,13 +88,19 @@ class ComplexEquipmentController extends Controller {
 	 */
 	public function store()
 	{
-        $data = Request::input('new_suit_equipment');
+        $this->validate($this->request, [
+            'new_equipment_data.status_id' => 'int|exists:statuses,id',
+            'new_equipment_data.mac_address' => 'string|min:1|max:255|unique:complex_equipment,mac_address',
+            'new_equipment_data.serial_no' => 'string|min:1|max:255|unique:complex_equipment,serial_no',
+            'new_equipment_data.physical_location' => 'string|min:1|max:255'
+        ]);
 
-		$new_suit_equipment = ComplexEquipment::create(array_only($data, [
+        $data = $this->request->input('new_suit_equipment');
+
+		$new_suit_equipment = $this->complexEquipment->create(array_only($data, [
             'serial_no',
             'mac_address',
             'physical_location',
-            'notes',
             'status_id'
         ]));
 
@@ -79,33 +108,38 @@ class ComplexEquipmentController extends Controller {
 
 		foreach ($new_suit_equipment_list as $new_suit_equipment_item)
 		{
-			$equipment_model = Equipment::findOrFail($new_suit_equipment_item['id']);
-			$equipment_model->complex_equipment_id = $new_suit_equipment->id;
-			$equipment_model->status_id = Status::getByName('unavailable')->id;
-			$equipment_model->save();
+			$this->equipment->setUnavailableStatus($new_suit_equipment_item['id'], $new_suit_equipment->id);
 		}
 
 		return $this->index();
 	}
 
-	/**
-	 * Update the specified suit in storage.
-	 *
-	 * @param  int  $suit_id
-	 * @return Response: The updated list of suits
-	 */
+    /**
+     * Update the specified suit in storage.
+     *
+     * @param $suit_equipment_id
+     * @return Response : The updated list of suits
+     */
 	public function update($suit_equipment_id)
 	{
-        // Retrieve the suit model.
-		$suit_equipment_of_interest = ComplexEquipment::findOrFail($suit_equipment_id);
+        $this->validate($this->request, [
+            'updated_suit.id' => 'int|exists:complex_equipment,id',
+            'updated_suit.status_id' => 'int|exists:statuses,id',
+            'updated_suit.mac_address' => 'string|min:1|max:255|unique:complex_equipment,mac_address,' . $suit_equipment_id . ',id',
+            'updated_suit.serial_no' => 'string|min:1|max:255|unique:complex_equipment,serial_no,' . $suit_equipment_id . ',id',
+            'updated_suit.physical_location' => 'string|min:1|max:255'
+        ]);
 
         // Retrieve data sent with the request.
-        $data = Request::input('updated_suit');
+        $data = $this->request->input('updated_suit');
 
-        // Update the ComplexEquipment.
-        $suit_equipment_of_interest->fill(array_only($data, ['mac_address', 'physical_location']));
-        $suit_equipment_of_interest->save();
-
+		$this->complexEquipment->update(array_only($data, [
+            'serial_no',
+            'mac_address',
+            'physical_location',
+            'status_id']), $suit_equipment_id);
+        $suit_equipment_of_interest = $this->complexEquipment->findOrFail($suit_equipment_id);
+        
         // Unlink each piece of equipment from the suit.
 		foreach ($suit_equipment_of_interest->equipment as $existing_equipment)
 		{
@@ -120,24 +154,21 @@ class ComplexEquipmentController extends Controller {
         // Attach each updated piece of equipment to the suit.
 		foreach ($new_equipment as $new_equipment_unit)
 		{
-			$existing_equipment = Equipment::findOrFail($new_equipment_unit['id']);
-			$existing_equipment->complex_equipment_id = $suit_equipment_of_interest->id;
-			$existing_equipment->status_id = Status::getByName('unavailable')->id;
-			$existing_equipment->save();
+            $this->equipment->setUnavailableStatus($new_equipment_unit['id'], $suit_equipment_of_interest->id);
 		}
 
 		return $this->index();
 	}
 
-	/**
-	 * Remove the specified suit from storage.
-	 *
-	 * @param  int  $suit_id
-	 * @return Response: The updated list of suits
-	 */
+    /**
+     * Remove the specified suit from storage.
+     *
+     * @param $suit_equipment_id
+     * @return Response : The updated list of suits
+     */
 	public function destroy($suit_equipment_id)
 	{
-		$suit_equipment_of_interest = ComplexEquipment::find($suit_equipment_id);
+		$suit_equipment_of_interest = $this->complexEquipment->find($suit_equipment_id);
 
 		foreach ($suit_equipment_of_interest->equipment as $suit_equipment)
 		{
@@ -146,7 +177,7 @@ class ComplexEquipmentController extends Controller {
 			$suit_equipment->save();
 		}
 
-		$suit_equipment_of_interest->delete();
+		$this->complexEquipment->delete($suit_equipment_id);
 
         return $this->index();
 	}

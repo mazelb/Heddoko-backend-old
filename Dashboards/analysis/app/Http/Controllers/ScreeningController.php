@@ -8,6 +8,10 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\FolderRepository;
+use App\Repositories\MovementRepository;
+use App\Repositories\ProfileRepository;
+use App\Repositories\ScreeningRepository;
 use Auth;
 
 use App\Http\Requests;
@@ -18,19 +22,55 @@ use App\Models\MovementMeta;
 use App\Models\Screening;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class ScreeningController extends Controller
 {
     CONST SEARCH_LIMIT = 20;
 
     /**
+     * The request
+     *
+     * @var Request
+     */
+    protected $request;
+    /**
+     * @var ScreeningRepository
+     */
+    private $screenings;
+    /**
+     * @var ProfileRepository
+     */
+    private $profiles;
+    /**
+     * @var FolderRepository
+     */
+    private $folders;
+    /**
+     * @var MovementRepository
+     */
+    private $movements;
+
+    /**
      *
      *
      * @param \Illuminate\Http\Request $request
+     * @param ProfileRepository $profiles
+     * @param FolderRepository $folders
+     * @param ScreeningRepository $screenings
+     * @param MovementRepository $movements
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request,
+                                ProfileRepository $profiles,
+                                FolderRepository $folders,
+                                ScreeningRepository $screenings,
+                                MovementRepository $movements)
     {
         $this->request = $request;
+        $this->screenings = $screenings;
+        $this->profiles = $profiles;
+        $this->folders = $folders;
+        $this->movements = $movements;
     }
 
     /**
@@ -41,22 +81,25 @@ class ScreeningController extends Controller
     public function index()
     {
         // Profile-based query builder.
+        $profileId = null;
+        $profileIDs = null;
+
         if ($this->request->has('profileId'))
         {
             $profileId = (int) $this->request->input('profileId');
 
-            if (!$profile = Auth::user()->profiles()->find($profileId)) {
+            $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+
+            if (!$profile) {
                 return response('Profile Not Found.', 400);
             }
-
-            $builder = $profile->screenings();
         }
 
         // General query builder. We will limit the accessible scope to the profiles managed
         // by the authenticated user.
         else
         {
-            $builder = Screening::whereIn('profile_id', Auth::user()->getProfileIDs());
+            $profileIDs = Auth::user()->getProfileIDs();
         }
 
         // Retrieve other search parameters. We\ll also make sure we have positive values
@@ -71,13 +114,14 @@ class ScreeningController extends Controller
         // Add search query.
         // TODO...
 
-        $builder->orderBy($orderBy, $orderDir)->skip($offset)->take($limit);
+        $count = $this->screenings->countByProfile($profileId, $profileIDs);
+        $results = $this->screenings->getByProfile($profileId, $profileIDs, $orderBy, $orderDir, $limit, $offset);
 
         return [
-            'total' => $builder->count(),
+            'total' => $count,
             'offset' => $offset,
             'limit' => $limit,
-            'results' => $builder->get()
+            'results' => $results
         ];
     }
 
@@ -89,11 +133,13 @@ class ScreeningController extends Controller
     public function store()
     {
         // Performance check.
-        if (!$profileId = (int) $this->request->input('profileId')) {
+        $profileId = (int) $this->request->input('profileId');
+        if (!$profileId) {
             return response('Invalid Profile ID.', 400);
         }
 
-        if (!$profile = Auth::user()->profiles()->find($profileId)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+        if (!$profile) {
             return response('Profile Not Found.', 400);
         }
 
@@ -123,31 +169,32 @@ class ScreeningController extends Controller
         $details['meta'] = [
             'isComplete' => false
         ];
-
+        $details['profile_id'] = $profile->id;
         // Create a record for the screening.
-        if (!$screening = $profile->screenings()->create($details)) {
+        $screening = $this->screenings->create($details);
+
+        if (!$screening) {
             return response('An Error Occurred.', 500);
         }
-
         // We'll also create a folder to organize the screening movements, if one doesn't already
         // exist.
-        $screeningsFolder = Folder::where('profile_id', $profileId)
-                                ->where('system_name', 'screenings')
-                                ->first();
+        $screeningsFolder = $this->folders->getByProfileAndSystemName($profileId);
         if (!$screeningsFolder)
         {
-            $screeningsFolder = $profile->folders()->create([
+            $screeningsFolder = $this->folders->create([
                 'name' => 'Movement Tests',
                 'system_name' => 'screenings',
-                'path' => '/'
+                'path' => '/',
+                'profile_id' => $profile->id
             ]);
         }
 
-        $folder = $profile->folders()->create([
+        $folder = $this->folders->create([
             'parent_id' => $screeningsFolder->id,
             'name' => $screening->title .' - '. date('M j, Y'),
             'system_name' => 'screenings.'. $screening->id,
-            'path' => '/'. $screeningsFolder->name
+            'path' => '/'. $screeningsFolder->name,
+            'profile_id' => $profile->id
         ]);
 
         // Add movement data, if any.
@@ -160,9 +207,10 @@ class ScreeningController extends Controller
                 $movement = new Movement(array_only($data, ['title']));
                 $movement->profileId = $screening->profileId;
                 $movement->folderId = $folder->id;
+                $movement->screeningId = $screening->id;
 
                 // Update metadata.
-                $screening->movements()->save($movement);
+                $movement->save();
                 $meta = isset($data['meta']) ? (array) $data['meta'] : [];
                 $meta['scoreMin'] = $screening->scoreMin;
                 $meta['scoreMax'] = $screening->scoreMax;
@@ -177,7 +225,7 @@ class ScreeningController extends Controller
         );
 
         // Return updated model.
-        $updated = Screening::with($embed['relations'])->find($screening->id);
+        $updated = $this->screenings->find($screening->id, $embed['relations']);
 
         return $updated;
     }
@@ -196,16 +244,14 @@ class ScreeningController extends Controller
             return response('Invalid Screening ID.', 400);
         }
 
-        // Retrieve screening.
-        $builder = Screening::whereIn('profile_id', Auth::user()->getProfileIDs());
-
-        // Retrieve list of relations and attributes to append to results.
         $embed = $this->getEmbedArrays(
             $this->request->get('embed'),
             Screening::$appendable
         );
 
-        if (!$screening = $builder->with($embed['relations'])->find($id)) {
+        $screening = $this->screenings->getById($id, Auth::user()->getProfileIDs(), $embed['relations']);
+
+        if (!$screening) {
             return response('Screening Not Found.', 404);
         }
 
@@ -221,7 +267,8 @@ class ScreeningController extends Controller
     public function update($id)
     {
         // Performance check.
-        if (!$screening = Screening::whereIn('profile_id', Auth::user()->getProfileIDs())->find($id)) {
+        $screening = $this->screenings->getById($id, Auth::user()->getProfileIDs());
+        if (!$screening) {
             return response('Screening Not Found.', 400);
         }
 
@@ -255,7 +302,7 @@ class ScreeningController extends Controller
         );
 
         // Return updated model.
-        $updated = Screening::with($embed['relations'])->find($screening->id);
+        $updated = $this->screenings->find($screening->id, $embed['relations']);
 
         return $updated;
     }
@@ -268,30 +315,7 @@ class ScreeningController extends Controller
      */
     public function destroy($id)
     {
-        // Make sure that only screenings accessible by the authenticated user can be deleted.
-        $builder = Screening::whereIn('profile_id', Auth::user()->getProfileIDs());
-
-        // Delete an array of screenings.
-        $deleted = false;
-        if (strpos($id, ',') !== false)
-        {
-            $screenings = $builder->whereIn('id', explode(',', $id))->pluck('id')->toArray();
-
-            if (count($screenings)) {
-                $deleted = Screening::destroy($screenings);
-            }
-        }
-
-        // Delete a single screening.
-        elseif ($builder->exists($id))
-        {
-            $deleted = Screening::destroy($id);
-        }
-
-        // Screening doesn't exist.
-        else {
-            return response('', 204);
-        }
+        $deleted = $this->screenings->destroy($id, Auth::user()->getProfileIDs());
 
         return $deleted ? response('', 204) : response('', 500);
     }

@@ -24,8 +24,6 @@ class AdminController extends Controller
      *
      */
     public function getDashboard() {
-
-
         return view('admin.dashboard', [
             'version' => '0.3'
         ]);

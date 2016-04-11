@@ -12,6 +12,7 @@ use Validator;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Repositories\UserRepository;
 
 class AuthController extends Controller
 {
@@ -20,11 +21,19 @@ class AuthController extends Controller
 	protected $username = 'username';
 
     /**
+     * The user repository instance.
+     *
+     * @var UserRepository
+     */
+    protected $users;
+
+
+    /**
      * Creates a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
         // Apply the "guest" middleware.
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -32,6 +41,7 @@ class AuthController extends Controller
         // Update the authentication paths.
         $this->loginPath = route('auth.login');
         $this->redirectPath = route('home');
+        $this->users = $users;
     }
 
     /**
@@ -60,7 +70,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         // Create new user.
-		$user = User::create([
+		$user = $this->users->create([
 			'email' => $data['email'],
 			'username' => $data['username'],
 			'password' => bcrypt($data['password']),

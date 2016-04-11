@@ -4654,7 +4654,7 @@ app.controller('MainController',
 
                         var selectize = this;
                         $.ajax({
-                            url: '/equipment?search_term=' + encodeURIComponent(query),
+                            url: '/api/v1/equipment?search_term=' + encodeURIComponent(query),
                             type: 'GET',
                             cache: false,
                             error: function() {

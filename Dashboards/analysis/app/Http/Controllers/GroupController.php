@@ -6,6 +6,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\GroupRepository;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -14,12 +15,26 @@ use App\Models\Group;
 use App\Http\Requests;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class GroupController extends Controller
 {
-    public function __construct(Request $request)
+    /**
+     * The request
+     *
+     * @var Request
+     */
+    protected $request;
+    
+    /**
+     * @var GroupRepository
+     */
+    private $groups;
+
+    public function __construct(Request $request, GroupRepository $groups)
     {
         $this->request = $request;
+        $this->groups = $groups;
     }
 
     /**
@@ -36,7 +51,7 @@ class GroupController extends Controller
         );
 
         // Retrieve groups.
-        $groups = Auth::user()->groups()->with($embed['relations'])->get();
+        $groups = $this->groups->getByManager(Auth::id(), $embed['relations']);
 
         if (count($groups))
         {
@@ -90,11 +105,12 @@ class GroupController extends Controller
         // Retrieve list of relations and attributes to append to results.
         $embed = $this->getEmbedArrays(
             $this->request->get('embed'),
-            Profile::$appendable
+            Group::$appendable
         );
 
+        $group = $this->groups->findByManager($id, Auth::id(), $embed['relations']);
         // Make sure we have a valid group.
-        if (!$group = Auth::user()->groups()->with($embed['relations'])->find($id)) {
+        if (!$group) {
             return response('Group Not Found.', 404);
         }
 
@@ -112,7 +128,8 @@ class GroupController extends Controller
     public function update($id)
     {
         // Performance check.
-        if (!$group = Auth::user()->groups()->find($id)) {
+        $group = $this->groups->findByManager($id, Auth::id());
+        if (!$group) {
             return response('Group Not Found.', 400);
         }
 
@@ -129,6 +146,7 @@ class GroupController extends Controller
      * Saves group relations.
      *
      * @param \App\Models\Group $group
+     * @return mixed
      */
     private function saveGroupData(Group $group)
     {
@@ -172,7 +190,7 @@ class GroupController extends Controller
         }
 
         // Return updated model.
-        return Group::find($group->id);
+        return $this->groups->find($group->id);
     }
 
     /**
@@ -184,7 +202,8 @@ class GroupController extends Controller
     public function destroy($id)
     {
         // Make sure we have a valid group.
-        if (!$group = Group::with('avatar')->find($id)) {
+        $group = $this->groups->find($id, ['avatar']);
+        if (!$group) {
             return response('Group Not Found.', 404);
         }
 
@@ -194,7 +213,7 @@ class GroupController extends Controller
         }
 
         // Delete group and associated profiles.
-        $group->delete();
+       $this->groups->delete($id);
 
         // Return remaining groups.
         return $this->index();
@@ -204,11 +223,12 @@ class GroupController extends Controller
      * Saves the avatar for a group.
      *
      * @param int $id
+     * @return array
      */
     public function saveAvatar($id)
     {
-        // Make sure we have a valid group.
-        if (!$group = Group::find($id)) {
+        $group = $this->groups->find($id, ['avatar']);
+        if (!$group) {
             return response('Group Not Found.', 404);
         }
 
@@ -240,8 +260,8 @@ class GroupController extends Controller
      */
     public function destroyAvatar($id)
     {
-        // Make sure we have a valid profile.
-        if (!$group = Group::find($id)) {
+        $group = $this->groups->find($id, ['avatar']);
+        if (!$group) {
             return response('Group Not Found.', 404);
         }
 
@@ -263,6 +283,6 @@ class GroupController extends Controller
     {
         // TODO: check if group exists. If it doesn't, send a useful error message.
 
-        return Group::findOrFail($id);
+        return $this->groups->findOrFail($id);
     }
 }

@@ -7,15 +7,40 @@
  */
 namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Material;
+use App\Repositories\MaterialRepository;
 
 
 class MaterialController extends Controller
 {
+	/**
+	 * The anatomic repository instance.
+	 *
+	 * @var MaterialRepository
+	 */
+	protected $materials;
+    /**
+     * @var Request
+     */
+    protected  $request;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  MaterialRepository $materials
+     */
+	public function __construct(Request $request,
+                                MaterialRepository $materials)
+	{
+        $this->request = $request;
+		$this->materials = $materials;
+	}
+	
 	/**
 	 * Display a listing of materials.
 	 *
@@ -23,26 +48,16 @@ class MaterialController extends Controller
 	 */
 	public function index()
 	{
-        // Build the database query.
-        $query = Material::with('materialType')->orderBy('id', 'desc');
+		$search_term = strip_tags(trim($this->request->input('search_term')));
+		$page = (int) $this->request->input('page', 1);
+		$perPage = (int) $this->request->input('per_page', 100);
+		$perPage = max(1, min(100, $perPage));
+		$offset = ($page - 1) * $perPage;
 
-        // Filter by search term.
-        $search_term = strip_tags(trim(Request::input('search_term')));
-        if (strlen($search_term))
-        {
-            $query->where(function($query) use ($search_term) {
-                $query->where('name', 'LIKE', '%'. $search_term .'%')
-                    ->orWhere('part_no', 'LIKE', '%'. $search_term .'%');
-            });
-        }
 
-        // Retrieve search parameters.
-        $total = $query->count('id');
-        $page = (int) Request::input('page', 1);
-        $perPage = (int) Request::input('per_page', 100);
-        $perPage = max(1, min(100, $perPage));
-        $offset = ($page - 1) * $perPage;
-        $results = $query->skip($offset)->take($perPage)->get();
+        $total = $this->materials->searchCount($search_term);
+
+        $results = $this->materials->search($search_term, $perPage, $offset);
 
         return [
             'total' => $total,
@@ -59,7 +74,14 @@ class MaterialController extends Controller
 	 */
 	public function store()
 	{
-		Material::create(Request::input('new_material_data', array()));
+        $this->validate($this->request, [
+            'new_material_data.name' => 'string|min:1|max:255|unique:materials,name',
+            'new_material_data.material_type_id' => 'int|exists:material_types,id',
+            'new_material_data.part_no' => 'string|min:1|max:255'
+        ]);
+
+		$data = $this->request->input('new_material_data', array());
+		$this->materials->create(array_only($data, ['name', 'part_no', 'material_type_id']));
 
 		return $this->index();
 	}
@@ -72,15 +94,15 @@ class MaterialController extends Controller
 	 */
 	public function update($id)
 	{
-		// Retrieve the material model.
-		$model = Material::find($id);
+        $this->validate($this->request, [
+            'updated_material.id' => 'int|exists:materials,id',
+            'updated_material.name' => 'string|min:1|max:255|unique:materials,name,' . $id . ',id',
+            'updated_material.material_type_id' => 'int|exists:material_types,id',
+            'updated_material.part_no' => 'string|min:1|max:255'
+        ]);
 
-		// Retrieve the updated data for this model.
-		$updated_model = Request::input('updated_material', []);
-
-		// Update the model.
-		$model->fill(array_except($updated_model, ['id']));
-		$model->save();
+		$data = $this->request->input('updated_material', []);
+		$this->materials->update(array_only($data, ['name', 'part_no', 'material_type_id']), $id);
 
 		return $this->index();
 	}
@@ -93,9 +115,7 @@ class MaterialController extends Controller
 	 */
 	public function destroy($id)
 	{
-		// Delete the material.
-		$model = Material::findOrFail($id);
-		$model->delete($id);
+		$this->materials->delete($id);
 
         return $this->index();
 	}

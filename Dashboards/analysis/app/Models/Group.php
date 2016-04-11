@@ -14,6 +14,30 @@ use App\Traits\TaggableTrait as Taggable;
 use App\Traits\HasAvatarTrait as HasAvatar;
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
+/**
+ * App\Models\Group
+ *
+ * @property integer $id
+ * @property integer $main_tag_id
+ * @property string $name
+ * @property string $meta
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $managers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Profile[] $profiles
+ * @property-read \App\Models\Tag $mainTag
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $taggables
+ * @property-read mixed $tags
+ * @property-read \App\Models\Image $avatar
+ * @property-read mixed $avatar_src
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Group whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Group whereMainTagId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Group whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Group whereMeta($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Group whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Group whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Group extends Model
 {
     use Taggable, HasAvatar, CamelCaseAttrs;

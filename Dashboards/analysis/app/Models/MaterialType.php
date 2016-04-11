@@ -8,6 +8,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\MaterialType
+ *
+ * @property integer $id
+ * @property string $identifier
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Material[] $materials
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MaterialType whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MaterialType whereIdentifier($value)
+ * @mixin \Eloquent
+ */
 class MaterialType extends Model
 {
     /**

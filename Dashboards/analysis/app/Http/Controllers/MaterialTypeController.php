@@ -7,15 +7,40 @@
  */
 namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\MaterialType;
 use App\Http\Controllers\Controller;
-
+use App\Repositories\MaterialTypeRepository;
 
 class MaterialTypeController extends Controller
 {
+
+	/**
+	 * The equipment repository instance.
+	 *
+	 * @var MaterialTypeRepository
+	 */
+	protected $materialTypes;
+	/**
+	 * @var Request
+	 */
+	protected  $request;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param Request $request
+     * @param  MaterialTypeRepository $materialTypes
+     */
+	public function __construct(Request $request, MaterialTypeRepository $materialTypes)
+	{
+        $this->request = $request;
+		$this->materialTypes = $materialTypes;
+	}
+
 	/**
 	 * Display a listing of the material types.
 	 *
@@ -23,7 +48,7 @@ class MaterialTypeController extends Controller
 	 */
 	public function index()
 	{
-		$material_types = MaterialType::orderBy('id', 'desc')->get();
+		$material_types = $this->materialTypes->all();
 
 		return [
 			'total' => count($material_types),
@@ -40,7 +65,12 @@ class MaterialTypeController extends Controller
 	 */
 	public function store()
 	{
-		MaterialType::create(Request::input('new_material_type_data', array()));
+		$this->validate($this->request, [
+			'new_material_type_data.identifier' => 'string|min:1|max:255|unique:material_types,identifier'
+		]);
+
+        $data = $this->request->input('new_material_type_data', array());
+		$this->materialTypes->create(array_only($data, ['identifier']));
 
 		return $this->index();
 	}
@@ -53,15 +83,14 @@ class MaterialTypeController extends Controller
 	 */
 	public function update($id)
 	{
-		// Retrieve the material model.
-		$model = MaterialType::find($id);
+        $this->validate($this->request, [
+            'updated_material_type.id' => 'int|exists:material_types,id',
+            'updated_material_type.identifier' => 'string|min:1|max:255|unique:material_types,identifier,' . $id . ',id'
+        ]);
+        
+        $data = $this->request->input('updated_material_type', []);
 
-		// Retrieve the updated data for this model.
-		$updated_model = Request::input('updated_material_type', []);
-
-		// Update the model.
-		$model->fill(array_except($updated_model, ['id']));
-		$model->save();
+        $this->materialTypes->update(array_only($data, ['identifier']), $id);
 
 		return $this->index();
 	}
@@ -74,9 +103,7 @@ class MaterialTypeController extends Controller
 	 */
 	public function destroy($id)
 	{
-		// Delete the material type.
-		$model = MaterialType::findOrFail($id);
-		$model->delete($id);
+		$this->materialTypes->delete($id);
 
         return $this->index();
 	}

@@ -12,6 +12,37 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\TaggableTrait as Taggable;
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
+/**
+ * App\Models\Movement
+ *
+ * @property integer $id
+ * @property integer $complex_equipment_id
+ * @property integer $profile_id
+ * @property integer $submitted_by
+ * @property integer $screening_id
+ * @property integer $folder_id
+ * @property string $title
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MovementEvent[] $events
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MovementFrame[] $frames
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MovementMarker[] $markers
+ * @property-read \App\Models\MovementMeta $meta
+ * @property-read \App\Models\Profile $profile
+ * @property-read \App\Models\Screening $screening
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $taggables
+ * @property-read mixed $tags
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereComplexEquipmentId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereProfileId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereSubmittedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereScreeningId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereFolderId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Movement whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Movement extends Model
 {
     use CamelCaseAttrs, Taggable;
@@ -79,7 +110,7 @@ class Movement extends Model
      */
 	public function profile()
 	{
-		return $this->belongsTo('App\Model\Profile');
+		return $this->belongsTo('App\Models\Profile');
 	}
 
     /**
@@ -87,6 +118,6 @@ class Movement extends Model
      */
 	public function screening()
 	{
-		return $this->belongsTo('App\Model\Screening');
+		return $this->belongsTo('App\Models\Screening');
 	}
 }

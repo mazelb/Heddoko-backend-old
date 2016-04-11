@@ -13,6 +13,34 @@ use App\Traits\TaggableTrait as Taggable;
 use App\Traits\HasAvatarTrait as HasAvatar;
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
+/**
+ * App\Models\Profile
+ *
+ * @property integer $id
+ * @property integer $main_tag_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\ProfileMeta $meta
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $managers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Screening[] $screenings
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Movement[] $movements
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Folder[] $folders
+ * @property-read \App\Models\Tag $mainTag
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $taggables
+ * @property-read mixed $tags
+ * @property-read \App\Models\Image $avatar
+ * @property-read mixed $avatar_src
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Profile whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Profile whereMainTagId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Profile whereFirstName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Profile whereLastName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Profile whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Profile whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Profile extends Model
 {
     use Taggable, HasAvatar, CamelCaseAttrs;

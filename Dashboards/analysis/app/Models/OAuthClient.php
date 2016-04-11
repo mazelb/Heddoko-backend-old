@@ -11,6 +11,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
+/**
+ * App\Models\OAuthClient
+ *
+ * @property string $id
+ * @property string $secret
+ * @property string $name
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\OAuthClient whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\OAuthClient whereSecret($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\OAuthClient whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\OAuthClient whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\OAuthClient whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class OAuthClient extends Model
 {
     use CamelCaseAttrs;

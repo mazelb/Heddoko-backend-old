@@ -6,6 +6,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\TagRepository;
 use Illuminate\Http\Request;
 
 use App\Models\Tag;
@@ -25,13 +26,26 @@ class TagController extends Controller
     const ORDER_DIR = 'asc';
 
     /**
+     * The request
+     *
+     * @var Request
+     */
+    protected $request;
+    /**
+     * @var TagRepository
+     */
+    private $tags;
+
+    /**
      * Constructor.
      *
      * @param \Illuminate\Http\Request $request
+     * @param TagRepository $tags
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, TagRepository $tags)
     {
         $this->request = $request;
+        $this->tags = $tags;
     }
 
     /**
@@ -41,12 +55,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        // Retrieve a query builder.
-        $builder = Tag::query();
-
-        // Filter by search term.
+        $searchTerm = null;
         if ($this->request->has('query')) {
-            $builder->where('title', 'like', '%'. $this->request->get('query') .'%');
+            $searchTerm = trim($this->request->get('query'));
         }
 
         $offset = max(0, $this->request->get('offset', 0));
@@ -54,8 +65,7 @@ class TagController extends Controller
         $orderDir = $this->request->get('orderDir', static::ORDER_DIR);
         $orderDir = in_array($orderDir, ['asc', 'desc']) ? $orderDir : static::ORDER_DIR;
 
-        // Return available tags.
-        return $builder->orderBy('title', $orderDir)->skip($offset)->limit($limit)->get();
+        return $this->tags->get($searchTerm, 'title', $orderDir, $limit, $offset);
     }
 
     /**
@@ -72,12 +82,13 @@ class TagController extends Controller
         }
 
         // Make sure tag doesn't already exist.
-        if ($exists = Tag::where('title', '=', $title)->first()) {
+        $tag = $this->tags->getByTitle($title);
+        if ($tag) {
             return response('Tag Already Exists.', 204);
         }
 
         // Create new tag.
-        $tag = Tag::create(['title' => $title]);
+        $tag = $this->tags->create(['title' => $title]);
 
         return $tag;
     }
@@ -90,7 +101,8 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        if ($tag = Tag::find($id)) {
+        $tag = $this->tags->find($id);
+        if ($tag) {
             return $tag;
         }
 
@@ -105,8 +117,8 @@ class TagController extends Controller
      */
     public function update($id)
     {
-        // Performance check.
-        if (!$tag = Tag::find($id)) {
+        $tag = $this->tags->find($id);
+        if (!$tag) {
             return response('Tag Not Found.', 404);
         }
 
@@ -133,6 +145,6 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        return Tag::destroy($id) ? response('', 204) : response('', 500);
+        return $this->tags->delete($id) ? response('', 204) : response('', 500);
     }
 }

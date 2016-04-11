@@ -11,6 +11,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
+/**
+ * App\Models\Folder
+ *
+ * @property integer $id
+ * @property integer $profile_id
+ * @property string $name
+ * @property string $system_name
+ * @property string $path
+ * @property integer $parent_id
+ * @property-read \App\Models\Folder $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Folder[] $children
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Movement[] $movements
+ * @property-read \App\Models\Profile $profile
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Folder whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Folder whereProfileId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Folder whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Folder whereSystemName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Folder wherePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Folder whereParentId($value)
+ * @mixin \Eloquent
+ */
 class Folder extends Model
 {
     use CamelCaseAttrs;
@@ -34,10 +55,10 @@ class Folder extends Model
      * Attributes which are mass-assignable.
      */
 	protected $fillable = [
-        'profileId',
-        'parentId',
+        'profile_id',
+        'parent_id',
         'name',
-        'systemName',
+        'system_name',
         'path',
     ];
 
@@ -70,6 +91,6 @@ class Folder extends Model
      */
 	public function profile()
 	{
-		return $this->belongsTo('App\Model\Profile');
+		return $this->belongsTo('App\Models\Profile');
 	}
 }

@@ -15,16 +15,35 @@ use Validator;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 
 class UserController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * The user repository instance.
+     *
+     * @var UserRepository
      */
-    public function __construct(Request $request)
+    protected $users;
+
+
+    /**
+     * The request instance.
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param  UserRepository  $users
+     */
+    public function __construct(Request $request, UserRepository $users)
     {
         $this->request = $request;
+        $this->users = $users;
     }
 
     /**
@@ -48,7 +67,7 @@ class UserController extends Controller
 
         // Create new user.
         $data = $this->request->all();
-		$user = User::create([
+		$user = $this->users->create([
 			'email' => $data['email'],
 			'username' => $data['username'],
 			'password' => bcrypt($data['password']),
@@ -107,23 +126,16 @@ class UserController extends Controller
             return response('User Not Found.', 404);
         }
 
-        // We update the user details one at a time, to allow updating single fields.
-        $attrs = ['username', 'firstName', 'lastName', 'phone', 'email'];
-        foreach ($attrs as $attr)
-        {
-            if ($this->request->has($attr)) {
-                $user->{snake_case($attr)} = $this->request->input($attr);
-            }
-        }
+        $data = $this->request->all();
 
-        // Update user config.
-        // ...
+        $this->users->update(array_only($data, [
+            'username',
+            'firstName',
+            'lastName',
+            'phone',
+            'email'
+        ]), $id);
 
-        // Update user password.
-        // ...
-
-        // Save profile.
-        $user->save();
 
         return $user;
     }
@@ -146,7 +158,7 @@ class UserController extends Controller
         }
 
         // Delete user.
-        $user->delete();
+       $this->users->delete($id);
 
         // Return status code "204 No Content"
         return response('User Successfully Deleted.', 204);
@@ -190,6 +202,8 @@ class UserController extends Controller
 
     /**
      * Removes the user's avatar
+     * @param $id
+     * @return User|null
      */
     public function destroyAvatar($id)
     {
@@ -219,6 +233,6 @@ class UserController extends Controller
         }
 
         // Else, find the user by ID.
-        return User::with($embed)->find($id);
+        return $this->users->find($id, $embed);
     }
 }

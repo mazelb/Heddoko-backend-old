@@ -12,6 +12,19 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\CamelCaseTrait as CamelCaseAttrs;
 
+/**
+ * App\Models\MovementFrame
+ *
+ * @property integer $id
+ * @property integer $movement_id
+ * @property string $format_revision
+ * @property string $timestamp
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MovementFrame whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MovementFrame whereMovementId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MovementFrame whereFormatRevision($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MovementFrame whereTimestamp($value)
+ * @mixin \Eloquent
+ */
 class MovementFrame extends Model
 {
     use CamelCaseAttrs;

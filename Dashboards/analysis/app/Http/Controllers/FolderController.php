@@ -8,6 +8,8 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\FolderRepository;
+use App\Repositories\ProfileRepository;
 use DB;
 use Auth;
 
@@ -17,21 +19,46 @@ use App\Models\Profile;
 use App\Models\Movement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class FolderController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * The user repository instance.
+     *
+     * @var FolderRepository
      */
-    public function __construct(Request $request)
+    protected $folders;
+
+    /**
+     * The user repository instance.
+     *
+     * @var ProfileRepository
+     */
+    protected $profiles;
+
+    /**
+     * The request
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param FolderRepository $folders
+     */
+    public function __construct(Request $request, FolderRepository $folders, ProfileRepository $profiles)
     {
         $this->request = $request;
+        $this->folders = $folders;
+        $this->profiles = $profiles;
     }
 
     /**
      * Retrieves the root folders and movements for the profile.
      *
-     * @param int $profildId
+     * @param $profileId
      * @return Response
      */
     public function index($profileId)
@@ -48,7 +75,9 @@ class FolderController extends Controller
     public function store($profileId)
     {
         // Performance check.
-        if (!$profile = Auth::user()->profiles()->find($profileId)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+
+        if (!$profile) {
             return response('Profile Not Found.', 400);
         }
 
@@ -72,7 +101,9 @@ class FolderController extends Controller
     public function show($profileId, $folderId = 0)
     {
         // Performance check.
-        if (!$profile = Auth::user()->profiles()->find($profileId)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+
+        if (!$profile) {
             return response('Profile Not Found.', 400);
         }
 
@@ -109,7 +140,7 @@ class FolderController extends Controller
         // Retrieve folders and movements within a given folder.
         else
         {
-            if (!$folder = Folder::with($embed['relations'])->find($folderId)) {
+            if (!$folder = $this->folders->find($folderId, $embed['relations'])) {
                 return response('Folder Not Found.', 400);
             }
         }
@@ -129,10 +160,12 @@ class FolderController extends Controller
     public function update($profileId, $folderId)
     {
         // Performance check.
-        if (!$profile = Auth::user()->profiles()->find($profileId)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+
+        if (!$profile) {
             return response('Profile Not Found.', 400);
         }
-        elseif (!$folder = $profile->folders()->find($folderId)) {
+        elseif (!$folder = $this->folders->getByProfile($profileId, $folderId)) {
             return response('Folder Not Found.', 400);
         }
 
@@ -151,6 +184,7 @@ class FolderController extends Controller
      *
      * @param \App\Models\Profile $profile
      * @param \App\Models\Folder $folder
+     * @return mixed
      */
     private function saveFolderData(Profile $profile, Folder $folder)
     {
@@ -190,7 +224,7 @@ class FolderController extends Controller
         );
 
         // Return updated model.
-        $updated = Folder::with($embed['relations'])->find($folder->id);
+        $updated = $this->folders->find($folder->id, $embed['relations']);
 
         return $updated;
     }
@@ -204,30 +238,8 @@ class FolderController extends Controller
      */
     public function destroy($profileId, $folderId)
     {
-        // Make sure that only folders accessible by the authenticated user can be deleted.
-        $builder = Folder::whereIn('profile_id', Auth::user()->getProfileIDs());
 
-        // Delete an array of folders.
-        $deleted = false;
-        if (strpos($folderId, ',') !== false)
-        {
-            $folders = $builder->whereIn('id', explode(',', $folderId))->pluck('id')->toArray();
-
-            if (count($folders)) {
-                $deleted = Folder::destroy($folders);
-            }
-        }
-
-        // Delete a single folder.
-        elseif ($builder->exists($folderId))
-        {
-            $deleted = Folder::destroy($folderId);
-        }
-
-        // Folder doesn't exist.
-        else {
-            return response('', 204);
-        }
+        $deleted = $this->folders->deleteByProfile(Auth::user()->getProfileIDs(), $folderId);
 
         return $deleted ? response('', 204) : response('', 500);
     }

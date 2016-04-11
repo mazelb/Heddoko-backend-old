@@ -18,7 +18,7 @@ Route::group(['prefix' => 'api'], function()
      * Authentication middleware for these routes are implemented through the listener:
      * App\Listeners\ApiAuthentication
      */
-    Route::group(['prefix' => 'v1', 'middleware' => 'api.headers'], function()
+    Route::group(['prefix' => 'v1', 'middleware' => 'auth'], function()
     {
         // Profile endpoints.
         Route::post('profiles/{id}/avatar', 'ProfileController@saveAvatar');

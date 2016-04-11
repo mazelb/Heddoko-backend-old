@@ -8,6 +8,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\ComplexEquipment
+ *
+ * @property integer $id
+ * @property integer $status_id
+ * @property string $mac_address
+ * @property string $serial_no
+ * @property string $physical_location
+ * @property string $notes
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\Status $status
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Equipment[] $equipment
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Movement[] $movements
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereStatusId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereMacAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereSerialNo($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment wherePhysicalLocation($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereNotes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ComplexEquipment whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ComplexEquipment extends Model
 {
     /**

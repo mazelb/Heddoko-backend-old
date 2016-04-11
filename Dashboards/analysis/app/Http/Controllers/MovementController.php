@@ -8,6 +8,10 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\MovementMetaRepository;
+use App\Repositories\MovementRepository;
+use App\Repositories\ProfileRepository;
+use App\Repositories\ScreeningRepository;
 use DB;
 use Auth;
 
@@ -19,17 +23,53 @@ use App\Models\Movement;
 use App\Models\Screening;
 use App\Models\MovementMeta;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class MovementController extends Controller
 {
     CONST SEARCH_LIMIT = 50;
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * The request
+     *
+     * @var Request
      */
-    public function __construct(Request $request)
+    protected $request;
+    /**
+     * @var MovementRepository
+     */
+    private $movements;
+    /**
+     * @var ProfileRepository
+     */
+    private $profiles;
+    /**
+     * @var MovementMetaRepository
+     */
+    private $movementMetas;
+    /**
+     * @var ScreeningRepository
+     */
+    private $screenings;
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param MovementRepository $movements
+     * @param ProfileRepository $profiles
+     * @param MovementMetaRepository $movementMetas
+     * @param ScreeningRepository $screenings
+     */
+    public function __construct(Request $request,
+                                MovementRepository $movements,
+                                ProfileRepository $profiles,
+                                MovementMetaRepository $movementMetas,
+                                ScreeningRepository $screenings)
     {
         $this->request = $request;
+        $this->movements = $movements;
+        $this->profiles = $profiles;
+        $this->movementMetas = $movementMetas;
+        $this->screenings = $screenings;
     }
 
     /**
@@ -40,21 +80,23 @@ class MovementController extends Controller
     public function index()
     {
         // Profile-based query builder.
+        $profileId = null;
+        $profileIds = null;
+
         if ($this->request->has('profileId'))
         {
             $profileId = (int) $this->request->input('profileId');
-            if (!$profile = Auth::user()->profiles()->find($profileId)) {
+            $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+            if (!$profile) {
                 return response('Profile Not Found.', 400);
             }
-
-            $builder = $profile->movements();
         }
 
         // General query builder. We will limit the accessible scope to the profiles managed
         // by the authenticated user.
         else
         {
-            $builder = Movement::whereIn('profile_id', Auth::user()->getProfileIDs());
+            $profileIds = Auth::user()->getProfileIDs();
         }
 
         // Search parameters.
@@ -65,13 +107,13 @@ class MovementController extends Controller
         $orderDir = $this->request->get('orderDir', 'desc');
         $orderDir = in_array($orderDir, ['asc', 'desc']) ? $orderDir : 'desc';
 
-        $builder->orderBy($orderBy, $orderDir)->skip($offset)->take($limit);
-
+        $count = $this->movements->countByProfile($profileId, $profileIds);
+        $results = $this->movements->getByProfile($profileId, $profileIds, $orderBy, $orderDir, $limit, $offset);
         return [
-            'total' => $builder->count(),
+            'total' => $count,
             'offset' => $offset,
             'limit' => $limit,
-            'results' => $builder->get()
+            'results' => $results
         ];
     }
 
@@ -83,11 +125,13 @@ class MovementController extends Controller
     public function store()
     {
         // Retrieve profile this movement belongs to.
-        if (!$profileId = (int) $this->request->input('profileId')) {
+        $profileId = (int) $this->request->input('profileId');
+        if (!$profileId) {
             return response('Invalid Profile ID.', 400);
         }
 
-        if (!$profile = Auth::user()->profiles()->find($profileId)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $profileId);
+        if (!$profile) {
             return response('Profile Not Found.', 400);
         }
 
@@ -106,8 +150,9 @@ class MovementController extends Controller
         $data = file_get_contents($original->getRealPath());
 
         // Create the database record.
-        $movement = $profile->movements()->create([
+        $movement = $this->movements->create([
             'submitted_by' => Auth::id(),
+            'profile_id' => $profileId,
             'title' => $title
         ]);
 
@@ -133,8 +178,8 @@ class MovementController extends Controller
         );
 
         // Make sure we have a valid movement.
-        $builder = Movement::whereIn('profile_id', Auth::user()->getProfileIDs());
-        if (!$movement = $builder->with($embed['relations'])->find($id)) {
+        $movement = $this->movements->getById($id, Auth::user()->getProfileIDs(), $embed['relations']);
+        if (!$movement) {
             return response('Movement Not Found.', 404);
         }
 
@@ -159,7 +204,8 @@ class MovementController extends Controller
     public function update($id)
     {
         // Performance check.
-        if (!$movement = Movement::whereIn('profile_id', Auth::user()->getProfileIDs())->find($id)) {
+        $movement = $this->movements->getById($id, Auth::user()->getProfileIDs());
+        if (!$movement) {
             return response('Movement Not Found.', 404);
         }
 
@@ -183,18 +229,20 @@ class MovementController extends Controller
                 'scoreMax',
                 'notes',
                 'data',
+                'movement_id'
             ];
+
+            $newMetaData['movement_id'] = $movement->id;
 
             // Create meta data.
             if (!$movement->meta)
             {
-                $movement->meta()->create(array_only($newMetaData, $metaAttributes));
+                $this->movementMetas->create(array_only($newMetaData, $metaAttributes));
             }
 
-            // Update meta data.
             else
             {
-                $metaData = MovementMeta::find($movement->meta->id);
+                $metaData = $this->movementMetas->find($movement->meta->id);
 
                 foreach ($metaAttributes as $attribute) {
                     if (array_has($newMetaData, $attribute)) {
@@ -207,16 +255,18 @@ class MovementController extends Controller
 
             // If a score was updated, and the movement belongs to a screening, we'll update the
             // screening score as well.
-            if (array_has($newMetaData, 'score') && $movement->screeningId > 0
-                && $screening = Screening::with('movements.meta')->find($movement->screeningId))
+            if (array_has($newMetaData, 'score') && $movement->screeningId > 0)
             {
-                $score = 0;
-                foreach($screening->movements as $test) {
-                    $score += $test->meta->score;
-                }
+                $screening = $this->screenings->find($movement->screeningId, ['movements.meta']);
+                if($screening) {
+                    $score = 0;
+                    foreach ($screening->movements as $test) {
+                        $score += $test->meta->score;
+                    }
 
-                $screening->score = $score;
-                $screening->save();
+                    $screening->score = $score;
+                    $screening->save();
+                }
             }
         }
 
@@ -251,8 +301,8 @@ class MovementController extends Controller
         );
 
         // Return updated model.
-        $updated = Movement::with($embed['relations'])->find($movement->id);
-
+        $updated = $this->movements->find($movement->id, $embed['relations']);
+        
         // Append attributes.
         if (count($embed['attributes']))
         {
@@ -273,30 +323,7 @@ class MovementController extends Controller
      */
     public function destroy($id)
     {
-        // Make sure that only movements accessible by the authenticated user can be deleted.
-        $builder = Movement::whereIn('profile_id', Auth::user()->getProfileIDs());
-
-        // Delete an array of movements.
-        $deleted = false;
-        if (strpos($id, ',') !== false)
-        {
-            $movements = $builder->whereIn('id', explode(',', $id))->lists('id')->toArray();
-
-            if (count($movements)) {
-                $deleted = Movement::destroy($movements);
-            }
-        }
-
-        // Delete a single movement.
-        elseif ($builder->exists($id))
-        {
-            $deleted = Movement::destroy($id);
-        }
-
-        // Movement doesn't exist.
-        else {
-            return response('', 204);
-        }
+        $deleted = $this->movements->destroy($id, Auth::user()->getProfileIDs());
 
         return $deleted ? response('', 204) : response('', 500);
     }

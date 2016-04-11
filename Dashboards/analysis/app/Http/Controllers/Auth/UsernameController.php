@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Mail\Mailer;
@@ -16,14 +17,22 @@ use Illuminate\Contracts\Mail\Mailer;
 class UsernameController extends Controller
 {
     /**
+     * The user repository instance.
+     *
+     * @var UserRepository
+     */
+    protected $users;
+
+    /**
      * Creates a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
         // Apply the "guest" middleware.
         $this->middleware('guest');
+        $this->users = $users;
     }
 
     /**
@@ -43,7 +52,8 @@ class UsernameController extends Controller
         $this->validate($request, ['email' => 'required|email|exists:users,email']);
 
         // Retrieve user details.
-        if (!$user = User::where('email', $request->input('email'))->first()) {
+        $user = $this->users->first($request->input('email'), 'email');
+        if (!$user) {
             abort(404, 'User Not Found.');
         }
 

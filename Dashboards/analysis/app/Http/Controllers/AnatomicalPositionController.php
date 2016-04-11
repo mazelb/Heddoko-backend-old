@@ -7,15 +7,41 @@
  */
 namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\AnatomicalPosition;
+use App\Repositories\AnatomicalPositionRepository;
 
 
 class AnatomicalPositionController extends Controller
 {
+
+    /**
+     * The anatomic repository instance.
+     *
+     * @var AnatomicalPositionRepository
+     */
+    protected $anatomicalPositions;
+	/**
+	 * @var Request
+	 */
+	protected  $request;
+
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @param Request $request
+	 * @param  AnatomicalPositionRepository $anatomicalPositions
+	 */
+    public function __construct(Request $request, AnatomicalPositionRepository $anatomicalPositions)
+    {
+		$this->request = $request;
+        $this->anatomicalPositions = $anatomicalPositions;
+    }
+
 	/**
 	 * Display a listing of anatomical positions.
 	 *
@@ -23,23 +49,15 @@ class AnatomicalPositionController extends Controller
 	 */
 	public function index()
 	{
-        // Build the database query.
-        $query = AnatomicalPosition::orderBy('id', 'desc');
+		$searchTerm = strip_tags(trim($this->request->input('search_term')));
+		$page = (int) $this->request->input('page', 1);
+		$perPage = (int) $this->request->input('per_page', 100);
+		$perPage = max(1, min(100, $perPage));
+		$offset = ($page - 1) * $perPage;
 
-        // Filter by search term.
-        $search_term = strip_tags(trim(Request::input('search_term')));
-        if (strlen($search_term))
-        {
-            $query->where('name', 'LIKE', '%'. $search_term .'%');
-        }
 
-        // Retrieve search parameters.
-        $total = $query->count('id');
-        $page = (int) Request::input('page', 1);
-        $perPage = (int) Request::input('per_page', 100);
-        $perPage = max(1, min(100, $perPage));
-        $offset = ($page - 1) * $perPage;
-        $results = $query->skip($offset)->take($perPage)->get();
+		$total = $this->anatomicalPositions->searchCount($searchTerm);
+        $results =  $this->anatomicalPositions->search($searchTerm, $perPage, $offset);
 
 		// Add an "updated_id" attribute, so we can modify it later if needed.
 		// We need to do this because the ID attribute is non-incrementing and user editable,
@@ -60,13 +78,18 @@ class AnatomicalPositionController extends Controller
 	}
 
 	/**
-	 * Store a newly created material type in storage.
-	 *
-	 * @return Response: The updated list of material types
+	 * @return Response
 	 */
 	public function store()
 	{
-		AnatomicalPosition::create(Request::input('new_anatomical_position_data', array()));
+		$this->validate($this->request, [
+			'new_anatomical_position_data.id' => 'int|unique:anatomical_positions,id',
+			'new_anatomical_position_data.name' => 'string|min:1|max:255|unique:anatomical_positions,name'
+		]);
+
+
+		$data = $this->request->input('new_anatomical_position_data', array());
+		$this->anatomicalPositions->create($data);
 
 		return $this->index();
 	}
@@ -79,20 +102,22 @@ class AnatomicalPositionController extends Controller
 	 */
 	public function update($id)
 	{
+		$this->validate($this->request, [
+			'updated_anatomical_position.id' => 'int|exists:anatomical_positions,id',
+			'updated_anatomical_position.name' => 'string|min:1|max:255|unique:anatomical_positions,name,' . $id . ',id'
+		]);
 		// Retrieve the anatomical position model.
-		$model = AnatomicalPosition::find($id);
+		$model = $this->anatomicalPositions->find($id);
 
 		// Retrieve the updated data for this model.
-		$updated_model = Request::input('updated_anatomical_position', []);
+		$updated_model = $this->request->input('updated_anatomical_position', []);
 
 		// Update the ID.
 		if (isset($updated_model['updated_id'])) {
 			$updated_model['id'] = $updated_model['updated_id'];
 		}
 
-		// Update the model.
-		$model->fill(array_except($updated_model, ['updated_id']));
-		$model->save();
+        $this->anatomicalPositions->update(array_except($updated_model, ['updated_id', '$$hashKey']), $id);
 
 		return $this->index();
 	}
@@ -105,9 +130,7 @@ class AnatomicalPositionController extends Controller
 	 */
 	public function destroy($id)
 	{
-		// Delete the anatomical position.
-		$model = AnatomicalPosition::findOrFail($id);
-		$model->delete($id);
+		$this->anatomicalPositions->delete($id);
 
         return $this->index();
 	}

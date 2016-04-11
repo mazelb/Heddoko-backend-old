@@ -8,7 +8,11 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\ProfileMetaRepository;
+use App\Repositories\ProfileRepository;
+use App\Repositories\TagRepository;
 use Auth;
+use Illuminate\Http\Response;
 use Image;
 
 use App\Models\Tag;
@@ -21,11 +25,39 @@ use App\Http\Controllers\Controller;
 class ProfileController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * The request
+     *
+     * @var Request
      */
-    public function __construct(Request $request)
+    protected $request;
+    /**
+     * @var ProfileRepository
+     */
+    private $profiles;
+    /**
+     * @var TagRepository
+     */
+    private $tags;
+    /**
+     * @var ProfileMetaRepository
+     */
+    private $profileMetas;
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param ProfileRepository $profiles
+     * @param TagRepository $tags
+     * @param ProfileMetaRepository $profileMetas
+     */
+    public function __construct(Request $request,
+                                ProfileRepository $profiles,
+                                TagRepository $tags,
+                                ProfileMetaRepository $profileMetas)
     {
         $this->request = $request;
+        $this->profiles = $profiles;
+        $this->tags = $tags;
+        $this->profileMetas = $profileMetas;
     }
 
     /**
@@ -36,12 +68,18 @@ class ProfileController extends Controller
     public function index()
     {
         // Constrain results to a specific group.
+        $embed = $this->getEmbedArrays(
+            $this->request->get('embed'),
+            Profile::$appendable
+        );
+
+        $profiles = null;
         if ($this->request->has('groupId'))
         {
             $groupId = (int) $this->request->input('groupId');
 
-            if ($groupId && $group = Auth::user()->groups()->find($groupId)) {
-                $builder = $group->profiles();
+            if ($groupId) {
+                $profiles = $this->profiles->getByGroups(Auth::id(), $groupId, $embed['relations']);
             }
 
             // If group wasn't found, return "400 Bad Request" response.
@@ -52,17 +90,10 @@ class ProfileController extends Controller
 
         // If no group was specified, lookup all profiles accessible to authenticated user.
          else {
-            $builder = Auth::user()->profiles();
+             $profiles = $this->profiles->getByUserAll(Auth::id(), $embed['relations']);
         }
 
         // Retrieve list of relations and attributes to append to results.
-        $embed = $this->getEmbedArrays(
-            $this->request->get('embed'),
-            Profile::$appendable
-        );
-
-        // Retrieve profiles.
-        $profiles = $builder->with($embed['relations'])->get();
 
         if (count($profiles) && count($embed['attributes']))
         {
@@ -125,7 +156,8 @@ class ProfileController extends Controller
         );
 
         // Make sure we have a valid profile.
-        if (!$profile = Auth::user()->profiles()->with($embed['relations'])->find($id)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $id, $embed['relations']);
+        if (!$profile) {
             return response('Profile Not Found.', 404);
         }
 
@@ -143,7 +175,8 @@ class ProfileController extends Controller
     public function update($id)
     {
         // Performance check.
-        if (!$profile = Auth::user()->profiles()->find($id)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $id);
+        if (!$profile) {
             return response('Profile Not Found.', 400);
         }
 
@@ -168,6 +201,7 @@ class ProfileController extends Controller
      * Saves a profile and its relations.
      *
      * @param \App\Models\Profile $profile
+     * @return mixed
      */
     private function saveProfileData(Profile $profile)
     {
@@ -181,7 +215,7 @@ class ProfileController extends Controller
         // If a primary tag title was requested, create it.
         if ($this->request->has('primaryTagTitle'))
         {
-            $tag = Tag::firstOrCreate(['title' => $this->request->input('primaryTagTitle')]);
+            $tag = $this->tags->firstOrCreate(['title' => $this->request->input('primaryTagTitle')]);
             $profile->tagId = $tag->id;
         }
 
@@ -203,18 +237,19 @@ class ProfileController extends Controller
                 'phone',
                 'email',
                 'data',
+                'profile_id'
             ];
-
+            $newMetaData['profile_id'] = $profile->id;
             // Create meta data.
             if (!$profile->meta)
             {
-                $profile->meta()->create(array_only($newMetaData, $metaAttributes));
+                $this->profileMetas->create(array_only($newMetaData, $metaAttributes));
             }
 
             // Update meta data.
             else
             {
-                $metaData = ProfileMeta::find($profile->meta->id);
+                $metaData = $this->profileMetas->find($profile->meta->id);
 
                 foreach ($metaAttributes as $attribute) {
                     if (array_has($newMetaData, $attribute)) {
@@ -260,7 +295,7 @@ class ProfileController extends Controller
         );
 
         // Return updated model.
-        $updated = Profile::with($embed['relations'])->find($profile->id);
+        $updated = $this->profiles->find($profile->id, $embed['relations']);
 
         if (count($embed['attributes']))
         {
@@ -287,8 +322,8 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        // Make sure we have a valid profile.
-        if (!$profile = Auth::user()->profiles()->with('avatar')->find($id)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $id, ['avatar']);
+        if (!$profile) {
             return response('Profile Not Found.', 404);
         }
 
@@ -305,11 +340,12 @@ class ProfileController extends Controller
      * Saves the avatar for a profile.
      *
      * @param int $id
+     * @return array
      */
     public function saveAvatar($id)
     {
-        // Make sure we have a valid profile.
-        if (!$profile = Auth::user()->profiles()->find($id)) {
+        $profile = $this->profiles->getByUser(Auth::id(), $id, ['avatar']);
+        if (!$profile) {
             return response('Profile Not Found.', 404);
         }
 
@@ -343,7 +379,8 @@ class ProfileController extends Controller
     public function destroyAvatar($id)
     {
         // Make sure we have a valid profile.
-        if (!$profile = Profile::find($id)) {
+        $profile = $this->profiles->find($id);
+        if (!$profile) {
             return response('Profile Not Found.', 404);
         }
 

@@ -8,6 +8,8 @@
  */
 namespace App\Http\Controllers;
 
+use App\Repositories\MovementFrameRepository;
+use App\Repositories\MovementRepository;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -20,11 +22,32 @@ use App\Http\Controllers\Controller;
 class MovementFrameController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * The request
+     *
+     * @var Request
      */
-    public function __construct(Request $request)
+    protected $request;
+    /**
+     * @var MovementFrameRepository
+     */
+    private $movementFrames;
+    /**
+     * @var MovementRepository
+     */
+    private $movements;
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param MovementFrameRepository $movementFrames
+     * @param MovementRepository $movements
+     */
+    public function __construct(Request $request,
+                                MovementFrameRepository $movementFrames,
+                                MovementRepository $movements)
     {
         $this->request = $request;
+        $this->movementFrames = $movementFrames;
+        $this->movements = $movements;
     }
 
     /**
@@ -35,8 +58,8 @@ class MovementFrameController extends Controller
      */
     public function index($movementId)
     {
-        // Performance check.
-        if (!$movement = $this->getMovement($movementId)) {
+        $movement = $this->getMovement($movementId);
+        if (!$movement) {
             return response('Movement Not Found.', 404);
         }
 
@@ -46,33 +69,28 @@ class MovementFrameController extends Controller
             MovementFrame::$appendable
         );
 
-        // Build query.
-        $builder = $movement->frames()->with($embed['relations']);
-
-        // Query offset.
         $offset = 0;
         if ($this->request->has('offset')) {
             $offset = (int) $this->request->input('offset');
-            $builder->skip($offset);
         }
 
-        // Query limit.
         $limit = null;
         if ($this->request->has('limit')) {
             $limit = (int) $this->request->input('limit');
-            $builder->take($limit);
         }
 
-        // Order direction.
         $orderDir = $this->request->input('orderDir', 'asc');
         $orderDir = in_array($orderDir, ['asc', 'desc']) ? $orderDir : 'asc';
-        $builder->orderBy('timestamp', $orderDir);
+
+
+        $count = $this->movementFrames->countByMovement($movementId);
+        $frames = $this->movementFrames->getByMovement($movementId, 'timestamp', $orderDir, $limit, $offset, $embed);
 
         return [
-            'total' => $builder->count(),
+            'total' => $count,
             'offset' => $offset,
             'limit' => $limit,
-            'frames' => $builder->get()
+            'frames' => $frames
         ];
     }
 
@@ -102,8 +120,8 @@ class MovementFrameController extends Controller
      */
     public function show($movementId, $frameId)
     {
-        // Performance check.
-        if (!$movement = $this->getMovement($movementId)) {
+        $movement = $this->getMovement($movementId);
+        if (!$movement) {
             return response('Movement Not Found.', 404);
         }
 
@@ -114,7 +132,8 @@ class MovementFrameController extends Controller
         );
 
         // Retrieve movement frame.
-        if (!$frame = $movement->with($embed['relations'])->find($frameId)) {
+        $frame = $this->movementFrames->getById($frameId, $movementId, $embed);
+        if (!$frame) {
             return response('Frame Not Found.', 404);
         }
 
@@ -144,33 +163,12 @@ class MovementFrameController extends Controller
     public function destroy($movementId, $frameId)
     {
         // Performance check.
-        if (!$movement = $this->getMovement($movementId)) {
+        $movement = $this->getMovement($movementId);
+        if (!$movement) {
             return response('Movement Not Found.', 404);
         }
 
-        $builder = $movement->frames();
-
-        // Delete an array of frames.
-        $deleted = false;
-        if (strpos($frameId, ',') !== false)
-        {
-            $frames = $builder->whereIn('id', explode(',', $frameId))->lists('id')->toArray();
-
-            if (count($frames)) {
-                $deleted = MovementFrame::destroy($frames);
-            }
-        }
-
-        // Delete a single frame.
-        elseif ($builder->exists($frames))
-        {
-            $deleted = MovementFrame::destroy($frames);
-        }
-
-        // Frame doesn't exist.
-        else {
-            return response('', 204);
-        }
+        $deleted = $this->movementFrames->destroy($movementId, $frameId);
 
         return $deleted ? response('', 204) : response('', 500);
     }
@@ -182,6 +180,6 @@ class MovementFrameController extends Controller
      * @return \App\Models\Movement
      */
     private function getMovement($movementId) {
-        return Movement::whereIn('profile_id', Auth::user()->getProfileIDs())->find($movementId);
+        return $this->movements->getById($movementId, Auth::user()->getProfileIDs());
     }
 }

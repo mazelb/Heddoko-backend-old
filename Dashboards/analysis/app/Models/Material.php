@@ -9,6 +9,20 @@ namespace App\Models;
 use App\Models\MaterialType;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Material
+ *
+ * @property integer $id
+ * @property integer $material_type_id
+ * @property string $name
+ * @property string $part_no
+ * @property-read \App\Models\MaterialType $materialType
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Material whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Material whereMaterialTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Material whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Material wherePartNo($value)
+ * @mixin \Eloquent
+ */
 class Material extends Model
 {
     /**

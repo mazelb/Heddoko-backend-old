@@ -36,6 +36,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Profile[] $profiles
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AccessToken[] $tokens
  * @property-read \App\Models\Image $avatar
  * @property-read mixed $avatar_src
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -108,6 +109,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function groups() {
         return $this->belongsToMany('App\Models\Group', 'group_manager', 'manager_id', 'group_id');
+    }
+
+
+    public function tokens()
+    {
+        return $this->hasMany('App\Models\AccessToken');
     }
 
 

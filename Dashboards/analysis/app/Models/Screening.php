@@ -69,7 +69,7 @@ class Screening extends Model
      * @var array
      */
     protected $fillable = [
-        'profileId',
+        'profile_id',
         'title',
         'score',
         'scoreMin',

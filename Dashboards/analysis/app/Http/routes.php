@@ -80,6 +80,15 @@ Route::group(['prefix' => 'api'], function()
         Route::resource('materialtypes', 'MaterialTypeController', ['only' => ['index', 'store', 'update', 'destroy']]);
     });
 
+    Route::group(['prefix' => 'remote'], function()
+    {
+        //
+        // Desktop endpoints.
+        //
+        Route::post('signin', 'DesktopController@signin');
+        Route::post('check', 'DesktopController@check');
+    });
+
     /**
      * OAuth2
      */

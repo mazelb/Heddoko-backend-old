@@ -78,6 +78,12 @@ Route::group(['prefix' => 'api'], function()
         Route::resource('materials', 'MaterialController', ['only' => ['index', 'store', 'update', 'destroy']]);
         Route::resource('anatomicalpositions', 'AnatomicalPositionController', ['only' => ['index', 'store', 'update', 'destroy']]);
         Route::resource('materialtypes', 'MaterialTypeController', ['only' => ['index', 'store', 'update', 'destroy']]);
+        Route::resource('prototypes', 'PrototypeController', ['only' => ['index']]);
+        Route::resource('conditions', 'ConditionalController', ['only' => ['index']]);
+        Route::resource('numbers', 'NumberController', ['only' => ['index']]);
+        Route::resource('ships', 'ShipController', ['only' => ['index']]);
+        Route::resource('heats-shrinks', 'HeatsShrinkController', ['only' => ['index']]);
+        Route::resource('users', 'UsersController', ['only' => ['index']]);
     });
 
     Route::group(['prefix' => 'remote'], function()

@@ -5092,6 +5092,15 @@ angular.module("partials/header.html", []).run(["$templateCache", function($temp
     "                </a>\n" +
     "            </li>\n" +
     "\n" +
+    "            <li ng-if=\"global.isAdmin\">\n" +
+    "                <a\n" +
+    "                    href=\"/admin\"\n" +
+    "                    class=\"onboarding-general\">\n" +
+    "                    <i class=\"fa fa-users fa-fw\"></i>\n" +
+    "                    <span>Admin</span>\n" +
+    "                </a>\n" +
+    "            </li>\n" +
+    "\n" +
     "            <!-- Onboarding -->\n" +
     "            <li>\n" +
     "                <a\n" +

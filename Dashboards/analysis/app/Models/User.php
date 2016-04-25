@@ -37,6 +37,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Profile[] $profiles
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AccessToken[] $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Equipment[] $equipments
  * @property-read \App\Models\Image $avatar
  * @property-read mixed $avatar_src
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -117,6 +118,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Models\AccessToken');
     }
 
+
+    public function equipments()
+    {
+        return $this->hasMany('App\Models\Equipment');
+    }
 
     /**
      * Gets the IDs of profiles managed by this user. This is necessary for retrieving secondary

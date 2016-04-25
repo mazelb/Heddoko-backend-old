@@ -22,4 +22,25 @@ class UserRepository extends Repository
     {
         return 'App\Models\User';
     }
+
+
+    public function count($search = null) {
+        $query = $this->model;
+
+        if($search) {
+            $query->where('name', 'like', '%'. $search .'%');
+        }
+
+        return $query->count();
+    }
+
+    public function get($search = null, $orderBy = 'username', $orderDir = 'desc', $take = 20, $skip = 0) {
+        $query = $this->model;
+
+        if($search) {
+            $query->where('username', 'like', '%'. $search .'%');
+        }
+
+        return $query->orderBy($orderBy, $orderDir)->skip($skip)->take($take)->get();
+    }
 }

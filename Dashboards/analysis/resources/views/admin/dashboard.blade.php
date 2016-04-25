@@ -23,6 +23,7 @@
 				<li><a data-toggle="tab" href="#materials">Materials</a></li>
 				<li><a data-toggle="tab" href="#material_types">Material Types</a></li>
 				<li><a data-toggle="tab" href="#anatomical_positions">Anatomical Positions</a></li>
+                <li role="presentation"><a href="/" class="btn btn-info">Dashboard</a></li>
 			</ul>
 
 			{{-- Tab content --}}

@@ -4306,7 +4306,7 @@ app.constant('apiEndpoint', '/api');
 
 //
 app.controller('MainController',
-    function($scope, $location, $timeout, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, ComplexEquipment) {
+    function($scope, $location, $timeout, AnatomicalPositions, Equipment, Materials, MaterialTypes, Statuses, ComplexEquipment, Prototypes, Conditions, Numbers, HeatsShrinks, Ships, Users) {
 
         // We use a template object that we will clone for each data model, and store
         // these models in $scope.data for easy access.
@@ -4562,8 +4562,50 @@ app.controller('MainController',
         $scope.data.equipment = $.extend(true, {}, dataTemplate, {
             name: 'Equipment',
             per_page: 20,
-            service: Equipment
+            service: Equipment,
+            selectize: {
+                config: {
+                    create: false,
+                    preload: false,
+                    openOnFocus: true,
+                    hideSelected: true,
+                    maxItems: 1,
+                    closeAfterSelect: true,
+                    valueField: 'id',
+                    labelField: 'username',
+                    searchField: ['username', 'first_name', 'last_name', 'email'],
+                    placeholder: 'Search for verify by to add',
+                    onInitialize: function (selectize) {
+                    },
+                    render: {
+                        option: function (item, escape) {
+                            return '<div>' +
+                                '<b>' + escape(item.username) + '</b>' +
+                                '</div>';
+                        }
+                    },
+                    load: function (query, callback) {
+
+                        // Performance check.
+                        if (!query.length) return callback();
+
+                        var selectize = this;
+                        $.ajax({
+                            url: '/api/admin/users?search_term=' + encodeURIComponent(query),
+                            type: 'GET',
+                            cache: false,
+                            error: function () {
+                                callback();
+                            },
+                            success: function (response) {
+                                callback(response.results);
+                            }
+                        });
+                    }
+                }
+            }
         });
+
         $scope.data.equipment.new_item = $.extend(true, {}, dataTemplate.new_item, {
             material_id: 0,
             anatomical_position_id: 0,
@@ -4571,7 +4613,13 @@ app.controller('MainController',
             serial_no: '',
             physical_location: '',
             notes: '',
-            status_id: 0
+            status_id: 0,
+            prototype: 0,
+            condition: 0,
+            numbers: 1,
+            heats_shrink: 1,
+            ship: 1,
+            verified_by: 0
         });
 
         //
@@ -4606,6 +4654,36 @@ app.controller('MainController',
         $scope.data.statuses = $.extend(true, {}, dataTemplate, {
             name: 'Status',
             service: Statuses
+        });
+
+        $scope.data.prototypes = $.extend(true, {}, dataTemplate, {
+            name: 'Prototype',
+            service: Prototypes
+        });
+
+        $scope.data.conditions = $.extend(true, {}, dataTemplate, {
+            name: 'Condition',
+            service: Conditions
+        });
+
+        $scope.data.numbers = $.extend(true, {}, dataTemplate, {
+            name: 'Number',
+            service: Numbers
+        });
+
+        $scope.data.heats_shrinks = $.extend(true, {}, dataTemplate, {
+            name: 'Heat-Shrink',
+            service: HeatsShrinks
+        });
+
+        $scope.data.ships = $.extend(true, {}, dataTemplate, {
+            name: 'Ship',
+            service: Ships
+        });
+
+        $scope.data.users = $.extend(true, {}, dataTemplate, {
+            name: 'User',
+            service: Users
         });
 
         //
@@ -4741,11 +4819,17 @@ app.controller('MainController',
         $scope.data.suits.updatePage(1, true);
         $scope.data.equipment.updatePage(1, true);
         $scope.data.materials.updatePage(1, true);
-        $timeout(function() {
+        //$timeout(function() {
             $scope.data.anatomical_positions.updatePage(1, true);
             $scope.data.statuses.updatePage(1, true);
             $scope.data.material_types.updatePage(1, true);
-        }, 4000);
+        //}, 4000);
+        $scope.data.prototypes.updatePage(1, true);
+        $scope.data.conditions.updatePage(1, true);
+        $scope.data.numbers.updatePage(1, true);
+        $scope.data.heats_shrinks.updatePage(1, true);
+        $scope.data.ships.updatePage(1, true);
+        $scope.data.users.updatePage(1, true);
     }
 );
 
@@ -4971,4 +5055,94 @@ angular.module('backend', [])
             }
 
         };
-    });
+    }).factory('Prototypes', function($http, apiEndpoint)
+{
+    return {
+
+        get : function()
+        {
+            return $http.get(apiEndpoint + '/admin/prototypes');
+        },
+
+        search : function(query, page, per_page)
+        {
+            return $http.get(apiEndpoint + '/admin/prototypes?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
+
+    };
+}).factory('Conditions', function($http, apiEndpoint)
+{
+    return {
+
+        get : function()
+        {
+            return $http.get(apiEndpoint + '/admin/conditions');
+        },
+
+        search : function(query, page, per_page)
+        {
+            return $http.get(apiEndpoint + '/admin/conditions?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
+
+    };
+}).factory('Numbers', function($http, apiEndpoint)
+{
+    return {
+
+        get : function()
+        {
+            return $http.get(apiEndpoint + '/admin/numbers');
+        },
+
+        search : function(query, page, per_page)
+        {
+            return $http.get(apiEndpoint + '/admin/numbers?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
+
+    };
+}).factory('HeatsShrinks', function($http, apiEndpoint)
+{
+    return {
+
+        get : function()
+        {
+            return $http.get(apiEndpoint + '/admin/heats-shrinks');
+        },
+
+        search : function(query, page, per_page)
+        {
+            return $http.get(apiEndpoint + '/admin/heats-shrinks?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
+
+    };
+}).factory('Ships', function($http, apiEndpoint)
+{
+    return {
+
+        get : function()
+        {
+            return $http.get(apiEndpoint + '/admin/ships');
+        },
+
+        search : function(query, page, per_page)
+        {
+            return $http.get(apiEndpoint + '/admin/ships?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
+
+    };
+}).factory('Users', function($http, apiEndpoint)
+{
+    return {
+
+        get : function()
+        {
+            return $http.get(apiEndpoint + '/admin/users');
+        },
+
+        search : function(query, page, per_page)
+        {
+            return $http.get(apiEndpoint + '/admin/users?search_query='+ query +'&page='+ page +'&per_page='+ per_page);
+        }
+
+    };
+});

@@ -44,7 +44,56 @@
             </div>
         </div>
         <br>
-
+        <div class="row">
+            <div class="col-sm-2">
+                <select ng-model="data.equipment.new_item.prototype" class="form-control">
+                    <option value="0">-- select a prototype --</option>
+                    <option ng-repeat="prototype in data.prototypes.list" value="@{{prototype.id}}">
+                        @{{prototype.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select ng-model="data.equipment.new_item.condition" class="form-control">
+                    <option value="0">-- select a condition --</option>
+                    <option ng-repeat="condition in data.conditions.list" value="@{{condition.id}}">
+                        @{{condition.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select ng-model="data.equipment.new_item.numbers" class="form-control">
+                    <option value="0">-- select a number --</option>
+                    <option ng-repeat="number in data.numbers.list" value="@{{number.id}}">
+                        @{{number.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select ng-model="data.equipment.new_item.heats_shrink" class="form-control">
+                    <option value="0">-- select a number --</option>
+                    <option ng-repeat="heats_shrink in data.heats_shrinks.list" value="@{{heats_shrink.id}}">
+                        @{{heats_shrink.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select ng-model="data.equipment.new_item.ship" class="form-control">
+                    <option value="0">-- select a ready ship --</option>
+                    <option ng-repeat="ship in data.ships.list" value="@{{ship.id}}">
+                        @{{ship.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <selectize
+                    id="new-equipment-select"
+                    config="data.equipment.selectize.config"
+                    ng-model="data.equipment.new_item.verified_by">
+                </selectize>
+            </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-sm-3">
                 <input type="text" ng-model="data.equipment.new_item.serial_no" class="form-control" placeholder="Serial #" />
@@ -85,6 +134,7 @@
             <th>Serial #</th>
             <th>Location</th>
             <th>Status</th>
+            <th>Prototype</th>
             <th><span class="pull-right">Actions</span></th>
         </tr>
     </thead>
@@ -131,6 +181,20 @@
                             value="@{{status.id}}">
 
                             @{{status.name}}
+                        </option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="editable editable-equipment-@{{ equipment.id }}">
+                    <span>@{{ equipment.prototype.name }}</span>
+                    <select ng-model="equipment.prototype" class="form-control">
+                        <option
+                                ng-repeat="prototype in data.prototypes.list"
+                                ng-selected="prototype.id == equipment.prototype"
+                                value="@{{prototype.id}}">
+
+                            @{{prototype.name}}
                         </option>
                     </select>
                 </div>

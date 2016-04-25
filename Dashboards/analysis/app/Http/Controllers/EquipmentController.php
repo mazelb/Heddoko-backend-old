@@ -81,7 +81,14 @@ class EquipmentController extends Controller {
             'new_equipment_data.complex_equipment_id' => 'int|exists:complex_equipment,id',
             'new_equipment_data.mac_address' => 'string|min:1|max:255|unique:equipment,mac_address',
             'new_equipment_data.serial_no' => 'string|min:1|max:255|unique:equipment,serial_no',
-            'new_equipment_data.physical_location' => 'string|min:1|max:255'
+            'new_equipment_data.physical_location' => 'string|min:1|max:255',
+			'new_equipment_data.notes' => 'string|max:1024',
+			'new_equipment_data.prototype' => 'int|in:' . Equipment::PROTOTYPE_YES . ',' .Equipment::PROTOTYPE_NO,
+			'new_equipment_data.condition' => 'int|in:' . Equipment::CONDITIONAL_NEW . ',' .Equipment::CONDITIONAL_USED,
+			'new_equipment_data.numbers' => 'int|in:' . Equipment::NUMBERS_YES . ',' .Equipment::NUMBERS_NO,
+			'new_equipment_data.heats_shrink' => 'int|in:' . Equipment::HEATS_SHRINK_YES . ',' .Equipment::HEATS_SHRINK_NO,
+			'new_equipment_data.ship' => 'int|in:' . Equipment::SHIP_YES . ',' .Equipment::SHIP_NO . ',' .Equipment::SHIP_GONE,
+			'new_equipment_data.verified_by' => 'int|exists:users,id'
         ]);
 
         $data = $this->request->input('new_equipment_data', array());
@@ -93,7 +100,14 @@ class EquipmentController extends Controller {
             'complex_equipment_id',
             'mac_address',
             'serial_no',
-            'physical_location'
+            'physical_location',
+			'notes',
+			'prototype',
+			'condition',
+			'numbers',
+			'heats_shrink',
+			'ship',
+			'verified_by'
         ]));
 
 		return $this->index();
@@ -115,12 +129,25 @@ class EquipmentController extends Controller {
             'updated_equipment.complex_equipment_id' => 'int|exists:complex_equipment,id',
             'updated_equipment.mac_address' => 'string|min:1|max:255|unique:equipment,mac_address,' . $id . ',id',
             'updated_equipment.serial_no' => 'string|min:1|max:255|unique:equipment,serial_no,' . $id . ',id',
-            'updated_equipment.physical_location' => 'string|min:1|max:255'
+            'updated_equipment.physical_location' => 'string|min:1|max:255',
+			'updated_equipment.notes' => 'string|max:1024',
+			'updated_equipment.prototype' => 'int|in:' . Equipment::PROTOTYPE_YES . ',' .Equipment::PROTOTYPE_NO,
+			'updated_equipment.condition' => 'int|in:' . Equipment::CONDITIONAL_NEW . ',' .Equipment::CONDITIONAL_USED,
+			'updated_equipment.numbers' => 'int|in:' . Equipment::NUMBERS_YES . ',' .Equipment::NUMBERS_NO,
+			'updated_equipment.heats_shrink' => 'int|in:' . Equipment::HEATS_SHRINK_YES . ',' .Equipment::HEATS_SHRINK_NO,
+			'updated_equipment.ship' => 'int|in:' . Equipment::SHIP_YES . ',' .Equipment::SHIP_NO . ',' .Equipment::SHIP_GONE,
+			'updated_equipment.verified_by' => 'int|exists:users,id'
         ]);
 
 
 		$data = $this->request->input('updated_equipment', []);
-        
+        if($data['complex_equipment_id'] == '') {
+            $data['complex_equipment_id'] = null;
+        }
+
+        if($data['verified_by'] == '') {
+            $data['verified_by'] = null;
+        }
 		// Update the model.
 		$this->equipments->update(
             array_only($data, [
@@ -130,7 +157,14 @@ class EquipmentController extends Controller {
                 'complex_equipment_id',
                 'mac_address',
                 'serial_no',
-                'physical_location'
+                'physical_location',
+				'notes',
+				'prototype',
+				'condition',
+				'numbers',
+				'heats_shrink',
+				'ship',
+                'verified_by'
             ])
         , $id);
 

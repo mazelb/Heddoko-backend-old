@@ -18,6 +18,7 @@ angular.module('app.controllers')
         Utilities.info('MainController');
 
         // Setup a "global" namespace to store variables that should be inherited in child scopes.
+        var role = parseInt($('meta[name="user-role"]').attr('content'));
         $scope.global =
         {
             // Information about the application.
@@ -31,6 +32,8 @@ angular.module('app.controllers')
             // The sessionStorage persists throughout a single browser session.
             // TODO: deprecate this to save resources.
             state: Utilities.state,
+
+            isAdmin: role === 0,
 
             // The data object is ephemeral, and will reset at the end of the user session.
             data: Utilities.data,
